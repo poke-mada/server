@@ -1,3 +1,5 @@
+from threading import Thread
+
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import FileResponse, HttpResponse
@@ -96,13 +98,18 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['get'], detail=False)
     @permission_classes([IsRoot])
     def reload_boxes(self, request, *args, **kwargs):
-        trainers = self.queryset
-        for trainer in trainers:
-            last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
-            file_obj = last_save.file.file
-            save_data = file_obj.read()
-            save_results = data_reader(save_data)
-            box_saver(save_results.get('boxes'), trainer)
+
+        def load_trainers(trainers):
+            for trainer in trainers:
+                last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
+                file_obj = last_save.file.file
+                save_data = file_obj.read()
+                save_results = data_reader(save_data)
+                box_saver(save_results.get('boxes'), trainer)
+
+        thread = Thread(target=load_trainers, args=(self.queryset))
+        thread.start()
+        thread.join()
 
         return Response([], status=status.HTTP_200_OK)
 
