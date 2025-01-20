@@ -89,3 +89,7 @@ class CoachProfile(models.Model):
 class TrainerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="trainer_profile")
     trainer = models.OneToOneField(Trainer, on_delete=models.PROTECT, related_name="user", null=True, blank=True)
+
+
+class LoaderThread(models.Model):
+    thread_id = models.CharField(max_length=100, default="", blank=True)
