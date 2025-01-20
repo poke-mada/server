@@ -25,7 +25,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Trainer.objects.filter(is_active=True)
     serializer_class = TrainerSerializer
 
-    def get_queryset(self):
+    def _get_queryset(self):
         user: User = self.request.user
         filters = Q()
         if not user.is_superuser:
