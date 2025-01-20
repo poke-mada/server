@@ -107,9 +107,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
                 save_results = data_reader(save_data)
                 box_saver(save_results.get('boxes'), trainer)
 
-        thread = Thread(target=load_trainers, args=(self.queryset))
+        thread = Thread(target=load_trainers, args=(self.queryset,))
         thread.start()
-        thread.join()
 
         return Response([], status=status.HTTP_200_OK)
 
