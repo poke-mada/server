@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 import json
 
+from api.permissions import IsRoot
 from pokemon_api.models import Type, Pokemon, Move, MoveCategory, PokemonNature, Item, PokemonAbility, TypeCoverage, \
     ContextLocalization
 
@@ -112,11 +113,6 @@ def load_abilities_data():
                                                                content=ability['flavor_text'])
             ability_obj.flavor_text_localizations.add(loc)
     return 'abilities'
-
-
-class IsRoot(BasePermission):
-    def has_permission(self, request, view):
-        return bool(request.user.is_superuser)
 
 
 class LoadJsonDataView(APIView):

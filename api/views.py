@@ -1,11 +1,14 @@
+from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http import FileResponse, HttpResponse
 from rest_framework import viewsets, status
-from rest_framework.decorators import action
+from rest_framework.decorators import action, permission_classes
 from rest_framework.parsers import FileUploadParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from api.permissions import IsTrainer, IsCoach, IsRoot
 from event_api.models import SaveFile
 from event_api.serializers import SaveFileSerializer
 from pokemon_api.models import Move
@@ -13,7 +16,7 @@ from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer
 from trainer_data.models import Trainer, TrainerTeam, TrainerBox, TrainerBoxSlot
 from trainer_data.serializers import TrainerSerializer, TrainerTeamSerializer, SelectTrainerSerializer, \
-    TrainerBoxSerializer, TrainerPokemonSerializer, EnTrainerSerializer
+    TrainerBoxSerializer, TrainerPokemonSerializer, EnTrainerSerializer, ListedBoxSerializer
 
 
 # Create your views here.
@@ -22,14 +25,59 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Trainer.objects.all()
     serializer_class = TrainerSerializer
 
+    def get_queryset(self):
+        user: User = self.request.user
+        filters = Q()
+        if not user.is_superuser:
+            if user.coaching_profile:
+                filters |= Q(pk=user.coaching_profile.coached_trainer.pk)
+            if user.trainer_profile:
+                filters |= Q(pk=user.trainer_profile.trainer.pk)
+        return self.queryset.filter(filters)
+
+    @action(methods=['get'], detail=False)
+    @permission_classes([IsTrainer])
+    def get_trainer(self, request, *args, **kwargs):
+        user: User = request.user
+        trainer = user.trainer_profile.trainer
+        serializer = self.get_serializer(trainer)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=False)
+    @permission_classes([IsCoach])
+    def get_coached_trainer(self, request, *args, **kwargs):
+        user: User = request.user
+        trainer = user.coaching_profile.coached_trainer
+        serializer = self.get_serializer(trainer)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=False)
+    @permission_classes([IsTrainer, IsCoach])
+    def get_economy(self, request, *args, **kwargs):
+        user: User = request.user
+        if user.trainer_profile and user.trainer_profile.trainer:
+            trainer = user.trainer_profile.trainer
+        elif user.coaching_profile and user.coaching_profile.coached_trainer:
+            trainer = user.coaching_profile.coached_trainer
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(trainer.economy, status=status.HTTP_200_OK)
+
     @action(methods=['get'], detail=False)
     def list_trainers(self, request, *args, **kwargs):
         serializer = SelectTrainerSerializer(Trainer.objects.all(), many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @action(methods=['get'], detail=True)
+    def list_boxes(self, request, pk=None, *args, **kwargs):
+        trainer = Trainer.objects.get(id=pk)
+        serializer = ListedBoxSerializer(trainer.boxes.all(), many=True, read_only=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     @action(methods=['get'], detail=False)
+    @permission_classes([IsRoot])
     def reload_teams(self, request, *args, **kwargs):
-        trainers = self.get_queryset()
+        trainers = Trainer.objects.all()
         for trainer in trainers:
             last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
             file_obj = last_save.file.file
@@ -40,8 +88,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response([], status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
+    @permission_classes([IsRoot])
     def reload_boxes(self, request, *args, **kwargs):
-        trainers = self.get_queryset()
+        trainers = Trainer.objects.all()
         for trainer in trainers:
             last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
             file_obj = last_save.file.file
@@ -50,6 +99,15 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             box_saver(save_results.get('boxes'), trainer)
 
         return Response([], status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=True)
+    def box(self, request, pk=None, *args, **kwargs):
+        trainer = Trainer.objects.get(id=pk)
+        box_id = request.query_params.get('box', 0)
+        box = trainer.boxes.filter(box_number=box_id).last()
+        box_serializer = TrainerBoxSerializer(box, read_only=True)
+
+        return Response(box_serializer.data, status=status.HTTP_200_OK)
 
 
 class MoveViewSet(viewsets.ReadOnlyModelViewSet):
@@ -97,7 +155,7 @@ def box_saver(boxes, trainer):
 
 
 class FileUploadView(APIView):
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, ]
     parser_class = (FileUploadParser,)
 
     def post(self, request, *args, **kwargs):
@@ -152,7 +210,7 @@ class FileUploadManyView(APIView):
 
 
 class TrainerView(APIView):
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, ]
 
     def get(self, request, trainer_name, *args, **kwargs):
         localization = request.query_params.get('localization', '*')
@@ -165,28 +223,10 @@ class TrainerView(APIView):
         return Response(data=serialized.data, status=status.HTTP_200_OK)
 
 
-class TrainerEconomyView(APIView):
-    permission_classes = []
-
-    def get(self, request, trainer_name, *args, **kwargs):
-        trainer = Trainer.objects.get(name=trainer_name)
-        return Response(data=trainer.economy, status=status.HTTP_200_OK)
-
-
 class TrainerSaveView(APIView):
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, ]
 
     def get(self, request, trainer_name, *args, **kwargs):
         trainer = Trainer.objects.get(name=trainer_name)
         last_save = trainer.saves.order_by('created_on').last()
         return HttpResponse(last_save.file.read())
-
-
-class TrainerBoxView(APIView):
-    permission_classes = []
-
-    def get(self, request, trainer_name, *args, **kwargs):
-        trainer = Trainer.objects.get(name=trainer_name)
-        box_serializer = TrainerBoxSerializer(trainer.boxes.all(), many=True, read_only=True)
-
-        return Response(data=box_serializer.data, status=status.HTTP_200_OK)

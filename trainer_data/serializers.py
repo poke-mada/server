@@ -121,7 +121,6 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         flavor_localization: ContextLocalization = obj.ability.flavor_text_localizations.filter(
             language='*'
         ).first()
-        print(flavor_localization)
         if not flavor_localization:
             flavor_localization = obj.ability.flavor_text_localizations.first()
 
@@ -188,7 +187,7 @@ class EnTrainerSerializer(TrainerSerializer):
 class SelectTrainerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trainer
-        fields = ['name', 'streamer_name']
+        fields = ['id', 'streamer_name']
 
 
 class TrainerBoxSlotSerializer(serializers.ModelSerializer):
@@ -211,3 +210,16 @@ class TrainerBoxSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrainerBox
         fields = ['box_number', 'box_identifier', 'name', 'slots']
+
+
+class ListedBoxSerializer(serializers.ModelSerializer):
+    box_identifier = serializers.SerializerMethodField()
+
+    def get_box_identifier(self, obj):
+        if obj.name:
+            return obj.name
+        return f"Box #{obj.box_number + 1}"
+
+    class Meta:
+        model = TrainerBox
+        fields = ['box_number', 'box_identifier', 'name']

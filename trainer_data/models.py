@@ -13,6 +13,7 @@ from pokemon_api.models import Pokemon, Move, PokemonNature, Type, Item, Pokemon
 
 
 class Trainer(models.Model):
+    is_active = models.BooleanField(default=True)
     streamer_name = models.CharField(max_length=50, db_index=True, null=True, blank=True)
     name = models.CharField(max_length=50, db_index=True, unique=True)
     custom_sprite = models.ImageField(upload_to='trainers/sprites/', null=True, blank=True)
