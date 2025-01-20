@@ -1,11 +1,11 @@
 from django.contrib import admin
+from pip._vendor.rich.box import Box
 
 from event_api.models import SaveFile
-from .models import Trainer, TrainerPokemon, TrainerBox, TrainerTeam
+from .models import Trainer, TrainerPokemon, TrainerBox, TrainerTeam, TrainerBoxSlot
 
 
 # Register your models here.
-
 
 
 class TrainerTeamTab(admin.TabularInline):
@@ -19,6 +19,11 @@ class SaveFileAdmin(admin.TabularInline):
     readonly_fields = ('file', 'created_on')
     max_num = 1
     model = SaveFile
+
+
+class BoxSlotInline(admin.TabularInline):
+    readonly_fields = ('slot', 'pokemon',)
+    model = TrainerBoxSlot
 
 
 class MoveLinear(admin.TabularInline):
@@ -74,6 +79,7 @@ class TrainerTeamAdmin(admin.ModelAdmin):
 
 
 @admin.register(TrainerBox)
-class TrainerTeamAdmin(admin.ModelAdmin):
+class TrainerBoxAdmin(admin.ModelAdmin):
     list_display = ('trainer__name', 'box_number')
     search_fields = ('trainer__name', 'box_number')
+    inlines = [BoxSlotInline]

@@ -386,7 +386,9 @@ def data_reader(save_data):
                     slot=slot,
                     pokemon=pokemon
                 ))
-        boxes[box] = box_list
+
+        if len(box_list) > 0:
+            boxes[box] = box_list
 
     return dict(
         boxes=boxes,

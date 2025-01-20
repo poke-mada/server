@@ -106,6 +106,9 @@ class TrainerBox(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name='boxes')
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name or f'Box #{self.box_number}'
+
     class Meta:
         verbose_name_plural = "Trainer Boxes"
 
@@ -114,3 +117,6 @@ class TrainerBoxSlot(models.Model):
     slot = models.IntegerField()
     pokemon = models.ForeignKey(TrainerPokemon, on_delete=models.CASCADE, null=True, blank=True)
     box = models.ForeignKey(TrainerBox, on_delete=models.CASCADE, related_name='slots', null=True, blank=True)
+
+    def __str__(self):
+        return f'Slot #{self.slot}'

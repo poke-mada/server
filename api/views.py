@@ -1,3 +1,4 @@
+from datetime import datetime
 from threading import Thread
 
 from django.contrib.auth.models import User
@@ -78,6 +79,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['get'], detail=True)
     def list_boxes(self, request, pk=None, *args, **kwargs):
+        if pk == 'undefined':
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         trainer = Trainer.objects.get(id=pk)
         serializer = ListedBoxSerializer(trainer.boxes.all(), many=True, read_only=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -99,17 +102,24 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @permission_classes([IsRoot])
     def reload_boxes(self, request, *args, **kwargs):
         trainers = self.get_queryset()
-        for trainer in trainers:
+        total_trainers = trainers.count()
+        TrainerBoxSlot.objects.all().delete()
+        for index, trainer in enumerate(trainers):
+            print(f'{index + 1}/{total_trainers} - {trainer.name} @ {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
             last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
             file_obj = last_save.file.file
             save_data = file_obj.read()
             save_results = data_reader(save_data)
             box_saver(save_results.get('boxes'), trainer)
 
-        return Response([], status=status.HTTP_200_OK)
+        return Response(data=dict(
+            detail=f'Reloaded {total_trainers} trainer\'s boxes'
+        ), status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=True)
     def box(self, request, pk=None, *args, **kwargs):
+        if pk == 'undefined':
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         trainer = Trainer.objects.get(id=pk)
         box_id = request.query_params.get('box', 0)
         box = trainer.boxes.filter(box_number=box_id).last()
@@ -160,17 +170,20 @@ def team_saver(team, trainer):
 
 def box_saver(boxes, trainer):
     for box_num in range(31):
-        TrainerBox.objects.get_or_create(box_number=box_num, trainer=trainer)
+        box, _ = TrainerBox.objects.get_or_create(box_number=box_num, trainer=trainer)
 
     for box_num, data in boxes.items():
+        if not data:
+            continue
         box = TrainerBox.objects.get(box_number=box_num, trainer=trainer)
-        box.slots.all().delete()
         for slot in data:
             box_slot, _ = TrainerBoxSlot.objects.get_or_create(box=box, slot=slot['slot'])
-            pokemon_serializer = TrainerPokemonSerializer(data=slot['pokemon'])
+            pokemon = slot['pokemon']
+            pokemon_serializer = TrainerPokemonSerializer(data=pokemon)
             if pokemon_serializer.is_valid(raise_exception=True):
                 pokemon = pokemon_serializer.save()
                 box_slot.pokemon = pokemon
+                box_slot.save()
 
     return False
 
