@@ -77,7 +77,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['get'], detail=False)
     @permission_classes([IsRoot])
     def reload_teams(self, request, *args, **kwargs):
-        trainers = Trainer.objects.all()
+        trainers = self.queryset
         for trainer in trainers:
             last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
             file_obj = last_save.file.file
@@ -90,7 +90,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['get'], detail=False)
     @permission_classes([IsRoot])
     def reload_boxes(self, request, *args, **kwargs):
-        trainers = Trainer.objects.all()
+        trainers = self.queryset
         for trainer in trainers:
             last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
             file_obj = last_save.file.file
