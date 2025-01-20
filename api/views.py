@@ -2,7 +2,7 @@ from threading import Thread
 
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.http import FileResponse, HttpResponse
+from django.http import HttpResponse
 from rest_framework import viewsets, status
 from rest_framework.decorators import action, permission_classes
 from rest_framework.parsers import FileUploadParser, MultiPartParser
@@ -98,18 +98,13 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['get'], detail=False)
     @permission_classes([IsRoot])
     def reload_boxes(self, request, *args, **kwargs):
-
-        def load_trainer(trainer):
+        trainers = self.get_queryset()
+        for trainer in trainers:
             last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
             file_obj = last_save.file.file
             save_data = file_obj.read()
             save_results = data_reader(save_data)
             box_saver(save_results.get('boxes'), trainer)
-
-        trainers = self.queryset
-        for trainer in trainers:
-            thread = Thread(target=load_trainer, args=(trainer,))
-            thread.start()
 
         return Response([], status=status.HTTP_200_OK)
 
@@ -169,16 +164,13 @@ def box_saver(boxes, trainer):
 
     for box_num, data in boxes.items():
         box = TrainerBox.objects.get(box_number=box_num, trainer=trainer)
+        box.slots.all().delete()
         for slot in data:
             box_slot, _ = TrainerBoxSlot.objects.get_or_create(box=box, slot=slot['slot'])
-            if slot['pokemon']:
-                pokemon_serializer = TrainerPokemonSerializer(data=slot['pokemon'])
-                if pokemon_serializer.is_valid(raise_exception=True):
-                    pokemon = pokemon_serializer.save()
-                    box_slot.pokemon = pokemon
-            else:
-                box_slot.pokemon = None
-            box_slot.save()
+            pokemon_serializer = TrainerPokemonSerializer(data=slot['pokemon'])
+            if pokemon_serializer.is_valid(raise_exception=True):
+                pokemon = pokemon_serializer.save()
+                box_slot.pokemon = pokemon
 
     return False
 

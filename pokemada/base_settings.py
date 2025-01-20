@@ -141,3 +141,12 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     }
 }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'OPTIONS': {
+            "service": "postgres",
+            "passfile": os.path.join(BASE_DIR, ".my_pgpass"),
+        }
+    }
+}

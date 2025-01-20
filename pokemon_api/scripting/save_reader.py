@@ -386,11 +386,6 @@ def data_reader(save_data):
                     slot=slot,
                     pokemon=pokemon
                 ))
-            else:
-                box_list.append(dict(
-                    slot=slot,
-                    pokemon=None
-                ))
         boxes[box] = box_list
 
     return dict(

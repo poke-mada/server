@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from event_api.models import Streamer
 from pokemon_api.models import Type, Pokemon, Item, Move, PokemonNature, PokemonAbility, ContextLocalization
 from pokemon_api.serializers import PokemonSerializer, TypeSerializer, MoveSerializer
 from trainer_data.models import Trainer, TrainerBox, TrainerPokemon, TrainerTeam, TrainerBoxSlot
@@ -89,7 +90,6 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     held_item = serializers.SerializerMethodField()
     ability = serializers.SerializerMethodField()
     nature = serializers.SerializerMethodField()
-    pokemon = PokemonSerializer()
     moves = MoveSerializer(many=True)
     types = TypeSerializer(many=True)
 
@@ -185,6 +185,11 @@ class EnTrainerSerializer(TrainerSerializer):
 
 
 class SelectTrainerSerializer(serializers.ModelSerializer):
+    streamer_name = serializers.SerializerMethodField()
+
+    def get_streamer_name(self, obj):
+        return Streamer.objects.get(trainer=obj).name
+
     class Meta:
         model = Trainer
         fields = ['id', 'name', 'streamer_name']

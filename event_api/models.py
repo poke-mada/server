@@ -85,10 +85,16 @@ class CoachProfile(models.Model):
     coached_trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="coaches", null=True,
                                         blank=True)
 
+    def __str__(self):
+        return self.user.username
+
 
 class TrainerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="trainer_profile")
     trainer = models.OneToOneField(Trainer, on_delete=models.PROTECT, related_name="user", null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username
 
 
 class LoaderThread(models.Model):

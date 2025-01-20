@@ -51,8 +51,8 @@ class TrainerPokemonLinear(admin.TabularInline):
 
 @admin.register(Trainer)
 class TrainerAdmin(admin.ModelAdmin):
-    list_display = ('streamer_name', 'name',)
-    search_fields = ('streamer_name', 'name',)
+    list_display = ('name',)
+    search_fields = ('name',)
     readonly_fields = ('last_save_download', 'economy')
     inlines = [SaveFileAdmin]
 

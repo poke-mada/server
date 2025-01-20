@@ -14,7 +14,6 @@ from pokemon_api.models import Pokemon, Move, PokemonNature, Type, Item, Pokemon
 
 class Trainer(models.Model):
     is_active = models.BooleanField(default=True)
-    streamer_name = models.CharField(max_length=50, db_index=True, null=True, blank=True)
     name = models.CharField(max_length=50, db_index=True, unique=True)
     custom_sprite = models.ImageField(upload_to='trainers/sprites/', null=True, blank=True)
     current_team = models.ForeignKey("TrainerTeam", on_delete=models.PROTECT, related_name='trainer', null=True,
@@ -34,8 +33,14 @@ class Trainer(models.Model):
     def last_save_download(self):
         return mark_safe('<a href="{0}" download>Download {1} Save</a>'.format(self.last_save, self.name))
 
+    def streamer_name(self):
+        if not self.streamer:
+            print('awa')
+            return None
+        return self.streamer.name
+
     def __str__(self):
-        return self.streamer_name or self.name
+        return self.streamer_name() or self.name
 
 
 class TrainerPokemon(models.Model):
@@ -96,7 +101,7 @@ class TrainerTeam(models.Model):
 
 
 class TrainerBox(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     box_number = models.IntegerField(db_index=True)
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name='boxes')
     name = models.CharField(max_length=50)

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/5f6ba91e-68cd-4d47-bf97-85175a822c92/console.sql" dialect="SQLite" />
-    <file url="PROJECT" dialect="SQLite" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/6583626f-50f3-473b-b91d-fc1f8974d80a/console.sql" dialect="SQLite" />
+    <file url="PROJECT" dialect="PostgreSQL" />
   </component>
 </project>
