@@ -36,7 +36,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return self.queryset.filter(filters)
 
     @action(methods=['get'], detail=False)
-    @permission_classes([IsTrainer, IsRoot])
+    @permission_classes([IsTrainer])
     def get_trainer(self, request, *args, **kwargs):
         user: User = request.user
         if user.trainer_profile and user.trainer_profile.trainer:
@@ -58,7 +58,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
-    @permission_classes([IsTrainer, IsCoach])
+    @permission_classes([IsTrainer])
     def get_economy(self, request, *args, **kwargs):
         user: User = request.user
         if user.trainer_profile and user.trainer_profile.trainer:
