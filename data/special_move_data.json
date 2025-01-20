@@ -1,0 +1,58 @@
+{
+  "686": {
+    "move": "Revelation Dance"
+  },
+  "237": {
+    "move": "Hidden Power"
+  },
+  "363": {
+    "move": "Natural Gift"
+  },
+  "449": {
+    "move": "Judgment",
+    "298": "Fire",
+    "299": "Water",
+    "300": "Electric",
+    "301": "Grass",
+    "302": "Ice",
+    "303": "Fighting",
+    "304": "Poison",
+    "305": "Ground",
+    "306": "Flying",
+    "307": "Psychic",
+    "308": "Bug",
+    "309": "Rock",
+    "310": "Ghost",
+    "311": "Dragon",
+    "312": "Dark",
+    "313": "Steel",
+    "644": "Fairy"
+  },
+  "546": {
+    "move": "Techno Blast",
+    "116": "Water",
+    "117": "Electric",
+    "118": "Fire",
+    "119": "Ice"
+  },
+  "718": {
+    "move": "Multi-Attack",
+    "912": "Fire",
+    "913": "Water",
+    "915": "Electric",
+    "914": "Grass",
+    "917": "Ice",
+    "904": "Fighting",
+    "906": "Poison",
+    "907": "Ground",
+    "905": "Flying",
+    "916": "Psychic",
+    "909": "Bug",
+    "908": "Rock",
+    "910": "Ghost",
+    "918": "Dragon",
+    "919": "Dark",
+    "911": "Steel",
+    "920": "Fairy"
+  }
+}

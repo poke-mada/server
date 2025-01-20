@@ -1,0 +1,79 @@
+from django.contrib import admin
+
+from event_api.models import SaveFile
+from .models import Trainer, TrainerPokemon, TrainerBox, TrainerTeam
+
+
+# Register your models here.
+
+
+
+class TrainerTeamTab(admin.TabularInline):
+    fields = ['version', 'team']
+    readonly_fields = ('version', 'team')
+    model = TrainerTeam
+    max_num = 3
+
+
+class SaveFileAdmin(admin.TabularInline):
+    readonly_fields = ('file', 'created_on')
+    max_num = 1
+    model = SaveFile
+
+
+class MoveLinear(admin.TabularInline):
+    model = TrainerPokemon.moves.through
+    max_num = 4
+
+
+class TrainerPokemonLinear(admin.TabularInline):
+    fields = (
+        'mote',
+        'notes',
+        'pokemon',
+        'moves',
+        'held_item',
+        'nature',
+        'ability',
+    )
+    readonly_fields = (
+        'mote',
+        'pokemon',
+        'moves',
+        'types',
+        'held_item',
+        'nature',
+        'ability',
+    )
+    model = TrainerPokemon
+    max_num = 6
+
+
+@admin.register(Trainer)
+class TrainerAdmin(admin.ModelAdmin):
+    list_display = ('streamer_name', 'name',)
+    search_fields = ('streamer_name', 'name',)
+    readonly_fields = ('last_save_download', 'economy')
+    inlines = [SaveFileAdmin]
+
+
+@admin.register(TrainerPokemon)
+class TrainerPokemonAdmin(admin.ModelAdmin):
+    readonly_fields = ('moves', 'types')
+    list_display = ('id', 'pokemon__dex_number', 'team__trainer_old__name', 'pokemon', 'mote', 'level')
+    search_fields = ('pokemon__dex_number', 'pokemon', 'mote')
+    inlines = [MoveLinear]
+
+
+@admin.register(TrainerTeam)
+class TrainerTeamAdmin(admin.ModelAdmin):
+    list_display = ('trainer_old__name', 'version')
+    search_fields = ('trainer_old__name', 'version')
+    readonly_fields = ('version', 'trainer_old')
+    inlines = [TrainerPokemonLinear]
+
+
+@admin.register(TrainerBox)
+class TrainerTeamAdmin(admin.ModelAdmin):
+    list_display = ('trainer__name', 'box_number')
+    search_fields = ('trainer__name', 'box_number')

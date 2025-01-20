@@ -1,0 +1,4 @@
+staticfiles/*
+pokemada/settings.py
+db.sqlite3
+.idea/

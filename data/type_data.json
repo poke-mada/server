@@ -1,0 +1,273 @@
+{
+  "normal": {
+    "double_damage_to": [],
+    "half_damage_to": [
+      "rock",
+      "steel"
+    ],
+    "no_damage_to": [
+      "ghost"
+    ],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/1.png"
+  },
+  "fighting": {
+    "double_damage_to": [
+      "normal",
+      "rock",
+      "steel",
+      "ice",
+      "dark"
+    ],
+    "half_damage_to": [
+      "flying",
+      "poison",
+      "bug",
+      "psychic",
+      "fairy"
+    ],
+    "no_damage_to": [
+      "ghost"
+    ],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/2.png"
+  },
+  "flying": {
+    "double_damage_to": [
+      "fighting",
+      "bug",
+      "grass"
+    ],
+    "half_damage_to": [
+      "rock",
+      "steel",
+      "electric"
+    ],
+    "no_damage_to": [],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/3.png"
+  },
+  "poison": {
+    "double_damage_to": [
+      "grass",
+      "fairy"
+    ],
+    "half_damage_to": [
+      "poison",
+      "ground",
+      "rock",
+      "ghost"
+    ],
+    "no_damage_to": [
+      "steel"
+    ],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/4.png"
+  },
+  "ground": {
+    "double_damage_to": [
+      "poison",
+      "rock",
+      "steel",
+      "fire",
+      "electric"
+    ],
+    "half_damage_to": [
+      "bug",
+      "grass"
+    ],
+    "no_damage_to": [
+      "flying"
+    ],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/5.png"
+  },
+  "rock": {
+    "double_damage_to": [
+      "flying",
+      "bug",
+      "fire",
+      "ice"
+    ],
+    "half_damage_to": [
+      "fighting",
+      "ground",
+      "steel"
+    ],
+    "no_damage_to": [],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/6.png"
+  },
+  "bug": {
+    "double_damage_to": [
+      "grass",
+      "psychic",
+      "dark"
+    ],
+    "half_damage_to": [
+      "fighting",
+      "flying",
+      "poison",
+      "ghost",
+      "steel",
+      "fire",
+      "fairy"
+    ],
+    "no_damage_to": [],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/7.png"
+  },
+  "ghost": {
+    "double_damage_to": [
+      "ghost",
+      "psychic"
+    ],
+    "half_damage_to": [
+      "dark"
+    ],
+    "no_damage_to": [
+      "normal"
+    ],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/8.png"
+  },
+  "steel": {
+    "double_damage_to": [
+      "rock",
+      "ice",
+      "fairy"
+    ],
+    "half_damage_to": [
+      "steel",
+      "fire",
+      "water",
+      "electric"
+    ],
+    "no_damage_to": [],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/9.png"
+  },
+  "fire": {
+    "double_damage_to": [
+      "bug",
+      "steel",
+      "grass",
+      "ice"
+    ],
+    "half_damage_to": [
+      "rock",
+      "fire",
+      "water",
+      "dragon"
+    ],
+    "no_damage_to": [],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/10.png"
+  },
+  "water": {
+    "double_damage_to": [
+      "ground",
+      "rock",
+      "fire"
+    ],
+    "half_damage_to": [
+      "water",
+      "grass",
+      "dragon"
+    ],
+    "no_damage_to": [],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/11.png"
+  },
+  "grass": {
+    "double_damage_to": [
+      "ground",
+      "rock",
+      "water"
+    ],
+    "half_damage_to": [
+      "flying",
+      "poison",
+      "bug",
+      "steel",
+      "fire",
+      "grass",
+      "dragon"
+    ],
+    "no_damage_to": [],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/12.png"
+  },
+  "electric": {
+    "double_damage_to": [
+      "flying",
+      "water"
+    ],
+    "half_damage_to": [
+      "grass",
+      "electric",
+      "dragon"
+    ],
+    "no_damage_to": [
+      "ground"
+    ],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/13.png"
+  },
+  "psychic": {
+    "double_damage_to": [
+      "fighting",
+      "poison"
+    ],
+    "half_damage_to": [
+      "steel",
+      "psychic"
+    ],
+    "no_damage_to": [
+      "dark"
+    ],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/14.png"
+  },
+  "ice": {
+    "double_damage_to": [
+      "flying",
+      "ground",
+      "grass",
+      "dragon"
+    ],
+    "half_damage_to": [
+      "steel",
+      "fire",
+      "water",
+      "ice"
+    ],
+    "no_damage_to": [],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/15.png"
+  },
+  "dragon": {
+    "double_damage_to": [
+      "dragon"
+    ],
+    "half_damage_to": [
+      "steel"
+    ],
+    "no_damage_to": [
+      "fairy"
+    ],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/16.png"
+  },
+  "dark": {
+    "double_damage_to": [
+      "ghost",
+      "psychic"
+    ],
+    "half_damage_to": [
+      "fighting",
+      "dark",
+      "fairy"
+    ],
+    "no_damage_to": [],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/17.png"
+  },
+  "fairy": {
+    "double_damage_to": [
+      "fighting",
+      "dragon",
+      "dark"
+    ],
+    "half_damage_to": [
+      "poison",
+      "steel",
+      "fire"
+    ],
+    "no_damage_to": [],
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-vi/x-y/18.png"
+  }
+}
