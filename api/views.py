@@ -115,9 +115,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
         return Response(box_serializer.data, status=status.HTTP_200_OK)
 
-    def detail(self, request, pk=None, *args, **kwargs):
-        trainer = Trainer.objects.get(id=pk)
+    def retrieve(self, request, pk=None, *args, **kwargs):
         localization = request.query_params.get('localization', '*')
+        trainer = Trainer.objects.get(id=pk)
         match localization:
             case 'en':
                 serialized = EnTrainerSerializer(trainer)
