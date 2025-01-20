@@ -99,16 +99,17 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @permission_classes([IsRoot])
     def reload_boxes(self, request, *args, **kwargs):
 
-        def load_trainers(trainers):
-            for trainer in trainers:
-                last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
-                file_obj = last_save.file.file
-                save_data = file_obj.read()
-                save_results = data_reader(save_data)
-                box_saver(save_results.get('boxes'), trainer)
+        def load_trainer(trainer):
+            last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
+            file_obj = last_save.file.file
+            save_data = file_obj.read()
+            save_results = data_reader(save_data)
+            box_saver(save_results.get('boxes'), trainer)
 
-        thread = Thread(target=load_trainers, args=(self.queryset,))
-        thread.start()
+        trainers = self.queryset
+        for trainer in trainers:
+            thread = Thread(target=load_trainer, args=(trainer,))
+            thread.start()
 
         return Response([], status=status.HTTP_200_OK)
 
@@ -235,7 +236,6 @@ class FileUploadManyView(APIView):
             else:
                 return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(data=dict(status='done'), status=status.HTTP_201_CREATED)
-
 
 
 class TrainerSaveView(APIView):
