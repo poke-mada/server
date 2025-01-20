@@ -163,10 +163,15 @@ def box_saver(boxes, trainer):
     for box_num, data in boxes.items():
         box = TrainerBox.objects.get(box_number=box_num, trainer=trainer)
         for slot in data:
-            pokemon_serializer = TrainerPokemonSerializer(data=slot['pokemon'])
-            if pokemon_serializer.is_valid(raise_exception=True):
-                pokemon = pokemon_serializer.save()
-                TrainerBoxSlot.objects.get_or_create(box=box, slot=slot['slot'], pokemon=pokemon)
+            slot, _ = TrainerBoxSlot.objects.get_or_create(box=box, slot=slot['slot'])
+            if slot['pokemon']:
+                pokemon_serializer = TrainerPokemonSerializer(data=slot['pokemon'])
+                if pokemon_serializer.is_valid(raise_exception=True):
+                    pokemon = pokemon_serializer.save()
+                    slot.pokemon = pokemon
+            else:
+                slot.pokemon = None
+            slot.save()
 
     return False
 
