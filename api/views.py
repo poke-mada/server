@@ -22,7 +22,7 @@ from trainer_data.serializers import TrainerSerializer, TrainerTeamSerializer, S
 # Create your views here.
 
 class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Trainer.objects.all()
+    queryset = Trainer.objects.filter(is_active=True)
     serializer_class = TrainerSerializer
 
     def get_queryset(self):
