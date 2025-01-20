@@ -36,10 +36,16 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return self.queryset.filter(filters)
 
     @action(methods=['get'], detail=False)
-    @permission_classes([IsTrainer])
+    @permission_classes([IsTrainer, IsRoot])
     def get_trainer(self, request, *args, **kwargs):
         user: User = request.user
-        trainer = user.trainer_profile.trainer
+        if user.trainer_profile and user.trainer_profile.trainer:
+            trainer = user.trainer_profile.trainer
+        elif user.coaching_profile and user.coaching_profile.coached_trainer:
+            trainer = user.coaching_profile.coached_trainer
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
         serializer = self.get_serializer(trainer)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -108,6 +114,17 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         box_serializer = TrainerBoxSerializer(box, read_only=True)
 
         return Response(box_serializer.data, status=status.HTTP_200_OK)
+
+    def detail(self, request, pk=None, *args, **kwargs):
+        trainer = Trainer.objects.get(id=pk)
+        localization = request.query_params.get('localization', '*')
+        match localization:
+            case 'en':
+                serialized = EnTrainerSerializer(trainer)
+            case _:
+                serialized = TrainerSerializer(trainer)
+
+        return Response(serialized.data, status=status.HTTP_200_OK)
 
 
 class MoveViewSet(viewsets.ReadOnlyModelViewSet):
@@ -208,19 +225,6 @@ class FileUploadManyView(APIView):
                 return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(data=dict(status='done'), status=status.HTTP_201_CREATED)
 
-
-class TrainerView(APIView):
-    permission_classes = [IsAuthenticated, ]
-
-    def get(self, request, trainer_name, *args, **kwargs):
-        localization = request.query_params.get('localization', '*')
-        trainer = Trainer.objects.get(name=trainer_name)
-        match localization:
-            case 'en':
-                serialized = EnTrainerSerializer(trainer)
-            case _:
-                serialized = TrainerSerializer(trainer)
-        return Response(data=serialized.data, status=status.HTTP_200_OK)
 
 
 class TrainerSaveView(APIView):
