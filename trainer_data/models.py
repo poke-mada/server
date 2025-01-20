@@ -34,10 +34,9 @@ class Trainer(models.Model):
         return mark_safe('<a href="{0}" download>Download {1} Save</a>'.format(self.last_save, self.name))
 
     def streamer_name(self):
-        if not self.streamer:
-            print('awa')
+        if not self.streamer.first():
             return None
-        return self.streamer.name
+        return self.streamer.first().name
 
     def __str__(self):
         return self.streamer_name() or self.name

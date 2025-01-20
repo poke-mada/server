@@ -12,8 +12,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.permissions import IsTrainer, IsCoach, IsRoot
-from event_api.models import SaveFile
-from event_api.serializers import SaveFileSerializer
+from event_api.models import SaveFile, Wildcard
+from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer
 from pokemon_api.models import Move
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer
@@ -75,6 +75,22 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['get'], detail=False)
     def list_trainers(self, request, *args, **kwargs):
         serializer = SelectTrainerSerializer(Trainer.objects.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=False)
+    def wildcards_with_inventory(self, request, *args, **kwargs):
+        trainer = None
+        user: User = request.user
+        if hasattr(user, 'trainer_profile') and user.trainer_profile.trainer:
+            trainer: Trainer = user.trainer_profile.trainer
+        elif hasattr(user, 'coaching_profile') and user.coaching_profile.coached_trainer:
+            trainer: Trainer = user.coaching_profile.coached_trainer
+
+        serializer = WildcardWithInventorySerializer(
+            Wildcard.objects.filter(is_active=True),
+            trainer=trainer,
+            many=True
+        )
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=True)
@@ -142,6 +158,11 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 class MoveViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Move.objects.all()
     serializer_class = MoveSerializer
+
+
+class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Wildcard.objects.filter(is_active=True)
+    serializer_class = WildcardSerializer
 
 
 def team_saver(team, trainer):

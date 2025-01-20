@@ -44,6 +44,7 @@ class Wildcard(models.Model):
 
     name = models.CharField(max_length=500)
     price = models.IntegerField(validators=[MinValueValidator(-1)], null=True, blank=True)
+    special_price = models.CharField(max_length=500, null=True, blank=True)
     sprite = models.ImageField(upload_to='wildcards/', null=True, blank=True)
     description = models.TextField(blank=False, default="")
     quality = models.SmallIntegerField(choices=QUALITIES, default=COMMON)
