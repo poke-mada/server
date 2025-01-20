@@ -98,7 +98,7 @@ class TrainerTeam(models.Model):
 class TrainerBox(models.Model):
     id = models.IntegerField(primary_key=True)
     box_number = models.IntegerField(db_index=True)
-    trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name='boxes')
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name='boxes')
     name = models.CharField(max_length=50)
 
     class Meta:
@@ -107,5 +107,5 @@ class TrainerBox(models.Model):
 
 class TrainerBoxSlot(models.Model):
     slot = models.IntegerField()
-    pokemon = models.ForeignKey(TrainerPokemon, on_delete=models.PROTECT, null=True, blank=True)
-    box = models.ForeignKey(TrainerBox, on_delete=models.PROTECT, related_name='slots', null=True, blank=True)
+    pokemon = models.ForeignKey(TrainerPokemon, on_delete=models.CASCADE, null=True, blank=True)
+    box = models.ForeignKey(TrainerBox, on_delete=models.CASCADE, related_name='slots', null=True, blank=True)
