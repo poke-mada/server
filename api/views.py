@@ -39,9 +39,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @permission_classes([IsTrainer])
     def get_trainer(self, request, *args, **kwargs):
         user: User = request.user
-        if user.trainer_profile and user.trainer_profile.trainer:
+        if hasattr(user, 'trainer_profile') and user.trainer_profile.trainer:
             trainer = user.trainer_profile.trainer
-        elif user.coaching_profile and user.coaching_profile.coached_trainer:
+        elif hasattr(user, 'coaching_profile') and user.coaching_profile.coached_trainer:
             trainer = user.coaching_profile.coached_trainer
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
