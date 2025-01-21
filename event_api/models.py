@@ -50,6 +50,7 @@ class Wildcard(models.Model):
     quality = models.SmallIntegerField(choices=QUALITIES, default=COMMON)
     is_active = models.BooleanField(default=True)
     extra_url = models.URLField(blank=True, null=True)
+    always_available = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
