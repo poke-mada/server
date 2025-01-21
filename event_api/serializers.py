@@ -21,6 +21,7 @@ class WildcardSerializer(serializers.ModelSerializer):
 class WildcardWithInventorySerializer(serializers.ModelSerializer):
     quality_display = serializers.CharField(source='get_quality_display')
     inventory = serializers.SerializerMethodField()
+    sprite_name = serializers.CharField()
 
     def __init__(self, *args, **kwargs):
         self.trainer: Trainer = kwargs.pop('trainer')
@@ -33,4 +34,17 @@ class WildcardWithInventorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Wildcard
-        fields = '__all__'
+        fields = [
+            'name',
+            'price',
+            'special_price',
+            'sprite',
+            'description',
+            'quality',
+            'is_active',
+            'extra_url',
+            'always_available',
+            'quality_display',
+            'inventory',
+            'sprite_name'
+        ]

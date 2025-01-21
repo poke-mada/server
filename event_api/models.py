@@ -55,6 +55,10 @@ class Wildcard(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def sprite_name(self):
+        return self.sprite.name
+
 
 class StreamPlatformUrl(models.Model):
     streamer = models.ForeignKey("Streamer", on_delete=models.CASCADE)
