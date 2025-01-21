@@ -19,7 +19,7 @@ from django.urls import path, include
 from rest_framework_swagger.views import get_swagger_view
 
 from api.data_loader_view import LoadJsonDataView
-from api.views import FileUploadView, FileUploadManyView, TrainerSaveView
+from api.views import FileUploadView, FileUploadManyView
 
 schema_view = get_swagger_view(title='Pastebin API')
 urlpatterns = [
@@ -30,6 +30,5 @@ urlpatterns = [
     path('upload_save/', FileUploadView.as_view()),
     path('load_data/', LoadJsonDataView.as_view()),
     path('upload_save_many/', FileUploadManyView.as_view()),
-    path('last_save/<str:trainer_name>/', TrainerSaveView.as_view()),
     path('docs/', schema_view)
 ]

@@ -16,7 +16,7 @@ class Trainer(models.Model):
     is_active = models.BooleanField(default=True)
     name = models.CharField(max_length=50, db_index=True, unique=True)
     custom_sprite = models.ImageField(upload_to='trainers/sprites/', null=True, blank=True)
-    current_team = models.ForeignKey("TrainerTeam", on_delete=models.PROTECT, related_name='trainer', null=True,
+    current_team = models.ForeignKey("TrainerTeam", on_delete=models.CASCADE, related_name='trainer', null=True,
                                      blank=True)
 
     @property
@@ -40,6 +40,16 @@ class Trainer(models.Model):
 
     def __str__(self):
         return self.streamer_name() or self.name
+
+    @classmethod
+    def get_from_user(cls, user):
+        if hasattr(user, 'trainer_profile') and user.trainer_profile.trainer:
+            trainer: Trainer = user.trainer_profile.trainer
+        elif hasattr(user, 'coaching_profile') and user.coaching_profile.coached_trainer:
+            trainer: Trainer = user.coaching_profile.coached_trainer
+        else:
+            return None
+        return trainer
 
 
 class TrainerPokemon(models.Model):

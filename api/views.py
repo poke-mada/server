@@ -79,12 +79,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['get'], detail=False)
     def wildcards_with_inventory(self, request, *args, **kwargs):
-        trainer = None
-        user: User = request.user
-        if hasattr(user, 'trainer_profile') and user.trainer_profile.trainer:
-            trainer: Trainer = user.trainer_profile.trainer
-        elif hasattr(user, 'coaching_profile') and user.coaching_profile.coached_trainer:
-            trainer: Trainer = user.coaching_profile.coached_trainer
+        trainer = Trainer.get_from_user(request.user)
 
         serializer = WildcardWithInventorySerializer(
             Wildcard.objects.filter(is_active=True),
@@ -142,6 +137,13 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         box_serializer = TrainerBoxSerializer(box, read_only=True)
 
         return Response(box_serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=False)
+    def last_save(self, request, *args, **kwargs):
+        trainer: Trainer = Trainer.get_from_user(request.user)
+        last_save = trainer.saves.order_by('created_on').last()
+        print(trainer)
+        return HttpResponse(last_save.file.read())
 
     def retrieve(self, request, pk=None, *args, **kwargs):
         localization = request.query_params.get('localization', '*')
@@ -262,12 +264,3 @@ class FileUploadManyView(APIView):
             else:
                 return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(data=dict(status='done'), status=status.HTTP_201_CREATED)
-
-
-class TrainerSaveView(APIView):
-    permission_classes = [IsAuthenticated, ]
-
-    def get(self, request, trainer_name, *args, **kwargs):
-        trainer = Trainer.objects.get(name=trainer_name)
-        last_save = trainer.saves.order_by('created_on').last()
-        return HttpResponse(last_save.file.read())
