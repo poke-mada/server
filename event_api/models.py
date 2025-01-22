@@ -94,6 +94,7 @@ class Wildcard(models.Model):
             return False
 
     def use(self, trainer, amount: int):
+        streamer = trainer.get_streamer()
         match self.id:
             case 6:
                 CoinTransaction.objects.create(
@@ -114,11 +115,10 @@ class Wildcard(models.Model):
                 WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
             case _:
                 try:
-                    streamer = trainer.get_streamer()
                     inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
                     inventory.quantity -= 1
-                    inventory.save()
                     WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
+                    inventory.save()
                 except Exception as e:
                     ErrorLog.objects.create(trainer=trainer, details=f'{amount} cartas {self.name} intentaron usarse', message=str(e))
                     return False
