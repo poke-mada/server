@@ -82,13 +82,12 @@ class Wildcard(models.Model):
             return True
 
         try:
-            for _ in range(amount):
-                CoinTransaction.objects.create(
-                    trainer=trainer,
-                    amount=self.price * amount,
-                    TYPE=CoinTransaction.OUTPUT,
-                    reason=f'se compró la carta {self.name}'
-                )
+            CoinTransaction.objects.create(
+                trainer=trainer,
+                amount=self.price * amount,
+                TYPE=CoinTransaction.OUTPUT,
+                reason=f'se compró la carta {self.name}'
+            )
             inventory, _ = streamer.wildcard_inventory.get_or_create(wildcard=self)
             inventory.quantity += amount
             inventory.save()

@@ -194,7 +194,9 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         quantity = int(request.data.get('quantity', 1))
         trainer = Trainer.get_from_user(request.user)
         if wildcard.can_buy(trainer, quantity):
-            if wildcard.buy(trainer, quantity) and wildcard.use(trainer, quantity):
+            buyed = wildcard.buy(trainer, quantity)
+            used = wildcard.use(trainer, quantity)
+            if buyed and used:
                 return Response(data=dict(detail='card_bought_and_used'), status=status.HTTP_200_OK)
             return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(status=status.HTTP_200_OK)
