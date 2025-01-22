@@ -118,9 +118,9 @@ class Wildcard(models.Model):
             case _:
                 try:
                     inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
-                    inventory.quantity -= 1
-                    WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
+                    inventory.quantity -= amount
                     inventory.save()
+                    WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
                 except Exception as e:
                     ErrorLog.objects.create(trainer=trainer, details=f'{amount} cartas {self.name} intentaron usarse', message=str(e))
                     return False
