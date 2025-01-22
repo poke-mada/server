@@ -73,7 +73,6 @@ class Wildcard(models.Model):
         inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
         return (inventory and inventory.quantity >= amount) or self.always_available
 
-    @transaction.atomic
     def buy(self, trainer, amount: int):
         streamer = trainer.get_streamer()
         if not self.is_active:
@@ -81,20 +80,16 @@ class Wildcard(models.Model):
         if self.always_available:
             return True
 
-        try:
-            CoinTransaction.objects.create(
-                trainer=trainer,
-                amount=self.price * amount,
-                TYPE=CoinTransaction.OUTPUT,
-                reason=f'se compró la carta {self.name}'
-            )
-            inventory, _ = streamer.wildcard_inventory.get_or_create(wildcard=self, quantity=0)
-            inventory.quantity += amount
-            inventory.save()
-        except:
-            return False
+        CoinTransaction.objects.create(
+            trainer=trainer,
+            amount=self.price * amount,
+            TYPE=CoinTransaction.OUTPUT,
+            reason=f'se compró la carta {self.name}'
+        )
+        inventory, _ = streamer.wildcard_inventory.get_or_create(wildcard=self, quantity=0)
+        inventory.quantity += amount
+        inventory.save()
 
-    @transaction.atomic
     def use(self, trainer, amount: int):
         streamer = trainer.get_streamer()
         match self.id:
