@@ -89,6 +89,7 @@ class Wildcard(models.Model):
         inventory, _ = streamer.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
         inventory.quantity += amount
         inventory.save()
+        return True
 
     def use(self, trainer, amount: int):
         streamer = trainer.get_streamer()
