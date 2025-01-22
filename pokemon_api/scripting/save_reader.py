@@ -50,10 +50,10 @@ def clean_nick_data(nick_elements):
 
 
 def clamp(value, min_value=1, max_value=251):
-    if value < min_value:
+    if min_value and value < min_value:
         return min_value
 
-    if value > max_value:
+    if max_value and value > max_value:
         return max_value
 
     return value

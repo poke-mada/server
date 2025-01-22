@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models, transaction
 
+from pokemon_api.scripting.save_reader import clamp
 from trainer_data.models import Trainer
 
 
@@ -65,31 +66,46 @@ class Wildcard(models.Model):
     def sprite_name(self):
         return self.sprite.name
 
-    def can_buy(self, trainer, amount):
-        return self.is_active and ((trainer.economy >= self.price * amount) or self.always_available)
+    def can_buy(self, trainer, amount, force_buy=False):
+        streamer = trainer.get_streamer()
+        inventory, _ = streamer.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
+
+        already_in_possession = inventory.quantity
+        if not force_buy:
+            amount_to_buy = clamp(amount - already_in_possession, 0)
+        else:
+            amount_to_buy = amount
+        return self.is_active and ((trainer.economy >= self.price * amount_to_buy) or self.always_available)
 
     def can_use(self, trainer, amount):
         streamer = trainer.get_streamer()
         inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
         return (inventory and inventory.quantity >= amount) or self.always_available
 
-    def buy(self, trainer, amount: int):
+    def buy(self, trainer, amount: int, force_buy=False):
         streamer = trainer.get_streamer()
         if not self.is_active:
             return False
         if self.always_available:
             return True
+        inventory, _ = streamer.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
+
+        already_in_possession = inventory.quantity
+        if not force_buy:
+            amount_to_buy = clamp(amount - already_in_possession, 0)
+        else:
+            amount_to_buy = amount
 
         CoinTransaction.objects.create(
             trainer=trainer,
-            amount=self.price * amount,
+            amount=self.price * amount_to_buy,
             TYPE=CoinTransaction.OUTPUT,
             reason=f'se compró la carta {self.name}'
         )
-        inventory, _ = streamer.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
-        inventory.quantity += amount
+
+        inventory.quantity += amount_to_buy
         inventory.save()
-        return True
+        return amount_to_buy
 
     def use(self, trainer, amount: int):
         streamer = trainer.get_streamer()
@@ -101,7 +117,8 @@ class Wildcard(models.Model):
                     TYPE=CoinTransaction.INPUT,
                     reason=f'se uso la carta {self.name} {amount} veces'
                 )
-                WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
+                WildcardLog.objects.create(wildcard=self, trainer=trainer,
+                                           details=f'{amount} carta/s {self.name} usada')
                 return True
             case 37:
                 CoinTransaction.objects.create(
@@ -110,12 +127,15 @@ class Wildcard(models.Model):
                     TYPE=CoinTransaction.INPUT,
                     reason=f'se uso la carta {self.name} {amount} veces'
                 )
-                WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
+                WildcardLog.objects.create(wildcard=self, trainer=trainer,
+                                           details=f'{amount} carta/s {self.name} usada')
             case _:
                 try:
-                    WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
+                    WildcardLog.objects.create(wildcard=self, trainer=trainer,
+                                               details=f'{amount} carta/s {self.name} usada')
                 except Exception as e:
-                    ErrorLog.objects.create(trainer=trainer, details=f'{amount} cartas {self.name} intentaron usarse', message=str(e))
+                    ErrorLog.objects.create(trainer=trainer, details=f'{amount} cartas {self.name} intentaron usarse',
+                                            message=str(e))
                     raise e
 
         inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()

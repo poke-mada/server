@@ -182,8 +182,8 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         wildcard: Wildcard = self.get_object()
         quantity = int(request.data.get('quantity', 1))
         trainer = Trainer.get_from_user(request.user)
-        if wildcard.can_buy(trainer, quantity):
-            if wildcard.buy(trainer, quantity):
+        if wildcard.can_buy(trainer, quantity, True):
+            if wildcard.buy(trainer, quantity, True):
                 return Response(data=dict(detail='card_bought'), status=status.HTTP_200_OK)
             return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(data=dict(detail='no_enough_money'), status=status.HTTP_400_BAD_REQUEST)
@@ -197,7 +197,7 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
             buyed = wildcard.buy(trainer, quantity)
             used = wildcard.use(trainer, quantity)
             if buyed and used:
-                return Response(data=dict(detail='card_bought_and_used'), status=status.HTTP_200_OK)
+                return Response(data=dict(detail='card_bought_and_used', amount=buyed), status=status.HTTP_200_OK)
             return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(data=dict(detail='no_enough_money'), status=status.HTTP_400_BAD_REQUEST)
 
