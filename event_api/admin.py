@@ -12,7 +12,7 @@ admin.site.unregister(User)
 
 @admin.register(CoinTransaction)
 class CoinTransactionAdmin(admin.ModelAdmin):
-    list_display = ('trainer__name', 'amount', 'TYPE',)
+    list_display = ('trainer__name', 'reason', 'amount', 'TYPE',)
     search_fields = ('trainer__name', 'TYPE')
 
 
