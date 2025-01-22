@@ -169,7 +169,7 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['POST'], detail=True)
     def use_card(self, request, *args, **kwargs):
         wildcard: Wildcard = self.get_object()
-        quantity = request.data.get('quantity', 1)
+        quantity = int(request.data.get('quantity', 1))
         trainer = Trainer.get_from_user(request.user)
         if wildcard.can_use(trainer, quantity):
             if wildcard.use(trainer, quantity):
@@ -180,7 +180,7 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['POST'], detail=True)
     def buy_card(self, request, *args, **kwargs):
         wildcard: Wildcard = self.get_object()
-        quantity = request.data.get('quantity', 1)
+        quantity = int(request.data.get('quantity', 1))
         trainer = Trainer.get_from_user(request.user)
         if wildcard.can_buy(trainer, quantity):
             if wildcard.buy(trainer, quantity):
@@ -191,7 +191,7 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['POST'], detail=True)
     def buy_and_use_card(self, request, *args, **kwargs):
         wildcard: Wildcard = self.get_object()
-        quantity = request.data.get('quantity', 1)
+        quantity = int(request.data.get('quantity', 1))
         trainer = Trainer.get_from_user(request.user)
         if wildcard.can_buy(trainer, quantity):
             if wildcard.buy(trainer, quantity) and wildcard.use(trainer, quantity):
