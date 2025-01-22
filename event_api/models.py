@@ -66,7 +66,7 @@ class Wildcard(models.Model):
         return self.sprite.name
 
     def can_buy(self, trainer, amount):
-        return (trainer.economy >= self.price * amount) or self.always_available
+        return self.is_active and ((trainer.economy >= self.price * amount) or self.always_available)
 
     def can_use(self, trainer, amount):
         streamer = trainer.get_streamer()
