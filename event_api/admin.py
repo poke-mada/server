@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
 from event_api.models import CoinTransaction, Wildcard, Streamer, StreamPlatformUrl, StreamerWildcardInventoryItem, \
-    CoachProfile, TrainerProfile, WildcardLog
+    CoachProfile, TrainerProfile, WildcardLog, ErrorLog
 
 # Register your models here.
 
@@ -20,6 +20,12 @@ class CoinTransactionAdmin(admin.ModelAdmin):
 class WildcardLogAdmin(admin.ModelAdmin):
     list_display = ('trainer__name', 'wildcard__name', 'details', )
     search_fields = ('trainer__name', 'wildcard__name')
+
+
+@admin.register(ErrorLog)
+class ErrorLogAdmin(admin.ModelAdmin):
+    list_display = ('trainer__name', 'details', 'message', )
+    search_fields = ('trainer__name',)
 
 
 @admin.register(Wildcard)

@@ -88,7 +88,7 @@ class Wildcard(models.Model):
                 TYPE=CoinTransaction.OUTPUT,
                 reason=f'se compró la carta {self.name}'
             )
-            inventory, _ = streamer.wildcard_inventory.get_or_create(wildcard=self)
+            inventory, _ = streamer.wildcard_inventory.get_or_create(wildcard=self, quantity=0)
             inventory.quantity += amount
             inventory.save()
         except:
