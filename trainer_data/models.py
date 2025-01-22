@@ -38,11 +38,14 @@ class Trainer(models.Model):
             return None
         return self.streamer.first().name
 
+    def get_streamer(self):
+        return self.streamer.first()
+
     def __str__(self):
         return self.streamer_name() or self.name
 
     @classmethod
-    def get_from_user(cls, user):
+    def get_from_user(cls, user) -> "Trainer":
         if hasattr(user, 'trainer_profile') and user.trainer_profile.trainer:
             trainer: Trainer = user.trainer_profile.trainer
         elif hasattr(user, 'coaching_profile') and user.coaching_profile.coached_trainer:

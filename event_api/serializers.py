@@ -35,6 +35,7 @@ class WildcardWithInventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Wildcard
         fields = [
+            'id',
             'name',
             'price',
             'special_price',

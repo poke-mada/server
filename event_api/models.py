@@ -59,6 +59,65 @@ class Wildcard(models.Model):
     def sprite_name(self):
         return self.sprite.name
 
+    def can_buy(self, trainer, amount):
+        return (trainer.economy >= self.price * amount) or self.always_available
+
+    def can_use(self, trainer, amount):
+        streamer = trainer.get_streamer()
+        inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
+        return (inventory and inventory.quantity >= amount) or self.always_available
+
+    def buy(self, trainer, amount: int):
+        streamer = trainer.get_streamer()
+        if not self.is_active:
+            return False
+        if self.always_available:
+            return True
+
+        try:
+            for _ in range(amount):
+                CoinTransaction.objects.create(
+                    trainer=trainer,
+                    amount=self.price * amount,
+                    TYPE=CoinTransaction.OUTPUT,
+                    reason=f'se compró la carta {self.name}'
+                )
+            inventory, _ = streamer.wildcard_inventory.get_or_create(wildcard=self)
+            inventory.quantity += amount
+        except:
+            return False
+
+    def use(self, trainer, amount: int):
+        if self.id == 6:
+            CoinTransaction.objects.create(
+                trainer=trainer,
+                amount=3 * amount,
+                TYPE=CoinTransaction.INPUT,
+                reason=f'se uso la carta {self.name} {amount} veces'
+            )
+            WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
+            return True
+        if self.id == 37:
+            CoinTransaction.objects.create(
+                trainer=trainer,
+                amount=4 * amount,
+                TYPE=CoinTransaction.INPUT,
+                reason=f'se uso la carta {self.name} {amount} veces'
+            )
+            WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
+            return True
+
+        try:
+            streamer = trainer.get_streamer()
+            inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
+            inventory.quantity -= 1
+            inventory.save()
+            WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
+        except:
+            return False
+
+        return True
+
 
 class WildcardLog(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name='use_logs')

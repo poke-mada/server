@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.permissions import IsTrainer, IsCoach, IsRoot
-from event_api.models import SaveFile, Wildcard
+from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, WildcardLog
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer
 from pokemon_api.models import Move
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
@@ -166,7 +166,37 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Wildcard.objects.filter(is_active=True)
     serializer_class = WildcardSerializer
 
+    @action(methods=['POST'], detail=True)
     def use_card(self, request, *args, **kwargs):
+        wildcard: Wildcard = self.get_object()
+        quantity = request.data.get('quantity', 1)
+        trainer = Trainer.get_from_user(request.user)
+        if wildcard.can_use(trainer, quantity):
+            if wildcard.use(trainer, quantity):
+                return Response(data=dict(detail='card_used'), status=status.HTTP_200_OK)
+            return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response(data=dict(detail='no_card_available'), status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['POST'], detail=True)
+    def buy_card(self, request, *args, **kwargs):
+        wildcard: Wildcard = self.get_object()
+        quantity = request.data.get('quantity', 1)
+        trainer = Trainer.get_from_user(request.user)
+        if wildcard.can_buy(trainer, quantity):
+            if wildcard.buy(trainer, quantity):
+                return Response(data=dict(detail='card_bought'), status=status.HTTP_200_OK)
+            return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response(data=dict(detail='no_enough_money'), status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['POST'], detail=True)
+    def buy_and_use_card(self, request, *args, **kwargs):
+        wildcard: Wildcard = self.get_object()
+        quantity = request.data.get('quantity', 1)
+        trainer = Trainer.get_from_user(request.user)
+        if wildcard.can_buy(trainer, quantity):
+            if wildcard.buy(trainer, quantity) and wildcard.use(trainer, quantity):
+                return Response(data=dict(detail='card_bought_and_used'), status=status.HTTP_200_OK)
+            return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(status=status.HTTP_200_OK)
 
 
