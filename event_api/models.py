@@ -60,6 +60,12 @@ class Wildcard(models.Model):
         return self.sprite.name
 
 
+class WildcardLog(models.Model):
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name='use_logs')
+    wildcard = models.ForeignKey(Wildcard, on_delete=models.CASCADE, related_name='use_logs')
+    details = models.TextField(blank=False, default="No details provided")
+
+
 class StreamPlatformUrl(models.Model):
     streamer = models.ForeignKey("Streamer", on_delete=models.CASCADE)
     platform = models.CharField(max_length=50)

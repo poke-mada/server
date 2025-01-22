@@ -166,6 +166,9 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Wildcard.objects.filter(is_active=True)
     serializer_class = WildcardSerializer
 
+    def use_card(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_200_OK)
+
 
 def team_saver(team, trainer):
     new_version = TrainerTeam.objects.filter(trainer_old=trainer).count() + 1
