@@ -199,7 +199,7 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
             if buyed and used:
                 return Response(data=dict(detail='card_bought_and_used'), status=status.HTTP_200_OK)
             return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        return Response(data=dict(detail='no_enough_money'), status=status.HTTP_200_OK)
+        return Response(data=dict(detail='no_enough_money'), status=status.HTTP_400_BAD_REQUEST)
 
 
 def team_saver(team, trainer):
