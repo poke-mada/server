@@ -12,6 +12,12 @@ class SaveFile(models.Model):
     created_on = models.DateTimeField(auto_now_add=True, null=True)
 
 
+class ErrorLog(models.Model):
+    trainer = models.ForeignKey(Trainer, on_delete=models.SET_NULL, null=True)
+    details = models.TextField(null=True, blank=True)
+    message = models.TextField(null=True, blank=False)
+
+
 class CoinTransaction(models.Model):
     INPUT = 0
     OUTPUT = 1
@@ -88,34 +94,38 @@ class Wildcard(models.Model):
             return False
 
     def use(self, trainer, amount: int):
-        if self.id == 6:
-            CoinTransaction.objects.create(
-                trainer=trainer,
-                amount=3 * amount,
-                TYPE=CoinTransaction.INPUT,
-                reason=f'se uso la carta {self.name} {amount} veces'
-            )
-            WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
-            return True
-        if self.id == 37:
-            CoinTransaction.objects.create(
-                trainer=trainer,
-                amount=4 * amount,
-                TYPE=CoinTransaction.INPUT,
-                reason=f'se uso la carta {self.name} {amount} veces'
-            )
-            WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
-            return True
+        match self.id:
+            case 6:
+                CoinTransaction.objects.create(
+                    trainer=trainer,
+                    amount=3 * amount,
+                    TYPE=CoinTransaction.INPUT,
+                    reason=f'se uso la carta {self.name} {amount} veces'
+                )
+                WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
+                return True
+            case 37:
+                CoinTransaction.objects.create(
+                    trainer=trainer,
+                    amount=4 * amount,
+                    TYPE=CoinTransaction.INPUT,
+                    reason=f'se uso la carta {self.name} {amount} veces'
+                )
+                WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
+            case _:
+                try:
+                    streamer = trainer.get_streamer()
+                    inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
+                    inventory.quantity -= 1
+                    inventory.save()
+                    WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
+                except Exception as e:
+                    ErrorLog.objects.create(trainer=trainer, details=f'{amount} cartas {self.name} intentaron usarse', message=str(e))
+                    return False
 
-        try:
-            streamer = trainer.get_streamer()
-            inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
-            inventory.quantity -= 1
-            inventory.save()
-            WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
-        except:
-            return False
-
+        inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
+        inventory.quantity -= 1
+        inventory.save()
         return True
 
 
