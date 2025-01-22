@@ -60,6 +60,7 @@ class TrainerProfileInline(admin.StackedInline):
 
 
 class UserProfileAdmin(UserAdmin):
+    list_display = ('username', 'trainer_profile__trainer', 'coaching_profile__coached_trainer', 'first_name', 'last_name', 'is_staff')
     inlines = [CoachProfileInline, TrainerProfileInline]
 
 
