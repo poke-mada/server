@@ -91,6 +91,7 @@ class Wildcard(models.Model):
                 )
             inventory, _ = streamer.wildcard_inventory.get_or_create(wildcard=self)
             inventory.quantity += amount
+            inventory.save()
         except:
             return False
 
