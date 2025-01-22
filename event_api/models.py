@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
-from django.db import models
+from django.db import models, transaction
 
 from trainer_data.models import Trainer
 
@@ -73,6 +73,7 @@ class Wildcard(models.Model):
         inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
         return (inventory and inventory.quantity >= amount) or self.always_available
 
+    @transaction.atomic
     def buy(self, trainer, amount: int):
         streamer = trainer.get_streamer()
         if not self.is_active:
@@ -93,6 +94,7 @@ class Wildcard(models.Model):
         except:
             return False
 
+    @transaction.atomic
     def use(self, trainer, amount: int):
         streamer = trainer.get_streamer()
         match self.id:
