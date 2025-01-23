@@ -127,6 +127,20 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         ), status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=True)
+    @permission_classes([IsRoot])
+    def reload_boxes(self, request, *args, **kwargs):
+        trainer = self.get_object()
+        last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
+        file_obj = last_save.file.file
+        save_data = file_obj.read()
+        save_results = data_reader(save_data)
+        box_saver(save_results.get('boxes'), trainer)
+
+        return Response(data=dict(
+            detail=f'Reloaded {trainer.name} boxes'
+        ), status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=True)
     def box(self, request, pk=None, *args, **kwargs):
         if pk == 'undefined':
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -227,7 +241,7 @@ def team_saver(team, trainer):
 
 def box_saver(boxes, trainer: Trainer):
     trainer.boxes.all().delete()
-    
+
     for box_num in range(31):
         TrainerBox.objects.get_or_create(box_number=box_num, trainer=trainer)
 
