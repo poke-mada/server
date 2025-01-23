@@ -225,10 +225,11 @@ def team_saver(team, trainer):
     return False
 
 
-def box_saver(boxes, trainer):
+def box_saver(boxes, trainer: Trainer):
+    trainer.boxes.all().delete()
+    
     for box_num in range(31):
-        box: TrainerBox = TrainerBox.objects.get_or_create(box_number=box_num, trainer=trainer)[0]
-        box.slots.all().delete()
+        TrainerBox.objects.get_or_create(box_number=box_num, trainer=trainer)
 
     for box_num, data in boxes.items():
         if not data:
