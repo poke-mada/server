@@ -128,7 +128,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['get'], detail=True)
     @permission_classes([IsRoot])
-    def reload_boxes(self, request, *args, **kwargs):
+    def reload_by_trainer_boxes(self, request, *args, **kwargs):
         trainer = self.get_object()
         last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
         file_obj = last_save.file.file
