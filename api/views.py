@@ -114,7 +114,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def reload_boxes(self, request, *args, **kwargs):
         trainers = self.get_queryset()
         total_trainers = trainers.count()
-        TrainerBoxSlot.objects.all().delete()
         for index, trainer in enumerate(trainers):
             print(f'{index + 1}/{total_trainers} - {trainer.name} @ {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
             last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
