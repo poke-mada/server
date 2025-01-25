@@ -121,6 +121,8 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         return name_localization.content
 
     def get_mega_ability_name(self, obj: TrainerPokemon):
+        if not obj.mega_ability:
+            return None
         name_localization: ContextLocalization = obj.mega_ability.name_localizations.filter(
             language=self.localization
         ).first()
