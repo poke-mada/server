@@ -60,7 +60,7 @@ def clamp(value, min_value=1, max_value=251):
 
 
 class PokemonBytes:
-    def __init__(self, encrypted_data):
+    def __init__(self, encrypted_data, *args, **kkwargs):
         super().__init__()
         first_byte = encrypted_data[0]
         if first_byte != 0:
@@ -190,13 +190,6 @@ class PokemonBytes:
             held_item=self.held_item_num,
             ability=self.ability_num,
             nature=self.nature_num,
-            cur_hp=self.maxhp,
-            max_hp=self.maxhp,
-            attack=self.attack,
-            defense=self.defense,
-            speed=self.speed,
-            special_attack=self.spatk,
-            special_defense=self.spdef,
             moves=self.moves,
             mote=self.mote,
             sprite_url=f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{self.dex_number}.png',

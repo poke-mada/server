@@ -74,27 +74,13 @@ class TrainerPokemon(models.Model):
         MinValueValidator(1)
     ])
 
-    cur_hp = models.IntegerField(default=1, validators=[
-        MinValueValidator(0)
-    ], null=True)
-    max_hp = models.IntegerField(default=1, validators=[
-        MinValueValidator(0)
-    ], null=True)
-    attack = models.IntegerField(default=1, validators=[
-        MinValueValidator(0)
-    ], null=True)
-    defense = models.IntegerField(default=1, validators=[
-        MinValueValidator(0)
-    ], null=True)
-    speed = models.IntegerField(default=1, validators=[
-        MinValueValidator(0)
-    ], null=True)
-    special_attack = models.IntegerField(default=1, validators=[
-        MinValueValidator(0)
-    ], null=True)
-    special_defense = models.IntegerField(default=1, validators=[
-        MinValueValidator(0)
-    ], null=True)
+    cur_hp = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    max_hp = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    attack = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    defense = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    speed = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    special_attack = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    special_defense = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
 
     ev_hp = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     ev_attack = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)

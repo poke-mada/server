@@ -151,7 +151,9 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         fields = [
             'sprite_url', 'mote', 'held_item', 'held_item_name', 'ability', 'ability_name', 'nature',
             'nature_name', 'pokemon', 'types', 'moves', 'level', 'cur_hp', 'max_hp', 'attack', 'defense',
-            'speed', 'special_attack', 'special_defense', 'notes', 'held_item_flavor', 'ability_flavor'
+            'speed', 'special_attack', 'special_defense', 'notes', 'held_item_flavor', 'ability_flavor',
+            'ev_hp', 'ev_attack', 'ev_defense', 'ev_speed', 'ev_special_attack', 'ev_special_defense', 'iv_hp',
+            'iv_attack', 'iv_defense', 'iv_speed', 'iv_special_attack', 'iv_special_defense',
         ]
 
 
