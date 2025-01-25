@@ -230,13 +230,11 @@ def team_saver(team, trainer):
     team_data = dict(
         version=new_version,
         trainer_old=trainer.pk,
-        team=team
+        team=[pokemon for pokemon in team if pokemon]
     )
 
     for pokemon in team:
         if not trainer.current_team:
-            continue
-        if not pokemon:
             continue
         last_version = trainer.current_team.team.filter(mote=pokemon['mote']).first()
         if last_version:
