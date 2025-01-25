@@ -60,7 +60,7 @@ def clamp(value, min_value=1, max_value=251):
 
 
 class PokemonBytes:
-    def __init__(self, encrypted_data, is_pc=False):
+    def __init__(self, encrypted_data):
         super().__init__()
         first_byte = encrypted_data[0]
         if first_byte != 0:
@@ -83,23 +83,27 @@ class PokemonBytes:
         if self.dex_number == 0:
             return
 
-        self.level = struct.unpack("B", self.raw_data[236:237])[0]
         self.form = struct.unpack("B", self.raw_data[0x1D:0x1E])[0]
         self.held_item_num = str(struct.unpack("<H", self.raw_data[0xA:0xC])[0])
         self.ability_num = struct.unpack("B", self.raw_data[0x14:0x15])[0]  # Ability
         self.nature_num = struct.unpack("B", self.raw_data[0x1C:0x1D])[0]  ## Nature
-        self.maxhp = struct.unpack("B", self.raw_data[242:243])[0]
-        self.attack = struct.unpack("<H", self.raw_data[0xF4:0xF6])[0]  ## Attack stat
-        self.defense = struct.unpack("<H", self.raw_data[0xF6:0xF8])[0]  ## Defense stat
-        self.speed = struct.unpack("<H", self.raw_data[0xF8:0xFA])[0]  ## Speed stat
-        self.spatk = struct.unpack("<H", self.raw_data[0xFA:0xFC])[0]  ## Special attack stat
-        self.spdef = struct.unpack("<H", self.raw_data[0xFC:0xFE])[0]  ## Special defense stat
-        self.evhp = struct.unpack("B", self.raw_data[0x1E:0x1F])[0]
-        self.evattack = struct.unpack("B", self.raw_data[0x1F:0x20])[0]
-        self.evdefense = struct.unpack("B", self.raw_data[0x20:0x21])[0]
-        self.evspeed = struct.unpack("B", self.raw_data[0x21:0x22])[0]
-        self.evspatk = struct.unpack("B", self.raw_data[0x22:0x23])[0]
-        self.evspdef = struct.unpack("B", self.raw_data[0x23:0x24])[0]
+
+        self.level = struct.unpack("B", self.raw_data[0xEC:0xED])[0]  ### Current level
+        self.ev_hp = struct.unpack("B", self.raw_data[0x1E:0x1F])[0]
+        self.ev_attack = struct.unpack("B", self.raw_data[0x1F:0x20])[0]
+        self.ev_defense = struct.unpack("B", self.raw_data[0x20:0x21])[0]
+        self.ev_speed = struct.unpack("B", self.raw_data[0x21:0x22])[0]
+        self.ev_spatk = struct.unpack("B", self.raw_data[0x22:0x23])[0]
+        self.ev_spdef = struct.unpack("B", self.raw_data[0x23:0x24])[0]
+
+        ivloc = struct.unpack("<I", self.raw_data[0x74:0x78])[0]
+        self.iv_hp = (ivloc >> 0) & 0x1F  ############################## HP IV
+        self.iv_attack = (ivloc >> 5) & 0x1F  ############################## Attack IV
+        self.iv_defense = (ivloc >> 10) & 0x1F  ############################# Defense IV
+        self.iv_speed = (ivloc >> 15) & 0x1F  ############################# Speed IV
+        self.iv_spatk = (ivloc >> 20) & 0x1F  ############################# Special attack IV
+        self.iv_spdef = (ivloc >> 25) & 0x1F  ############################# Special defense IV
+
         mote = struct.unpack("HHHHHHHHHHHHH", self.raw_data[64:90])
         self.mote = clean_nick_data(mote)
 
@@ -193,19 +197,25 @@ class PokemonBytes:
             speed=self.speed,
             special_attack=self.spatk,
             special_defense=self.spdef,
-            evhp=self.evhp,
-            evattack=self.evattack,
-            evdefense=self.evdefense,
-            evspeed=self.evspeed,
-            evspatk=self.evspatk,
-            evspdef=self.evspdef,
             moves=self.moves,
             mote=self.mote,
             sprite_url=f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{self.dex_number}.png',
             types=self.types,
             ability_name=self.ability_name,
             nature_name=self.nature_name,
-            item_name=self.item_name
+            item_name=self.item_name,
+            iv_hp=self.iv_hp,
+            iv_attack=self.iv_attack,
+            iv_defense=self.iv_defense,
+            iv_speed=self.iv_speed,
+            iv_spatk=self.iv_spatk,
+            iv_spdef=self.iv_spdef,
+            ev_hp=self.ev_hp,
+            ev_attack=self.ev_attack,
+            ev_defense=self.ev_defense,
+            ev_speed=self.ev_speed,
+            ev_spatk=self.ev_spatk,
+            ev_spdef=self.ev_spdef,
         )
 
 

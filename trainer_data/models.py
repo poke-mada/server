@@ -96,6 +96,20 @@ class TrainerPokemon(models.Model):
         MinValueValidator(0)
     ], null=True)
 
+    ev_hp = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    ev_attack = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    ev_defense = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    ev_speed = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    ev_special_attack = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    ev_special_defense = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+
+    iv_hp = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    iv_attack = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    iv_defense = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    iv_speed = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    iv_special_attack = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    iv_special_defense = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+
     def __str__(self):
         return self.mote
 
