@@ -33,6 +33,7 @@ class MoveLinear(admin.TabularInline):
 
 class TrainerPokemonLinear(admin.TabularInline):
     fields = (
+        'mega_ability',
         'mote',
         'notes',
         'pokemon',

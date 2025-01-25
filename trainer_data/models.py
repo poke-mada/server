@@ -67,7 +67,8 @@ class TrainerPokemon(models.Model):
     types = models.ManyToManyField(Type, blank=True)
 
     held_item = models.ForeignKey(Item, on_delete=models.PROTECT)
-    ability = models.ForeignKey(PokemonAbility, on_delete=models.PROTECT)
+    ability = models.ForeignKey(PokemonAbility, on_delete=models.PROTECT, related_name='pokemons')
+    mega_ability = models.ForeignKey(PokemonAbility, on_delete=models.SET_NULL, null=True, blank=True, related_name='megas')
     nature = models.ForeignKey(PokemonNature, on_delete=models.PROTECT)
     level = models.IntegerField(default=1, validators=[
         MaxValueValidator(100),
