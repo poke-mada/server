@@ -74,7 +74,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['get'], detail=False)
     def list_trainers(self, request, *args, **kwargs):
-        serializer = SelectTrainerSerializer(Trainer.objects.all(), many=True)
+        serializer = SelectTrainerSerializer(Trainer.objects.all().order_by('streamer__name'), many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
@@ -306,11 +306,13 @@ class FileUploadManyView(APIView):
 
     def post(self, request, *args, **kwargs):
         files = request.FILES.getlist('files')
-        for file_obj in files:
+        total_trainers = len(files)
+        for index, file_obj in enumerate(files):
             save_data = file_obj.file.read()
             file_obj.seek(0)
             trainer_name = get_trainer_name(save_data)
             trainer, is_created = Trainer.objects.get_or_create(name=trainer_name)
+            print(f'{index + 1}/{total_trainers} - {trainer_name} @ {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
 
             data = dict(
                 file=file_obj,
