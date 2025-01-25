@@ -12,7 +12,7 @@ class PokemonAbilitySerializer(serializers.ModelSerializer):
 
 class PokemonNatureSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = '__all__'
+        fields = ['stat_up', 'stat_down']
         model = PokemonNature
 
 

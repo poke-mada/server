@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from event_api.models import Streamer
 from pokemon_api.models import Type, Pokemon, Item, Move, PokemonNature, PokemonAbility, ContextLocalization
-from pokemon_api.serializers import PokemonSerializer, TypeSerializer, MoveSerializer
+from pokemon_api.serializers import PokemonSerializer, TypeSerializer, MoveSerializer, PokemonNatureSerializer
 from trainer_data.models import Trainer, TrainerBox, TrainerPokemon, TrainerTeam, TrainerBoxSlot
 
 
@@ -81,6 +81,7 @@ class TrainerTeamSerializer(serializers.ModelSerializer):
 # noinspection PyMethodMayBeStatic
 class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     localization = '*'
+    nature = PokemonNatureSerializer()
     species = serializers.CharField(source='pokemon.name', read_only=True)
     dex_number = serializers.IntegerField(source='pokemon.dex_number', read_only=True)
     held_item_name = serializers.SerializerMethodField()
