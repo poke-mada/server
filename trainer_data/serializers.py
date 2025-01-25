@@ -81,6 +81,8 @@ class TrainerTeamSerializer(serializers.ModelSerializer):
 # noinspection PyMethodMayBeStatic
 class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     localization = '*'
+    species = serializers.CharField(source='pokemon.name', read_only=True)
+    dex_number = serializers.IntegerField(source='pokemon.dex_number', read_only=True)
     held_item_name = serializers.SerializerMethodField()
     held_item_flavor = serializers.SerializerMethodField()
     ability_name = serializers.SerializerMethodField()
@@ -149,7 +151,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrainerPokemon
         fields = [
-            'sprite_url', 'mote', 'held_item', 'held_item_name', 'ability', 'ability_name', 'nature',
+            'dex_number', 'species', 'sprite_url', 'mote', 'held_item', 'held_item_name', 'ability', 'ability_name', 'nature',
             'nature_name', 'pokemon', 'types', 'moves', 'level', 'cur_hp', 'max_hp', 'attack', 'defense',
             'speed', 'special_attack', 'special_defense', 'notes', 'held_item_flavor', 'ability_flavor',
             'ev_hp', 'ev_attack', 'ev_defense', 'ev_speed', 'ev_special_attack', 'ev_special_defense', 'iv_hp',
