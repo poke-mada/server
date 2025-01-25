@@ -92,7 +92,6 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     sprite_url = serializers.SerializerMethodField()
     held_item = serializers.SerializerMethodField()
     ability = serializers.SerializerMethodField()
-    nature = serializers.SerializerMethodField()
     moves = MoveSerializer(many=True)
     types = TypeSerializer(many=True)
 
@@ -143,17 +142,14 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     def get_ability(self, obj: TrainerPokemon):
         return obj.ability.index
 
-    def get_nature(self, obj: TrainerPokemon):
-        return obj.nature.index
-
     def get_sprite_url(self, obj: TrainerPokemon):
         return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{obj.pokemon.dex_number}.png'
 
     class Meta:
         model = TrainerPokemon
         fields = [
-            'dex_number', 'species', 'sprite_url', 'mote', 'held_item', 'held_item_name', 'ability', 'ability_name', 'nature',
-            'nature_name', 'pokemon', 'types', 'moves', 'level', 'cur_hp', 'max_hp', 'attack', 'defense',
+            'dex_number', 'species', 'sprite_url', 'mote', 'held_item', 'held_item_name', 'ability', 'ability_name',
+            'nature', 'nature_name', 'pokemon', 'types', 'moves', 'level', 'cur_hp', 'max_hp', 'attack', 'defense',
             'speed', 'special_attack', 'special_defense', 'notes', 'held_item_flavor', 'ability_flavor',
             'ev_hp', 'ev_attack', 'ev_defense', 'ev_speed', 'ev_special_attack', 'ev_special_defense', 'iv_hp',
             'iv_attack', 'iv_defense', 'iv_speed', 'iv_special_attack', 'iv_special_defense',
