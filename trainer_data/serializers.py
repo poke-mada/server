@@ -93,6 +93,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     held_item = serializers.SerializerMethodField()
     ability = serializers.SerializerMethodField()
     mega_ability_name = serializers.SerializerMethodField()
+    mega_ability_flavor = serializers.SerializerMethodField()
     moves = MoveSerializer(many=True)
     types = TypeSerializer(many=True)
 
