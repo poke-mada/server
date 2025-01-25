@@ -30,8 +30,8 @@ class TypeAdmin(admin.ModelAdmin):
 @admin.register(models.PokemonNature)
 class PokemonNatureAdmin(admin.ModelAdmin):
     readonly_fields = ('name_localizations',)
-    list_display = ('index', 'name', 'localization', 'stat_up', 'stat_down')
-    search_fields = ('index', 'name', 'localization')
+    list_display = ('name', 'localization', 'stat_up', 'stat_down')
+    search_fields = ('name', 'localization')
 
 
 @admin.register(models.PokemonAbility)
