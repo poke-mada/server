@@ -84,16 +84,19 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     nature = PokemonNatureSerializer()
     species = serializers.CharField(source='pokemon.name', read_only=True)
     dex_number = serializers.IntegerField(source='pokemon.dex_number', read_only=True)
+    mega_ability = serializers.IntegerField(source='pokemon.mega_ability.index', read_only=True)
+    ability = serializers.IntegerField(source='pokemon.ability.index', read_only=True)
+    held_item = serializers.IntegerField(source='pokemon.held_item', read_only=True)
+
     held_item_name = serializers.SerializerMethodField()
     held_item_flavor = serializers.SerializerMethodField()
     ability_name = serializers.SerializerMethodField()
     ability_flavor = serializers.SerializerMethodField()
     nature_name = serializers.SerializerMethodField()
-    sprite_url = serializers.SerializerMethodField()
-    held_item = serializers.SerializerMethodField()
-    ability = serializers.SerializerMethodField()
     mega_ability_name = serializers.SerializerMethodField()
     mega_ability_flavor = serializers.SerializerMethodField()
+
+    sprite_url = serializers.SerializerMethodField()
     moves = MoveSerializer(many=True)
     types = TypeSerializer(many=True)
 
@@ -157,12 +160,6 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         if not name_localization:
             name_localization = obj.nature.name_localizations.first()
         return name_localization.content
-
-    def get_held_item(self, obj: TrainerPokemon):
-        return obj.held_item.index
-
-    def get_ability(self, obj: TrainerPokemon):
-        return obj.ability.index
 
     def get_sprite_url(self, obj: TrainerPokemon):
         return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{obj.pokemon.dex_number}.png'
