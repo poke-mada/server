@@ -61,7 +61,7 @@ def clamp(value, min_value=1, max_value=251):
 
 
 class PokemonBytes:
-    def __new__(cls, encrypted_data):
+    def __new__(cls, encrypted_data, *args, **kwargs):
 
         obj = super().__new__(cls)
         return obj
