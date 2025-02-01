@@ -42,6 +42,7 @@ class TrainerPokemonLinear(admin.TabularInline):
         'nature',
         'ability',
     )
+    autocomplete_fields = ('mega_ability',)
     readonly_fields = (
         'mote',
         'pokemon',
