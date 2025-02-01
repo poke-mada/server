@@ -112,7 +112,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
-STATICFILES_STORAGE = '.storage.WhiteNoiseStaticFilesStorage'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
@@ -136,10 +135,10 @@ REST_FRAMEWORK = {
 
 STORAGES = {
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "pokemada.storage.WhiteNoiseStaticFilesStorage",
     },
     "default": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "pokemada.storage.WhiteNoiseStaticFilesStorage",
     }
 }
 DATABASES = {
