@@ -88,6 +88,8 @@ class PokemonBytes:
             case 641 | 642 | 645:
                 if form > 0: ### Therian forms of Tornadus, Thundurus, Landorus
                     return "therian"
+                else:
+                    return 'incarnate'
             case 6: #Charizard
                 match form:
                     case 8 | 10:
