@@ -68,15 +68,14 @@ class PokemonBytes:
 
     def __init__(self, encrypted_data, *args, **kwargs):
         super().__init__()
-        decrypted_data = bytes()
+        self.warning = False
         if encrypted_data[0] != 0:
-            len_needed = 0
-            if len(encrypted_data) < 260:
-                encrypted_data_len = len(encrypted_data)
-                len_needed = 260 - encrypted_data_len
-            decrypted_data = decrypt_data(encrypted_data) + bytes([1] * len_needed)
-        print(encrypted_data)
-        print(decrypted_data)
+            self.warning = True
+        len_needed = 0
+        if len(encrypted_data) < 260:
+            encrypted_data_len = len(encrypted_data)
+            len_needed = 260 - encrypted_data_len
+        decrypted_data = decrypt_data(encrypted_data) + bytes([1] * len_needed)
         self.raw_data = decrypted_data
 
     def species_num(self):
