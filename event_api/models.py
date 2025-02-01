@@ -8,6 +8,7 @@ from trainer_data.models import Trainer
 
 # Create your models here.
 class SaveFile(models.Model):
+    accessible = models.BooleanField(default=False)
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name='saves')
     file = models.FileField(upload_to='saves/')
     created_on = models.DateTimeField(auto_now_add=True, null=True)
