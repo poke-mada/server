@@ -74,6 +74,7 @@ class TrainerPokemon(models.Model):
         MaxValueValidator(100),
         MinValueValidator(1)
     ])
+    suffix = models.CharField(max_length=50, default='', null=True, blank=True)
 
     cur_hp = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     max_hp = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
