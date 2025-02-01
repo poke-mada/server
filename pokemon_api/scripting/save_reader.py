@@ -2,6 +2,7 @@ import json
 import os
 import struct
 from json import JSONEncoder
+from pprint import pprint
 
 TERMINATOR_NULL = 0
 
@@ -60,17 +61,23 @@ def clamp(value, min_value=1, max_value=251):
 
 
 class PokemonBytes:
-    def __init__(self, encrypted_data, *args, **kkwargs):
+    def __new__(cls, encrypted_data):
+
+        obj = super().__new__(cls)
+        return obj
+
+    def __init__(self, encrypted_data, *args, **kwargs):
         super().__init__()
-        first_byte = encrypted_data[0]
-        if first_byte != 0:
+        decrypted_data = bytes()
+        if encrypted_data[0] != 0:
             len_needed = 0
             if len(encrypted_data) < 260:
                 encrypted_data_len = len(encrypted_data)
                 len_needed = 260 - encrypted_data_len
-            self.raw_data = decrypt_data(encrypted_data) + bytes([1] * len_needed)
-        else:
-            self.raw_data = bytes()
+            decrypted_data = decrypt_data(encrypted_data) + bytes([1] * len_needed)
+        print(encrypted_data)
+        print(decrypted_data)
+        self.raw_data = decrypted_data
 
     def species_num(self):
         if len(self.raw_data) > 0:
@@ -81,52 +88,52 @@ class PokemonBytes:
     def get_suffix(self):
         form = self.form
         match self.dex_number:
-            #bit 0: fateful encounter flag
-            #bit 1: female-adds 2 to resulting form variable, so 2 or 10 instead of 0 or 8
-            #bit 2: genderless-adds 4, so 4 or 12
-            #bits 3-7: form change flags-8 typical starting point then increases by 8, so 8, 16, 24, etc
+            # bit 0: fateful encounter flag
+            # bit 1: female-adds 2 to resulting form variable, so 2 or 10 instead of 0 or 8
+            # bit 2: genderless-adds 4, so 4 or 12
+            # bits 3-7: form change flags-8 typical starting point then increases by 8, so 8, 16, 24, etc
             case 641 | 642 | 645:
-                if form > 0: ### Therian forms of Tornadus, Thundurus, Landorus
+                if form > 0:  ### Therian forms of Tornadus, Thundurus, Landorus
                     return "therian"
                 else:
                     return 'incarnate'
-            case 6: #Charizard
+            case 6:  # Charizard
                 match form:
                     case 8 | 10:
                         return 'mega-x'
                     case 16 | 18:
                         return 'mega-y'
-            case 20: # (Alolan) Raticate
+            case 20:  # (Alolan) Raticate
                 match form:
                     case 0 | 2:
                         return None
-                    case _: # accounts for totems
+                    case _:  # accounts for totems
                         return 'alola'
-            case 25: # Pikachu partner forms
+            case 25:  # Pikachu partner forms
                 match form:
                     case 0 | 2:
                         return None
-                    case _: # no idea how many partner forms there are, but they're all here apparently
+                    case _:  # no idea how many partner forms there are, but they're all here apparently
                         return "partner"
-            case 105: # (Alolan) Marowak
+            case 105:  # (Alolan) Marowak
                 match form:
                     case 0 | 2:
                         return None
                     case _:
                         return 'alola'
-            case 150: ### Mewtwo
+            case 150:  ### Mewtwo
                 match form:
                     case 4:
                         return None
                     case 12:
                         return 'mega-x'
-                    case 20: ### Mewtwo Y
+                    case 20:  ### Mewtwo Y
                         return 'mega-y'
-            case 151: ### Mew, not honestly sure why this one is weird
+            case 151:  ### Mew, not honestly sure why this one is weird
                 return None
-            case 201: ### Unown
+            case 201:  ### Unown
                 return None
-            case 351: ### Castform
+            case 351:  ### Castform
                 match form:
                     case 8 | 10:
                         return "sunny"
@@ -134,15 +141,15 @@ class PokemonBytes:
                         return "rainy"
                     case 24 | 26:
                         return "snowy"
-            case 382: ### Kyogre
+            case 382:  ### Kyogre
                 match form:
                     case 12:
                         return "primal"
-            case 383: ### Groudon
+            case 383:  ### Groudon
                 match form:
                     case 12:
                         return "primal"
-            case 386: ### Deoxys
+            case 386:  ### Deoxys
                 match form:
                     case 4:
                         return None
@@ -152,9 +159,9 @@ class PokemonBytes:
                         return "defense"
                     case 28:
                         return "speed"
-            case 412: ### Burmy
+            case 412:  ### Burmy
                 return None
-            case 413: ### Wormadam
+            case 413:  ### Wormadam
                 match form:
                     case 10:
                         return "sandy"
@@ -162,15 +169,15 @@ class PokemonBytes:
                         return "trash"
                     case 2:
                         return "plant"
-            case 414: ### Mothim
+            case 414:  ### Mothim
                 return None
-            case 421: ### Cherrim
+            case 421:  ### Cherrim
                 return None
-            case 422: ### Shellos
+            case 422:  ### Shellos
                 return None
-            case 423: ### Gastrodon
+            case 423:  ### Gastrodon
                 return None
-            case 479: ### Rotom
+            case 479:  ### Rotom
                 match form:
                     case 12:
                         return "heat"
@@ -182,74 +189,74 @@ class PokemonBytes:
                         return "fan"
                     case 44:
                         return "mow"
-            case 487: ### Giratina
+            case 487:  ### Giratina
                 match form:
                     case 12:
                         return "origin"
-            case 492: ### Shaymin
+            case 492:  ### Shaymin
                 match form:
                     case 12:
                         return "sky"
-            case 550: ### Basculin
+            case 550:  ### Basculin
                 return None
-            case 555: ### Darmanitan
+            case 555:  ### Darmanitan
                 match form:
                     case 0 | 2:
                         return None
                     case 8 | 10:
                         return "zen"
-            case 585: ### Deerling
+            case 585:  ### Deerling
                 return None
-            case 586: ### Sawsbuck
+            case 586:  ### Sawsbuck
                 return None
-            case 646: ### Kyurem
+            case 646:  ### Kyurem
                 match form:
                     case 12:
                         return "white"
                 match form:
                     case 20:
                         return "black"
-            case 647: ### Keldeo
+            case 647:  ### Keldeo
                 return None
-            case 648: ### Meloetta
+            case 648:  ### Meloetta
                 match form:
                     case 12:
                         return "pirouette"
-                    case 4: #base form lmao
+                    case 4:  # base form lmao
                         return "aria"
-            case 649: ### Genesect
+            case 649:  ### Genesect
                 return None
-            case 658: ### Greninja
+            case 658:  ### Greninja
                 match form:
                     case 8 | 16:
                         return "ash"
-            case 664 | 665 | 666 | 669: ### Scatterbug, Spewda, Vivillon, Flabébé
+            case 664 | 665 | 666 | 669:  ### Scatterbug, Spewda, Vivillon, Flabébé
                 return None
-            case 670: ### Floette
+            case 670:  ### Floette
                 match form:
-                    case 42: #0 8 16 24 32 40
+                    case 42:  # 0 8 16 24 32 40
                         return "eternal"
                     case _:
                         return None
-            case 671: ### Florges
+            case 671:  ### Florges
                 return None
-            case 676: ### Furfrou
+            case 676:  ### Furfrou
                 return None
-            case 678: ### Meowstic
+            case 678:  ### Meowstic
                 match form:
                     case 0 | 8:
                         return None
                     case 10:
                         return "f"
-            case 681: ### Aegislash
+            case 681:  ### Aegislash
                 match form:
                     case 0 | 2:
                         return "shield"
                     case 8 | 10:
                         return "blade"
-            case 684: ### Swirlix (not sure if this is useful but testing)
+            case 684:  ### Swirlix (not sure if this is useful but testing)
                 return None
-            case 710: ### Pumpkaboo
+            case 710:  ### Pumpkaboo
                 match form:
                     case 8 | 10:
                         return "average"
@@ -259,7 +266,7 @@ class PokemonBytes:
                         return "super"
                     case _:
                         return None
-            case 711: ### Gourgeist
+            case 711:  ### Gourgeist
                 match form:
                     case 8 | 10:
                         return "average"
@@ -269,9 +276,9 @@ class PokemonBytes:
                         return "super"
                     case _:
                         return None
-            case 716: ### Xerneas
+            case 716:  ### Xerneas
                 return None
-            case 718: ### Zygarde only needed for gen 7
+            case 718:  ### Zygarde only needed for gen 7
                 match form:
                     case 4:
                         return None
@@ -279,13 +286,13 @@ class PokemonBytes:
                         return "10"
                     case 20 | 36:
                         return "complete"
-            case 720: ### Hoopa
+            case 720:  ### Hoopa
                 match form:
                     case 4:
                         return None
                     case 12:
                         return "unbound"
-            case 741: ### Oricorio
+            case 741:  ### Oricorio
                 match form:
                     case 8 | 10:
                         return "pom-pom"
@@ -295,23 +302,23 @@ class PokemonBytes:
                         return "sensu"
                     case _:
                         return "baile"
-            case 745: ### Lycanroc
+            case 745:  ### Lycanroc
                 match form:
                     case 16 | 18:
                         return "dusk"
                     case 8 | 10:
                         return "midnight"
-            case 746: ### Wishiwashi
+            case 746:  ### Wishiwashi
                 match form:
                     case 0 | 2:
                         return None
-                    case _: # accounts for totem form
+                    case _:  # accounts for totem form
                         return 'school'
-            case 774: ### Minior 4 12 20 28 36 44 52 60
+            case 774:  ### Minior 4 12 20 28 36 44 52 60
                 match form:
-                    case 12 | 20 | 28 | 36 | 44 | 52 | 60: #60 is red
+                    case 12 | 20 | 28 | 36 | 44 | 52 | 60:  # 60 is red
                         return "core"
-            case 800: ### Necrozma
+            case 800:  ### Necrozma
                 match form:
                     case 4:
                         return None
@@ -321,15 +328,15 @@ class PokemonBytes:
                         return "dawn"
                     case 28:
                         return "ultra"
-            case 801: ### Magearna
+            case 801:  ### Magearna
                 return None
-            case 19 | 20 | 26 | 27 | 28 | 37 | 38 | 50 | 51 | 52 | 53 | 74 | 75 | 76 | 88 | 89 | 103: ###alolan forms-none have separate forms so just case them for if their form > 0
+            case 19 | 20 | 26 | 27 | 28 | 37 | 38 | 50 | 51 | 52 | 53 | 74 | 75 | 76 | 88 | 89 | 103:  ###alolan forms-none have separate forms so just case them for if their form > 0
                 match form:
-                    case 8 | 10 | 12: # honestly not sure if any are genderless but sure
+                    case 8 | 10 | 12:  # honestly not sure if any are genderless but sure
                         return 'alola'
                     case _:
                         return None
-            case 735 | 738 | 743 | 752 | 754 | 758 | 777 | 778 | 784: # totem mons that aren't already accounted for elsewhere (totem-sized mons are likely a different form)
+            case 735 | 738 | 743 | 752 | 754 | 758 | 777 | 778 | 784:  # totem mons that aren't already accounted for elsewhere (totem-sized mons are likely a different form)
                 match form:
                     case _:
                         return None
@@ -368,6 +375,8 @@ class PokemonBytes:
         mote = struct.unpack("HHHHHHHHHHHHH", self.raw_data[64:90])
         self.mote = clean_nick_data(mote)
         self.suffix = self.get_suffix()
+        print(self.mote)
+
         def moves(self):
             move1 = ((0x5A, 0x5C), (0x62, 0x63))
             move2 = ((0x5C, 0x5E), (0x63, 0x64))
