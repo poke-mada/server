@@ -13,7 +13,8 @@ from rest_framework.views import APIView
 
 from api.permissions import IsTrainer, IsCoach, IsRoot
 from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, WildcardLog
-from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer
+from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
+    SimplifiedWildcardSerializer
 from pokemon_api.models import Move
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer
@@ -192,7 +193,7 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['GET'], detail=False)
     def simplified(self, request, *args, **kwargs):
         serializer = SimplifiedWildcardSerializer(self.get_queryset(), many=True)
-        return Response(serializer)
+        return Response(serializer.data)
 
     @action(methods=['POST'], detail=True)
     def use_card(self, request, *args, **kwargs):
