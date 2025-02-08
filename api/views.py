@@ -189,6 +189,11 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Wildcard.objects.filter(is_active=True)
     serializer_class = WildcardSerializer
 
+    @action(methods=['GET'], detail=False)
+    def simplified(self, request, *args, **kwargs):
+        serializer = SimplifiedWildcardSerializer(self.get_queryset(), many=True)
+        return Response(serializer)
+
     @action(methods=['POST'], detail=True)
     def use_card(self, request, *args, **kwargs):
         wildcard: Wildcard = self.get_object()

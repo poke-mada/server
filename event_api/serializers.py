@@ -18,6 +18,12 @@ class WildcardSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class SimplifiedWildcardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Wildcard
+        fields = ['id', 'name', 'sprite']
+
+
 class WildcardWithInventorySerializer(serializers.ModelSerializer):
     quality_display = serializers.CharField(source='get_quality_display')
     inventory = serializers.SerializerMethodField()

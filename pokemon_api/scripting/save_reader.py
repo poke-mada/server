@@ -71,6 +71,7 @@ class PokemonBytes:
         self.warning = False
         if encrypted_data[0] != 0:
             self.warning = True
+
         len_needed = 0
         if len(encrypted_data) < 260:
             encrypted_data_len = len(encrypted_data)
