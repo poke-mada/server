@@ -12,12 +12,14 @@ class ContextLocalization(models.Model):
     def __str__(self):
         return f'{self.language} - {self.content}'
 
+
 class Item(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
     index = models.IntegerField()
     localization = models.CharField(max_length=2, db_index=True, default="en", null=True)
     name_localizations = models.ManyToManyField(ContextLocalization, blank=True, related_name="item_names")
-    flavor_text_localizations = models.ManyToManyField(ContextLocalization, blank=True, related_name="item_flavor_texts")
+    flavor_text_localizations = models.ManyToManyField(ContextLocalization, blank=True,
+                                                       related_name="item_flavor_texts")
     name = models.CharField(max_length=50)
 
     def __str__(self):
@@ -28,7 +30,8 @@ class Type(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
     index = models.IntegerField()
     name_localizations = models.ManyToManyField(ContextLocalization, blank=True, related_name="type_names")
-    flavor_text_localizations = models.ManyToManyField(ContextLocalization, blank=True, related_name="type_flavor_texts")
+    flavor_text_localizations = models.ManyToManyField(ContextLocalization, blank=True,
+                                                       related_name="type_flavor_texts")
     localization = models.CharField(max_length=2, db_index=True, default="en", null=True)
     name = models.CharField(max_length=50)
 
@@ -63,7 +66,8 @@ class Move(models.Model):
     localization = models.CharField(max_length=2, db_index=True, default="en", null=True)
 
     name_localizations = models.ManyToManyField(ContextLocalization, blank=True, related_name='move_names')
-    flavor_text_localizations = models.ManyToManyField(ContextLocalization, blank=True, related_name='move_flavor_texts')
+    flavor_text_localizations = models.ManyToManyField(ContextLocalization, blank=True,
+                                                       related_name='move_flavor_texts')
 
     name = models.CharField(max_length=50)
     max_pp = models.IntegerField()
@@ -97,7 +101,8 @@ class PokemonAbility(models.Model):
     name = models.CharField(max_length=50)
 
     name_localizations = models.ManyToManyField(ContextLocalization, blank=True, related_name="ability_names")
-    flavor_text_localizations = models.ManyToManyField(ContextLocalization, blank=True, related_name='ability_flavor_texts')
+    flavor_text_localizations = models.ManyToManyField(ContextLocalization, blank=True,
+                                                       related_name='ability_flavor_texts')
 
     def __str__(self):
         return self.name
