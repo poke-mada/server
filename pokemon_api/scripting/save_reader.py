@@ -356,7 +356,7 @@ class PokemonBytes:
         self.ability_num = struct.unpack("B", self.raw_data[0x14:0x15])[0]  # Ability
         self.nature_num = struct.unpack("B", self.raw_data[0x1C:0x1D])[0]  ## Nature
 
-        self.level = struct.unpack("B", self.raw_data[116:118])[0]  ### Current level
+        self.level = struct.unpack("B", self.raw_data[116:117])[0]  ### Current level
         print(self.level)
         self.ev_hp = struct.unpack("B", self.raw_data[0x1E:0x1F])[0]
         self.ev_attack = struct.unpack("B", self.raw_data[0x1F:0x20])[0]
