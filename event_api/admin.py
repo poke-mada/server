@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 from event_api.models import CoinTransaction, Wildcard, Streamer, StreamPlatformUrl, StreamerWildcardInventoryItem, \
     CoachProfile, TrainerProfile, WildcardLog, ErrorLog
+from rewards_api.models import StreamerRewardInventory
 
 # Register your models here.
 
@@ -44,11 +45,17 @@ class WildcardInventoryItem(admin.TabularInline):
     min_num = 0
 
 
+class RewardInventoryInline(admin.TabularInline):
+    model = StreamerRewardInventory
+    min_num = 0
+    extra = 0
+
+
 @admin.register(Streamer)
 class StreamerAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
-    inlines = [StreamPlatformInline, WildcardInventoryItem]
+    inlines = [StreamPlatformInline, WildcardInventoryItem, RewardInventoryInline]
 
 
 class CoachProfileInline(admin.StackedInline):
