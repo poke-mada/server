@@ -47,7 +47,7 @@ class Reward(models.Model):
                 return self.pokemon_reward
 
     def __str__(self):
-        return f'{self.pk} - {self.reward_type}'
+        return f'{self.pk} - {self.get_reward_type_display()}'
 
 
 class PokemonReward(models.Model):
