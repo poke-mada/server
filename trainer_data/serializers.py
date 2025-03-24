@@ -1,6 +1,5 @@
 from rest_framework import serializers
 
-from event_api.models import Streamer
 from pokemon_api.models import Type, Pokemon, Item, Move, PokemonNature, PokemonAbility, ContextLocalization
 from pokemon_api.serializers import PokemonSerializer, TypeSerializer, MoveSerializer, PokemonNatureSerializer
 from trainer_data.models import Trainer, TrainerBox, TrainerPokemon, TrainerTeam, TrainerBoxSlot
@@ -210,7 +209,7 @@ class SelectTrainerSerializer(serializers.ModelSerializer):
     streamer_name = serializers.SerializerMethodField()
 
     def get_streamer_name(self, obj):
-        return Streamer.objects.get(trainer=obj).name
+        return obj.get_streamer_name()
 
     class Meta:
         model = Trainer
