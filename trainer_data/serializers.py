@@ -209,7 +209,7 @@ class SelectTrainerSerializer(serializers.ModelSerializer):
     streamer_name = serializers.SerializerMethodField()
 
     def get_streamer_name(self, obj):
-        return obj.get_streamer_name()
+        return obj.streamer_name()
 
     class Meta:
         model = Trainer
