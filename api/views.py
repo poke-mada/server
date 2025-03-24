@@ -67,7 +67,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @permission_classes([IsTrainer])
     def get_rewards(self, request, *args, **kwargs):
         trainer: Trainer = Trainer.get_from_user(request.user)
-        logger.log(trainer)
+        logger.debug(str(trainer))
         streamer = trainer.get_streamer()
 
         serializer = StreamerRewardSerializer(streamer.rewards.all(), many=True)
