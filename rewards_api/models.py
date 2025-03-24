@@ -55,7 +55,7 @@ class PokemonReward(models.Model):
         pokemon = PokemonBytes(self.pokemon_data.read())
         pokemon.get_atts()
         pokemon_data = pokemon.to_trained_pokemon()
-        self.pokemon_pid = pokemon_data.pop('pid')
+        self.pokemon_pid = pokemon.pid
         self.pokemon = pokemon_data
         super().save(*args, **kwargs)
 
