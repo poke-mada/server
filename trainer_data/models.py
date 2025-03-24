@@ -47,10 +47,13 @@ class Trainer(models.Model):
     @classmethod
     def get_from_user(cls, user) -> "Trainer":
         if hasattr(user, 'trainer_profile') and user.trainer_profile.trainer:
+            print('b')
             trainer: Trainer = user.trainer_profile.trainer
         elif hasattr(user, 'coaching_profile') and user.coaching_profile.coached_trainer:
+            print('a')
             trainer: Trainer = user.coaching_profile.coached_trainer
         else:
+            print('c')
             return None
         return trainer
 
