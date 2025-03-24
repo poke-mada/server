@@ -13,6 +13,9 @@ class RewardBundle(models.Model):
     description = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
 
+    def __str__(self):
+        return self.name
+
 
 # Create your models here.
 class Reward(models.Model):
@@ -43,9 +46,13 @@ class Reward(models.Model):
             case self.POKEMON:
                 return self.pokemon_reward
 
+    def __str__(self):
+        return str(self.pk)
+
 
 class PokemonReward(models.Model):
-    reward = models.OneToOneField(Reward, on_delete=models.SET_NULL, null=True, related_name='pokemon_reward', blank=True)
+    reward = models.OneToOneField(Reward, on_delete=models.SET_NULL, null=True, related_name='pokemon_reward',
+                                  blank=True)
     pokemon_data = models.FileField(upload_to='pokemon_rewards')
     pokemon_pid = models.PositiveIntegerField(db_index=True, unique=True)
     pokemon = models.ForeignKey(TrainerPokemon, on_delete=models.SET_NULL, null=True, blank=True)

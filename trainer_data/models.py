@@ -1,4 +1,5 @@
 import os
+from typing import Union
 
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -46,15 +47,12 @@ class Trainer(models.Model):
         return self.streamer_name() or self.name
 
     @classmethod
-    def get_from_user(cls, user) -> "Trainer":
+    def get_from_user(cls, user) -> Union["Trainer", None]:
         if hasattr(user, 'trainer_profile') and user.trainer_profile.trainer:
-            print('b')
             trainer: Trainer = user.trainer_profile.trainer
         elif hasattr(user, 'coaching_profile') and user.coaching_profile.coached_trainer:
-            print('a')
             trainer: Trainer = user.coaching_profile.coached_trainer
         else:
-            print('c')
             return None
         return trainer
 

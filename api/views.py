@@ -45,11 +45,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @permission_classes([IsTrainer])
     def get_trainer(self, request, *args, **kwargs):
         user: User = request.user
-        if hasattr(user, 'trainer_profile') and user.trainer_profile.trainer:
-            trainer = user.trainer_profile.trainer
-        elif hasattr(user, 'coaching_profile') and user.coaching_profile.coached_trainer:
-            trainer = user.coaching_profile.coached_trainer
-        else:
+        trainer = Trainer.get_from_user(user)
+        if not trainer:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         serializer = self.get_serializer(trainer)
@@ -78,12 +75,11 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @permission_classes([IsTrainer])
     def get_economy(self, request, *args, **kwargs):
         user: User = request.user
-        if user.trainer_profile and user.trainer_profile.trainer:
-            trainer = user.trainer_profile.trainer
-        elif user.coaching_profile and user.coaching_profile.coached_trainer:
-            trainer = user.coaching_profile.coached_trainer
-        else:
+        trainer = Trainer.get_from_user(user)
+
+        if not trainer:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
         return Response(trainer.economy, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
@@ -273,7 +269,7 @@ def team_saver(team, trainer):
 def box_saver(boxes, trainer: Trainer):
     trainer.boxes.all().delete()
 
-    for box_num in range(31):
+    for box_num in range(7):
         TrainerBox.objects.get_or_create(box_number=box_num, trainer=trainer)
 
     for box_num, data in boxes.items():
@@ -347,4 +343,3 @@ class FileUploadManyView(APIView):
             else:
                 return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(data=dict(status='done'), status=status.HTTP_201_CREATED)
-
