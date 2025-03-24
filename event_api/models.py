@@ -3,6 +3,7 @@ from django.core.validators import MinValueValidator
 from django.db import models, transaction
 
 from pokemon_api.scripting.save_reader import clamp
+from rewards_api.models import RewardBundle
 from trainer_data.models import Trainer
 
 
@@ -171,6 +172,7 @@ class StreamerWildcardInventoryItem(models.Model):
 
 class Streamer(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="streamer")
+    rewards = models.ManyToManyField(RewardBundle)
     name = models.CharField(max_length=50, default="")
 
     def __str__(self):

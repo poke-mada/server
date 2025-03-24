@@ -62,7 +62,6 @@ def clamp(value, min_value=1, max_value=251):
 
 class PokemonBytes:
     def __new__(cls, encrypted_data, *args, **kwargs):
-
         obj = super().__new__(cls)
         return obj
 
@@ -78,12 +77,6 @@ class PokemonBytes:
             len_needed = 260 - encrypted_data_len
         decrypted_data = decrypt_data(encrypted_data) + bytes([1] * len_needed)
         self.raw_data = decrypted_data
-
-    def species_num(self):
-        if len(self.raw_data) > 0:
-            return struct.unpack("<H", self.raw_data[0x8:0xA])[0]
-        else:
-            return 0
 
     def get_suffix(self):
         form = self.form
@@ -347,24 +340,22 @@ class PokemonBytes:
                     return None
 
     def get_atts(self):
-        self.dex_number = self.species_num()
+        self.dex_number = struct.unpack("<H", self.raw_data[0x8:0xA])[0]
         if self.dex_number == 0:
             return
 
+        self.pid = struct.unpack("<H", self.raw_data[0x18:0x1A])[0]
         self.form = struct.unpack("B", self.raw_data[0x1D:0x1E])[0]
         self.held_item_num = str(struct.unpack("<H", self.raw_data[0xA:0xC])[0])
         self.ability_num = struct.unpack("B", self.raw_data[0x14:0x15])[0]  # Ability
         self.nature_num = struct.unpack("B", self.raw_data[0x1C:0x1D])[0]  ## Nature
-
         self.level = struct.unpack("B", self.raw_data[116:117])[0]  ### Current level
-        print(self.level)
         self.ev_hp = struct.unpack("B", self.raw_data[0x1E:0x1F])[0]
         self.ev_attack = struct.unpack("B", self.raw_data[0x1F:0x20])[0]
         self.ev_defense = struct.unpack("B", self.raw_data[0x20:0x21])[0]
         self.ev_speed = struct.unpack("B", self.raw_data[0x21:0x22])[0]
         self.ev_spatk = struct.unpack("B", self.raw_data[0x22:0x23])[0]
         self.ev_spdef = struct.unpack("B", self.raw_data[0x23:0x24])[0]
-
         ivloc = struct.unpack("<I", self.raw_data[0x74:0x78])[0]
         self.iv_hp = (ivloc >> 0) & 0x1F  ############################## HP IV
         self.iv_attack = (ivloc >> 5) & 0x1F  ############################## Attack IV
@@ -455,6 +446,7 @@ class PokemonBytes:
         if self.dex_number == 0:
             return None
         return dict(
+            pid=self.pid,
             suffix=self.suffix,
             level=clamp(self.level, max_value=100),
             dex_number=self.dex_number,
@@ -482,6 +474,43 @@ class PokemonBytes:
             ev_spatk=self.ev_spatk,
             ev_spdef=self.ev_spdef,
         )
+
+    def to_trained_pokemon(self):
+        if self.dex_number == 0:
+            return None
+
+        from pokemon_api.models import Pokemon, Item, PokemonAbility, PokemonNature
+        from trainer_data.models import TrainerPokemon
+
+        pokemon = Pokemon.objects.get(dex_number=self.dex_number)
+        held_item = Item.objects.get(index=self.held_item_num)
+        ability = PokemonAbility.objects.get(index=self.ability_num)
+        nature = PokemonNature.objects.get(index=self.nature_num)
+        pkmn = TrainerPokemon(
+            pokemon=pokemon,
+            mote=self.mote,
+            form=self.form,
+            types=self.types,
+            held_item=held_item,
+            ability=ability,
+            nature=nature,
+            level=self.level,
+            suffix=self.suffix,
+            ev_hp=self.ev_hp,
+            ev_attack=self.ev_attack,
+            ev_defense=self.ev_defense,
+            ev_speed=self.ev_speed,
+            ev_special_attack=self.ev_spatk,
+            ev_special_defense=self.ev_spdef,
+            iv_hp=self.iv_hp,
+            iv_attack=self.iv_attack,
+            iv_defense=self.iv_defense,
+            iv_speed=self.iv_speed,
+            iv_special_attack=self.iv_spatk,
+            iv_special_defense=self.iv_spdef,
+        )
+
+        pkmn.save()
 
 
 def crypt(data, seed, i):
@@ -663,7 +692,11 @@ def data_reader(save_data):
                 ))
 
         if len(box_list) > 0:
-            boxes[box] = box_list
+            box_name_address = 4400 + box * 22
+            boxes[box] = dict(
+                name=get_string(save_data[box_name_address:box_name_address + 22]),
+                slots=box_list
+            )
 
     return dict(
         boxes=boxes,

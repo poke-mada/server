@@ -60,22 +60,14 @@ class TrainerPokemon(models.Model):
     pokemon = models.ForeignKey(Pokemon, on_delete=models.PROTECT, related_name='trainereds')
     mote = models.CharField(max_length=15)
     form = models.CharField(max_length=50, default='0', null=True, blank=True)
-
-    notes = models.TextField(default='', blank=True)
-
     moves = models.ManyToManyField(Move, blank=True)
     types = models.ManyToManyField(Type, blank=True)
-
     held_item = models.ForeignKey(Item, on_delete=models.PROTECT)
     ability = models.ForeignKey(PokemonAbility, on_delete=models.PROTECT, related_name='pokemons')
     mega_ability = models.ForeignKey(PokemonAbility, on_delete=models.SET_NULL, null=True, blank=True, related_name='megas')
     nature = models.ForeignKey(PokemonNature, on_delete=models.PROTECT)
-    level = models.IntegerField(default=1, validators=[
-        MaxValueValidator(100),
-        MinValueValidator(1)
-    ])
+    level = models.IntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(1)])
     suffix = models.CharField(max_length=50, default='', null=True, blank=True)
-
     cur_hp = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     max_hp = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     attack = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
@@ -83,14 +75,12 @@ class TrainerPokemon(models.Model):
     speed = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     special_attack = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     special_defense = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
-
     ev_hp = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     ev_attack = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     ev_defense = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     ev_speed = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     ev_special_attack = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     ev_special_defense = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
-
     iv_hp = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     iv_attack = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     iv_defense = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
