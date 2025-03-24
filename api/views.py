@@ -66,8 +66,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         trainer: Trainer = Trainer.get_from_user(request.user)
         logger.debug(str(trainer))
         streamer = trainer.get_streamer()
-
-        serializer = StreamerRewardSimpleSerializer(streamer.rewards.filter(is_available=True), many=True)
+        bundles = streamer.rewards.filter(is_available=True).values_list('reward', flat=True)
+        serializer = StreamerRewardSimpleSerializer(bundles, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
