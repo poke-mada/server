@@ -55,7 +55,6 @@ class PokemonReward(models.Model):
         pokemon = PokemonBytes(self.pokemon_data.read())
         pokemon.get_atts()
         trained_pokemon = pokemon.to_trained_pokemon()
-        trained_pokemon.save(update_fields=True)
         self.pokemon = trained_pokemon
         super().save(*args, **kwargs)
 
