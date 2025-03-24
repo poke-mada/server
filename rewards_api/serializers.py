@@ -29,7 +29,7 @@ class PokemonRewardSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = PokemonReward
         fields = (
-            'pokemon_pid'
+            'pokemon_pid',
         )
 
 
