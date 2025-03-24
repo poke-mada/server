@@ -12,6 +12,7 @@ class RewardInline(admin.TabularInline):
     model = Reward
     min_num = 1
     max_num = 4
+    extra = 0
 
 
 @admin.register(RewardBundle)

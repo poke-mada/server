@@ -47,7 +47,7 @@ class Reward(models.Model):
                 return self.pokemon_reward
 
     def __str__(self):
-        return str(self.pk)
+        return f'{self.pk} - {self.reward_type}'
 
 
 class PokemonReward(models.Model):
@@ -56,7 +56,6 @@ class PokemonReward(models.Model):
     pokemon_data = models.FileField(upload_to='pokemon_rewards')
     pokemon_pid = models.PositiveIntegerField(db_index=True, unique=True)
     pokemon = models.ForeignKey(TrainerPokemon, on_delete=models.SET_NULL, null=True, blank=True)
-
 
     def save(self, *args, **kwargs):
         if not self.pokemon:
