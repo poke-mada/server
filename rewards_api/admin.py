@@ -1,8 +1,11 @@
 from django.contrib import admin
 
-from rewards_api.models import RewardBundle, PokemonReward, Reward
+from rewards_api.models import RewardBundle, PokemonReward, Reward, ItemReward, MoneyReward, WildcardReward
 
 # Register your models here.
+admin.site.register(MoneyReward)
+admin.site.register(ItemReward)
+admin.site.register(WildcardReward)
 
 
 class RewardInline(admin.TabularInline):

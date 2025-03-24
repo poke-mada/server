@@ -64,7 +64,6 @@ class RewardSerializer(serializers.ModelSerializer):
         model = Reward
         fields = (
             'reward_type',
-            'is_active',
             'pokemon_reward',
             'wildcard_reward',
             'money_reward',
