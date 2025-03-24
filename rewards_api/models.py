@@ -54,9 +54,8 @@ class PokemonReward(models.Model):
         from pokemon_api.scripting.save_reader import PokemonBytes
         pokemon = PokemonBytes(self.pokemon_data.read())
         pokemon.get_atts()
-        pokemon_data = pokemon.to_trained_pokemon()
-        self.pokemon_pid = pokemon.pid
-        self.pokemon = pokemon_data
+        trained_pokemon = pokemon.to_trained_pokemon()
+        self.pokemon_id = trained_pokemon.id
         super().save(*args, **kwargs)
 
     def full_clean(self, exclude=None, validate_unique=True, validate_constraints=True):
