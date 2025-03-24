@@ -506,7 +506,7 @@ class PokemonBytes:
             iv_special_defense=self.iv_spdef,
         )
 
-        pkmn.save(update_fields=['pk'])
+        pkmn.save()
 
 
 def crypt(data, seed, i):
