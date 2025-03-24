@@ -490,7 +490,6 @@ class PokemonBytes:
             pokemon=pokemon,
             mote=self.mote,
             form=self.form,
-            types=self.types,
             held_item=held_item,
             ability=ability,
             nature=nature,
