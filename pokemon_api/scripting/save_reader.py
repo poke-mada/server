@@ -476,9 +476,6 @@ class PokemonBytes:
         )
 
     def to_trained_pokemon(self):
-        if self.dex_number == 0:
-            return None
-
         from pokemon_api.models import Pokemon, Item, PokemonAbility, PokemonNature
         from trainer_data.models import TrainerPokemon
 
