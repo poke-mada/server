@@ -30,7 +30,7 @@ class Reward(models.Model):
 
     reward_type = models.SmallIntegerField(choices=REWARD_TYPES.items(), default=MONEY)
     is_active = models.BooleanField(default=True)
-    bundle = models.ForeignKey(RewardBundle, on_delete=models.SET_NULL, null=True)
+    bundle = models.ForeignKey(RewardBundle, on_delete=models.SET_NULL, null=True, related_name='rewards')
 
     def get_reward(self):
         match self.reward_type:

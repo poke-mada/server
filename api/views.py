@@ -12,12 +12,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.permissions import IsTrainer, IsCoach, IsRoot
-from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, WildcardLog
+from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, WildcardLog, Streamer
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer
 from pokemon_api.models import Move
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer
+from rewards_api.serializers import StreamerRewardSerializer
 from trainer_data.models import Trainer, TrainerTeam, TrainerBox, TrainerBoxSlot
 from trainer_data.serializers import TrainerSerializer, TrainerTeamSerializer, SelectTrainerSerializer, \
     TrainerBoxSerializer, TrainerPokemonSerializer, EnTrainerSerializer, ListedBoxSerializer
@@ -59,6 +60,16 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         user: User = request.user
         trainer = user.coaching_profile.coached_trainer
         serializer = self.get_serializer(trainer)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=False)
+    @permission_classes([IsTrainer])
+    def get_rewards(self, request, *args, **kwargs):
+        trainer: Trainer = Trainer.get_from_user(request.user)
+        streamer = trainer.get_streamer()
+
+        serializer = StreamerRewardSerializer(streamer.rewards, many=True)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
@@ -334,3 +345,4 @@ class FileUploadManyView(APIView):
             else:
                 return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(data=dict(status='done'), status=status.HTTP_201_CREATED)
+
