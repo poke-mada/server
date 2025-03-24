@@ -85,6 +85,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         serializer = StreamerRewardSerializer(reward)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)

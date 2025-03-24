@@ -1,9 +1,8 @@
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
-from django.db import models, transaction
+from django.db import models
 
 from pokemon_api.scripting.save_reader import clamp
-from rewards_api.models import RewardBundle
 from trainer_data.models import Trainer
 
 
