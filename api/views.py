@@ -2,6 +2,7 @@ from datetime import datetime
 from threading import Thread
 
 from django.contrib.auth.models import User
+from django.core.handlers.base import logger
 from django.db.models import Q
 from django.http import HttpResponse
 from rest_framework import viewsets, status
@@ -66,7 +67,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @permission_classes([IsTrainer])
     def get_rewards(self, request, *args, **kwargs):
         trainer: Trainer = Trainer.get_from_user(request.user)
-        print(trainer)
+        logger.log(trainer)
         streamer = trainer.get_streamer()
 
         serializer = StreamerRewardSerializer(streamer.rewards.all(), many=True)
