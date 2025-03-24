@@ -5,11 +5,17 @@ from rewards_api.models import RewardBundle, Reward, ItemReward, MoneyReward, Wi
 from trainer_data.models import Trainer
 
 
-class PokemonRewardSerializer(serializers.ModelSerializer):
-    pokemon_data = serializers.SerializerMethodField()
+class ByteArrayFileField(serializers.FileField):
+    def to_representation(self, value):
+        """Lee los bytes del archivo y los convierte en una lista de enteros"""
+        if not value:
+            return None
+        with value.open("rb") as f:
+            return list(f.read())
 
-    def get_pokemon_data(self, obj):
-        return obj.pokemon_data.read()
+
+class PokemonRewardSerializer(serializers.ModelSerializer):
+    pokemon_data = ByteArrayFileField()
 
     class Meta:
         model = PokemonReward

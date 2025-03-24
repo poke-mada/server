@@ -57,6 +57,7 @@ class PokemonReward(models.Model):
     pokemon_pid = models.PositiveIntegerField(db_index=True, unique=True)
     pokemon = models.ForeignKey(TrainerPokemon, on_delete=models.SET_NULL, null=True, blank=True)
 
+
     def save(self, *args, **kwargs):
         if not self.pokemon:
             from pokemon_api.scripting.save_reader import PokemonBytes
