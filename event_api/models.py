@@ -171,7 +171,7 @@ class StreamerWildcardInventoryItem(models.Model):
 
 
 class Streamer(models.Model):
-    trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="streamer")
+    trainer = models.OneToOneField(Trainer, on_delete=models.PROTECT, related_name="streamer")
     rewards = models.ManyToManyField(RewardBundle)
     name = models.CharField(max_length=50, default="")
 
