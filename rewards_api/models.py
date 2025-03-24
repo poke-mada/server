@@ -90,7 +90,7 @@ class MoneyReward(models.Model):
 
 
 class StreamerRewardInventory(models.Model):
-    reward = models.ForeignKey(RewardBundle, on_delete=models.SET_NULL, null=True)
+    reward = models.ForeignKey(RewardBundle, on_delete=models.SET_NULL, null=True, related_name='owners')
     streamer = models.ForeignKey(Streamer, on_delete=models.SET_NULL, null=True, related_name='rewards')
     exchanges = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     is_available = models.BooleanField(default=True)

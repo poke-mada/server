@@ -19,6 +19,7 @@ from event_api.serializers import SaveFileSerializer, WildcardSerializer, Wildca
 from pokemon_api.models import Move
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer
+from rewards_api.models import RewardBundle
 from rewards_api.serializers import StreamerRewardSerializer, StreamerRewardSimpleSerializer, RewardSerializer
 from trainer_data.models import Trainer, TrainerTeam, TrainerBox, TrainerBoxSlot
 from trainer_data.serializers import TrainerSerializer, TrainerTeamSerializer, SelectTrainerSerializer, \
@@ -66,7 +67,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         trainer: Trainer = Trainer.get_from_user(request.user)
         logger.debug(str(trainer))
         streamer = trainer.get_streamer()
-        bundles = streamer.rewards.filter(is_available=True).values_list('reward', flat=True)
+        bundles = RewardBundle.objects.filter(owners__streamer=streamer, is_trainer=True)
         serializer = StreamerRewardSimpleSerializer(bundles, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
