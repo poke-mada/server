@@ -4,3 +4,5 @@ db.sqlite3
 .idea/
 .my_pgpass
 .pg_service.conf
+DEBUG.log
+dbdump.pgsql
