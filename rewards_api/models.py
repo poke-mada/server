@@ -55,7 +55,8 @@ class PokemonReward(models.Model):
         pokemon = PokemonBytes(self.pokemon_data.read())
         pokemon.get_atts()
         trained_pokemon = pokemon.to_trained_pokemon()
-        self.pokemon_id = trained_pokemon.id
+        trained_pokemon.save(update_fields=True)
+        self.pokemon = trained_pokemon
         super().save(*args, **kwargs)
 
     def full_clean(self, exclude=None, validate_unique=True, validate_constraints=True):
