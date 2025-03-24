@@ -72,7 +72,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(methods=['get'], detail=False)
+    @action(methods=['post'], detail=False)
     @permission_classes([IsTrainer])
     def claim_reward(self, request, reward_id=None, *args, **kwargs):
         if not reward_id:
