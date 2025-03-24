@@ -37,7 +37,7 @@ class Trainer(models.Model):
 
     def streamer_name(self):
         if not self.streamer:
-            return None
+            return f'T - {self.name}'
         return self.streamer.name
 
     def get_streamer(self):

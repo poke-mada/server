@@ -25,6 +25,14 @@ class PokemonRewardSerializer(serializers.ModelSerializer):
         )
 
 
+class PokemonRewardSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PokemonReward
+        fields = (
+            'pokemon_pid'
+        )
+
+
 class WildcardRewardSerializer(serializers.ModelSerializer):
     class Meta:
         model = WildcardReward
@@ -54,6 +62,23 @@ class ItemRewardSerializer(serializers.ModelSerializer):
         )
 
 
+class SimpleRewardSerializer(serializers.ModelSerializer):
+    pokemon_reward = PokemonRewardSimpleSerializer()
+    wildcard_reward = WildcardRewardSerializer()
+    money_reward = MoneyRewardSerializer()
+    item_reward = ItemRewardSerializer()
+
+    class Meta:
+        model = Reward
+        fields = (
+            'reward_type',
+            'pokemon_reward',
+            'wildcard_reward',
+            'money_reward',
+            'item_reward',
+        )
+
+
 class RewardSerializer(serializers.ModelSerializer):
     pokemon_reward = PokemonRewardSerializer()
     wildcard_reward = WildcardRewardSerializer()
@@ -69,6 +94,19 @@ class RewardSerializer(serializers.ModelSerializer):
             'money_reward',
             'item_reward',
         )
+
+
+class StreamerRewardSimpleSerializer(serializers.ModelSerializer):
+    rewards = SimpleRewardSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = RewardBundle
+        fields = [
+            'id',
+            'name',
+            'description',
+            'rewards'
+        ]
 
 
 class StreamerRewardSerializer(serializers.ModelSerializer):

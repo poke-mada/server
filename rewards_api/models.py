@@ -3,6 +3,7 @@ import uuid
 from django.core.validators import MinValueValidator
 from django.db import models
 
+from event_api.models import Streamer
 from pokemon_api.models import Item, Pokemon
 from trainer_data.models import TrainerPokemon
 
@@ -86,3 +87,13 @@ class WildcardReward(models.Model):
 class MoneyReward(models.Model):
     reward = models.OneToOneField(Reward, on_delete=models.SET_NULL, null=True, related_name='money_reward')
     quantity = models.IntegerField(default=1, validators=[MinValueValidator(1)])
+
+
+class StreamerRewardInventory(models.Model):
+    reward = models.ForeignKey(RewardBundle, on_delete=models.SET_NULL, null=True)
+    streamer = models.ForeignKey(Streamer, on_delete=models.SET_NULL, null=True, related_name='rewards')
+    exchanges = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    is_available = models.BooleanField(default=True)
+
+    class Meta:
+        unique_together = ['reward', 'streamer']

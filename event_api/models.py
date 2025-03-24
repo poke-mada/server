@@ -171,7 +171,6 @@ class StreamerWildcardInventoryItem(models.Model):
 
 
 class Streamer(models.Model):
-    rewards = models.ManyToManyField(RewardBundle)
     name = models.CharField(max_length=50, default="")
 
     def __str__(self):
