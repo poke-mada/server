@@ -58,7 +58,8 @@ class ItemRewardSerializer(serializers.ModelSerializer):
         model = ItemReward
         fields = (
             'item',
-            'quantity'
+            'quantity',
+            'bag'
         )
 
 
