@@ -76,6 +76,7 @@ class ItemReward(models.Model):
     reward = models.OneToOneField(Reward, on_delete=models.SET_NULL, null=True, related_name='item_reward')
     item = models.ForeignKey(Item, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField(default=1, validators=[MinValueValidator(1)])
+    bag = models.CharField(max_length=10, null=True, blank=False)
 
 
 class WildcardReward(models.Model):
