@@ -13,13 +13,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.permissions import IsTrainer, IsCoach, IsRoot
-from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, WildcardLog, Streamer
+from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, WildcardLog, Streamer, CoinTransaction
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer
 from pokemon_api.models import Move
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer
-from rewards_api.models import RewardBundle
+from rewards_api.models import RewardBundle, StreamerRewardInventory
 from rewards_api.serializers import StreamerRewardSerializer, StreamerRewardSimpleSerializer, RewardSerializer
 from trainer_data.models import Trainer, TrainerTeam, TrainerBox, TrainerBoxSlot
 from trainer_data.serializers import TrainerSerializer, TrainerTeamSerializer, SelectTrainerSerializer, \
@@ -81,10 +81,34 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
         trainer: Trainer = Trainer.get_from_user(request.user)
         logger.debug(str(trainer))
-        streamer = trainer.get_streamer()
-        reward = streamer.rewards.filter(reward_id=reward_id, is_available=True).first()
+        streamer: Streamer = trainer.get_streamer()
+        reward: StreamerRewardInventory = streamer.rewards.filter(reward_id=reward_id, is_available=True).first()
         if not reward:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+        for _reward in reward.reward.rewards.all():
+            if not _reward.is_active:
+                continue
+
+            if _reward.reward_type == _reward.MONEY:
+                CoinTransaction.objects.create(
+                    trainer=trainer,
+                    amount=_reward.money_reward.quantity,
+                    TYPE=CoinTransaction.INPUT,
+                    reason=f'Se obtuvo {_reward.money_reward.quantity} moneda/s al canjear el premio {reward.reward.id}'
+                )
+
+            elif _reward.reward_type == _reward.WILDCARD:
+                w_reward = _reward.wildcard_reward
+                inventory, _ = streamer.wildcard_inventory.get_or_create(
+                    wildcard=w_reward.wildcard,
+                    defaults=dict(quantity=0)
+                )
+                inventory.quantity += w_reward.quantity
+                inventory.save()
+
+        reward.is_available = False
+        reward.save()
 
         serializer = StreamerRewardSerializer(reward.reward)
 
