@@ -1,0 +1,35 @@
+body {
+    max-height: 1080px;
+    max-width: 1920px;
+    height: 1080px;
+    width: 1920px;
+    object-fit: fill;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.badge {
+    position: absolute;
+    max-height: 1080px;
+    max-width: 1920px;
+    height: 1080px;
+    width: 1920px;
+    z-index: 7;
+}
+
+.badges-back {
+    position: absolute;
+    max-height: 1080px;
+    max-width: 1920px;
+    height: 1080px;
+    width: 1920px;
+    z-index: -1;
+}
+
+.bg-disabled {
+    filter: grayscale(100%);
+}

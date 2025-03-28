@@ -14,8 +14,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.views.static import serve
 from rest_framework_swagger.views import get_swagger_view
 
 from api.data_loader_view import LoadJsonDataView
@@ -33,5 +35,6 @@ urlpatterns = [
     path('upload_save/', FileUploadView.as_view()),
     path('load_data/', LoadJsonDataView.as_view()),
     path('upload_save_many/', FileUploadManyView.as_view()),
-    path('docs/', schema_view)
+    path('docs/', schema_view),
+    re_path(r"^static/(?P<path>.*)$", serve, {"document_root": 'statics/'}),
 ]
