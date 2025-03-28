@@ -20,6 +20,7 @@ from rest_framework_swagger.views import get_swagger_view
 
 from api.data_loader_view import LoadJsonDataView
 from api.views import FileUploadView, FileUploadManyView
+from pokemada.views import pro_overlay, coach_overlay
 
 schema_view = get_swagger_view(title='Pastebin API')
 urlpatterns = [
@@ -27,6 +28,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('user/', include('api_auth.urls')),
     path('api/', include('api.router')),
+    path('coach_overlay/', coach_overlay),
+    path('pro_overlay/', pro_overlay),
     path('upload_save/', FileUploadView.as_view()),
     path('load_data/', LoadJsonDataView.as_view()),
     path('upload_save_many/', FileUploadManyView.as_view()),

@@ -107,6 +107,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
                 inventory.quantity += w_reward.quantity
                 inventory.save()
 
+        reward.exchanges += 1
         reward.is_available = False
         reward.save()
 
