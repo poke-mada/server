@@ -4,6 +4,8 @@ import struct
 from json import JSONEncoder
 from pprint import pprint
 
+from django.db.models import Q
+
 TERMINATOR_NULL = 0
 
 BLOCK_SIZE = 56
@@ -479,7 +481,8 @@ class PokemonBytes:
         from pokemon_api.models import Pokemon, Item, PokemonAbility, PokemonNature
         from trainer_data.models import TrainerPokemon
 
-        pokemon = Pokemon.objects.get(dex_number=self.dex_number)
+        form_filter = Q(form=self.form) | Q(form=0)
+        pokemon = Pokemon.objects.get(form_filter, dex_number=self.dex_number)
         held_item = Item.objects.get(index=self.held_item_num)
         ability = PokemonAbility.objects.get(index=self.ability_num)
         nature = PokemonNature.objects.get(index=self.nature_num)
