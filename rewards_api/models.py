@@ -59,10 +59,11 @@ class PokemonReward(models.Model):
     pokemon = models.ForeignKey(TrainerPokemon, on_delete=models.SET_NULL, null=True, blank=True)
 
     def save(self, *args, **kwargs):
+        from pokemon_api.scripting.save_reader import PokemonBytes
+        pokemon = PokemonBytes(self.pokemon_data.read())
+        pokemon.get_atts()
+        self.pokemon_pid = pokemon.pid
         if not self.pokemon:
-            from pokemon_api.scripting.save_reader import PokemonBytes
-            pokemon = PokemonBytes(self.pokemon_data.read())
-            pokemon.get_atts()
             trained_pokemon = pokemon.to_trained_pokemon()
             self.pokemon = trained_pokemon
         super().save(*args, **kwargs)
