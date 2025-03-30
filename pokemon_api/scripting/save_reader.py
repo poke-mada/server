@@ -379,7 +379,10 @@ class PokemonBytes:
             for ml, pl in (move1, move2, move3, move4):
                 move_num = struct.unpack("<H", self.raw_data[ml[0]:ml[1]])[0]
                 with open('data/move_data.json') as move_file, open('data/special_move_data.json') as special_move_file:
-                    move_data = json.load(move_file)[str(move_num)]
+                    move_json = json.load(move_file)
+                    if str(move_num) not in move_json:
+                        continue
+                    move_data = [str(move_num)]
                     special_move_data = json.load(special_move_file)
                     move_type = move_data['typename']
 

@@ -75,6 +75,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['post'], detail=False, url_path='claim_reward/(?P<reward_id>[0-9a-fA-F-]{36})')
     @permission_classes([IsTrainer])
     def claim_reward(self, request, *args, **kwargs):
+        user: User = request.user
         reward_id = kwargs.pop('reward_id')
         if not reward_id:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -108,7 +109,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
                 inventory.save()
 
         reward.exchanges += 1
-        reward.is_available = False
+        if not user.is_superuser:
+            reward.is_available = False
         reward.save()
 
         serializer = StreamerRewardSerializer(reward.reward)
