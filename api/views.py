@@ -73,7 +73,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['post'], detail=False, url_path='claim_reward/(?P<reward_id>[0-9a-fA-F-]{36})')
-    @permission_classes([IsTrainer])
     def claim_reward(self, request, *args, **kwargs):
         user: User = request.user
         reward_id = kwargs.pop('reward_id')
