@@ -10,7 +10,7 @@ class IsRoot(BasePermission):
 class IsTrainer(BasePermission):
     def has_permission(self, request, view):
         user: User = request.user
-        return request.user.is_superuser or bool(hasattr(user, 'trainer_profile') or hasattr(user, 'coaching_profile'))
+        return request.user.is_superuser or hasattr(user, 'trainer_profile') or hasattr(user, 'coaching_profile')
 
 
 class IsCoach(BasePermission):
