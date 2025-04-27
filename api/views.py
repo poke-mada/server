@@ -4,7 +4,7 @@ from threading import Thread
 from django.contrib.auth.models import User
 from django.core.handlers.base import logger
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from rest_framework import viewsets, status
 from rest_framework.decorators import action, permission_classes
 from rest_framework.parsers import FileUploadParser, MultiPartParser
@@ -262,7 +262,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
         event: GameEvent = GameEvent.objects.filter(GameEvent.get_available(), pk=pk).first()
         if event:
             mod_file = event.game_mod.get_mod_file_for_streamer(trainer.streamer)
-            return HttpResponse(mod_file.file.read())
+            return FileResponse(mod_file.file)
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
