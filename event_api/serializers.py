@@ -58,17 +58,12 @@ class WildcardWithInventorySerializer(serializers.ModelSerializer):
 
 
 class GameModSerializer(serializers.ModelSerializer):
-    mod_file = serializers.SerializerMethodField()
-
-    def get_mod_file(self, obj):
-        return obj.get_mod_file_for_streamer()
 
     class Meta:
         model = GameMod
         fields = [
             'mod_name',
-            'mod_description',
-            'mod_file'
+            'mod_description'
         ]
 
 

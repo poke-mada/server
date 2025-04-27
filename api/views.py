@@ -256,6 +256,13 @@ class GameEventViewSet(viewsets.ModelViewSet):
         serialized = GameEventSerializer(events, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
+    @action(methods=['get'], detail=True)
+    def mod_file(self, request, pk=None, *args, **kwargs):
+        trainer: Trainer = Trainer.get_from_user(request.user)
+        event: GameEvent = GameEvent.objects.filter(pk=pk)
+        mod_file = event.game_mod.get_mod_file_for_streamer(trainer.streamer)
+        return Response(mod_file, status=status.HTTP_200_OK)
+
 
 class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Wildcard.objects.filter(is_active=True)
