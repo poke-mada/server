@@ -261,7 +261,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
         trainer: Trainer = Trainer.get_from_user(request.user)
         event: GameEvent = GameEvent.objects.filter(pk=pk)
         mod_file = event.game_mod.get_mod_file_for_streamer(trainer.streamer)
-        return Response(mod_file, status=status.HTTP_200_OK)
+        return HttpResponse(mod_file.file.read())
 
 
 class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
