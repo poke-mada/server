@@ -259,7 +259,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
     @action(methods=['get'], detail=True)
     def mod_file(self, request, pk=None, *args, **kwargs):
         trainer: Trainer = Trainer.get_from_user(request.user)
-        event: GameEvent = GameEvent.objects.filter(pk=pk).first()
+        event: GameEvent = GameEvent.objects.filter(GameEvent.get_available(), pk=pk).first()
         if event:
             mod_file = event.game_mod.get_mod_file_for_streamer(trainer.streamer)
             return HttpResponse(mod_file.file.read())

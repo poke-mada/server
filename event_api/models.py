@@ -3,6 +3,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.db.models import Q
 
 from pokemon_api.scripting.save_reader import clamp
 from trainer_data.models import Trainer
@@ -229,3 +230,8 @@ class GameEvent(models.Model):
             return True
         now_time = datetime.now()
         return self.available_date_from <= now_time <= self.available_date_to
+
+    @staticmethod
+    def get_available():
+        now_time = datetime.now()
+        return Q(force_available=True) | Q(available_date_from__gte=now_time, available_date_to__lte=now_time)
