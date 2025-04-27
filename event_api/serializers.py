@@ -77,6 +77,7 @@ class GameEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = GameEvent
         fields = [
+            'id',
             'game_mod',
             'is_available',
         ]
