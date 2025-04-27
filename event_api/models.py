@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -195,3 +197,35 @@ class TrainerProfile(models.Model):
 
 class LoaderThread(models.Model):
     thread_id = models.CharField(max_length=100, default="", blank=True)
+
+
+class GameMod(models.Model):
+    mod_file = models.FileField(upload_to='mods/', null=False)
+    mod_name = models.CharField(max_length=50, blank=False)
+    mod_description = models.TextField(blank=True, null=True)
+
+    def get_mod_file_for_streamer(self, streamer):
+        streamer_variant = self.variants.filter(streamer=streamer).first()
+        if streamer_variant:
+            return streamer_variant.mod_file
+
+        return self.mod_file
+
+
+class StreamerGameMod(models.Model):
+    streamer = models.ForeignKey(Streamer, on_delete=models.CASCADE, related_name="mods")
+    game_mod = models.ForeignKey(GameMod, on_delete=models.CASCADE, related_name="variants")
+    mod_file = models.FileField(upload_to='mods/streamer/', null=False)
+
+
+class GameEvent(models.Model):
+    game_mod = models.ForeignKey(GameMod, on_delete=models.PROTECT, related_name="events")
+    available_date_from = models.DateTimeField()
+    available_date_to = models.DateTimeField()
+    force_available = models.BooleanField()
+
+    def is_available(self):
+        if self.force_available:
+            return True
+        now_time = datetime.now()
+        return self.available_date_from <= now_time <= self.available_date_to

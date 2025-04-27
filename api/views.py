@@ -13,9 +13,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.permissions import IsTrainer, IsCoach, IsRoot
-from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, WildcardLog, Streamer, CoinTransaction
+from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, WildcardLog, Streamer, CoinTransaction, \
+    GameEvent
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
-    SimplifiedWildcardSerializer
+    SimplifiedWildcardSerializer, GameEventSerializer
 from pokemon_api.models import Move
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer
@@ -241,6 +242,19 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 class MoveViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Move.objects.all()
     serializer_class = MoveSerializer
+
+
+class GameEventViewSet(viewsets.ModelViewSet):
+    queryset = GameEvent.objects.all()
+    serializer_class = GameEventSerializer
+
+    @action(methods=['get'], detail=False)
+    def list_available(self, request, *args, **kwargs):
+        now_time = datetime.now()
+        query = Q(available_date_from__gte=now_time, available_date_to__lte=now_time) | Q(force_available=True)
+        events = GameEvent.objects.filter(query)
+        serialized = GameEventSerializer(events, many=True)
+        return Response(serialized.data, status=status.HTTP_200_OK)
 
 
 class WildcardViewSet(viewsets.ReadOnlyModelViewSet):

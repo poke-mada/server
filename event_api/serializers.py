@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, Streamer
+from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, Streamer, GameEvent, GameMod
 from trainer_data.models import Trainer
 
 
@@ -54,4 +54,34 @@ class WildcardWithInventorySerializer(serializers.ModelSerializer):
             'quality_display',
             'inventory',
             'sprite_name'
+        ]
+
+
+class GameModSerializer(serializers.ModelSerializer):
+    mod_file = serializers.SerializerMethodField()
+
+    def get_mod_file(self, obj):
+        return obj.get_mod_file_for_streamer()
+
+    class Meta:
+        model = GameMod
+        fields = [
+            'mod_name',
+            'mod_description',
+            'mod_file'
+        ]
+
+
+class GameEventSerializer(serializers.ModelSerializer):
+    game_mod = GameModSerializer()
+    is_available = serializers.SerializerMethodField()
+
+    def get_is_available(self, obj):
+        return obj.is_available()
+
+    class Meta:
+        model = GameEvent
+        fields = [
+            'game_mod',
+            'is_available',
         ]
