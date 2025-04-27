@@ -259,9 +259,11 @@ class GameEventViewSet(viewsets.ModelViewSet):
     @action(methods=['get'], detail=True)
     def mod_file(self, request, pk=None, *args, **kwargs):
         trainer: Trainer = Trainer.get_from_user(request.user)
-        event: GameEvent = GameEvent.objects.filter(pk=pk)
-        mod_file = event.game_mod.get_mod_file_for_streamer(trainer.streamer)
-        return HttpResponse(mod_file.file.read())
+        event: GameEvent = GameEvent.objects.filter(pk=pk).first()
+        if event:
+            mod_file = event.game_mod.get_mod_file_for_streamer(trainer.streamer)
+            return HttpResponse(mod_file.file.read())
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
