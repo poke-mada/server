@@ -3,12 +3,14 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
 from event_api.models import CoinTransaction, Wildcard, Streamer, StreamPlatformUrl, StreamerWildcardInventoryItem, \
-    CoachProfile, TrainerProfile, WildcardLog, ErrorLog
+    CoachProfile, TrainerProfile, WildcardLog, ErrorLog, GameEvent, GameMod
 from rewards_api.models import StreamerRewardInventory
 
 # Register your models here.
 
 admin.site.unregister(User)
+admin.site.register(GameEvent)
+admin.site.register(GameMod)
 
 
 @admin.register(CoinTransaction)
