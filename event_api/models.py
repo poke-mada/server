@@ -189,12 +189,12 @@ class MastersProfile(models.Model):
     }
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="masters_profile")
-    trainer = models.OneToOneField(Trainer, on_delete=models.PROTECT, related_name="user", null=True, blank=True)
+    trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="user", null=True, blank=True)
     profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER)
     death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0)
 
     def __str__(self):
-        return f"{self.user.username} - {self.trainer.name} | {self.get_profile_type_display()}"
+        return f"{self.user.username} - {self.trainer.name if self.trainer else '-'} | {self.get_profile_type_display()}"
 
     @property
     def last_save(self):
