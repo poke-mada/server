@@ -1,26 +1,47 @@
 from django.contrib import admin
 
 from rewards_api.models import RewardBundle, PokemonReward, Reward, ItemReward, MoneyReward, WildcardReward
-
-# Register your models here.
-admin.site.register(MoneyReward)
-admin.site.register(ItemReward)
-admin.site.register(WildcardReward)
+from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 
 
-class RewardInline(admin.TabularInline):
-    model = Reward
-    min_num = 1
+
+class PokemonRewardAdmin(NestedTabularInline):
+    min_num = 0
+    extra = 0
+    model = PokemonReward
+
+
+class WildcardRewardAdmin(NestedTabularInline):
+    model = WildcardReward
+    min_num = 0
     extra = 0
 
 
+class ItemRewardAdmin(NestedTabularInline):
+    model = ItemReward
+    min_num = 0
+    extra = 0
+
+
+class MoneyRewardAdmin(NestedTabularInline):
+    model = MoneyReward
+    min_num = 0
+    extra = 0
+
+
+class RewardInline(NestedTabularInline):
+    model = Reward
+    min_num = 1
+    extra = 0
+    inlines = [
+        PokemonRewardAdmin,
+        WildcardRewardAdmin,
+        ItemRewardAdmin,
+        MoneyRewardAdmin,
+    ]
+
+
 @admin.register(RewardBundle)
-class RewardBundleAdmin(admin.ModelAdmin):
+class RewardBundleAdmin(NestedModelAdmin):
     list_display = ('id', 'name')
     inlines = [RewardInline]
-
-
-@admin.register(PokemonReward)
-class PokemonRewardAdmin(admin.ModelAdmin):
-    list_display = ('pokemon_pid',)
-    readonly_fields = ('pokemon_pid',)

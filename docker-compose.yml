@@ -9,6 +9,7 @@ services:
     ports:
       - "5433:5432"
     environment:
+      - POSTGRES_DB=defaultdb
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=6LPV4p&O#aV9
     volumes:

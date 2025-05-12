@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
+from django.template.defaulttags import url
 from django.urls import path, include, re_path
 from django.views.static import serve
 from rest_framework_swagger.views import get_swagger_view
@@ -37,4 +38,5 @@ urlpatterns = [
     path('upload_save_many/', FileUploadManyView.as_view()),
     path('docs/', schema_view),
     re_path(r"^static/(?P<path>.*)$", serve, {"document_root": 'statics/'}),
+    path('_nested_admin/', include('nested_admin.urls')),
 ]

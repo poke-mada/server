@@ -4,6 +4,7 @@ from threading import Thread
 from django.contrib.auth.models import User
 from django.core.handlers.base import logger
 from django.db.models import Q
+from django.db.models.fields.files import FieldFile
 from django.http import HttpResponse, FileResponse
 from rest_framework import viewsets, status
 from rest_framework.decorators import action, permission_classes
@@ -14,7 +15,7 @@ from rest_framework.views import APIView
 
 from api.permissions import IsTrainer, IsCoach, IsRoot
 from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, WildcardLog, Streamer, CoinTransaction, \
-    GameEvent
+    GameEvent, DeathLog
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer
 from pokemon_api.models import Move
@@ -58,15 +59,27 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @permission_classes([IsCoach])
     def get_coached_trainer(self, request, *args, **kwargs):
         user: User = request.user
-        trainer = user.coaching_profile.coached_trainer
+        trainer = Trainer.get_from_user(user)
         serializer = self.get_serializer(trainer)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=['post'], detail=False)
+    @permission_classes([IsTrainer])
+    def submit_death(self, request, *args, **kwargs):
+        user: User = request.user
+        trainer = Trainer.get_from_user(user)
+        profile = user.masters_profile
+        profile.death_count += 1
+        profile.save()
+        DeathLog.objects.create(
+            trainer=trainer,
+            pid=request.data['pid']
+        )
 
     @action(methods=['get'], detail=False)
     @permission_classes([IsTrainer])
     def get_rewards(self, request, *args, **kwargs):
         trainer: Trainer = Trainer.get_from_user(request.user)
-        logger.debug(str(trainer))
         streamer = trainer.get_streamer()
         bundles = RewardBundle.objects.filter(owners__streamer=streamer, owners__is_available=True)
         serializer = StreamerRewardSimpleSerializer(bundles, many=True)
@@ -129,7 +142,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         if not trainer:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(trainer.economy, status=status.HTTP_200_OK)
+        return Response(user.masters_profile.economy, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
     def list_trainers(self, request, *args, **kwargs):
@@ -277,14 +290,18 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
     @action(methods=['POST'], detail=True)
-    def use_card(self, request, *args, **kwargs):
+    def use_card(self,   request, *args, **kwargs):
         wildcard: Wildcard = self.get_object()
         quantity = int(request.data.get('quantity', 1))
         trainer = Trainer.get_from_user(request.user)
         if wildcard.can_use(trainer, quantity):
-            if wildcard.use(trainer, quantity):
+            result = wildcard.use(trainer, quantity)
+            if result is True:
                 return Response(data=dict(detail='card_used'), status=status.HTTP_200_OK)
-            return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            elif result is False:
+                return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            return Response(result, status=status.HTTP_200_OK)
         return Response(data=dict(detail='no_card_available'), status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['POST'], detail=True)

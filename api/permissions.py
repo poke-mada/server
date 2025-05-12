@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework.permissions import BasePermission
 
 
+
 class IsRoot(BasePermission):
     def has_permission(self, request, view):
         return bool(request.user.is_superuser)
@@ -9,9 +10,10 @@ class IsRoot(BasePermission):
 
 class IsTrainer(BasePermission):
     def has_permission(self, request, view):
+        from event_api.models import MastersProfile
         user: User = request.user
-        has_coaching = hasattr(user, 'coaching_profile')
-        has_training = hasattr(user, 'trainer_profile')
+        has_coaching = user.masters_profile.profile_type == MastersProfile.COACH
+        has_training = user.masters_profile.profile_type == MastersProfile.TRAINER
         has_sudo = request.user.is_superuser
         print(has_coaching, has_training, has_sudo)
         return has_sudo or has_training or has_coaching
@@ -20,5 +22,5 @@ class IsTrainer(BasePermission):
 class IsCoach(BasePermission):
     def has_permission(self, request, view):
         user: User = request.user
-        return request.user.is_superuser or (
-                    hasattr(user, 'coaching_profile') and bool(user.coaching_profile.coached_trainer))
+        has_coaching = user.masters_profile.profile_type == MastersProfile.COACH
+        return request.user.is_superuser or has_coaching

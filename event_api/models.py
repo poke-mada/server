@@ -3,7 +3,8 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, Sum
+from django.utils.safestring import mark_safe
 
 from pokemon_api.scripting.save_reader import clamp
 from trainer_data.models import Trainer
@@ -61,7 +62,9 @@ class Wildcard(models.Model):
     quality = models.SmallIntegerField(choices=QUALITIES, default=COMMON)
     is_active = models.BooleanField(default=True)
     extra_url = models.URLField(blank=True, null=True)
-    always_available = models.BooleanField(default=False)
+    always_available = models.BooleanField(default=False)  # models.py (dentro de Wildcard)
+    handler_key = models.CharField(max_length=100, blank=True, null=True,
+                                   help_text="Identificador del handler a usar (ej: 'give_item')")
 
     def __str__(self):
         return self.name
@@ -112,40 +115,34 @@ class Wildcard(models.Model):
         return amount_to_buy
 
     def use(self, trainer, amount: int):
-        streamer = trainer.get_streamer()
-        match self.id:
-            case 6:
-                CoinTransaction.objects.create(
-                    trainer=trainer,
-                    amount=3 * amount,
-                    TYPE=CoinTransaction.INPUT,
-                    reason=f'se uso la carta {self.name} {amount} veces'
-                )
-                WildcardLog.objects.create(wildcard=self, trainer=trainer,
-                                           details=f'{amount} carta/s {self.name} usada')
-                return True
-            case 37:
-                CoinTransaction.objects.create(
-                    trainer=trainer,
-                    amount=4 * amount,
-                    TYPE=CoinTransaction.INPUT,
-                    reason=f'se uso la carta {self.name} {amount} veces'
-                )
-                WildcardLog.objects.create(wildcard=self, trainer=trainer,
-                                           details=f'{amount} carta/s {self.name} usada')
-            case _:
-                try:
-                    WildcardLog.objects.create(wildcard=self, trainer=trainer,
-                                               details=f'{amount} carta/s {self.name} usada')
-                except Exception as e:
-                    ErrorLog.objects.create(trainer=trainer, details=f'{amount} cartas {self.name} intentaron usarse',
-                                            message=str(e))
-                    raise e
+        from event_api.wildcards.registry import get_executor
+        try:
+            streamer = trainer.get_streamer()
+            handler_cls = get_executor(self.handler_key)
 
-        inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
-        inventory.quantity -= amount
-        inventory.save()
-        return True
+            if handler_cls:
+                handler = handler_cls(self, trainer)
+                context = {
+                    'amount': amount
+                }
+                handler.validate(context)
+                return handler.execute(context)
+            else:
+                # fallback default (log-only)
+                WildcardLog.objects.create(wildcard=self, trainer=trainer,
+                                           details=f'{amount} wildcard(s) {self.name} used')
+
+            inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
+            inventory.quantity -= amount
+            inventory.save()
+            return True
+        except Exception as e:
+            ErrorLog.objects.create(
+                trainer=trainer,
+                details=f'{amount} wildcard(s) {self.name} tried to execute',
+                message=str(e)
+            )
+            return False
 
 
 class WildcardLog(models.Model):
@@ -173,27 +170,53 @@ class StreamerWildcardInventoryItem(models.Model):
 
 
 class Streamer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="streamer_profile", null=True, blank=True)
     name = models.CharField(max_length=50, default="")
 
     def __str__(self):
         return self.name
 
 
-class CoachProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="coaching_profile")
-    coached_trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="coaches", null=True,
-                                        blank=True)
+class MastersProfile(models.Model):
+    TRAINER = 0
+    COACH = 1
+    ADMIN = 2
 
-    def __str__(self):
-        return self.user.username
+    PROFILE_TYPES = {
+        TRAINER: 'Trainer',
+        COACH: 'Coach',
+        ADMIN: 'Admin',
+    }
 
-
-class TrainerProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="trainer_profile")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="masters_profile")
     trainer = models.OneToOneField(Trainer, on_delete=models.PROTECT, related_name="user", null=True, blank=True)
+    profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER)
+    death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0)
 
     def __str__(self):
-        return self.user.username
+        return f"{self.user.username} - {self.trainer.name} | {self.get_profile_type_display()}"
+
+    @property
+    def last_save(self):
+        return self.trainer.saves.order_by('created_on').last().file.url
+
+    def last_save_download(self):
+        return mark_safe('<a href="{0}" download>Download {1} Save</a>'.format(self.last_save, self.trainer.name))
+
+    @property
+    def economy(self):
+        if not self.trainer:
+            return -1
+
+        inputs = self.trainer.transactions.filter(
+            TYPE=CoinTransaction.INPUT
+        ).aggregate(Sum('amount'))['amount__sum'] or 0
+
+        outputs = self.trainer.transactions.filter(
+            TYPE=CoinTransaction.OUTPUT
+        ).aggregate(Sum('amount'))['amount__sum'] or 0
+
+        return inputs - outputs
 
 
 class LoaderThread(models.Model):
@@ -235,3 +258,19 @@ class GameEvent(models.Model):
     def get_available():
         now_time = datetime.now()
         return Q(force_available=True) | Q(available_date_from__gte=now_time, available_date_to__lte=now_time)
+
+
+class DeathLog(models.Model):
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="death_log")
+    created_on = models.DateTimeField(auto_now_add=True)
+    died_in = models.CharField(max_length=100)
+    pid = models.CharField(max_length=100)
+    species_name = models.CharField(max_length=100)
+    mote = models.CharField(max_length=100)
+
+
+class MastersSegment(models.Model):
+    end_date = models.DateTimeField()
+    delimiter_key = models.CharField(max_length=100, blank=True, null=True,
+                                     help_text="Identificador del handler a usar (ej: 'second_badge')")
+    name = models.CharField(max_length=100)

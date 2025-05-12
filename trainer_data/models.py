@@ -21,20 +21,6 @@ class Trainer(models.Model):
     current_team = models.ForeignKey("TrainerTeam", on_delete=models.CASCADE, related_name='trainer', null=True,
                                      blank=True)
 
-    @property
-    def last_save(self):
-        return self.saves.order_by('created_on').last().file.url
-
-    @property
-    def economy(self):
-        from event_api.models import CoinTransaction
-        inputs = self.transactions.filter(TYPE=CoinTransaction.INPUT).aggregate(Sum('amount'))['amount__sum'] or 0
-        outputs = self.transactions.filter(TYPE=CoinTransaction.OUTPUT).aggregate(Sum('amount'))['amount__sum'] or 0
-        return inputs - outputs
-
-    def last_save_download(self):
-        return mark_safe('<a href="{0}" download>Download {1} Save</a>'.format(self.last_save, self.name))
-
     def streamer_name(self):
         if not self.streamer:
             return f'T - {self.name}'
@@ -48,13 +34,11 @@ class Trainer(models.Model):
 
     @classmethod
     def get_from_user(cls, user) -> Union["Trainer", None]:
-        if hasattr(user, 'trainer_profile') and user.trainer_profile.trainer:
-            trainer: Trainer = user.trainer_profile.trainer
-        elif hasattr(user, 'coaching_profile') and user.coaching_profile.coached_trainer:
-            trainer: Trainer = user.coaching_profile.coached_trainer
-        else:
-            return None
-        return trainer
+        from event_api.models import MastersProfile
+        if user.masters_profile:
+            if user.masters_profile.profile_type != MastersProfile.ADMIN:
+                return user.masters_profile.trainer
+        return None
 
 
 class TrainerPokemon(models.Model):

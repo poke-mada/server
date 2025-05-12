@@ -60,7 +60,6 @@ class TrainerPokemonLinear(admin.TabularInline):
 class TrainerAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
-    readonly_fields = ('last_save_download', 'economy')
     inlines = [SaveFileAdmin]
 
 

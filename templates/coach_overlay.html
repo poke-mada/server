@@ -1,111 +1,143 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Coached Overlay</title>
-        <link rel="stylesheet" href="{% static 'overlay/styles.css' %}">
-        <style>
-            body {
-                background-image: url("{% static 'overlay/coach/overlay.png' %}");
-            }
 
-            * {
-                /*border: 1px solid red;*/
-            }
+<head>
+    <meta charset="UTF-8">
+    <title>Coached Overlay</title>
+    <link rel="stylesheet" href="{% static 'overlay/styles.css' %}">
+    <style>
+        body {
+            background-image: url("{% static 'overlay/coach/overlay.png' %}");
+        }
 
-            .pkm-mote {
-                color: white;
-                text-align: center;
-            }
+        * {
+            /*border: 1px solid red;*/
+        }
 
-            .pkm-sprite {
-                width: 200px;
-                height: 200px;
-            }
+        .pkm-mote {
+            color: white;
+            text-align: center;
+        }
 
-            .team-container {
-                display: flex;
-                position: absolute;
-                bottom: 45px;
-                left: 30px;
-            }
+        .pkm-sprite {
+            width: 200px;
+            height: 200px;
+        }
 
-            .pokemon-container1 {
-                margin: 0 10px 0 0;
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-            }
+        .team-container {
+            display: flex;
+            position: relative;
+            bottom: -790px;
+            left: 25px;
+        }
 
-            .pokemon-container2 {
-                margin: 0 7px 0 0;
-                display: flex;
-                justify-content: center;
-                flex-direction: column-reverse;
-            }
+        .pokemon-container1 {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            position: absolute;
+        }
+        
+        .pokemon-container2 {
+            display: flex;
+            justify-content: center;
+            flex-direction: column-reverse;
+            position: absolute;
+            top: 21px;
+        }
 
-            #death-count {
-                position: absolute;
-                top: 730px;
-                left: 1200px;
-                color: purple;
-                font-size: 30px;
-                text-align: left;
-                z-index: 90;
-            }
-        </style>
-    </head>
-    <body>
-        <img alt="" src="{% static 'overlay/coach/medallas/fondo.png' %}" class="badges-back">
-        <img alt="" src="{% static 'overlay/coach/medallas/gym1.png' %}" id="gym1" class="badge bg-disabled">
-        <img alt="" src="{% static 'overlay/coach/medallas/gym2.png' %}" id="gym2" class="badge bg-disabled">
-        <img alt="" src="{% static 'overlay/coach/medallas/gym3.png' %}" id="gym3" class="badge bg-disabled">
-        <img alt="" src="{% static 'overlay/coach/medallas/gym4.png' %}" id="gym4" class="badge bg-disabled">
-        <img alt="" src="{% static 'overlay/coach/medallas/gym5.png' %}" id="gym5" class="badge bg-disabled">
-        <img alt="" src="{% static 'overlay/coach/medallas/gym6.png' %}" id="gym6" class="badge bg-disabled">
-        <img alt="" src="{% static 'overlay/coach/medallas/gym7.png' %}" id="gym7" class="badge bg-disabled">
-        <img alt="" src="{% static 'overlay/coach/medallas/gym8.png' %}" id="gym8" class="badge bg-disabled">
+        #death-count {
+            position: absolute;
+            top: 730px;
+            left: 1200px;
+            color: purple;
+            font-size: 30px;
+            text-align: left;
+            z-index: 90;
+        }
 
-        <div class="team-container">
-            <div id="pokemon1" class="pokemon-container1">
-                <img src="" alt="" class="pkm-sprite">
-                <span class="pkm-mote"></span>
-            </div>
-            <div id="pokemon2" class="pokemon-container2">
-                <img src="" alt="" class="pkm-sprite">
-                <span class="pkm-mote"></span>
-            </div>
-            <div id="pokemon3" class="pokemon-container1">
-                <img src="" alt="" class="pkm-sprite">
-                <span class="pkm-mote"></span>
-            </div>
-            <div id="pokemon4" class="pokemon-container2">
-                <img src="" alt="" class="pkm-sprite">
-                <span class="pkm-mote"></span>
-            </div>
-            <div id="pokemon5" class="pokemon-container1">
-                <img src="" alt="" class="pkm-sprite">
-                <span class="pkm-mote"></span>
-            </div>
-            <div id="pokemon6" class="pokemon-container2">
-                <img src="" alt="" class="pkm-sprite">
-                <span class="pkm-mote"></span>
-            </div>
+        #pokemon2 {
+            left: 212px;
+        }
+
+        #pokemon3 {
+            left: 425px;
+        }
+
+        #pokemon4 {
+            left: 636px;
+        }
+
+        #pokemon5 {
+            left: 847px;
+        }
+
+        #pokemon6 {
+            left: 1060px;
+        }
+
+        .mtMote{
+            margin-top: 17px;
+        }
+
+        .mbMote{
+            margin-bottom: 17px;
+        }
+    </style>
+</head>
+
+<body>
+    <img alt="" src="{% static 'overlay/coach/medallas/fondo.png' %}" class="badges-back">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym1.png' %}" id="gym1" class="badge bg-disabled">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym2.png' %}" id="gym2" class="badge bg-disabled">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym3.png' %}" id="gym3" class="badge bg-disabled">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym4.png' %}" id="gym4" class="badge bg-disabled">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym5.png' %}" id="gym5" class="badge bg-disabled">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym6.png' %}" id="gym6" class="badge bg-disabled">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym7.png' %}" id="gym7" class="badge bg-disabled">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym8.png' %}" id="gym8" class="badge bg-disabled">
+
+    <div class="team-container">
+        <div id="pokemon1" class="pokemon-container1">
+            <img src="" alt="" class="pkm-sprite">
+            <span class="pkm-mote mtMote"></span>
         </div>
-        <span id="death-count"></span>
+        <div id="pokemon2" class="pokemon-container2">
+            <img src="" alt="" class="pkm-sprite">
+            <span class="pkm-mote mbMote"></span>
+        </div>
+        <div id="pokemon3" class="pokemon-container1">
+            <img src="" alt="" class="pkm-sprite">
+            <span class="pkm-mote mtMote"></span>
+        </div>
+        <div id="pokemon4" class="pokemon-container2">
+            <img src="" alt="" class="pkm-sprite">
+            <span class="pkm-mote mbMote"></span>
+        </div>
+        <div id="pokemon5" class="pokemon-container1">
+            <img src="" alt="" class="pkm-sprite">
+            <span class="pkm-mote mtMote"></span>
+        </div>
+        <div id="pokemon6" class="pokemon-container2">
+            <img src="" alt="" class="pkm-sprite">
+            <span class="pkm-mote mbMote"></span>
+        </div>
+    </div>
+    <span id="death-count"></span>
 
 
-        <script src="{% static 'overlay/data_loader.js' %}"></script>
-        <script type="application/javascript">
-            const socket = new WebSocket('ws://localhost:8081');
-            socket.onopen = (ws) => {
-                socket.send('request_data');
-            }
-            socket.onmessage = async (event) => {
-                const data = JSON.parse(event.data);
-                doUpdateData(data)
-            }
-        </script>
-    </body>
+    <script src="{% static 'overlay/data_loader.js' %}"></script>
+    <script type="application/javascript">
+        const socket = new WebSocket('ws://localhost:8081');
+        socket.onopen = (ws) => {
+            socket.send('request_data');
+        }
+        socket.onmessage = async (event) => {
+            const data = JSON.parse(event.data);
+            doUpdateData(data)
+        }
+    </script>
+</body>
+
 </html>
