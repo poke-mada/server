@@ -15,7 +15,7 @@ from rest_framework.views import APIView
 
 from api.permissions import IsTrainer, IsCoach, IsRoot
 from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, WildcardLog, Streamer, CoinTransaction, \
-    GameEvent, DeathLog
+    GameEvent, DeathLog, MastersProfile
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer
 from pokemon_api.models import Move
@@ -38,10 +38,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         user: User = self.request.user
         filters = Q()
         if not user.is_superuser:
-            if user.coaching_profile:
-                filters |= Q(pk=user.coaching_profile.coached_trainer.pk)
-            if user.trainer_profile:
-                filters |= Q(pk=user.trainer_profile.trainer.pk)
+            if user.masters_profile.profile_type != MastersProfile.ADMIN:
+                filters |= Q(pk=user.masters_profile.trainer.pk)
         return self.queryset.filter(filters)
 
     @action(methods=['get'], detail=False)

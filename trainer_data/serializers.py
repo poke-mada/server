@@ -198,7 +198,7 @@ class TrainerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Trainer
-        fields = ['id', 'name', 'custom_sprite', 'current_team', 'economy']
+        fields = ['id', 'name', 'custom_sprite', 'current_team']
 
 
 class EnTrainerSerializer(TrainerSerializer):
