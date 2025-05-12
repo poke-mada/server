@@ -149,11 +149,10 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['get'], detail=False)
     def wildcards_with_inventory(self, request, *args, **kwargs):
-        trainer = Trainer.get_from_user(request.user)
 
         serializer = WildcardWithInventorySerializer(
             Wildcard.objects.filter(is_active=True),
-            trainer=trainer,
+            user=request.user,
             many=True
         )
         return Response(serializer.data, status=status.HTTP_200_OK)
