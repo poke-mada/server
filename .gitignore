@@ -6,3 +6,4 @@ db.sqlite3
 .pg_service.conf
 DEBUG.log
 dbdump.pgsql
+venv/
