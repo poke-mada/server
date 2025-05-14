@@ -317,7 +317,7 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         wildcard: Wildcard = self.get_object()
         quantity = int(request.data.get('quantity', 1))
         trainer = Trainer.get_from_user(request.user)
-        if wildcard.can_buy(trainer, quantity):
+        if wildcard.can_buy(request.user, trainer, quantity):
             buyed = wildcard.buy(trainer, quantity)
             used = wildcard.use(trainer, quantity, **request.data)
             if buyed and used:
