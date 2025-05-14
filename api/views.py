@@ -292,7 +292,7 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         quantity = int(request.data.get('quantity', 1))
         trainer = Trainer.get_from_user(request.user)
         if wildcard.can_use(trainer, quantity):
-            result = wildcard.use(trainer, quantity)
+            result = wildcard.use(trainer, quantity, **request.data)
             if result is True:
                 return Response(data=dict(detail='card_used'), status=status.HTTP_200_OK)
             elif result is False:
@@ -306,7 +306,7 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         wildcard: Wildcard = self.get_object()
         quantity = int(request.data.get('quantity', 1))
         trainer = Trainer.get_from_user(request.user)
-        if wildcard.can_buy(trainer, quantity, True):
+        if wildcard.can_buy(request.user, trainer, quantity, True):
             if wildcard.buy(trainer, quantity, True):
                 return Response(data=dict(detail='card_bought'), status=status.HTTP_200_OK)
             return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -319,7 +319,7 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         trainer = Trainer.get_from_user(request.user)
         if wildcard.can_buy(trainer, quantity):
             buyed = wildcard.buy(trainer, quantity)
-            used = wildcard.use(trainer, quantity)
+            used = wildcard.use(trainer, quantity, **request.data)
             if buyed and used:
                 return Response(data=dict(detail='card_bought_and_used', amount=buyed), status=status.HTTP_200_OK)
             return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)

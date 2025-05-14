@@ -10,6 +10,7 @@ class GiveItemHandler(BaseWildCardHandler):
     admin_inline_model = GiveItemHandlerSettings  # a model with extra config
 
     def execute(self, context):
+        amount = context.get('amount')
         settings: GiveItemHandlerSettings = self.wildcard.give_item_settings
         return {
             'command': "give_item",

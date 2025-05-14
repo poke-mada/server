@@ -4,41 +4,36 @@ from rewards_api.models import RewardBundle, PokemonReward, Reward, ItemReward, 
 from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 
 
-
 class PokemonRewardAdmin(NestedTabularInline):
-    min_num = 0
-    extra = 0
     model = PokemonReward
+    min_num = 0
+    max_num = 1
 
 
 class WildcardRewardAdmin(NestedTabularInline):
     model = WildcardReward
     min_num = 0
-    extra = 0
+    max_num = 1
 
 
 class ItemRewardAdmin(NestedTabularInline):
     model = ItemReward
     min_num = 0
-    extra = 0
+    max_num = 1
 
 
 class MoneyRewardAdmin(NestedTabularInline):
     model = MoneyReward
     min_num = 0
-    extra = 0
+    max_num = 1
 
 
 class RewardInline(NestedTabularInline):
     model = Reward
     min_num = 1
     extra = 0
-    inlines = [
-        PokemonRewardAdmin,
-        WildcardRewardAdmin,
-        ItemRewardAdmin,
-        MoneyRewardAdmin,
-    ]
+    show_change_link = True
+    inlines = [ItemRewardAdmin, WildcardRewardAdmin, MoneyRewardAdmin, PokemonRewardAdmin]
 
 
 @admin.register(RewardBundle)

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, Streamer, GameEvent, GameMod
@@ -30,7 +31,7 @@ class WildcardWithInventorySerializer(serializers.ModelSerializer):
     sprite_name = serializers.CharField()
 
     def __init__(self, *args, **kwargs):
-        self.user: Trainer = kwargs.pop('user')
+        self.user: User = kwargs.pop('user')
         super().__init__(*args, **kwargs)
 
     def get_inventory(self, obj):

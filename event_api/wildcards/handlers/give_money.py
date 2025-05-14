@@ -21,5 +21,3 @@ class GiveMoneyHandler(BaseWildCardHandler):
             TYPE=CoinTransaction.INPUT,
             reason=f'se uso la carta {self.wildcard.name} {amount} veces'
         )
-        WildcardLog.objects.create(wildcard=self.wildcard, trainer=self.trainer,
-                                   details=f'{amount} carta/s {self.wildcard.name} usada')

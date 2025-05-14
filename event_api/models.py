@@ -73,7 +73,7 @@ class Wildcard(models.Model):
     def sprite_name(self):
         return self.sprite.name
 
-    def can_buy(self, trainer, amount, force_buy=False):
+    def can_buy(self, user, trainer, amount, force_buy=False):
         streamer = trainer.get_streamer()
         inventory, _ = streamer.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
 
@@ -82,7 +82,7 @@ class Wildcard(models.Model):
             amount_to_buy = clamp(amount - already_in_possession, 0)
         else:
             amount_to_buy = amount
-        return self.is_active and ((trainer.economy >= self.price * amount_to_buy) or self.always_available)
+        return self.is_active and ((user.masters_profile.economy >= self.price * amount_to_buy) or self.always_available)
 
     def can_use(self, trainer, amount):
         streamer = trainer.get_streamer()
@@ -114,7 +114,7 @@ class Wildcard(models.Model):
         inventory.save()
         return amount_to_buy
 
-    def use(self, trainer, amount: int):
+    def use(self, trainer, amount: int, **kwargs):
         from event_api.wildcards.registry import get_executor
         try:
             streamer = trainer.get_streamer()
@@ -123,10 +123,14 @@ class Wildcard(models.Model):
             if handler_cls:
                 handler = handler_cls(self, trainer)
                 context = {
-                    'amount': amount
+                    'amount': amount,
+                    **kwargs
                 }
                 handler.validate(context)
-                return handler.execute(context)
+                result = handler.execute(context)
+                WildcardLog.objects.create(wildcard=self, trainer=trainer,
+                                           details=f'{amount} carta/s {self.name} usada')
+                return result
             else:
                 # fallback default (log-only)
                 WildcardLog.objects.create(wildcard=self, trainer=trainer,

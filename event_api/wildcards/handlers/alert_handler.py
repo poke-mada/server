@@ -3,8 +3,8 @@ from event_api.wildcards.registry import WildCardExecutorRegistry
 from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 
 
-@WildCardExecutorRegistry.register("dummy_handler", verbose='Dummy Handler')
-class DummyHandler(BaseWildCardHandler):
+@WildCardExecutorRegistry.register("alert_handler", verbose='Alert Handler')
+class AlertHandler(BaseWildCardHandler):
     def validate(self, context):
         return
 
