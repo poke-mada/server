@@ -20,6 +20,16 @@ admin.site.register(GameEvent)
 admin.site.register(GameMod)
 
 
+@admin.action(description="Disable wildcards")
+def disable_wildcards(modeladmin, request, queryset):
+    queryset.update(is_active=False)
+
+
+@admin.action(description="Enable wildcards")
+def enable_wildcards(modeladmin, request, queryset):
+    queryset.update(is_active=True)
+
+
 # admin.py
 class GiveItemHandlerSettingsInline(admin.StackedInline):
     model = GiveItemHandlerSettings
@@ -60,6 +70,7 @@ class WildcardAdmin(admin.ModelAdmin):
     }
     list_display = ('name', 'price', 'quality', 'is_active')
     search_fields = ('name', 'price', 'quality',)
+    actions = [disable_wildcards, enable_wildcards]
 
     def get_inline_instances(self, request, obj=None):
         if obj and obj.handler_key in self.inlines_map:
