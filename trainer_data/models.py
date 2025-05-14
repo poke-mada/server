@@ -27,7 +27,7 @@ class Trainer(models.Model):
         return self.streamer.name
 
     def get_streamer(self):
-        return self.streamer
+        return self.user.streamer
 
     def __str__(self):
         return self.streamer_name() or self.name
