@@ -8,7 +8,7 @@ mega_stones = [113, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 
 class GiveMegaItemHandler(BaseWildCardHandler):
 
     def validate(self, context, **kwargs):
-        item_id = int(context.get('item_id')[0])
+        item_id = context.get('item_id')
 
         if item_id not in mega_stones:
             raise ValueError("non_mega_item")
@@ -16,7 +16,7 @@ class GiveMegaItemHandler(BaseWildCardHandler):
         return True
 
     def execute(self, context):
-        item_id = int(context.get('item_id')[0])
+        item_id = context.get('item_id')
 
         return {
             'command': "give_item",
