@@ -28,7 +28,7 @@ class Trainer(models.Model):
 
     def get_streamer(self):
         from event_api.models import MastersProfile
-        return self.user.filter(profile_type=MastersProfile.TRAINER).first().streamer
+        return self.user.filter(profile_type=MastersProfile.TRAINER).first().user.streamer_profile
 
     def __str__(self):
         return self.streamer_name() or self.name
