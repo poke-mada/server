@@ -28,15 +28,32 @@ class MoneyRewardAdmin(NestedTabularInline):
     max_num = 1
 
 
-class RewardInline(NestedTabularInline):
+class RewardInline(NestedStackedInline):
     model = Reward
     min_num = 1
     extra = 0
-    show_change_link = True
-    inlines = [ItemRewardAdmin, WildcardRewardAdmin, MoneyRewardAdmin, PokemonRewardAdmin]
 
 
 @admin.register(RewardBundle)
 class RewardBundleAdmin(NestedModelAdmin):
     list_display = ('id', 'name')
     inlines = [RewardInline]
+
+
+@admin.register(Reward)
+class RewardAdmin(NestedModelAdmin):
+    min_num = 1
+    extra = 0
+    inlines = [ItemRewardAdmin, WildcardRewardAdmin, MoneyRewardAdmin, PokemonRewardAdmin]
+
+    inlines_map = {
+        'Item': [ItemRewardAdmin],
+        'Wildcard': [WildcardRewardAdmin],
+        'Money': [MoneyRewardAdmin],
+        'Pokemon': [PokemonRewardAdmin]
+    }
+
+    def get_inline_instances(self, request, obj: Reward = None):
+        if obj and obj.get_reward_type_display() in self.inlines_map:
+            return [inline(self.model, self.admin_site) for inline in self.inlines_map[obj.get_reward_type_display()]]
+        return []
