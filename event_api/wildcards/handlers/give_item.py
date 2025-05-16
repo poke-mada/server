@@ -17,6 +17,6 @@ class GiveItemHandler(BaseWildCardHandler):
             'data': {
                 "item_id": settings.item_id.index,
                 "item_bag": settings.item_bag,
-                "quantity": settings.quantity
+                "quantity": settings.quantity * amount
             }
         }
