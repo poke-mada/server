@@ -137,10 +137,10 @@ class Wildcard(models.Model):
                 result = True
                 WildcardLog.objects.create(wildcard=self, trainer=trainer,
                                            details=f'{amount} wildcard(s) {self.name} used')
-
-            inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
-            inventory.quantity -= amount
-            inventory.save()
+            if not self.always_available:
+                inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
+                inventory.quantity -= amount
+                inventory.save()
             return result
         except Exception as e:
             ErrorLog.objects.create(

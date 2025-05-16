@@ -10,10 +10,6 @@ class GiveMoneyHandler(BaseWildCardHandler):
 
     def execute(self, context):
         amount = context.get('amount')
-        print(self.wildcard)
-        ErrorLog.objects.create(
-            message=f"{self.wildcard.give_money_settings.quantity}"
-        )
         money_quantity = self.wildcard.give_money_settings.quantity
         CoinTransaction.objects.create(
             profile=self.user.masters_profile,
