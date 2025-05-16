@@ -16,7 +16,7 @@ class GiveMoneyHandler(BaseWildCardHandler):
 
         money_quantity = self.wildcard.give_money_settings.quantity
         CoinTransaction.objects.create(
-            trainer=self.trainer,
+            profile=self.user.masters_profile,
             amount=money_quantity * amount,
             TYPE=CoinTransaction.INPUT,
             reason=f'se uso la carta {self.wildcard.name} {amount} veces'

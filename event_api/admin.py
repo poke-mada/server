@@ -46,8 +46,8 @@ class GiveMoneyHandlerSettingsInline(admin.StackedInline):
 
 @admin.register(CoinTransaction)
 class CoinTransactionAdmin(admin.ModelAdmin):
-    list_display = ('trainer__name', 'reason', 'amount', 'TYPE',)
-    search_fields = ('trainer__name', 'TYPE')
+    list_display = ('profile', 'reason', 'amount', 'TYPE',)
+    search_fields = ('profile', 'TYPE')
 
 
 @admin.register(WildcardLog)

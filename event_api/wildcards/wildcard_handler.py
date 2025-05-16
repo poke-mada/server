@@ -1,11 +1,13 @@
 from abc import ABC, abstractmethod
 
+from django.contrib.auth.models import User
+
 
 class BaseWildCardHandler(ABC):
 
-    def __init__(self, wildcard, trainer):
+    def __init__(self, wildcard, user: User):
         self.wildcard = wildcard
-        self.trainer = trainer
+        self.user = user
 
     def validate(self, context):
         pass

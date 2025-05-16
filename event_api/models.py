@@ -31,7 +31,9 @@ class CoinTransaction(models.Model):
         (INPUT, 'Ingreso'),
         (OUTPUT, 'Egreso')
     )
-    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name='transactions')
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name='transactions', null=True, blank=True)
+    profile = models.ForeignKey("MastersProfile", on_delete=models.CASCADE, related_name='transactions', null=True,
+                                blank=False)
     amount = models.IntegerField()
     reason = models.TextField(blank=False, default="No reason provided")
     TYPE = models.SmallIntegerField(choices=TRANSACTION_TYPES, default=INPUT)
@@ -73,29 +75,28 @@ class Wildcard(models.Model):
     def sprite_name(self):
         return self.sprite.name
 
-    def can_buy(self, user, trainer, amount, force_buy=False):
-        streamer = trainer.get_streamer()
-        inventory, _ = streamer.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
+    def can_buy(self, user: User, amount, force_buy=False):
+        inventory, _ = user.streamer_profile.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
 
         already_in_possession = inventory.quantity
         if not force_buy:
             amount_to_buy = clamp(amount - already_in_possession, 0)
         else:
             amount_to_buy = amount
-        return self.is_active and ((user.masters_profile.economy >= self.price * amount_to_buy) or self.always_available)
+        return self.is_active and (
+                    (user.masters_profile.economy >= self.price * amount_to_buy) or self.always_available)
 
-    def can_use(self, trainer, amount):
-        streamer = trainer.get_streamer()
+    def can_use(self, user: User, amount):
+        streamer = user.streamer_profile
         inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
         return (inventory and inventory.quantity >= amount) or self.always_available
 
-    def buy(self, trainer, amount: int, force_buy=False):
-        streamer = trainer.get_streamer()
+    def buy(self, user: User, amount: int, force_buy=False):
         if not self.is_active:
             return False
         if self.always_available:
             return True
-        inventory, _ = streamer.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
+        inventory, _ = user.streamer_profile.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
 
         already_in_possession = inventory.quantity
         if not force_buy:
@@ -104,7 +105,7 @@ class Wildcard(models.Model):
             amount_to_buy = amount
 
         CoinTransaction.objects.create(
-            trainer=trainer,
+            profile=user.masters_profile,
             amount=self.price * amount_to_buy,
             TYPE=CoinTransaction.OUTPUT,
             reason=f'se compró la carta {self.name}'
@@ -114,14 +115,15 @@ class Wildcard(models.Model):
         inventory.save()
         return amount_to_buy
 
-    def use(self, trainer, amount: int, **kwargs):
+    def use(self, user: User, amount: int, **kwargs):
         from event_api.wildcards.registry import get_executor
+        trainer = user.masters_profile.trainer
         try:
-            streamer = trainer.get_streamer()
+            streamer = user.streamer_profile
             handler_cls = get_executor(self.handler_key)
 
             if handler_cls:
-                handler = handler_cls(self, trainer)
+                handler = handler_cls(self, user)
                 context = {
                     'amount': amount,
                     **kwargs
