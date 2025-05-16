@@ -214,11 +214,11 @@ class MastersProfile(models.Model):
         if not self.trainer:
             return -1
 
-        inputs = self.trainer.transactions.filter(
+        inputs = self.transactions.filter(
             TYPE=CoinTransaction.INPUT
         ).aggregate(Sum('amount'))['amount__sum'] or 0
 
-        outputs = self.trainer.transactions.filter(
+        outputs = self.transactions.filter(
             TYPE=CoinTransaction.OUTPUT
         ).aggregate(Sum('amount'))['amount__sum'] or 0
 
