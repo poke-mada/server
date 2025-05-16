@@ -1,4 +1,4 @@
-from event_api.models import CoinTransaction
+from event_api.models import CoinTransaction, ErrorLog
 from event_api.wildcards.handlers.settings.models import GiveMoneyHandlerSettings
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from event_api.wildcards.wildcard_handler import BaseWildCardHandler
@@ -11,6 +11,9 @@ class GiveMoneyHandler(BaseWildCardHandler):
     def execute(self, context):
         amount = context.get('amount')
         print(self.wildcard)
+        ErrorLog.objects.create(
+            message=f"{self.wildcard}"
+        )
         money_quantity = self.wildcard.give_money_settings.quantity
         CoinTransaction.objects.create(
             profile=self.user.masters_profile,
