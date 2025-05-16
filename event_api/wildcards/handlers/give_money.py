@@ -8,9 +8,6 @@ from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 class GiveMoneyHandler(BaseWildCardHandler):
     admin_inline_model = GiveMoneyHandlerSettings  # a model with extra config
 
-    def validate(self, context):
-        return
-
     def execute(self, context):
         amount = context.get('amount')
 

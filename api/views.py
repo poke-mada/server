@@ -316,9 +316,13 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         quantity = int(request.data.get('quantity', 1))
         if wildcard.can_buy(request.user, quantity):
             buyed = wildcard.buy(request.user, quantity)
-            used = wildcard.use(request.user, quantity, **request.data)
-            if buyed and used:
-                return Response(data=dict(detail='card_bought_and_used', amount=buyed), status=status.HTTP_200_OK)
+            if buyed:
+                used = wildcard.use(request.user, quantity, **request.data)
+                if used is True:
+                    return Response(data=dict(detail='card_bought_and_used', amount=buyed), status=status.HTTP_200_OK)
+                elif used is False:
+                    return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response(used, status=status.HTTP_200_OK)
             return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(data=dict(detail='no_enough_money'), status=status.HTTP_400_BAD_REQUEST)
 
