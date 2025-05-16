@@ -12,7 +12,7 @@ class GiveMoneyHandler(BaseWildCardHandler):
         amount = context.get('amount')
         print(self.wildcard)
         ErrorLog.objects.create(
-            message=f"{self.wildcard}"
+            message=f"{self.wildcard.give_money_settings}"
         )
         money_quantity = self.wildcard.give_money_settings.quantity
         CoinTransaction.objects.create(
