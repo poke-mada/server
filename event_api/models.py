@@ -132,16 +132,16 @@ class Wildcard(models.Model):
                 result = handler.execute(context)
                 WildcardLog.objects.create(wildcard=self, trainer=trainer,
                                            details=f'{amount} carta/s {self.name} usada')
-                return result
             else:
                 # fallback default (log-only)
+                result = True
                 WildcardLog.objects.create(wildcard=self, trainer=trainer,
                                            details=f'{amount} wildcard(s) {self.name} used')
 
             inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
             inventory.quantity -= amount
             inventory.save()
-            return True
+            return result
         except Exception as e:
             ErrorLog.objects.create(
                 trainer=trainer,
