@@ -135,9 +135,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @permission_classes([IsTrainer])
     def get_economy(self, request, *args, **kwargs):
         user: User = request.user
-        trainer = Trainer.get_from_user(user)
 
-        if not trainer:
+        if not user.masters_profile:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         return Response(user.masters_profile.economy, status=status.HTTP_200_OK)
