@@ -130,23 +130,22 @@ class Wildcard(models.Model):
                 }
                 handler.validate(context)
                 result = handler.execute(context)
-                WildcardLog.objects.create(wildcard=self, trainer=trainer,
-                                           details=f'{amount} carta/s {self.name} usada')
+                WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
             else:
                 # fallback default (log-only)
                 result = True
-                WildcardLog.objects.create(wildcard=self, trainer=trainer,
-                                           details=f'{amount} wildcard(s) {self.name} used')
+                WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} wildcard(s) {self.name} used')
             if not self.always_available:
                 inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
                 inventory.quantity -= amount
                 inventory.save()
             return result
         except Exception as e:
+            import traceback
             ErrorLog.objects.create(
                 trainer=trainer,
                 details=f'{amount} wildcard(s) {self.name} tried to execute',
-                message=str(e)
+                message=traceback.format_exc()
             )
             return False
 
