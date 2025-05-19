@@ -130,7 +130,7 @@
 
     <script src="{% static 'overlay/data_loader.js' %}"></script>
     <script type="application/javascript">
-        const socket = new WebSocket('ws://localhost:8081');
+        const socket = new WebSocket('ws://localhost:8088');
         socket.onopen = (ws) => {
             socket.send('request_data');
         }
