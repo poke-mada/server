@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.contrib.auth.models import User
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import Q, Sum
 from django.utils.safestring import mark_safe
@@ -84,7 +84,7 @@ class Wildcard(models.Model):
         else:
             amount_to_buy = amount
         return self.is_active and (
-                    (user.masters_profile.economy >= self.price * amount_to_buy) or self.always_available)
+                (user.masters_profile.economy >= self.price * amount_to_buy) or self.always_available)
 
     def can_use(self, user: User, amount):
         streamer = user.streamer_profile
@@ -199,6 +199,9 @@ class MastersProfile(models.Model):
     profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER)
     death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0)
     custom_sprite = models.ImageField(upload_to='profiles/sprites/', null=True, blank=True)
+    rom_name = models.CharField(max_length=50, default="Pokémon X")
+    save_path = models.CharField(max_length=260, null=True, blank=True,
+                                 default=r'%APPDATA%\Lime3DS\sdmc\Nintendo 3DS\00000000000000000000000000000000\00000000000000000000000000000000\title\00040000\00055d00\data\00000001')
 
     def __str__(self):
         return f"{self.user.username} - {self.trainer.name if self.trainer else '-'} | {self.get_profile_type_display()}"
@@ -206,6 +209,14 @@ class MastersProfile(models.Model):
     @property
     def last_save(self):
         return self.trainer.saves.order_by('created_on').last().file.url
+
+    @property
+    def wildcard_count(self):
+        return 0
+
+    @property
+    def current_segment_settings(self):
+        return self.segments_settings.filter(is_current=True).first()
 
     def last_save_download(self):
         return mark_safe('<a href="{0}" download>Download {1} Save</a>'.format(self.last_save, self.trainer.name))
@@ -224,6 +235,29 @@ class MastersProfile(models.Model):
         ).aggregate(Sum('amount'))['amount__sum'] or 0
 
         return inputs - outputs
+
+
+class MastersSegmentSettings(models.Model):
+    profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name="segments_settings", null=True,
+                                blank=True)
+    is_current = models.BooleanField(default=True, verbose_name="Tramo Actual")
+    segment = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(99)])
+    available_community_skip = models.BooleanField(default=True, verbose_name="Skip de Comunidad Disponible")
+    community_pokemon_id = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(808)],
+                                               verbose_name="Pokemon de comunidad")
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.profile.segments_settings.update(is_current=False)
+        super().save(*args, **kwargs)
+
+    @property
+    def community_pokemon_sprite(self):
+        return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{self.community_pokemon_id}.png'
+
+    class Meta:
+        verbose_name = "Configuración de Tramo"
+        verbose_name_plural = "Configuraciones de Tramo"
 
 
 class LoaderThread(models.Model):

@@ -5,8 +5,9 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from event_api.models import CoinTransaction, Wildcard, Streamer, StreamPlatformUrl, StreamerWildcardInventoryItem, \
-    WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile
-from event_api.wildcards.handlers.settings.models import GiveItemHandlerSettings, GiveMoneyHandlerSettings
+    WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings
+from event_api.wildcards.handlers.settings.models import GiveItemHandlerSettings, GiveMoneyHandlerSettings, \
+    GiveGameMoneyHandlerSettings
 from rewards_api.models import StreamerRewardInventory
 from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 
@@ -44,6 +45,13 @@ class GiveMoneyHandlerSettingsInline(admin.StackedInline):
     extra = 0
 
 
+# admin.py
+class GiveGameMoneyHandlerSettingsInline(admin.StackedInline):
+    model = GiveGameMoneyHandlerSettings
+    min_num = 1
+    extra = 0
+
+
 @admin.register(CoinTransaction)
 class CoinTransactionAdmin(admin.ModelAdmin):
     list_display = ('profile', 'reason', 'amount', 'TYPE',)
@@ -66,7 +74,8 @@ class ErrorLogAdmin(admin.ModelAdmin):
 class WildcardAdmin(admin.ModelAdmin):
     inlines_map = {
         'give_item': [GiveItemHandlerSettingsInline],
-        'give_money': [GiveMoneyHandlerSettingsInline]
+        'give_money': [GiveMoneyHandlerSettingsInline],
+        'give_game_money': [GiveGameMoneyHandlerSettingsInline]
     }
     list_display = ('name', 'price', 'quality', 'is_active')
     search_fields = ('name', 'price', 'quality',)
@@ -106,9 +115,17 @@ class StreamerProfileInline(NestedStackedInline):
     inlines = [StreamPlatformInline, WildcardInventoryItem, RewardInventoryInline]
 
 
+class MastersSegmentSettingsAdmin(NestedStackedInline):
+    model = MastersSegmentSettings
+    min_num = 1
+    extra = 0
+    readonly_fields = ('is_current', 'community_pokemon_sprite')
+
+
 class MastersProfileInline(NestedStackedInline):
     model = MastersProfile
     readonly_fields = ('last_save_download', 'economy')
+    inlines = [MastersSegmentSettingsAdmin]
 
 
 class UserProfileAdmin(NestedModelAdmin, UserAdmin):
