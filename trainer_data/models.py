@@ -17,7 +17,6 @@ class Trainer(models.Model):
     streamer = models.OneToOneField("event_api.Streamer", on_delete=models.CASCADE, related_name="trainer", null=True)
     is_active = models.BooleanField(default=True)
     name = models.CharField(max_length=50, db_index=True, unique=True)
-    custom_sprite = models.ImageField(upload_to='trainers/sprites/', null=True, blank=True)
     current_team = models.ForeignKey("TrainerTeam", on_delete=models.CASCADE, related_name='trainer', null=True,
                                      blank=True)
 

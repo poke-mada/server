@@ -198,6 +198,7 @@ class MastersProfile(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="user", null=True, blank=True)
     profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER)
     death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    custom_sprite = models.ImageField(upload_to='profiles/sprites/', null=True, blank=True)
 
     def __str__(self):
         return f"{self.user.username} - {self.trainer.name if self.trainer else '-'} | {self.get_profile_type_display()}"
