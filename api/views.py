@@ -159,7 +159,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_boxes(self, request, pk=None, *args, **kwargs):
         if pk == 'undefined' or pk == 0 or pk == '0':
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        trainer = request.user.masters_profile.trainer
+        trainer = Trainer.objects.filter(id=pk).first()
+        if trainer is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = ListedBoxSerializer(trainer.boxes.all(), many=True, read_only=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
