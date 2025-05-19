@@ -151,7 +151,7 @@ class Wildcard(models.Model):
 
 
 class WildcardLog(models.Model):
-    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name='use_logs')
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name='use_logs', null=True)
     wildcard = models.ForeignKey(Wildcard, on_delete=models.CASCADE, related_name='use_logs')
     details = models.TextField(blank=False, default="No details provided")
 

@@ -288,9 +288,10 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['POST'], detail=True)
     def use_card(self, request, *args, **kwargs):
         wildcard: Wildcard = self.get_object()
+        user = request.user
         quantity = int(request.data.get('quantity', 1))
-        if wildcard.can_use(request.user, quantity):
-            result = wildcard.use(request.user, quantity, **request.data)
+        if wildcard.can_use(user, quantity):
+            result = wildcard.use(user, quantity, **request.data)
             if result is True:
                 return Response(data=dict(detail='card_used'), status=status.HTTP_200_OK)
             elif result is False:
