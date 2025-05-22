@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'trainer_data',
     'api',
     'corsheaders',
+    'websocket'
 ]
 
 MIDDLEWARE = [

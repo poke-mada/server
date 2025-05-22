@@ -12,4 +12,5 @@ class MyConsumer(AsyncWebsocketConsumer):
         pass
 
     async def receive(self, text_data=None, **kwargs):
-        super().receive()
+        await self.send(text_data)
+        await super().receive()
