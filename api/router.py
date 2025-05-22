@@ -12,7 +12,7 @@ router.register(r'wildcards', WildcardViewSet)
 router.register(r'events', GameEventViewSet)
 
 websocket_urlpatterns = [
-    re_path(r'ws/trainer/$', MyConsumer.as_asgi()),
+    re_path(r'ws/alerts/$', MyConsumer.as_asgi()),
 ]
 
 urlpatterns = [

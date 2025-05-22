@@ -15,3 +15,4 @@ application = ProtocolTypeRouter({
         )
     ),
 })
+sudo systemctl status gunicorn
