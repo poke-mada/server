@@ -77,8 +77,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['get'], detail=False)
     @permission_classes([IsTrainer])
     def get_rewards(self, request, *args, **kwargs):
-        trainer: Trainer = Trainer.get_from_user(request.user)
-        streamer = trainer.get_streamer()
+        streamer = request.user.streamer_profile
         bundles = RewardBundle.objects.filter(owners__streamer=streamer, owners__is_available=True)
         serializer = StreamerRewardSimpleSerializer(bundles, many=True)
 
@@ -96,7 +95,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
         trainer: Trainer = Trainer.get_from_user(request.user)
         logger.debug(str(trainer))
-        streamer: Streamer = trainer.get_streamer()
+        streamer: Streamer = user.streamer_profile
         reward: StreamerRewardInventory = streamer.rewards.filter(reward_id=reward_id, is_available=True).first()
         if not reward:
             return Response(status=status.HTTP_404_NOT_FOUND)
@@ -107,7 +106,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
             if _reward.reward_type == _reward.MONEY:
                 CoinTransaction.objects.create(
-                    trainer=trainer,
+                    profile=user.masters_profile,
                     amount=_reward.money_reward.quantity,
                     TYPE=CoinTransaction.INPUT,
                     reason=f'Se obtuvo {_reward.money_reward.quantity} moneda/s al canjear el premio {reward.reward.id}'
@@ -135,9 +134,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @permission_classes([IsTrainer])
     def get_economy(self, request, *args, **kwargs):
         user: User = request.user
-        trainer = Trainer.get_from_user(user)
 
-        if not trainer:
+        if not user.masters_profile:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         return Response(user.masters_profile.economy, status=status.HTTP_200_OK)
@@ -149,11 +147,10 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['get'], detail=False)
     def wildcards_with_inventory(self, request, *args, **kwargs):
-        trainer = Trainer.get_from_user(request.user)
 
         serializer = WildcardWithInventorySerializer(
             Wildcard.objects.filter(is_active=True),
-            trainer=trainer,
+            user=request.user,
             many=True
         )
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -162,7 +159,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_boxes(self, request, pk=None, *args, **kwargs):
         if pk == 'undefined' or pk == 0 or pk == '0':
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        trainer = Trainer.objects.get(id=pk)
+        trainer = Trainer.objects.filter(id=pk).first()
+        if trainer is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = ListedBoxSerializer(trainer.boxes.all(), many=True, read_only=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -281,6 +280,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
 class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Wildcard.objects.filter(is_active=True)
     serializer_class = WildcardSerializer
+    permission_classes = [IsTrainer]
 
     @action(methods=['GET'], detail=False)
     def simplified(self, request, *args, **kwargs):
@@ -288,17 +288,16 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
     @action(methods=['POST'], detail=True)
-    def use_card(self,   request, *args, **kwargs):
+    def use_card(self, request, *args, **kwargs):
         wildcard: Wildcard = self.get_object()
+        user = request.user
         quantity = int(request.data.get('quantity', 1))
-        trainer = Trainer.get_from_user(request.user)
-        if wildcard.can_use(trainer, quantity):
-            result = wildcard.use(trainer, quantity)
+        if wildcard.can_use(user, quantity):
+            result = wildcard.use(user, quantity, **request.data)
             if result is True:
                 return Response(data=dict(detail='card_used'), status=status.HTTP_200_OK)
             elif result is False:
                 return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
             return Response(result, status=status.HTTP_200_OK)
         return Response(data=dict(detail='no_card_available'), status=status.HTTP_400_BAD_REQUEST)
 
@@ -306,9 +305,8 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
     def buy_card(self, request, *args, **kwargs):
         wildcard: Wildcard = self.get_object()
         quantity = int(request.data.get('quantity', 1))
-        trainer = Trainer.get_from_user(request.user)
-        if wildcard.can_buy(trainer, quantity, True):
-            if wildcard.buy(trainer, quantity, True):
+        if wildcard.can_buy(request.user, quantity, True):
+            if wildcard.buy(request.user, quantity, True):
                 return Response(data=dict(detail='card_bought'), status=status.HTTP_200_OK)
             return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(data=dict(detail='no_enough_money'), status=status.HTTP_400_BAD_REQUEST)
@@ -316,13 +314,17 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['POST'], detail=True)
     def buy_and_use_card(self, request, *args, **kwargs):
         wildcard: Wildcard = self.get_object()
+        user = request.user
         quantity = int(request.data.get('quantity', 1))
-        trainer = Trainer.get_from_user(request.user)
-        if wildcard.can_buy(trainer, quantity):
-            buyed = wildcard.buy(trainer, quantity)
-            used = wildcard.use(trainer, quantity)
-            if buyed and used:
-                return Response(data=dict(detail='card_bought_and_used', amount=buyed), status=status.HTTP_200_OK)
+        if wildcard.can_buy(user, quantity):
+            buyed = wildcard.buy(user, quantity)
+            if buyed:
+                used = wildcard.use(user, quantity, **request.data)
+                if used is True:
+                    return Response(data=dict(detail='card_bought_and_used', amount=buyed), status=status.HTTP_200_OK)
+                elif used is False:
+                    return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response(used, status=status.HTTP_200_OK)
             return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(data=dict(detail='no_enough_money'), status=status.HTTP_400_BAD_REQUEST)
 

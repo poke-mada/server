@@ -382,7 +382,7 @@ class PokemonBytes:
                     move_json = json.load(move_file)
                     if str(move_num) not in move_json:
                         continue
-                    move_data = [str(move_num)]
+                    move_data = move_json[str(move_num)]
                     special_move_data = json.load(special_move_file)
                     move_type = move_data['typename']
 

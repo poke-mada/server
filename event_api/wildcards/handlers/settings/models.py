@@ -29,3 +29,12 @@ class GiveMoneyHandlerSettings(models.Model):
 
     def __str__(self):
         return str(self.wildcard)
+
+
+class GiveGameMoneyHandlerSettings(models.Model):
+    wildcard = models.OneToOneField('Wildcard', on_delete=models.CASCADE, related_name="give_game_money_settings",
+                                    blank=True)
+    quantity = models.IntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(1000000)], blank=True)
+
+    def __str__(self):
+        return str(self.wildcard)

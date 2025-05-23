@@ -55,7 +55,7 @@ class PokemonReward(models.Model):
     reward = models.OneToOneField(Reward, on_delete=models.SET_NULL, null=True, related_name='pokemon_reward',
                                   blank=True)
     pokemon_data = models.FileField(upload_to='pokemon_rewards')
-    pokemon_pid = models.PositiveIntegerField(db_index=True, unique=True)
+    pokemon_pid = models.PositiveIntegerField(db_index=True, unique=True, blank=True)
     pokemon = models.ForeignKey(TrainerPokemon, on_delete=models.SET_NULL, null=True, blank=True)
 
     def save(self, *args, **kwargs):
