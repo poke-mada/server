@@ -11,6 +11,11 @@
             background-image: url({% static "overlay/solo/overlay.png" %});
         }
 
+        @font-face {
+            font-family: 'streamer-font';
+            src: url("{% static 'fonts/Segoe UI Bold Italic.ttf' %}") format('truetype');
+        }
+
         * {
             /*border: 1px solid red;*/
         }
@@ -38,7 +43,7 @@
             flex-direction: column;
             position: absolute;
         }
-        
+
         .pokemon-container2 {
             display: flex;
             justify-content: center;
@@ -84,6 +89,30 @@
         .mbMote{
             margin-bottom: 17px;
         }
+
+        #coach-name, #trainer-name {
+            font-family: 'streamer-font', "Segoe UI Semibold", serif;
+            color: black;
+            text-shadow: white 0 0 7px;
+            font-size: 30px;
+            position: fixed;
+        }
+
+        #trainer-name {
+            left: 1655px;
+            top: 268px
+        }
+
+        #alert-overlay {
+            position: absolute;
+            left: 339px;
+            top: 66px;
+            max-width: 649px;
+            min-width: 649px;
+            max-height: 441px;
+            min-height: 441px;
+            background-color: aqua;
+        }
     </style>
 </head>
 
@@ -100,33 +129,35 @@
     <img alt="" src="{% static 'overlay/solo/medallas/gym8.png' %}" id="gym8" class="badge bg-disabled">
 
     <div class="team-container">
-        <div id="pokemon1" class="pokemon-container1">
+        <div id="pokemon1" class="pokemon-container1 d-none">
             <img src="" alt="" class="pkm-sprite">
             <span class="pkm-mote mtMote"></span>
         </div>
-        <div id="pokemon2" class="pokemon-container2">
+        <div id="pokemon2" class="pokemon-container2 d-none">
             <img src="" alt="" class="pkm-sprite">
             <span class="pkm-mote mbMote"></span>
         </div>
-        <div id="pokemon3" class="pokemon-container1">
+        <div id="pokemon3" class="pokemon-container1 d-none">
             <img src="" alt="" class="pkm-sprite">
             <span class="pkm-mote mtMote"></span>
         </div>
-        <div id="pokemon4" class="pokemon-container2">
+        <div id="pokemon4" class="pokemon-container2 d-none">
             <img src="" alt="" class="pkm-sprite">
             <span class="pkm-mote mbMote"></span>
         </div>
-        <div id="pokemon5" class="pokemon-container1">
+        <div id="pokemon5" class="pokemon-container1 d-none">
             <img src="" alt="" class="pkm-sprite">
             <span class="pkm-mote mtMote"></span>
         </div>
-        <div id="pokemon6" class="pokemon-container2">
+        <div id="pokemon6" class="pokemon-container2 d-none">
             <img src="" alt="" class="pkm-sprite">
             <span class="pkm-mote mbMote"></span>
         </div>
     </div>
     <span id="death-count"></span>
 
+    <span id="trainer-name">{{ streamer_name }}</span>
+    <div id="alert-overlay"></div>
 
     <script src="{% static 'overlay/data_loader.js' %}"></script>
     <script type="application/javascript">

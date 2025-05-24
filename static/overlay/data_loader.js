@@ -51,6 +51,22 @@ function doUpdateData(data) {
     }
     deathCount.innerText = `x${data.deathCount}`;
 
+    if (!data.team) {
+        const pkmnDiv1 = document.getElementById(`pokemon1`);
+        const pkmnDiv2 = document.getElementById(`pokemon2`);
+        const pkmnDiv3 = document.getElementById(`pokemon3`);
+        const pkmnDiv4 = document.getElementById(`pokemon4`);
+        const pkmnDiv5 = document.getElementById(`pokemon5`);
+        const pkmnDiv6 = document.getElementById(`pokemon6`);
+
+        pkmnDiv1.classList.add('d-none');
+        pkmnDiv2.classList.add('d-none');
+        pkmnDiv3.classList.add('d-none');
+        pkmnDiv4.classList.add('d-none');
+        pkmnDiv5.classList.add('d-none');
+        pkmnDiv6.classList.add('d-none');
+    }
+
     data.team.forEach((pokemon, index) => {
         const pkmnDiv = document.getElementById(`pokemon${index + 1}`);
         if (pokemon !== null) {
@@ -61,4 +77,8 @@ function doUpdateData(data) {
             pkmnDiv.classList.add('d-none')
         }
     })
+}
+
+function doUpdateOverlayData(data) {
+
 }
