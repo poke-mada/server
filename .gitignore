@@ -6,5 +6,8 @@ db.sqlite3
 .pg_service.conf
 DEBUG.log
 dbdump.pgsql
-!**__pycache__/
+venv/
+env/
+.vscode/
+*.log
 *.pyc
