@@ -43,7 +43,7 @@
             flex-direction: column;
             position: absolute;
         }
-        
+
         .pokemon-container2 {
             display: flex;
             justify-content: center;
@@ -82,30 +82,31 @@
             left: 1060px;
         }
 
-        .mtMote{
+        .mtMote {
             margin-top: 17px;
         }
 
-        .mbMote{
+        .mbMote {
             margin-bottom: 17px;
         }
 
         #coach-name, #trainer-name {
             font-family: 'streamer-font', "Segoe UI Semibold", serif;
             color: black;
-            text-shadow: white 0 0 7px;
             font-size: 30px;
             position: fixed;
         }
 
         #coach-name {
             left: 1660px;
-            top: 539px
+            top: 539px;
+            color: #F80091;
         }
 
         #trainer-name {
             left: 1655px;
-            top: 268px
+            top: 268px;
+            color: #0100FF;
         }
 
         #alert-overlay {
@@ -116,81 +117,127 @@
             min-width: 649px;
             max-height: 441px;
             min-height: 441px;
-            background-color: aqua;
+            display: grid;
+            grid-template-rows: 2fr 1fr;
         }
+
+        #alert-overlay > #card {
+            max-height: 294px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #alert-overlay > #card * {
+            max-height: 294px;
+            display: grid;
+        }
+
+        #alert-overlay > .description {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        #alert-overlay > .description > * {
+            font-family: Arial, serif;
+            text-shadow: white 0 0 2px;
+            font-weight: bold;
+            font-size: 32px;
+            display: inline-block;
+            text-align: center;
+        }
+
     </style>
 </head>
 
 <body>
-    <img alt="" src="{% static 'overlay/coach/medallas/fondo.png' %}" class="badges-back">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym1.png' %}" id="gym1" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym2.png' %}" id="gym2" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym3.png' %}" id="gym3" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym4.png' %}" id="gym4" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym5.png' %}" id="gym5" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym6.png' %}" id="gym6" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym7.png' %}" id="gym7" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym8.png' %}" id="gym8" class="badge bg-disabled">
+<img alt="" src="{% static 'overlay/coach/medallas/fondo.png' %}" class="badges-back">
+<img alt="" src="{% static 'overlay/coach/medallas/gym1.png' %}" id="gym1" class="badge bg-disabled">
+<img alt="" src="{% static 'overlay/coach/medallas/gym2.png' %}" id="gym2" class="badge bg-disabled">
+<img alt="" src="{% static 'overlay/coach/medallas/gym3.png' %}" id="gym3" class="badge bg-disabled">
+<img alt="" src="{% static 'overlay/coach/medallas/gym4.png' %}" id="gym4" class="badge bg-disabled">
+<img alt="" src="{% static 'overlay/coach/medallas/gym5.png' %}" id="gym5" class="badge bg-disabled">
+<img alt="" src="{% static 'overlay/coach/medallas/gym6.png' %}" id="gym6" class="badge bg-disabled">
+<img alt="" src="{% static 'overlay/coach/medallas/gym7.png' %}" id="gym7" class="badge bg-disabled">
+<img alt="" src="{% static 'overlay/coach/medallas/gym8.png' %}" id="gym8" class="badge bg-disabled">
 
-    <div class="team-container">
-        <div id="pokemon1" class="pokemon-container1 d-none">
-            <img src="" alt="" class="pkm-sprite">
-            <span class="pkm-mote mtMote"></span>
-        </div>
-        <div id="pokemon2" class="pokemon-container2 d-none">
-            <img src="" alt="" class="pkm-sprite">
-            <span class="pkm-mote mbMote"></span>
-        </div>
-        <div id="pokemon3" class="pokemon-container1 d-none">
-            <img src="" alt="" class="pkm-sprite">
-            <span class="pkm-mote mtMote"></span>
-        </div>
-        <div id="pokemon4" class="pokemon-container2 d-none">
-            <img src="" alt="" class="pkm-sprite">
-            <span class="pkm-mote mbMote"></span>
-        </div>
-        <div id="pokemon5" class="pokemon-container1 d-none">
-            <img src="" alt="" class="pkm-sprite">
-            <span class="pkm-mote mtMote"></span>
-        </div>
-        <div id="pokemon6" class="pokemon-container2 d-none">
-            <img src="" alt="" class="pkm-sprite">
-            <span class="pkm-mote mbMote"></span>
-        </div>
+<div class="team-container">
+    <div id="pokemon1" class="pokemon-container1 d-none">
+        <img src="" alt="" class="pkm-sprite">
+        <span class="pkm-mote mtMote"></span>
     </div>
-    <span id="death-count"></span>
+    <div id="pokemon2" class="pokemon-container2 d-none">
+        <img src="" alt="" class="pkm-sprite">
+        <span class="pkm-mote mbMote"></span>
+    </div>
+    <div id="pokemon3" class="pokemon-container1 d-none">
+        <img src="" alt="" class="pkm-sprite">
+        <span class="pkm-mote mtMote"></span>
+    </div>
+    <div id="pokemon4" class="pokemon-container2 d-none">
+        <img src="" alt="" class="pkm-sprite">
+        <span class="pkm-mote mbMote"></span>
+    </div>
+    <div id="pokemon5" class="pokemon-container1 d-none">
+        <img src="" alt="" class="pkm-sprite">
+        <span class="pkm-mote mtMote"></span>
+    </div>
+    <div id="pokemon6" class="pokemon-container2 d-none">
+        <img src="" alt="" class="pkm-sprite">
+        <span class="pkm-mote mbMote"></span>
+    </div>
+</div>
+<span id="death-count"></span>
 
-    <span id="trainer-name">{{ streamer_name }}</span>
-    <span id="coach-name">{{ coach_name }}</span>
+<span id="trainer-name">{{ streamer_name }}</span>
+<span id="coach-name">{{ coach_name }}</span>
 
-    <div id="alert-overlay"></div>
+<div id="alert-overlay" class="d-none">
+    <div id="card">
+        <img src="{% static 'wildcards/000-sin_hacer.png' %}" alt="" id="img-card">
+    </div>
+    <div class="description">
+        <span id="text"><span id="user"></span> ha usado <span style="font-style: italic; font-weight: bolder"
+                                                               id="wildcard-name">ROBO POKEMON</span> en <span
+                id="target"></span></span>
+    </div>
+</div>
 
-    <script src="{% static 'overlay/data_loader.js' %}"></script>
-    <script type="application/javascript">
-        const socket = new WebSocket('ws://localhost:8088');
-        let server_socket;
-        if (window.location.host.startsWith('localhost')) {
-            server_socket = new WebSocket(`ws://${window.location.host}/ws/alerts/{{ streamer_name }}`);
-        } else {
-            server_socket = new WebSocket(`wss://${window.location.host}/ws/alerts/{{ streamer_name }}`);
-        }
+<script src="{% static 'overlay/data_loader.js' %}"></script>
+<script type="application/javascript">
+    const socket = new WebSocket('ws://localhost:8088');
+    let server_socket;
+    if (window.location.host.startsWith('localhost')) {
+        server_socket = new WebSocket(`ws://${window.location.host}/ws/alerts/{{ streamer_name }}`);
+    } else {
+        server_socket = new WebSocket(`wss://${window.location.host}/ws/alerts/{{ streamer_name }}`);
+    }
 
-
-        socket.onopen = (ws) => {
-            socket.send('request_data');
-        }
-        server_socket.onopen = (ws) => {
-            console.log('server socket connected')
-        }
-        socket.onmessage = async (event) => {
-            const data = JSON.parse(event.data);
-            doUpdateData(data)
-        }
-        server_socket.onmessage = async (event) => {
-            const data = JSON.parse(event.data);
-            doUpdateOverlayData(data)
-        }
-    </script>
+    socket.onopen = (ws) => {
+        socket.send('request_data');
+    }
+    server_socket.onopen = (ws) => {
+        console.log('server socket connected')
+    }
+    socket.onmessage = async (event) => {
+        const data = JSON.parse(event.data);
+        doUpdateData(data)
+    }
+    server_socket.onmessage = async (event) => {
+        const data = JSON.parse(event.data);
+        doUpdateOverlayData(data)
+    }
+    doUpdateOverlayData({
+        user_name: 'Maryblog',
+        wildcard: {
+            name: 'Robo Pokémon',
+            sprite_src: '/statics/wildcards/002-OBJETO-CURATIVO.png'
+        },
+        target_name: 'JuanGuarnizo'
+    })
+</script>
 </body>
 
 </html>
