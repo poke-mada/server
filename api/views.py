@@ -61,16 +61,11 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = self.get_serializer(trainer)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(methods=['get'], detail=False)
-    @permission_classes([])
+    @action(methods=['get'], detail=False, permission_classes=[])
     def get_deaths(self, request, *args, **kwargs):
-        streamer_name = request.data.get('streamer', False)
-        if streamer_name:
-            streamer = Streamer.objects.filter(name=streamer_name).first()
-            profile = streamer.user.masters_profile
-            return Response(data=dict(death_count=profile.death_count), status=status.HTTP_200_OK)
-        user: User = request.user
-        profile = user.masters_profile
+        streamer_name = request.GET.get('streamer', False)
+        streamer = Streamer.objects.filter(name=streamer_name).first()
+        profile = streamer.user.masters_profile
         return Response(data=dict(death_count=profile.death_count), status=status.HTTP_200_OK)
 
     @action(methods=['post'], detail=False)
@@ -92,19 +87,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
         serializer = self.get_serializer(trainer)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-    @action(methods=['post'], detail=False)
-    @permission_classes([IsTrainer])
-    def submit_death(self, request, *args, **kwargs):
-        user: User = request.user
-        trainer = Trainer.get_from_user(user)
-        profile = user.masters_profile
-        profile.death_count += 1
-        profile.save()
-        DeathLog.objects.create(
-            trainer=trainer,
-            pid=request.data['pid']
-        )
 
     @action(methods=['get'], detail=False)
     @permission_classes([IsTrainer])
