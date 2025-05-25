@@ -16,11 +16,17 @@
             src: url("{% static 'fonts/Segoe UI Bold Italic.ttf' %}") format('truetype');
         }
 
+        @font-face {
+            font-family: 'pokemon-font';
+            src: url("{% static 'fonts/PKMN RBYGSC.ttf' %}") format('truetype');
+        }
+
         * {
             /*border: 1px solid red;*/
         }
 
         .pkm-mote {
+            font-family: 'pokemon-font', serif;
             color: white;
             text-align: center;
         }

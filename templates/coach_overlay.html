@@ -16,11 +16,17 @@
             src: url("{% static 'fonts/Segoe UI Bold Italic.ttf' %}") format('truetype');
         }
 
+        @font-face {
+            font-family: 'pokemon-font';
+            src: url("{% static 'fonts/PKMN RBYGSC.ttf' %}") format('truetype');
+        }
+
         * {
             /*border: 1px solid red;*/
         }
 
         .pkm-mote {
+            font-family: 'pokemon-font', serif;
             color: white;
             text-align: center;
         }
@@ -162,7 +168,7 @@
     <img alt="" src="{% static 'overlay/coach/medallas/gym6.png' %}" id="gym6" class="badge bg-disabled">
     <img alt="" src="{% static 'overlay/coach/medallas/gym7.png' %}" id="gym7" class="badge bg-disabled">
     <img alt="" src="{% static 'overlay/coach/medallas/gym8.png' %}" id="gym8" class="badge bg-disabled">
-    
+
     <div class="team-container">
         <div id="pokemon1" class="pokemon-container1 d-none">
             <img src="" alt="" class="pkm-sprite">
@@ -190,10 +196,10 @@
         </div>
     </div>
     <span id="death-count"></span>
-    
+
     <span id="trainer-name">{{ streamer_name }}</span>
     <span id="coach-name">{{ coach_name }}</span>
-    
+
     <div id="alert-overlay" class="d-none">
         <div id="card">
             <img src="{% static 'wildcards/000-sin_hacer.png' %}" alt="" id="img-card">
@@ -204,7 +210,7 @@
                     id="target"></span></span>
         </div>
     </div>
-    
+
     <script src="{% static 'overlay/data_loader.js' %}"></script>
     <script type="application/javascript">
         const socket = new WebSocket('ws://localhost:8088');
@@ -214,7 +220,7 @@
         } else {
             server_socket = new WebSocket(`wss://${window.location.host}/ws/alerts/{{ streamer_name }}`);
         }
-    
+
         socket.onopen = (ws) => {
             socket.send('request_data');
         }
