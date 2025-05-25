@@ -72,8 +72,8 @@ class ErrorLogAdmin(admin.ModelAdmin):
 
 @admin.register(DeathLog)
 class DeathLogAdmin(admin.ModelAdmin):
-    list_display = ('trainer__user__name', 'trainer__name', 'species_name', 'mote',)
-    search_fields = ('trainer__user__name', 'trainer__name',)
+    list_display = ('profile__name', 'trainer__name', 'species_name', 'mote',)
+    search_fields = ('profile__name', 'trainer__name',)
 
 
 @admin.register(Wildcard)

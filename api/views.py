@@ -65,15 +65,15 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @permission_classes([IsTrainer])
     def register_death(self, request, *args, **kwargs):
         user: User = request.user
+        profile = user.masters_profile
         trainer = Trainer.get_from_user(user)
         pid = request.data.get('pid')
         mote = request.data.get('mote')
         dex_number = request.data.get('dex_number')
         species = Pokemon.objects.filter(dex_number=dex_number, form='0').first().name
-        _, is_created = DeathLog.objects.get_or_create(trainer=trainer, pid=pid, mote=mote, species_name=species)
+        _, is_created = DeathLog.objects.get_or_create(profile=profile, trainer=trainer, pid=pid, mote=mote, species_name=species)
 
         if is_created:
-            profile = user.masters_profile
             profile.death_count += 1
             profile.save()
 

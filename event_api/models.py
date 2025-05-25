@@ -302,6 +302,7 @@ class GameEvent(models.Model):
 
 
 class DeathLog(models.Model):
+    profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name="deaths", null=True)
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="death_log")
     created_on = models.DateTimeField(auto_now_add=True)
     died_in = models.CharField(max_length=100)
