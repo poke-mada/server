@@ -62,6 +62,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
+    @permission_classes([])
     def get_deaths(self, request, *args, **kwargs):
         streamer_name = request.data.get('streamer', False)
         if streamer_name:
