@@ -380,7 +380,9 @@ def box_saver(boxes, trainer: Trainer):
             continue
         box_name = data['name']
         slots = data['slots']
-        box = TrainerBox.objects.get(box_number=box_num, name=box_name, trainer=trainer)
+        box = TrainerBox.objects.get(box_number=box_num, trainer=trainer)
+        box.name = box_name
+        box.save()
         for slot in slots:
             box_slot, _ = TrainerBoxSlot.objects.get_or_create(box=box, slot=slot['slot'])
             pokemon = slot['pokemon']
