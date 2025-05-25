@@ -72,7 +72,10 @@ function doUpdateData(data) {
         if (pokemon !== null) {
             pkmnDiv.classList.remove('d-none');
             pkmnDiv.children[0].src = pokemon.sprite_url;
-            pkmnDiv.children[1].innerText = pokemon.mote;
+            let moteSpan = pkmnDiv.children[1];
+            let x = pokemon.mote.length;
+            moteSpan.setAttribute('style', `font-size: ${((-6/12)*(x-1)+18)}px`)
+            moteSpan.innerText = pokemon.mote;
         } else {
             pkmnDiv.classList.add('d-none')
         }

@@ -24,4 +24,4 @@ urlpatterns = [
     path('docs/', schema_view),
     re_path(r"^static/(?P<path>.*)$", serve, {"document_root": 'statics/'}),
     path('_nested_admin/', include('nested_admin.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
