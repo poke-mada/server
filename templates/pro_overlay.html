@@ -280,6 +280,15 @@
             const data = JSON.parse(message.message);
             doUpdateOverlayData(data)
         }
+
+        setInterval(async () => {
+            let response = await fetch('/trainers/get_deaths/', {
+                body: {
+                    streamer: '{{ streamer_name }}'
+                }
+            });
+            console.log(response.data);
+        }, 2000)
     </script>
 </body>
 
