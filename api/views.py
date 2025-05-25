@@ -71,6 +71,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         dex_number = request.data.get('dex_number')
         species = Pokemon.objects.filter(dex_number=dex_number, form='0').first().name
         DeathLog.objects.get_or_create(trainer=trainer, pid=pid, mote=mote, species_name=species)
+        profile = user.masters_profile
+        profile.death_count += 1
+        profile.save()
         serializer = self.get_serializer(trainer)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
