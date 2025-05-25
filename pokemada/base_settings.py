@@ -131,7 +131,7 @@ STORAGES = {
     }
 }
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 # noinspection PyUnresolvedReferences
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
