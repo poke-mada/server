@@ -136,7 +136,6 @@ STORAGES = {
             "location": MEDIA_ROOT,
             "base_url": MEDIA_URL,
         },
-
     }
 }
 
