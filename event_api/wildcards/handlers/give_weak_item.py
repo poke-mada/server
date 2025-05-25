@@ -1,16 +1,16 @@
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 
-mega_stones = [113, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 656, 657, 658, 659, 660, 661, 662, 663, 664, 665, 666, 667, 668, 669, 670, 671, 672, 673, 674, 675, 676, 677, 678, 679, 680, 681, 682, 683, 684, 685]
+available_items = [541, 268, 219, 214, 271, 286, 221, 267, 542, 232, 295, 253, 265, 547, 275, 284, 285, 283, 282]
 
 
-@WildCardExecutorRegistry.register("mega_item", verbose='Give Mega Stone Handler')
-class GiveMegaItemHandler(BaseWildCardHandler):
+@WildCardExecutorRegistry.register("weak_item", verbose='Give Weak Item Handler')
+class GiveWeakItemHandler(BaseWildCardHandler):
 
     def validate(self, context, **kwargs):
         item_id = context.get('item_id')
 
-        if item_id not in mega_stones:
+        if item_id not in available_items:
             raise ValueError("non_mega_item")
 
         return True

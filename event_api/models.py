@@ -44,16 +44,28 @@ class CoinTransaction(models.Model):
 
 
 class Wildcard(models.Model):
-    COMMON = 0
-    UNCOMMON = 1
-    RARE = 2
-    LEGENDARY = 3
+    AESTETHICAL = 0
+    HEAL = 1
+    PROTECT = 2
+    STAT_BOOST = 3
+    ITEMS = 4
+    CAPTURE = 5
+    OFFENSIVE = 6
+    ECONOMY = 7
+    CHALLENGE = 8
+    CHOSEN_ONE = 9
 
     QUALITIES = (
-        (COMMON, 'Common'),
-        (UNCOMMON, 'Uncommon'),
-        (RARE, 'Rare'),
-        (LEGENDARY, 'Legendary'),
+        (AESTETHICAL, 'Esteticos'),
+        (HEAL, 'Curacion'),
+        (PROTECT, 'Protección'),
+        (STAT_BOOST, 'Boosteos'),
+        (ITEMS, 'Items'),
+        (CAPTURE, 'Captura'),
+        (OFFENSIVE, 'Ataque'),
+        (ECONOMY, 'Economía'),
+        (CHALLENGE, 'Retos'),
+        (CHOSEN_ONE, 'El Elegido'),
     )
 
     name = models.CharField(max_length=500)
@@ -61,7 +73,7 @@ class Wildcard(models.Model):
     special_price = models.CharField(max_length=500, null=True, blank=True)
     sprite = models.ImageField(upload_to='wildcards/', null=True, blank=True)
     description = models.TextField(blank=False, default="")
-    quality = models.SmallIntegerField(choices=QUALITIES, default=COMMON)
+    quality = models.SmallIntegerField(choices=QUALITIES, default=AESTETHICAL)
     is_active = models.BooleanField(default=True)
     extra_url = models.URLField(blank=True, null=True)
     always_available = models.BooleanField(default=False)  # models.py (dentro de Wildcard)
