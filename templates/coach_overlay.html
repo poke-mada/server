@@ -226,8 +226,8 @@
         doUpdateData(data)
     }
     server_socket.onmessage = async (event) => {
-        const data = JSON.parse(event.data);
-        console.log(data)
+        const message = JSON.parse(event.data);
+        const data = JSON.parse(message.message);
         doUpdateOverlayData(data)
     }
 </script>
