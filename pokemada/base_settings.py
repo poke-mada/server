@@ -170,7 +170,8 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'console': {
-            'class': 'logging.StreamHandler',
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, 'CONSOLE.log'),
         },
         "file": {
             "level": "DEBUG",
