@@ -111,7 +111,34 @@
             min-width: 649px;
             max-height: 441px;
             min-height: 441px;
-            background-color: aqua;
+        }
+
+        #alert-overlay > #card {
+            max-height: 294px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #alert-overlay > #card * {
+            max-height: 294px;
+            display: grid;
+        }
+
+        #alert-overlay > .description {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        #alert-overlay > .description > * {
+            font-family: Arial, serif;
+            text-shadow: white 0 0 2px;
+            font-weight: bold;
+            font-size: 32px;
+            display: inline-block;
+            text-align: center;
         }
     </style>
 </head>
@@ -157,17 +184,42 @@
     <span id="death-count"></span>
 
     <span id="trainer-name">{{ streamer_name }}</span>
-    <div id="alert-overlay"></div>
+
+    <div id="alert-overlay" class="d-none">
+        <div id="card">
+            <img src="{% static 'wildcards/000-sin_hacer.png' %}" alt="" id="img-card">
+        </div>
+        <div class="description">
+            <span id="text"><span id="user"></span> ha usado <span style="font-style: italic; font-weight: bolder"
+                                                                   id="wildcard-name">ROBO POKEMON</span> en <span
+                    id="target"></span></span>
+        </div>
+    </div>
 
     <script src="{% static 'overlay/data_loader.js' %}"></script>
     <script type="application/javascript">
         const socket = new WebSocket('ws://localhost:8088');
+        let server_socket;
+        if (window.location.host.startsWith('localhost')) {
+            server_socket = new WebSocket(`ws://${window.location.host}/ws/alerts/{{ streamer_name }}`);
+        } else {
+            server_socket = new WebSocket(`wss://${window.location.host}/ws/alerts/{{ streamer_name }}`);
+        }
+
         socket.onopen = (ws) => {
             socket.send('request_data');
+        }
+        server_socket.onopen = (ws) => {
+            console.log('server socket connected')
         }
         socket.onmessage = async (event) => {
             const data = JSON.parse(event.data);
             doUpdateData(data)
+        }
+        server_socket.onmessage = async (event) => {
+            const message = JSON.parse(event.data);
+            const data = JSON.parse(message.message);
+            doUpdateOverlayData(data)
         }
     </script>
 </body>
