@@ -9,7 +9,7 @@ from pokemon_api.models import Item
 class GiveItemHandler(BaseWildCardHandler):
     admin_inline_model = GiveItemHandlerSettings  # a model with extra config
 
-    def execute(self, context):
+def execute(self, context):
         amount = context.get('amount')
         settings: GiveItemHandlerSettings = self.wildcard.give_item_settings
         return {

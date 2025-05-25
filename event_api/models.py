@@ -117,6 +117,7 @@ class Wildcard(models.Model):
 
     def use(self, user: User, amount: int, **kwargs):
         from event_api.wildcards.registry import get_executor
+
         trainer = user.masters_profile.trainer
         try:
             streamer = user.streamer_profile

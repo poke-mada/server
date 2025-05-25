@@ -10,10 +10,10 @@ class AlertHandler(BaseWildCardHandler):
     def validate(self, context):
         return
 
-    async def execute(self, context):
-        from websocket.sockets import MyConsumer
+    def execute(self, context):
+        from asgiref.sync import async_to_sync
         channel_layer = get_channel_layer()
-        target_id = context.get('target_id')
+        target_id = context.get('target_id')[0]
 
         streamer = Streamer.objects.get(id=target_id)
 
@@ -21,11 +21,17 @@ class AlertHandler(BaseWildCardHandler):
             user_name=self.user.streamer_profile.name,
             wildcard=dict(
                 name=self.wildcard.name,
-                sprite_src=self.wildcard.sprite
+                sprite_src=self.wildcard.sprite.url
             ),
             target_name=streamer.name
         )
 
-        for chat in MyConsumer.chats:
-            print(chat)
-            await channel_layer.group_send(chat, dict(type='chat', text=json.dumps(data)))
+        for chat in Streamer.objects.all().values_list('name', flat=True):
+            # noinspection PyArgumentList
+            async_to_sync(channel_layer.group_send)(
+                f'chat_{chat}',
+                {
+                    'type': 'chat.message',
+                    'message': json.dumps(data)
+                }
+            )

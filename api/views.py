@@ -312,14 +312,14 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(data=dict(detail='no_enough_money'), status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['POST'], detail=True)
-    def buy_and_use_card(self, request, *args, **kwargs):
+    async def buy_and_use_card(self, request, *args, **kwargs):
         wildcard: Wildcard = self.get_object()
         user = request.user
         quantity = int(request.data.get('quantity', 1))
         if wildcard.can_buy(user, quantity):
             buyed = wildcard.buy(user, quantity)
             if buyed:
-                used = wildcard.use(user, quantity, **request.data)
+                used = await wildcard.use(user, quantity, **request.data)
                 if used is True:
                     return Response(data=dict(detail='card_bought_and_used', amount=buyed), status=status.HTTP_200_OK)
                 elif used is False:

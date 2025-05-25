@@ -23,6 +23,7 @@ DEBUG = False
 # SECURITY WARNING: don't run with debug turned on in production!
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'https://pokemon.para-mada.com']
 
 # Application definition
 
