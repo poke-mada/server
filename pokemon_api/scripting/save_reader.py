@@ -691,8 +691,8 @@ def data_reader(save_data):
                 ))
 
         if len(box_list) > 0:
-            box_name_address = 0x4400 + box * 22
-            data = save_data[box_name_address:box_name_address + 22]
+            box_name_address = 0x4400 + box * 34
+            data = save_data[box_name_address:box_name_address + 28]
             box_name = get_string(data)
             boxes[box] = dict(
                 name=box_name,
