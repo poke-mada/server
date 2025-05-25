@@ -18,7 +18,7 @@ from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, 
     GameEvent, DeathLog, MastersProfile
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer
-from pokemon_api.models import Move
+from pokemon_api.models import Move, Pokemon
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer
 from rewards_api.models import RewardBundle, StreamerRewardInventory
@@ -58,6 +58,19 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def get_coached_trainer(self, request, *args, **kwargs):
         user: User = request.user
         trainer = Trainer.get_from_user(user)
+        serializer = self.get_serializer(trainer)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=['post'], detail=False)
+    @permission_classes([IsTrainer])
+    def register_death(self, request, *args, **kwargs):
+        user: User = request.user
+        trainer = Trainer.get_from_user(user)
+        pid = request.data.get('pid')
+        mote = request.data.get('mote')
+        dex_number = request.data.get('dex_number')
+        species = Pokemon.objects.filter(dex_number=dex_number, form='0').first().name
+        DeathLog.objects.get_or_create(trainer=trainer, pid=pid, mote=mote, species_name=species)
         serializer = self.get_serializer(trainer)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
