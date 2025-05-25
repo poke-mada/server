@@ -5,7 +5,7 @@ db.sqlite3
 .idea/
 .my_pgpass
 .pg_service.conf
-DEBUG.log
+*.log
 dbdump.pgsql
 !**__pycache__/
 *.pyc
