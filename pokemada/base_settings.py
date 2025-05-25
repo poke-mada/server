@@ -178,25 +178,10 @@ LOGGING = {
             "class": "logging.FileHandler",
             "filename": os.path.join(BASE_DIR, 'DEBUG.log'),
         },
-        "informer": {
-            "level": "INFO",
-            "class": "logging.FileHandler",
-            "filename": os.path.join(BASE_DIR, 'INFO.log'),
-        },
-        "warner": {
-            "level": "WARNING",
-            "class": "logging.FileHandler",
-            "filename": os.path.join(BASE_DIR, 'WARNS.log'),
-        },
-        "errors": {
-            "level": "ERROR",
-            "class": "logging.FileHandler",
-            "filename": os.path.join(BASE_DIR, 'ERRORS.log'),
-        },
     },
     'loggers': {
         'django': {
-            'handlers': ['file', 'informer', 'warner', 'errors'],
+            'handlers': ['file'],
         }
     },
 }

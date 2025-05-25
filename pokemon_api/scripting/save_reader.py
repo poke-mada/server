@@ -3,8 +3,9 @@ import os
 import struct
 from json import JSONEncoder
 from pprint import pprint
-
+import logging
 from django.db.models import Q
+logger = logging.getLogger('django')
 
 TERMINATOR_NULL = 0
 
@@ -694,9 +695,9 @@ def data_reader(save_data):
             box_name_address = 4400 + box * 22
             data = save_data[box_name_address:box_name_address + 22]
             box_name = get_string(data)
-            print(box_name_address)
-            print(data)
-            print(box_name)
+            logger.debug(box_name_address)
+            logger.debug(data)
+            logger.debug(box_name)
             boxes[box] = dict(
                 name=box_name,
                 slots=box_list
