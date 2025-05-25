@@ -86,13 +86,10 @@ function doUpdateData(data) {
 function doUpdateOverlayData(data) {
     setTimeout(() => {
         const overlay = document.getElementById(`alert-overlay`);
-        console.log(overlay);
-        console.log('awa')
         overlay.classList.add('d-none')
     }, 5000)
-    let audio = new Audio('/static/overlay/laugh.mp3')
+    let audio = new Audio('https://para-mada-deploy.s3.us-east-1.amazonaws.com/pokemon-statics/overlay/laugh.mp3')
     audio.play();
-
 
     const overlay = document.getElementById(`alert-overlay`);
     overlay.classList.remove('d-none')
