@@ -7,7 +7,6 @@ function doUpdateData(data) {
     const gym6 = document.getElementById('gym6');
     const gym7 = document.getElementById('gym7');
     const gym8 = document.getElementById('gym8');
-    const deathCount = document.getElementById('death-count');
 
     gym1.classList.remove('bg-disabled')
     gym2.classList.remove('bg-disabled')
@@ -49,7 +48,6 @@ function doUpdateData(data) {
     if (!data.gym8) {
         gym8.classList.add('bg-disabled')
     }
-    deathCount.innerText = `x${data.deathCount}`;
 
     if (!data.team) {
         const pkmnDiv1 = document.getElementById(`pokemon1`);
