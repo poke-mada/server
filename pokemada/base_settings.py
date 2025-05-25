@@ -122,18 +122,23 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+MEDIA_URL = '/media/'
+# noinspection PyUnresolvedReferences
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
 STORAGES = {
     "staticfiles": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
     },
     "default": {
-        "BACKEND": "django.contrib.staticfiles.storage.FileSystemStorage",
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "OPTIONS": {
+            "location": MEDIA_ROOT,
+            "base_url": MEDIA_URL,
+        },
+
     }
 }
-
-MEDIA_URL = '/media/'
-# noinspection PyUnresolvedReferences
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
