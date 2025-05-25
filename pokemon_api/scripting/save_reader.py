@@ -690,14 +690,10 @@ def data_reader(save_data):
                     pokemon=pokemon
                 ))
 
-        logger.info(len(box_list))
         if len(box_list) > 0:
-            box_name_address = 4400 + box * 22
+            box_name_address = 0x4400 + box * 22
             data = save_data[box_name_address:box_name_address + 22]
             box_name = get_string(data)
-            logger.info(box_name_address)
-            logger.info(data)
-            logger.info(box_name)
             boxes[box] = dict(
                 name=box_name,
                 slots=box_list
