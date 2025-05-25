@@ -94,6 +94,8 @@ class ItemSelectSerializer(serializers.ModelSerializer):
         ).first()
         if not name_localization:
             name_localization = obj.name_localizations.first()
+        if not name_localization:
+            return obj.name
         return name_localization.content
 
     class Meta:
