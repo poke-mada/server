@@ -63,6 +63,13 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['post'], detail=False)
     @permission_classes([IsTrainer])
+    def get_deaths(self, request, *args, **kwargs):
+        user: User = request.user
+        profile = user.masters_profile
+        return Response(profile.death_count, status=status.HTTP_200_OK)
+
+    @action(methods=['post'], detail=False)
+    @permission_classes([IsTrainer])
     def register_death(self, request, *args, **kwargs):
         user: User = request.user
         profile = user.masters_profile
@@ -71,7 +78,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         mote = request.data.get('mote')
         dex_number = request.data.get('dex_number')
         species = Pokemon.objects.filter(dex_number=dex_number, form='0').first().name
-        _, is_created = DeathLog.objects.get_or_create(profile=profile, trainer=trainer, pid=pid, mote=mote, species_name=species)
+        _, is_created = DeathLog.objects.get_or_create(profile=profile, trainer=trainer, pid=pid, mote=mote,
+                                                       species_name=species)
 
         if is_created:
             profile.death_count += 1
