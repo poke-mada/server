@@ -378,8 +378,10 @@ def box_saver(boxes, trainer: Trainer):
     for box_num, data in boxes.items():
         if not data:
             continue
-        box = TrainerBox.objects.get(box_number=box_num, trainer=trainer)
-        for slot in data:
+        box_name = data['name']
+        slots = data['slots']
+        box = TrainerBox.objects.get(box_number=box_num, name=box_name, trainer=trainer)
+        for slot in slots:
             box_slot, _ = TrainerBoxSlot.objects.get_or_create(box=box, slot=slot['slot'])
             pokemon = slot['pokemon']
             pokemon_serializer = TrainerPokemonSerializer(data=pokemon)
