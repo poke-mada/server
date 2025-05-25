@@ -589,14 +589,13 @@ def normalize_gender_symbol(char):
 
 
 def get_string(data):
-    result = []
-    length = load_string(data, result)
-    return ''.join(result[:length])  # Crear una cadena con los caracteres procesados
+    result = load_string(data)
+    return ''.join(result)  # Crear una cadena con los caracteres procesados
 
 
-def load_string(data, result):
-    ctr = 0
+def load_string(data):
     i = 0
+    result = []
     while i < len(data):
         # Leer 2 bytes (como en ReadUInt16LittleEndian)
         value = struct.unpack('<H', data[i:i + 2])[0]  # '<H' es para little-endian, unsigned short
@@ -604,8 +603,7 @@ def load_string(data, result):
             break
         result.append(normalize_gender_symbol(chr(value)))
         i += 2
-        ctr += 1
-    return ctr
+    return result
 
 
 def get_party_slot(data):
@@ -694,8 +692,13 @@ def data_reader(save_data):
 
         if len(box_list) > 0:
             box_name_address = 4400 + box * 22
+            data = save_data[box_name_address:box_name_address + 22]
+            box_name = get_string(data)
+            print(box_name_address)
+            print(data)
+            print(box_name)
             boxes[box] = dict(
-                name=get_string(save_data[box_name_address:box_name_address + 22]),
+                name=box_name,
                 slots=box_list
             )
 
