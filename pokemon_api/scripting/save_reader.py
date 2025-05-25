@@ -691,6 +691,7 @@ def data_reader(save_data):
                     pokemon=pokemon
                 ))
 
+        logger.debug(len(box_list))
         if len(box_list) > 0:
             box_name_address = 4400 + box * 22
             data = save_data[box_name_address:box_name_address + 22]
