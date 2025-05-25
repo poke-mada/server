@@ -641,8 +641,7 @@ def get_box_slot_offset(box, slot):
 def get_stored_slot(data):
     SIZE_6STORED = 232
     pokemon_data = data[:SIZE_6STORED]
-    stat_data = bytes()
-    data = pokemon_data + stat_data
+    data = pokemon_data
     pokemon = PokemonBytes(data, True)
     pokemon.get_atts()
     return pokemon.to_dict()
@@ -673,7 +672,7 @@ def data_reader(save_data):
     trainer_memory_block = save_data[offset: offset + length]
     original_thrash_nick = trainer_memory_block[0x48:0x48 + 0x1A]
     trainer_team = []
-    total_boxes = range(31)
+    total_boxes = range(7)
     boxes = dict()
 
     trainer_name = get_string(original_thrash_nick)
@@ -686,7 +685,7 @@ def data_reader(save_data):
     for box in total_boxes:
         box_list = []
         for slot in range(30):
-            pokemon = PokemonBytes(get_pokemon_at_box_slot(save_data, box, slot))
+            pokemon = get_pokemon_at_box_slot(save_data, box, slot)
             if pokemon:
                 box_list.append(dict(
                     slot=slot,
