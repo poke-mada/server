@@ -686,7 +686,7 @@ def data_reader(save_data):
     for box in total_boxes:
         box_list = []
         for slot in range(30):
-            pokemon = get_pokemon_at_box_slot(save_data, box, slot)
+            pokemon = PokemonBytes(get_pokemon_at_box_slot(save_data, box, slot))
             if pokemon:
                 box_list.append(dict(
                     slot=slot,
