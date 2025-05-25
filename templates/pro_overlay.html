@@ -282,7 +282,7 @@
         }
 
         setInterval(async () => {
-            let response = await fetch('/trainers/get_deaths?streamer={{ streamer_name }}');
+            let response = await fetch('/api/trainers/get_deaths?streamer={{ streamer_name }}');
             console.log(response.data);
         }, 2000)
     </script>
