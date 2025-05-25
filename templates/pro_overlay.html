@@ -282,8 +282,8 @@
         }
 
         setInterval(async () => {
-            let response = await fetch('/api/trainers/get_deaths?streamer={{ streamer_name }}');
-            console.log(response.data);
+            let response = await fetch('/api/trainers/get_deaths?streamer={{ streamer_name }}').then(res => res.json());
+            console.log(response);
         }, 2000)
     </script>
 </body>
