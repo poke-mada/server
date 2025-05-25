@@ -18,9 +18,9 @@ from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, 
     GameEvent, DeathLog, MastersProfile
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer
-from pokemon_api.models import Move, Pokemon
+from pokemon_api.models import Move, Pokemon, Item
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
-from pokemon_api.serializers import MoveSerializer
+from pokemon_api.serializers import MoveSerializer, ItemSelectSerializer
 from rewards_api.models import RewardBundle, StreamerRewardInventory
 from rewards_api.serializers import StreamerRewardSerializer, StreamerRewardSimpleSerializer, RewardSerializer
 from trainer_data.models import Trainer, TrainerTeam, TrainerBox, TrainerBoxSlot
@@ -341,6 +341,27 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
                 return Response(used, status=status.HTTP_200_OK)
             return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(data=dict(detail='no_enough_money'), status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['GET'], detail=False)
+    def list_strong_items(self, request, *args, **kwargs):
+        from event_api.wildcards.handlers.give_strong_item import available_items as indexes
+        items = Item.objects.filter(index__in=indexes)
+        serializer = ItemSelectSerializer(items, many=True)
+        return Response(serializer.data)
+
+    @action(methods=['GET'], detail=False)
+    def list_weak_items(self, request, *args, **kwargs):
+        from event_api.wildcards.handlers.give_weak_item import available_items as indexes
+        items = Item.objects.filter(index__in=indexes)
+        serializer = ItemSelectSerializer(items, many=True)
+        return Response(serializer.data)
+
+    @action(methods=['GET'], detail=False)
+    def list_mega_stones(self, request, *args, **kwargs):
+        from event_api.wildcards.handlers.give_mega_item import mega_stones as indexes
+        items = Item.objects.filter(index__in=indexes)
+        serializer = ItemSelectSerializer(items, many=True)
+        return Response(serializer.data)
 
 
 def team_saver(team, trainer):
