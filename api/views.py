@@ -66,7 +66,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def get_deaths(self, request, *args, **kwargs):
         user: User = request.user
         profile = user.masters_profile
-        return Response(profile.death_count, status=status.HTTP_200_OK)
+        return Response(data=dict(death_count=profile.death_count), status=status.HTTP_200_OK)
 
     @action(methods=['post'], detail=False)
     @permission_classes([IsTrainer])
