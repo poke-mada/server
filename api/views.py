@@ -61,7 +61,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = self.get_serializer(trainer)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(methods=['post'], detail=False)
+    @action(methods=['get'], detail=False)
     @permission_classes([IsTrainer])
     def get_deaths(self, request, *args, **kwargs):
         user: User = request.user
