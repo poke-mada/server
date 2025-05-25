@@ -125,6 +125,9 @@ STORAGES = {
     "staticfiles": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
     },
+    "default": {
+        "BACKEND": "django.contrib.staticfiles.storage.FileSystemStorage",
+    }
 }
 
 MEDIA_URL = 'media/'
