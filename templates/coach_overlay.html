@@ -282,6 +282,12 @@
             const data = JSON.parse(message.message);
             doUpdateOverlayData(data)
         }
+
+        setInterval(async () => {
+            let response = await fetch('/api/trainers/get_deaths?streamer={{ streamer_name }}').then(res => res.json());
+            const deathCount = document.getElementById('death-count');
+            deathCount.innerText = `x${response.death_count}`;
+        }, 2000)
     </script>
 </body>
 
