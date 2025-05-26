@@ -18,6 +18,7 @@ class OverlayConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data=None, **kwargs):
         text_data_json = json.loads(text_data)
+        print(text_data_json)
         message = text_data_json["message"]
         if message['type'] == 'request_data':
             from event_api.models import Streamer
@@ -26,10 +27,11 @@ class OverlayConsumer(AsyncWebsocketConsumer):
             streamer = Streamer.objects.filter(name=streamer_name).first()
             profile = streamer.user.masters_profile
             serializer = OverlaySerializer(profile.trainer)
+            new_message = json.dumps(dict(context='pokemon_data', **serializer.data))
 
             await self.channel_layer.group_send(
                 self.room_group_name,
-                {"type": "chat.message", "message": json.dumps(dict(context='pokemon_data', **serializer.data))}
+                {"type": "chat.message", "message": new_message}
             )
             return
 
