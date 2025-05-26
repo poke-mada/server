@@ -9,7 +9,7 @@ class PokemonOverlaySerializer(serializers.ModelSerializer):
     sprite_url = serializers.SerializerMethodField()
 
     def get_sprite_url(self, obj: TrainerPokemon):
-        return obj.pokemon.sprite.url
+        return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{obj.pokemon.dex_number}.png'
 
     class Meta:
         fields = ['sprite_url', 'mote']
