@@ -235,8 +235,8 @@ class MastersProfile(models.Model):
 
     @property
     def economy(self):
-        if not self.trainer:
-            return -1
+        if self.profile_type == MastersProfile.ADMIN:
+            return 999
 
         inputs = self.transactions.filter(
             TYPE=CoinTransaction.INPUT

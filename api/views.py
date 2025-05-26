@@ -68,6 +68,16 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         profile = streamer.user.masters_profile
         return Response(data=dict(death_count=profile.death_count), status=status.HTTP_200_OK)
 
+    @action(methods=['get'], detail=False, permission_classes=[])
+    def get_data(self, request, *args, **kwargs):
+        from websocket.serializers import OverlaySerializer
+        streamer_name = request.GET.get('streamer', False)
+        streamer = Streamer.objects.filter(name=streamer_name).first()
+        profile = streamer.user.masters_profile
+        serializer = OverlaySerializer(profile.trainer)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
     @action(methods=['post'], detail=False)
     @permission_classes([IsTrainer])
     def register_death(self, request, *args, **kwargs):

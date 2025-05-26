@@ -19,6 +19,14 @@ class Trainer(models.Model):
     name = models.CharField(max_length=50, db_index=True, unique=True)
     current_team = models.ForeignKey("TrainerTeam", on_delete=models.CASCADE, related_name='trainer', null=True,
                                      blank=True)
+    gym_badge_1 = models.BooleanField(default=False)
+    gym_badge_2 = models.BooleanField(default=False)
+    gym_badge_3 = models.BooleanField(default=False)
+    gym_badge_4 = models.BooleanField(default=False)
+    gym_badge_5 = models.BooleanField(default=False)
+    gym_badge_6 = models.BooleanField(default=False)
+    gym_badge_7 = models.BooleanField(default=False)
+    gym_badge_8 = models.BooleanField(default=False)
 
     def streamer_name(self):
         if not self.streamer:
@@ -27,7 +35,11 @@ class Trainer(models.Model):
 
     def get_streamer(self):
         from event_api.models import MastersProfile
-        return self.user.filter(profile_type=MastersProfile.TRAINER).first().user.streamer_profile
+        return self.users.filter(profile_type=MastersProfile.TRAINER).first().user.streamer_profile
+
+    def get_trainer_profile(self):
+        from event_api.models import MastersProfile
+        return self.users.filter(profile_type=MastersProfile.TRAINER).first()
 
     def __str__(self):
         return self.streamer_name() or self.name
@@ -39,6 +51,10 @@ class Trainer(models.Model):
             if user.masters_profile.profile_type != MastersProfile.ADMIN:
                 return user.masters_profile.trainer
         return None
+
+    class Meta:
+        verbose_name = "Save Data"
+        verbose_name_plural = "Save Datasets"
 
 
 class TrainerPokemon(models.Model):

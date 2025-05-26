@@ -72,12 +72,25 @@ function doUpdateData(data) {
             pkmnDiv.children[0].src = pokemon.sprite_url;
             let moteSpan = pkmnDiv.children[1];
             let x = pokemon.mote.length;
-            moteSpan.setAttribute('style', `font-size: ${((-6/12)*(x-1)+18)}px`)
+            let fontSize = getSize(x);
+            let margins = (31 - fontSize)/2;
+            moteSpan.setAttribute('style', `font-size: ${fontSize}px; margin-top: ${margins}px`)
             moteSpan.innerText = pokemon.mote;
         } else {
             pkmnDiv.classList.add('d-none')
         }
     })
+}
+
+function getSize(x) {
+    const min_value = 12;
+    const max_value = 24;
+    const min_length = 1;
+    const max_length = 13;
+    //((-6/12)*(x-1)+18)
+
+    return max_value - ((x - min_length) / (max_length - min_length) * (max_value - min_value))
+
 }
 
 /**
