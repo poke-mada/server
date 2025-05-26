@@ -258,28 +258,28 @@
 
     <script src="{% static 'overlay/data_loader.js' %}"></script>
     <script type="application/javascript">
-        const socket = new WebSocket('ws://localhost:8088');
         let server_socket;
         if (window.location.host.startsWith('localhost')) {
-            server_socket = new WebSocket(`ws://${window.location.host}/ws/alerts/{{ streamer_name }}`);
+            server_socket = new WebSocket(`ws://${window.location.host}/ws/overlay/{{ streamer_name }}`);
         } else {
-            server_socket = new WebSocket(`wss://${window.location.host}/ws/alerts/{{ streamer_name }}`);
+            server_socket = new WebSocket(`wss://${window.location.host}/ws/overlay/{{ streamer_name }}`);
         }
 
-        socket.onopen = (ws) => {
-            socket.send('request_data');
-        }
         server_socket.onopen = (ws) => {
-            console.log('server socket connected')
+            server_socket.send(JSON.stringify({
+                type: 'request_data',
+                streamer: '{{ streamer_name }}'
+            }));
         }
-        socket.onmessage = async (event) => {
-            const data = JSON.parse(event.data);
-            doUpdateData(data)
-        }
+
         server_socket.onmessage = async (event) => {
             const message = JSON.parse(event.data);
             const data = JSON.parse(message.message);
-            doUpdateOverlayData(data)
+            if (data.context === 'pokemon_data') {
+                doUpdateData(data)
+            } else {
+                doUpdateOverlayData(data)
+            }
         }
 
         setInterval(async () => {
