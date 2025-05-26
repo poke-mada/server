@@ -2,9 +2,6 @@ import json
 
 from channels.generic.websocket import AsyncWebsocketConsumer
 
-from event_api.models import Streamer
-from websocket.serializers import OverlaySerializer
-
 
 class OverlayConsumer(AsyncWebsocketConsumer):
 
@@ -23,6 +20,8 @@ class OverlayConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
         if message['type'] == 'request_data':
+            from event_api.models import Streamer
+            from websocket.serializers import OverlaySerializer
             streamer_name = message['streamer']
             streamer = Streamer.objects.filter(name=streamer_name).first()
             profile = streamer.user.masters_profile
