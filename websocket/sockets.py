@@ -17,8 +17,10 @@ class OverlayConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
 
     async def receive(self, text_data=None, **kwargs):
+        import logging
         text_data_json = json.loads(text_data)
-        print(text_data_json)
+        logger = logging.getLogger('django')
+        logger.debug(text_data_json)
         message = text_data_json["message"]
         if message['type'] == 'request_data':
             from event_api.models import Streamer
