@@ -53,14 +53,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = self.get_serializer(trainer)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(methods=['get'], detail=False)
-    @permission_classes([IsCoach])
-    def get_coached_trainer(self, request, *args, **kwargs):
-        user: User = request.user
-        trainer = Trainer.get_from_user(user)
-        serializer = self.get_serializer(trainer)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
     @action(methods=['get'], detail=False, permission_classes=[])
     def get_deaths(self, request, *args, **kwargs):
         streamer_name = request.GET.get('streamer', False)
@@ -81,6 +73,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['post'], detail=False)
     @permission_classes([IsTrainer])
     def register_death(self, request, *args, **kwargs):
+        from websocket.sockets import OverlayConsumer
         user: User = request.user
         profile = user.masters_profile
         trainer = Trainer.get_from_user(user)
@@ -95,6 +88,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             profile.death_count += 1
             profile.save()
 
+        OverlayConsumer.send_overlay_data(user.streamer_profile.name)
         serializer = self.get_serializer(trainer)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -431,6 +425,7 @@ class FileUploadView(APIView):
     parser_class = (FileUploadParser,)
 
     def post(self, request, *args, **kwargs):
+        from websocket.sockets import OverlayConsumer
         file_obj = request.data['file'].file
         save_data = file_obj.read()
         file_obj.seek(0)
@@ -448,6 +443,7 @@ class FileUploadView(APIView):
             save_results = data_reader(save_data)
             team_saver(save_results.get('team'), trainer)
             box_saver(save_results.get('boxes'), trainer)
+            OverlayConsumer.send_overlay_data(trainer.streamer_name())
         else:
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(file_serializer.data, status=status.HTTP_201_CREATED)

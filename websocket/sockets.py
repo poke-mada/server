@@ -17,14 +17,16 @@ class OverlayConsumer(AsyncWebsocketConsumer):
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
 
-    def get_trainer(self, streamer_name):
+    @classmethod
+    def get_trainer(cls, streamer_name):
         from event_api.models import Streamer
         streamer = Streamer.objects.filter(name=streamer_name).first()
 
         profile = streamer.user.masters_profile
         return profile.trainer
 
-    def serialize(self, trainer):
+    @classmethod
+    def serialize(cls, trainer):
         from websocket.serializers import OverlaySerializer
         serializer = OverlaySerializer(trainer)
         return serializer.data
@@ -33,8 +35,8 @@ class OverlayConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         if text_data_json['type'] == 'request_data':
             streamer_name = text_data_json['streamer']
-            trainer = await sync_to_async(self.get_trainer)(streamer_name)
-            data = await sync_to_async(self.serialize)(trainer)
+            trainer = await sync_to_async(OverlayConsumer.get_trainer)(streamer_name)
+            data = await sync_to_async(OverlayConsumer.serialize)(trainer)
             new_message = json.dumps(dict(context='pokemon_data', **data))
 
             await self.channel_layer.group_send(
@@ -55,6 +57,21 @@ class OverlayConsumer(AsyncWebsocketConsumer):
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({"message": message}))
+
+    @classmethod
+    def send_overlay_data(cls, streamer_name):
+        from asgiref.sync import async_to_sync
+        from channels.layers import get_channel_layer
+
+        channel_layer = get_channel_layer()
+        trainer = OverlayConsumer.get_trainer(streamer_name)
+        data = OverlayConsumer.serialize(trainer)
+        new_message = json.dumps(dict(context='pokemon_data', **data))
+
+        async_to_sync(channel_layer.group_send)(
+            f'chat_{streamer_name}',
+            {"type": "chat.message", "message": new_message}
+        )
 
 
 class DataConsumer(AsyncWebsocketConsumer):

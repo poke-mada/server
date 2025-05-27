@@ -256,6 +256,7 @@
     </div>
 
     <script src="{% static 'overlay/data_loader.js' %}"></script>
+    <!--suppress JSUnresolvedReference -->
     <script type="application/javascript">
         let server_socket;
         if (window.location.host.startsWith('localhost')) {
@@ -275,18 +276,13 @@
             const message = JSON.parse(event.data);
             const data = JSON.parse(message.message);
             if (data.context === 'pokemon_data') {
-                doUpdateData(data)
+                doUpdateData(data);
+                const deathCount = document.getElementById('death-count');
+                deathCount.innerText = `x${data.death_count}`;
             } else {
                 doUpdateOverlayData(data)
             }
         }
-
-        setInterval(async () => {
-            let response = await fetch('/api/trainers/get_deaths?streamer={{ streamer_name }}').then(res => res.json());
-            const deathCount = document.getElementById('death-count');
-            deathCount.innerText = `x${response.death_count}`;
-        }, 2000)
     </script>
 </body>
-
 </html>
