@@ -1,12 +1,12 @@
 from django.shortcuts import render
 
 from event_api.models import Streamer, MastersProfile
+from django.shortcuts import get_object_or_404
 
 
 def coach_overlay(request, streamer_name):
-    streamer = Streamer.objects.get(name=streamer_name)
-    coach: MastersProfile = streamer.user.masters_profile.trainer.users.filter(
-        profile_type=MastersProfile.COACH).first()
+    streamer = get_object_or_404(Streamer, name=streamer_name)
+    coach: MastersProfile = streamer.user.masters_profile.trainer.users.filter(profile_type=MastersProfile.COACH).first()
     coach_name = 'Sin coach'
     if coach:
         coach_name = coach.user.streamer_profile.name
