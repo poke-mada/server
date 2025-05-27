@@ -426,14 +426,23 @@ class FileUploadView(APIView):
 
     def post(self, request, *args, **kwargs):
         from websocket.sockets import OverlayConsumer
+        profile: MastersProfile = request.user.masters_profile
         file_obj = request.data['file'].file
         save_data = file_obj.read()
         file_obj.seek(0)
         trainer_name = get_trainer_name(save_data)
-        trainer, is_created = Trainer.objects.get_or_create(name=trainer_name)
-        profile = request.user.masters_profile
-        profile.trainer = trainer
-        profile.save()
+
+        if profile.trainer is None:
+            if profile.profile_type == MastersProfile.TRAINER:
+                trainer = Trainer.objects.create(name=trainer_name)
+                profile.trainer = trainer
+                profile.save()
+            elif profile.profile_type == MastersProfile.COACH:
+                trainer, _ = Trainer.objects.get_or_create(name=trainer_name)
+                profile.trainer = trainer
+                profile.save()
+
+        trainer = profile.trainer
 
         data = dict(
             file=request.data['file'],

@@ -16,7 +16,7 @@ from pokemon_api.models import Pokemon, Move, PokemonNature, Type, Item, Pokemon
 class Trainer(models.Model):
     streamer = models.OneToOneField("event_api.Streamer", on_delete=models.CASCADE, related_name="trainer", null=True)
     is_active = models.BooleanField(default=True)
-    name = models.CharField(max_length=50, db_index=True, unique=True)
+    name = models.CharField(max_length=50, db_index=True)
     current_team = models.ForeignKey("TrainerTeam", on_delete=models.CASCADE, related_name='trainer', null=True,
                                      blank=True)
     gym_badge_1 = models.BooleanField(default=False)
