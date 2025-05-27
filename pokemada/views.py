@@ -1,11 +1,13 @@
+from django.http import Http404
 from django.shortcuts import render
 
 from event_api.models import Streamer, MastersProfile
-from django.shortcuts import get_object_or_404
 
 
 def coach_overlay(request, streamer_name):
-    streamer = get_object_or_404(Streamer, name=streamer_name)
+    streamer = Streamer.objects.filter(name=streamer_name, profile_type=MastersProfile.TRAINER).first()
+    if not streamer:
+        raise Http404("Streamer not found")
     coach: MastersProfile = streamer.user.masters_profile.trainer.users.filter(profile_type=MastersProfile.COACH).first()
     coach_name = 'Sin coach'
     if coach:
