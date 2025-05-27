@@ -36,7 +36,7 @@ class Trainer(models.Model):
     def get_streamer(self):
         from event_api.models import MastersProfile
         profile = self.get_trainer_profile()
-        if profile:
+        if profile and hasattr(profile.user, 'streamer_profile') and profile.user.streamer_profile:
             return profile.user.streamer_profile
         return None
 
