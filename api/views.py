@@ -431,6 +431,9 @@ class FileUploadView(APIView):
         file_obj.seek(0)
         trainer_name = get_trainer_name(save_data)
         trainer, is_created = Trainer.objects.get_or_create(name=trainer_name)
+        profile = request.user.masters_profile
+        profile.trainer = trainer
+        profile.save()
 
         data = dict(
             file=request.data['file'],
@@ -441,14 +444,15 @@ class FileUploadView(APIView):
         if file_serializer.is_valid():
             file_serializer.save()
             save_results = data_reader(save_data)
-            trainer.gym_badge_1 = save_results['badge_count'] >= 1
-            trainer.gym_badge_2 = save_results['badge_count'] >= 2
-            trainer.gym_badge_3 = save_results['badge_count'] >= 3
-            trainer.gym_badge_4 = save_results['badge_count'] >= 4
-            trainer.gym_badge_5 = save_results['badge_count'] >= 5
-            trainer.gym_badge_6 = save_results['badge_count'] >= 6
-            trainer.gym_badge_7 = save_results['badge_count'] >= 7
-            trainer.gym_badge_8 = save_results['badge_count'] >= 8
+            trainer.gym_badge_1 = (save_results['badge_count'] & (1 << 0)) != 0
+            trainer.gym_badge_2 = (save_results['badge_count'] & (1 << 1)) != 0
+            trainer.gym_badge_3 = (save_results['badge_count'] & (1 << 2)) != 0
+            trainer.gym_badge_4 = (save_results['badge_count'] & (1 << 3)) != 0
+            trainer.gym_badge_5 = (save_results['badge_count'] & (1 << 4)) != 0
+            trainer.gym_badge_6 = (save_results['badge_count'] & (1 << 5)) != 0
+            trainer.gym_badge_7 = (save_results['badge_count'] & (1 << 6)) != 0
+            trainer.gym_badge_8 = (save_results['badge_count'] & (1 << 7)) != 0
+            trainer.save()
             team_saver(save_results.get('team'), trainer)
             box_saver(save_results.get('boxes'), trainer)
             OverlayConsumer.send_overlay_data(trainer.streamer_name())
