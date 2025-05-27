@@ -17,7 +17,7 @@ class PokemonOverlaySerializer(serializers.ModelSerializer):
 
 
 class OverlaySerializer(serializers.ModelSerializer):
-    team = PokemonOverlaySerializer(read_only=True, many=True, source='current_team.team')
+    team = PokemonOverlaySerializer(read_only=True, many=True, source='current_team.team', default=[])
     gym1 = serializers.BooleanField(read_only=True, source='gym_badge_1')
     gym2 = serializers.BooleanField(read_only=True, source='gym_badge_2')
     gym3 = serializers.BooleanField(read_only=True, source='gym_badge_3')

@@ -1,5 +1,6 @@
 import json
 
+from asgiref.sync import sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 
 
@@ -16,26 +17,32 @@ class OverlayConsumer(AsyncWebsocketConsumer):
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
 
+    def get_trainer(self, streamer_name):
+        from event_api.models import Streamer
+        streamer = Streamer.objects.filter(name=streamer_name).first()
+
+        profile = streamer.user.masters_profile
+        return profile.trainer
+
+    def serialize(self, trainer):
+        from websocket.serializers import OverlaySerializer
+        serializer = OverlaySerializer(trainer)
+        return serializer.data
+
     async def receive(self, text_data=None, **kwargs):
-        import logging
         text_data_json = json.loads(text_data)
-        logger = logging.getLogger('django')
-        logger.debug(text_data_json)
-        message = text_data_json["message"]
-        if message['type'] == 'request_data':
-            from event_api.models import Streamer
-            from websocket.serializers import OverlaySerializer
-            streamer_name = message['streamer']
-            streamer = Streamer.objects.filter(name=streamer_name).first()
-            profile = streamer.user.masters_profile
-            serializer = OverlaySerializer(profile.trainer)
-            new_message = json.dumps(dict(context='pokemon_data', **serializer.data))
+        if text_data_json['type'] == 'request_data':
+            streamer_name = text_data_json['streamer']
+            trainer = await sync_to_async(self.get_trainer)(streamer_name)
+            data = await sync_to_async(self.serialize)(trainer)
+            new_message = json.dumps(dict(context='pokemon_data', **data))
 
             await self.channel_layer.group_send(
                 self.room_group_name,
                 {"type": "chat.message", "message": new_message}
             )
             return
+        message = text_data_json["message"]
 
         await self.channel_layer.group_send(
             self.room_group_name, {"type": "chat.message", "message": message}
