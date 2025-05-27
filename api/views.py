@@ -441,6 +441,14 @@ class FileUploadView(APIView):
         if file_serializer.is_valid():
             file_serializer.save()
             save_results = data_reader(save_data)
+            trainer.gym_badge_1 = save_results['badge_count'] >= 1
+            trainer.gym_badge_2 = save_results['badge_count'] >= 2
+            trainer.gym_badge_3 = save_results['badge_count'] >= 3
+            trainer.gym_badge_4 = save_results['badge_count'] >= 4
+            trainer.gym_badge_5 = save_results['badge_count'] >= 5
+            trainer.gym_badge_6 = save_results['badge_count'] >= 6
+            trainer.gym_badge_7 = save_results['badge_count'] >= 7
+            trainer.gym_badge_8 = save_results['badge_count'] >= 8
             team_saver(save_results.get('team'), trainer)
             box_saver(save_results.get('boxes'), trainer)
             OverlayConsumer.send_overlay_data(trainer.streamer_name())

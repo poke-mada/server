@@ -674,7 +674,7 @@ def data_reader(save_data):
     boxes = dict()
 
     trainer_name = get_string(original_thrash_nick)
-
+    badge_count = struct.unpack("B", save_data[0x04200:2])
     for slot in range(6):
         pokemon = PokemonBytes(get_pokemon_in_slot(save_data, slot))
         pokemon.get_atts()
@@ -702,5 +702,6 @@ def data_reader(save_data):
     return dict(
         boxes=boxes,
         trainer_name=trainer_name,
-        team=trainer_team
+        team=trainer_team,
+        badge_count=badge_count
     )

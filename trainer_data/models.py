@@ -35,7 +35,10 @@ class Trainer(models.Model):
 
     def get_streamer(self):
         from event_api.models import MastersProfile
-        return self.users.filter(profile_type=MastersProfile.TRAINER).first().user.streamer_profile
+        profile = self.get_trainer_profile()
+        if profile:
+            return profile.user.streamer_profile
+        return None
 
     def get_trainer_profile(self):
         from event_api.models import MastersProfile
@@ -66,7 +69,8 @@ class TrainerPokemon(models.Model):
     types = models.ManyToManyField(Type, blank=True)
     held_item = models.ForeignKey(Item, on_delete=models.PROTECT)
     ability = models.ForeignKey(PokemonAbility, on_delete=models.PROTECT, related_name='pokemons')
-    mega_ability = models.ForeignKey(PokemonAbility, on_delete=models.SET_NULL, null=True, blank=True, related_name='megas')
+    mega_ability = models.ForeignKey(PokemonAbility, on_delete=models.SET_NULL, null=True, blank=True,
+                                     related_name='megas')
     nature = models.ForeignKey(PokemonNature, on_delete=models.PROTECT)
     level = models.IntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(1)])
     suffix = models.CharField(max_length=50, default='', null=True, blank=True)
