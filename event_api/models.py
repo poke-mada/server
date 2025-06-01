@@ -37,6 +37,7 @@ class CoinTransaction(models.Model):
     amount = models.IntegerField()
     reason = models.TextField(blank=False, default="No reason provided")
     TYPE = models.SmallIntegerField(choices=TRANSACTION_TYPES, default=INPUT)
+    created_on = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Economy Log'

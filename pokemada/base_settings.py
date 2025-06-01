@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'event_api',
     'pokemon_api',
     'trainer_data',
+    'market',
     'api',
     'corsheaders',
     'websocket',

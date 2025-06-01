@@ -54,7 +54,8 @@ class GiveGameMoneyHandlerSettingsInline(admin.StackedInline):
 
 @admin.register(CoinTransaction)
 class CoinTransactionAdmin(admin.ModelAdmin):
-    list_display = ('profile', 'reason', 'amount', 'TYPE',)
+    list_display = ('created_on', 'profile', 'reason', 'amount', 'TYPE',)
+    readonly_fields = ('created_on',)
     search_fields = ('profile', 'TYPE')
 
 

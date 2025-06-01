@@ -1,6 +1,7 @@
 staticfiles
 media
 pokemada/settings.py
+pokemada/local_settings.py
 db.sqlite3
 .idea/
 .my_pgpass
