@@ -1,10 +1,12 @@
-staticfiles/*
+staticfiles
+media
 pokemada/settings.py
+pokemada/local_settings.py
 db.sqlite3
 .idea/
 .my_pgpass
 .pg_service.conf
-DEBUG.log
+*.log
 dbdump.pgsql
 venv/
 env/

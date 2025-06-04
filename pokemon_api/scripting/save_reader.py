@@ -1,10 +1,10 @@
 import json
-import os
+import logging
 import struct
-from json import JSONEncoder
-from pprint import pprint
 
 from django.db.models import Q
+
+logger = logging.getLogger('django')
 
 TERMINATOR_NULL = 0
 
@@ -589,14 +589,13 @@ def normalize_gender_symbol(char):
 
 
 def get_string(data):
-    result = []
-    length = load_string(data, result)
-    return ''.join(result[:length])  # Crear una cadena con los caracteres procesados
+    result = load_string(data)
+    return ''.join(result)  # Crear una cadena con los caracteres procesados
 
 
-def load_string(data, result):
-    ctr = 0
+def load_string(data):
     i = 0
+    result = []
     while i < len(data):
         # Leer 2 bytes (como en ReadUInt16LittleEndian)
         value = struct.unpack('<H', data[i:i + 2])[0]  # '<H' es para little-endian, unsigned short
@@ -604,8 +603,7 @@ def load_string(data, result):
             break
         result.append(normalize_gender_symbol(chr(value)))
         i += 2
-        ctr += 1
-    return ctr
+    return result
 
 
 def get_party_slot(data):
@@ -641,8 +639,7 @@ def get_box_slot_offset(box, slot):
 def get_stored_slot(data):
     SIZE_6STORED = 232
     pokemon_data = data[:SIZE_6STORED]
-    stat_data = bytes()
-    data = pokemon_data + stat_data
+    data = pokemon_data
     pokemon = PokemonBytes(data, True)
     pokemon.get_atts()
     return pokemon.to_dict()
@@ -673,11 +670,12 @@ def data_reader(save_data):
     trainer_memory_block = save_data[offset: offset + length]
     original_thrash_nick = trainer_memory_block[0x48:0x48 + 0x1A]
     trainer_team = []
-    total_boxes = range(31)
+    total_boxes = range(7)
     boxes = dict()
 
     trainer_name = get_string(original_thrash_nick)
-
+    misc = save_data[0x4200:0x4200+0x140]
+    badge_count = misc[0xC]
     for slot in range(6):
         pokemon = PokemonBytes(get_pokemon_in_slot(save_data, slot))
         pokemon.get_atts()
@@ -694,14 +692,17 @@ def data_reader(save_data):
                 ))
 
         if len(box_list) > 0:
-            box_name_address = 4400 + box * 22
+            box_name_address = 0x4400 + box * 34
+            data = save_data[box_name_address:box_name_address + 28]
+            box_name = get_string(data)
             boxes[box] = dict(
-                name=get_string(save_data[box_name_address:box_name_address + 22]),
+                name=box_name,
                 slots=box_list
             )
 
     return dict(
         boxes=boxes,
         trainer_name=trainer_name,
-        team=trainer_team
+        team=trainer_team,
+        badge_count=badge_count
     )

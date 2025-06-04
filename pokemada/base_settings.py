@@ -23,6 +23,7 @@ DEBUG = False
 # SECURITY WARNING: don't run with debug turned on in production!
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'https://pokemon.para-mada.com']
 
 # Application definition
 
@@ -42,15 +43,16 @@ INSTALLED_APPS = [
     'event_api',
     'pokemon_api',
     'trainer_data',
+    'market',
     'api',
     'corsheaders',
-    'websocket'
+    'websocket',
+    'storages'
 ]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -115,15 +117,28 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 # noinspection PyUnresolvedReferences
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "OPTIONS": {
+            "location": MEDIA_ROOT,
+            "base_url": MEDIA_URL,
+        },
+    }
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -142,14 +157,6 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "pokemada.storage.WhiteNoiseStaticFilesStorage",
-    },
-    "default": {
-        "BACKEND": "pokemada.storage.WhiteNoiseStaticFilesStorage",
-    }
-}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -164,7 +171,8 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'console': {
-            'class': 'logging.StreamHandler',
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, 'CONSOLE.log'),
         },
         "file": {
             "level": "DEBUG",
@@ -175,8 +183,7 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
-        },
+        }
     },
 }
 

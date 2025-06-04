@@ -1,13 +1,17 @@
 version: '3'
 
 services:
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
   db:
     image: postgres:13-alpine
     restart: always
     expose:
       - '5432'
     ports:
-      - "5433:5432"
+      - "5432:5432"
     environment:
       - POSTGRES_DB=defaultdb
       - POSTGRES_USER=postgres
@@ -19,11 +23,38 @@ services:
       context: .
       dockerfile: ./compose/local/Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - DJANGO_SETTINGS_MODULE=pokemada.local_settings
     volumes:
       - .:/app
-    ports:
-      - "8000:8000"
     depends_on:
       - db
+  daphne:
+    build:
+      context: .
+      dockerfile: ./compose/local/Dockerfile
+    command: daphne -b 0.0.0.0 -p 8000 pokemada.asgi:application
+    volumes:
+      - .:/app
+    expose:
+      - '8001'
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+    links:
+      - redis
+  nginx:
+    build:
+      context: .
+      dockerfile: ./compose/nginx/Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    links:
+      - app:app
+    depends_on:
+      - app
+      - daphne
 volumes:
   my-db:

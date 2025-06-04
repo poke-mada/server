@@ -1,8 +1,6 @@
 from rest_framework import serializers
 
-from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, Streamer
 from rewards_api.models import RewardBundle, Reward, ItemReward, MoneyReward, WildcardReward, PokemonReward
-from trainer_data.models import Trainer
 
 
 class ByteArrayFileField(serializers.FileField):

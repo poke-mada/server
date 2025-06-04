@@ -84,3 +84,24 @@ class MoveSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = Move
 
+
+class ItemSelectSerializer(serializers.ModelSerializer):
+    value = serializers.SerializerMethodField()
+    title = serializers.SerializerMethodField()
+
+    def get_value(self, obj):
+        return obj.index
+
+    def get_title(self, obj: Item):
+        name_localization: ContextLocalization = obj.name_localizations.filter(
+            language='es'
+        ).first()
+        if not name_localization:
+            name_localization = obj.name_localizations.first()
+        if not name_localization:
+            return obj.name
+        return name_localization.content
+
+    class Meta:
+        fields = ['value', 'title']
+        model = Item

@@ -16,18 +16,33 @@ from pokemon_api.models import Pokemon, Move, PokemonNature, Type, Item, Pokemon
 class Trainer(models.Model):
     streamer = models.OneToOneField("event_api.Streamer", on_delete=models.CASCADE, related_name="trainer", null=True)
     is_active = models.BooleanField(default=True)
-    name = models.CharField(max_length=50, db_index=True, unique=True)
+    name = models.CharField(max_length=50, db_index=True)
     current_team = models.ForeignKey("TrainerTeam", on_delete=models.CASCADE, related_name='trainer', null=True,
                                      blank=True)
+    gym_badge_1 = models.BooleanField(default=False)
+    gym_badge_2 = models.BooleanField(default=False)
+    gym_badge_3 = models.BooleanField(default=False)
+    gym_badge_4 = models.BooleanField(default=False)
+    gym_badge_5 = models.BooleanField(default=False)
+    gym_badge_6 = models.BooleanField(default=False)
+    gym_badge_7 = models.BooleanField(default=False)
+    gym_badge_8 = models.BooleanField(default=False)
 
     def streamer_name(self):
-        if not self.streamer:
+        if not self.get_streamer():
             return f'T - {self.name}'
-        return self.streamer.name
+        return self.get_streamer().name
 
     def get_streamer(self):
         from event_api.models import MastersProfile
-        return self.user.filter(profile_type=MastersProfile.TRAINER).first().user.streamer_profile
+        profile = self.get_trainer_profile()
+        if profile and hasattr(profile.user, 'streamer_profile') and profile.user.streamer_profile:
+            return profile.user.streamer_profile
+        return None
+
+    def get_trainer_profile(self):
+        from event_api.models import MastersProfile
+        return self.users.filter(profile_type=MastersProfile.TRAINER).first()
 
     def __str__(self):
         return self.streamer_name() or self.name
@@ -40,6 +55,10 @@ class Trainer(models.Model):
                 return user.masters_profile.trainer
         return None
 
+    class Meta:
+        verbose_name = "Save Data"
+        verbose_name_plural = "Save Datasets"
+
 
 class TrainerPokemon(models.Model):
     team = models.ForeignKey("TrainerTeam", related_name='team', on_delete=models.CASCADE, null=True)
@@ -50,7 +69,8 @@ class TrainerPokemon(models.Model):
     types = models.ManyToManyField(Type, blank=True)
     held_item = models.ForeignKey(Item, on_delete=models.PROTECT)
     ability = models.ForeignKey(PokemonAbility, on_delete=models.PROTECT, related_name='pokemons')
-    mega_ability = models.ForeignKey(PokemonAbility, on_delete=models.SET_NULL, null=True, blank=True, related_name='megas')
+    mega_ability = models.ForeignKey(PokemonAbility, on_delete=models.SET_NULL, null=True, blank=True,
+                                     related_name='megas')
     nature = models.ForeignKey(PokemonNature, on_delete=models.PROTECT)
     level = models.IntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(1)])
     suffix = models.CharField(max_length=50, default='', null=True, blank=True)

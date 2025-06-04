@@ -18,9 +18,9 @@ from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, 
     GameEvent, DeathLog, MastersProfile
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer
-from pokemon_api.models import Move
+from pokemon_api.models import Move, Pokemon, Item
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
-from pokemon_api.serializers import MoveSerializer
+from pokemon_api.serializers import MoveSerializer, ItemSelectSerializer
 from rewards_api.models import RewardBundle, StreamerRewardInventory
 from rewards_api.serializers import StreamerRewardSerializer, StreamerRewardSimpleSerializer, RewardSerializer
 from trainer_data.models import Trainer, TrainerTeam, TrainerBox, TrainerBoxSlot
@@ -53,26 +53,44 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = self.get_serializer(trainer)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(methods=['get'], detail=False)
-    @permission_classes([IsCoach])
-    def get_coached_trainer(self, request, *args, **kwargs):
-        user: User = request.user
-        trainer = Trainer.get_from_user(user)
-        serializer = self.get_serializer(trainer)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    @action(methods=['get'], detail=False, permission_classes=[])
+    def get_deaths(self, request, *args, **kwargs):
+        streamer_name = request.GET.get('streamer', False)
+        streamer = Streamer.objects.filter(name=streamer_name).first()
+        profile = streamer.user.masters_profile
+        return Response(data=dict(death_count=profile.death_count), status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=False, permission_classes=[])
+    def get_data(self, request, *args, **kwargs):
+        from websocket.serializers import OverlaySerializer
+        streamer_name = request.GET.get('streamer', False)
+        streamer = Streamer.objects.filter(name=streamer_name).first()
+        profile = streamer.user.masters_profile
+        serializer = OverlaySerializer(profile.trainer)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['post'], detail=False)
     @permission_classes([IsTrainer])
-    def submit_death(self, request, *args, **kwargs):
+    def register_death(self, request, *args, **kwargs):
+        from websocket.sockets import OverlayConsumer
         user: User = request.user
-        trainer = Trainer.get_from_user(user)
         profile = user.masters_profile
-        profile.death_count += 1
-        profile.save()
-        DeathLog.objects.create(
-            trainer=trainer,
-            pid=request.data['pid']
-        )
+        trainer = Trainer.get_from_user(user)
+        pid = request.data.get('pid')
+        mote = request.data.get('mote')
+        dex_number = request.data.get('dex_number')
+        species = Pokemon.objects.filter(dex_number=dex_number, form='0').first().name
+        _, is_created = DeathLog.objects.get_or_create(profile=profile, trainer=trainer, pid=pid, mote=mote,
+                                                       species_name=species)
+
+        if is_created:
+            profile.death_count += 1
+            profile.save()
+
+        OverlayConsumer.send_overlay_data(user.streamer_profile.name)
+        serializer = self.get_serializer(trainer)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
     @permission_classes([IsTrainer])
@@ -221,7 +239,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['get'], detail=True)
     def box(self, request, pk=None, *args, **kwargs):
-        if pk == 'undefined':
+        if pk == 'undefined' or pk == 0 or pk == '0':
             return Response(status=status.HTTP_400_BAD_REQUEST)
         trainer = Trainer.objects.get(id=pk)
         box_id = request.query_params.get('box', 0)
@@ -312,14 +330,14 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(data=dict(detail='no_enough_money'), status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['POST'], detail=True)
-    def buy_and_use_card(self, request, *args, **kwargs):
+    async def buy_and_use_card(self, request, *args, **kwargs):
         wildcard: Wildcard = self.get_object()
         user = request.user
         quantity = int(request.data.get('quantity', 1))
         if wildcard.can_buy(user, quantity):
             buyed = wildcard.buy(user, quantity)
             if buyed:
-                used = wildcard.use(user, quantity, **request.data)
+                used = await wildcard.use(user, quantity, **request.data)
                 if used is True:
                     return Response(data=dict(detail='card_bought_and_used', amount=buyed), status=status.HTTP_200_OK)
                 elif used is False:
@@ -327,6 +345,27 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
                 return Response(used, status=status.HTTP_200_OK)
             return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(data=dict(detail='no_enough_money'), status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['GET'], detail=False)
+    def list_strong_items(self, request, *args, **kwargs):
+        from event_api.wildcards.handlers.give_strong_item import available_items as indexes
+        items = Item.objects.filter(index__in=indexes)
+        serializer = ItemSelectSerializer(items, many=True)
+        return Response(serializer.data)
+
+    @action(methods=['GET'], detail=False)
+    def list_weak_items(self, request, *args, **kwargs):
+        from event_api.wildcards.handlers.give_weak_item import available_items as indexes
+        items = Item.objects.filter(index__in=indexes)
+        serializer = ItemSelectSerializer(items, many=True)
+        return Response(serializer.data)
+
+    @action(methods=['GET'], detail=False)
+    def list_mega_stones(self, request, *args, **kwargs):
+        from event_api.wildcards.handlers.give_mega_item import mega_stones as indexes
+        items = Item.objects.filter(index__in=indexes)
+        serializer = ItemSelectSerializer(items, many=True)
+        return Response(serializer.data)
 
 
 def team_saver(team, trainer):
@@ -337,14 +376,14 @@ def team_saver(team, trainer):
         team=[pokemon for pokemon in team if pokemon]
     )
 
-    for pokemon in team:
-        if not trainer.current_team:
-            continue
-        if not pokemon:
-            continue
-        last_version = trainer.current_team.team.filter(mote=pokemon['mote']).first()
-        if last_version:
-            pokemon['notes'] = last_version.notes
+    # for pokemon in team:
+    #     if not trainer.current_team:
+    #         continue
+    #     if not pokemon:
+    #         continue
+    #     last_version = trainer.current_team.team.filter(mote=pokemon['mote']).first()
+    #     if last_version:
+    #         pokemon['notes'] = last_version.notes
 
     new_team_serializer = TrainerTeamSerializer(data=team_data)
     if new_team_serializer.is_valid(raise_exception=True):
@@ -364,8 +403,12 @@ def box_saver(boxes, trainer: Trainer):
     for box_num, data in boxes.items():
         if not data:
             continue
+        box_name = data['name']
+        slots = data['slots']
         box = TrainerBox.objects.get(box_number=box_num, trainer=trainer)
-        for slot in data:
+        box.name = box_name
+        box.save()
+        for slot in slots:
             box_slot, _ = TrainerBoxSlot.objects.get_or_create(box=box, slot=slot['slot'])
             pokemon = slot['pokemon']
             pokemon_serializer = TrainerPokemonSerializer(data=pokemon)
@@ -382,11 +425,24 @@ class FileUploadView(APIView):
     parser_class = (FileUploadParser,)
 
     def post(self, request, *args, **kwargs):
+        from websocket.sockets import OverlayConsumer
+        profile: MastersProfile = request.user.masters_profile
         file_obj = request.data['file'].file
         save_data = file_obj.read()
         file_obj.seek(0)
         trainer_name = get_trainer_name(save_data)
-        trainer, is_created = Trainer.objects.get_or_create(name=trainer_name)
+
+        if profile.trainer is None:
+            if profile.profile_type == MastersProfile.TRAINER:
+                trainer = Trainer.objects.create(name=trainer_name)
+                profile.trainer = trainer
+                profile.save()
+            elif profile.profile_type == MastersProfile.COACH:
+                trainer, _ = Trainer.objects.get_or_create(name=trainer_name)
+                profile.trainer = trainer
+                profile.save()
+
+        trainer = profile.trainer
 
         data = dict(
             file=request.data['file'],
@@ -397,8 +453,18 @@ class FileUploadView(APIView):
         if file_serializer.is_valid():
             file_serializer.save()
             save_results = data_reader(save_data)
+            trainer.gym_badge_1 = (save_results['badge_count'] & (1 << 0)) != 0
+            trainer.gym_badge_2 = (save_results['badge_count'] & (1 << 1)) != 0
+            trainer.gym_badge_3 = (save_results['badge_count'] & (1 << 2)) != 0
+            trainer.gym_badge_4 = (save_results['badge_count'] & (1 << 3)) != 0
+            trainer.gym_badge_5 = (save_results['badge_count'] & (1 << 4)) != 0
+            trainer.gym_badge_6 = (save_results['badge_count'] & (1 << 5)) != 0
+            trainer.gym_badge_7 = (save_results['badge_count'] & (1 << 6)) != 0
+            trainer.gym_badge_8 = (save_results['badge_count'] & (1 << 7)) != 0
+            trainer.save()
             team_saver(save_results.get('team'), trainer)
             box_saver(save_results.get('boxes'), trainer)
+            OverlayConsumer.send_overlay_data(trainer.streamer_name())
         else:
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(file_serializer.data, status=status.HTTP_201_CREATED)
