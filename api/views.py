@@ -162,7 +162,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['get'], detail=False)
     def list_trainers(self, request, *args, **kwargs):
-        serializer = SelectTrainerSerializer(Trainer.objects.all().order_by('streamer__name'), many=True)
+        serializer = SelectTrainerSerializer(Trainer.objects.all().order_by('name'), many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
