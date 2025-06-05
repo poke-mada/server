@@ -35,7 +35,6 @@ class TrainerPokemonLinear(admin.TabularInline):
     fields = (
         'mega_ability',
         'mote',
-        'notes',
         'pokemon',
         'moves',
         'held_item',

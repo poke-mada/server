@@ -1,10 +1,8 @@
 from datetime import datetime
-from threading import Thread
 
 from django.contrib.auth.models import User
 from django.core.handlers.base import logger
 from django.db.models import Q
-from django.db.models.fields.files import FieldFile
 from django.http import HttpResponse, FileResponse
 from rest_framework import viewsets, status
 from rest_framework.decorators import action, permission_classes
@@ -13,8 +11,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from api.permissions import IsTrainer, IsCoach, IsRoot
-from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, WildcardLog, Streamer, CoinTransaction, \
+from api.permissions import IsTrainer, IsRoot
+from event_api.models import SaveFile, Wildcard, Streamer, CoinTransaction, \
     GameEvent, DeathLog, MastersProfile
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer
@@ -22,10 +20,11 @@ from pokemon_api.models import Move, Pokemon, Item
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer, ItemSelectSerializer
 from rewards_api.models import RewardBundle, StreamerRewardInventory
-from rewards_api.serializers import StreamerRewardSerializer, StreamerRewardSimpleSerializer, RewardSerializer
+from rewards_api.serializers import StreamerRewardSerializer, StreamerRewardSimpleSerializer
 from trainer_data.models import Trainer, TrainerTeam, TrainerBox, TrainerBoxSlot
 from trainer_data.serializers import TrainerSerializer, TrainerTeamSerializer, SelectTrainerSerializer, \
-    TrainerBoxSerializer, TrainerPokemonSerializer, EnTrainerSerializer, ListedBoxSerializer
+    TrainerBoxSerializer, TrainerPokemonSerializer, EnTrainerSerializer, ListedBoxSerializer, \
+    EnROTrainerPokemonSerializer, ROTrainerPokemonSerializer
 
 
 # Create your views here.
@@ -65,6 +64,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         from websocket.serializers import OverlaySerializer
         streamer_name = request.GET.get('streamer', False)
         streamer = Streamer.objects.filter(name=streamer_name).first()
+        if not streamer:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
         profile = streamer.user.masters_profile
         serializer = OverlaySerializer(profile.trainer)
 
@@ -263,6 +265,19 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
                 serialized = EnTrainerSerializer(trainer)
             case _:
                 serialized = TrainerSerializer(trainer)
+
+        return Response(serialized.data, status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=False)
+    def get_team(self, request, *args, **kwargs):
+        user: User = request.user
+        localization = request.query_params.get('localization', '*')
+        trainer = Trainer.get_from_user(user)
+        match localization:
+            case 'en':
+                serialized = EnROTrainerPokemonSerializer(trainer.current_team.team, many=True)
+            case _:
+                serialized = ROTrainerPokemonSerializer(trainer.current_team.team, many=True)
 
         return Response(serialized.data, status=status.HTTP_200_OK)
 

@@ -14,7 +14,6 @@ from pokemon_api.models import Pokemon, Move, PokemonNature, Type, Item, Pokemon
 
 
 class Trainer(models.Model):
-    streamer = models.OneToOneField("event_api.Streamer", on_delete=models.CASCADE, related_name="trainer", null=True)
     is_active = models.BooleanField(default=True)
     name = models.CharField(max_length=50, db_index=True)
     current_team = models.ForeignKey("TrainerTeam", on_delete=models.CASCADE, related_name='trainer', null=True,
@@ -51,8 +50,13 @@ class Trainer(models.Model):
     def get_from_user(cls, user) -> Union["Trainer", None]:
         from event_api.models import MastersProfile
         if user.masters_profile:
-            if user.masters_profile.profile_type != MastersProfile.ADMIN:
-                return user.masters_profile.trainer
+            match user.masters_profile.profile_type:
+                case MastersProfile.ADMIN:
+                    return None
+                case MastersProfile.TRAINER:
+                    return user.masters_profile.trainer
+                case MastersProfile.COACH:
+                    return user.masters_profile.coached.trainer
         return None
 
     class Meta:
