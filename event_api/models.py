@@ -214,6 +214,7 @@ class MastersProfile(models.Model):
     death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0)
     custom_sprite = models.ImageField(upload_to='profiles/sprites/', null=True, blank=True)
     rom_name = models.CharField(max_length=50, default="Pokémon X")
+    is_pro = models.BooleanField(default=False)
     save_path = models.CharField(max_length=260, null=True, blank=True,
                                  default=r'%APPDATA%\Lime3DS\sdmc\Nintendo 3DS\00000000000000000000000000000000\00000000000000000000000000000000\title\00040000\00055d00\data\00000001')
 
