@@ -164,7 +164,10 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_trainers(self, request, *args, **kwargs):
         user: User = request.user
         is_pro = user.masters_profile.is_pro
-        serializer = SelectTrainerSerializer(Trainer.objects.filter(is_pro=is_pro).order_by('name'), many=True)
+        trainer_ids = MastersProfile.objects.filter(is_pro=is_pro, profile_type=MastersProfile.TRAINER, trainer__isnull=False).values_list(
+            'trainer', flat=True)
+        trainers = Trainer.objects.filter(id__in=trainer_ids)
+        serializer = SelectTrainerSerializer(trainers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
