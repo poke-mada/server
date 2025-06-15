@@ -1,7 +1,7 @@
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 
-available_items = [234, 281, 220, 287, 297, 270, 640, 272, 273, 639, 639, 639, 639, 230, 650, 269, 158]
+available_items = [234, 281, 220, 287, 297, 270, 640, 272, 273, 639, 639, 639, 639, 275, 650, 269, 158]
 
 
 @WildCardExecutorRegistry.register("strong_item", verbose='Give Strong Item Handler')
