@@ -542,7 +542,7 @@ class LoadItemNamesView(APIView):
                 except IndexError:
                     print(f'(es)translation not found for {item.name}#{item.index}')
                 except KeyError:
-                    raise ValueError(f'error finding data on {response.content}')
+                    raise ValueError(f'error finding data on {response.content} from url {url}')
 
                 try:
                     new_en_localization, _ = ItemNameLocalization.objects.get_or_create(item=item, language='en', defaults=dict(
@@ -554,7 +554,7 @@ class LoadItemNamesView(APIView):
                 except IndexError:
                     print(f'(en)translation not found for {item.name}#{item.index}')
                 except KeyError:
-                    raise ValueError(f'error finding data on {response.content}')
+                    raise ValueError(f'error finding data on {response.content} from url {url}')
 
             except requests.exceptions.JSONDecodeError:
                 print(f'{response.content} for {item.index}')
