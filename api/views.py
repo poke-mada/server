@@ -531,10 +531,10 @@ class LoadItemNamesView(APIView):
             response = requests.get(url)
             json_response = response.json()
 
-            new_es_localization, _ = ItemNameLocalization.objects.get_or_create(language='es', defaults=dict(
+            new_es_localization, _ = ItemNameLocalization.objects.get_or_create(item=item, language='es', defaults=dict(
                 content=list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
             ))
-            new_en_localization, _ = ItemNameLocalization.objects.get_or_create(language='en', defaults=dict(
+            new_en_localization, _ = ItemNameLocalization.objects.get_or_create(item=item, language='en', defaults=dict(
                 content=list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
             ))
 
