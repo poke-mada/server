@@ -548,7 +548,7 @@ class LoadItemNamesView(APIView):
                 except IndexError:
                     print(f'(en)translation not found for {item.name}#{item.index}')
             except requests.exceptions.JSONDecodeError:
-                raise TypeError(response.content)
+                print(f'{response.content} for {item.index}')
 
             item.api_loaded = True
             item.save()
