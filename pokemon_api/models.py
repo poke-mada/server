@@ -26,6 +26,7 @@ class Item(models.Model):
     flavor_text_localizations = models.ManyToManyField(ContextLocalization, blank=True,
                                                        related_name="item_flavor_texts")
     name = models.CharField(max_length=50)
+    api_loaded = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

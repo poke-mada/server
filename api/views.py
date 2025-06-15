@@ -526,7 +526,7 @@ class LoadItemNamesView(APIView):
     permission_classes = [IsAuthenticated, IsRoot]
 
     def post(self, request, *args, **kwargs):
-        for item in Item.objects.filter(index__gte=1):
+        for item in Item.objects.filter(index__gte=1, api_loaded=False):
             url = f'https://pokeapi.co/api/v2/item/{item.index}'
             response = requests.get(url)
             json_response = response.json()
@@ -540,4 +540,6 @@ class LoadItemNamesView(APIView):
 
             item.name_localizations.add(new_es_localization)
             item.name_localizations.add(new_en_localization)
+            item.api_loaded = True
+            item.save()
         return Response(status=status.HTTP_201_CREATED)
