@@ -537,24 +537,28 @@ class LoadItemNamesView(APIView):
                 json_response = response.json()
 
                 try:
-                    new_es_localization, _ = ItemNameLocalization.objects.get_or_create(item=item, language='es', defaults=dict(
+                    new_es_localization, created = ItemNameLocalization.objects.get_or_create(item=item, language='es', defaults=dict(
                         content=list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
                     ))
-                    new_es_localization.content = list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
-                    new_es_localization.save()
-                    item.name_localizations.add(new_es_localization)
+                    if created:
+                        item.name_localizations.add(new_es_localization)
+                    else:
+                        new_es_localization.content = list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
+                        new_es_localization.save()
                 except IndexError:
                     print(f'(es)translation not found for {item.name}#{item.index}')
                 except KeyError:
                     raise ValueError(f'error finding data on {response.content} from url {url} @ {item.index}')
 
                 try:
-                    new_en_localization, _ = ItemNameLocalization.objects.get_or_create(item=item, language='en', defaults=dict(
+                    new_en_localization, created = ItemNameLocalization.objects.get_or_create(item=item, language='en', defaults=dict(
                         content=list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
                     ))
-                    new_en_localization.content = list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
-                    new_en_localization.save()
-                    item.name_localizations.add(new_en_localization)
+                    if created:
+                        item.name_localizations.add(new_en_localization)
+                    else:
+                        new_en_localization.content = list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
+                        new_en_localization.save()
                 except IndexError:
                     print(f'(en)translation not found for {item.name}#{item.index}')
                 except KeyError:
