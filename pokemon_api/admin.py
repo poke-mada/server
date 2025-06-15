@@ -1,6 +1,10 @@
 from django.contrib import admin
+from django import forms
+from django.forms import modelformset_factory
+from nested_admin.nested import NestedModelAdmin, NestedStackedInline, NestedTabularInline
 
 from pokemon_api import models
+from pokemon_api.models import ContextLocalization, ItemNameLocalization
 
 # Register your models here.
 admin.site.register(models.MoveCategory)
@@ -13,11 +17,17 @@ class MoveAdmin(admin.ModelAdmin):
     search_fields = ('index', 'name', 'move_type__name')
 
 
+class NameLocalizationInline(NestedTabularInline):
+    model = ItemNameLocalization
+    fields = ('language', 'content')
+
+
 @admin.register(models.Item)
-class ItemAdmin(admin.ModelAdmin):
-    readonly_fields = ('name_localizations', 'flavor_text_localizations')
+class ItemAdmin(NestedModelAdmin):
+    readonly_fields = ('flavor_text_localizations',)
     list_display = ('index', 'name', 'localization')
     search_fields = ('index', 'name', 'localization')
+    inlines = [NameLocalizationInline]
 
 
 @admin.register(models.Type)
