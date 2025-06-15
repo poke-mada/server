@@ -526,7 +526,7 @@ class LoadItemNamesView(APIView):
     permission_classes = [IsAuthenticated, IsRoot]
 
     def post(self, request, *args, **kwargs):
-        for item in Item.objects.filter(index__gte=1, api_loaded=True):
+        for item in Item.objects.filter(index__gte=1, api_loaded=False):
             if item.name == '???':
                 selector = item.index
             else:
