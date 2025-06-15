@@ -535,7 +535,7 @@ class LoadItemNamesView(APIView):
                     content=list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
                 ))
                 item.name_localizations.add(new_es_localization)
-            except:
+            except IndexError:
                 print(f'(es)translation not found for {item.name}#{item.index}')
 
             try:
@@ -543,7 +543,7 @@ class LoadItemNamesView(APIView):
                     content=list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
                 ))
                 item.name_localizations.add(new_en_localization)
-            except:
+            except IndexError:
                 print(f'(en)translation not found for {item.name}#{item.index}')
 
             item.api_loaded = True

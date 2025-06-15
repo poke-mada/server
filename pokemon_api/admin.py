@@ -25,7 +25,7 @@ class NameLocalizationInline(NestedTabularInline):
 @admin.register(models.Item)
 class ItemAdmin(NestedModelAdmin):
     readonly_fields = ('flavor_text_localizations',)
-    list_display = ('index', 'name', 'localization')
+    list_display = ('index', 'name', 'api_loaded')
     search_fields = ('index', 'name', 'localization')
     inlines = [NameLocalizationInline]
 
