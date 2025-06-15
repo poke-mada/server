@@ -529,24 +529,26 @@ class LoadItemNamesView(APIView):
         for item in Item.objects.filter(index__gte=1, api_loaded=False):
             url = f'https://pokeapi.co/api/v2/item/{item.index}'
             response = requests.get(url)
-            print(response.content)
-            json_response = response.json()
-
             try:
-                new_es_localization, _ = ItemNameLocalization.objects.get_or_create(item=item, language='es', defaults=dict(
-                    content=list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
-                ))
-                item.name_localizations.add(new_es_localization)
-            except IndexError:
-                print(f'(es)translation not found for {item.name}#{item.index}')
+                json_response = response.json()
 
-            try:
-                new_en_localization, _ = ItemNameLocalization.objects.get_or_create(item=item, language='en', defaults=dict(
-                    content=list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
-                ))
-                item.name_localizations.add(new_en_localization)
-            except IndexError:
-                print(f'(en)translation not found for {item.name}#{item.index}')
+                try:
+                    new_es_localization, _ = ItemNameLocalization.objects.get_or_create(item=item, language='es', defaults=dict(
+                        content=list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
+                    ))
+                    item.name_localizations.add(new_es_localization)
+                except IndexError:
+                    print(f'(es)translation not found for {item.name}#{item.index}')
+
+                try:
+                    new_en_localization, _ = ItemNameLocalization.objects.get_or_create(item=item, language='en', defaults=dict(
+                        content=list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
+                    ))
+                    item.name_localizations.add(new_en_localization)
+                except IndexError:
+                    print(f'(en)translation not found for {item.name}#{item.index}')
+            except requests.exceptions.JSONDecodeError:
+                raise response.content
 
             item.api_loaded = True
             item.save()
