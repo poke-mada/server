@@ -14,7 +14,7 @@ class ContextLocalization(models.Model):
 
 
 class ItemNameLocalization(models.Model):
-    item = models.ForeignKey("Item", on_delete=models.CASCADE, db_column='item_id', related_name='item_names', null=True)
+    item = models.ForeignKey("Item", on_delete=models.CASCADE, db_column='item_id', related_name='name_localizations', null=True)
     language = models.CharField(max_length=2, db_index=True, null=True, blank=False)
     content = models.TextField(null=True, blank=False)
 
@@ -23,7 +23,6 @@ class Item(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
     index = models.IntegerField()
     localization = models.CharField(max_length=2, db_index=True, default="en", null=True)
-    name_localizations = models.ManyToManyField(ContextLocalization, blank=True, related_name="item_names2")
     flavor_text_localizations = models.ManyToManyField(ContextLocalization, blank=True,
                                                        related_name="item_flavor_texts")
     name = models.CharField(max_length=50)

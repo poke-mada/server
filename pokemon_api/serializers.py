@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from pokemon_api.models import Pokemon, Item, Type, MoveCategory, Move, PokemonNature, PokemonAbility, \
-    ContextLocalization
+    ContextLocalization, ItemNameLocalization
 
 
 class PokemonAbilitySerializer(serializers.ModelSerializer):
@@ -93,7 +93,7 @@ class ItemSelectSerializer(serializers.ModelSerializer):
         return obj.index
 
     def get_title(self, obj: Item):
-        name_localization: ContextLocalization = obj.name_localizations.filter(
+        name_localization: ItemNameLocalization = obj.name_localizations.filter(
             language='es'
         ).first()
         if not name_localization:
