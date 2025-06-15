@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import requests
 from django.contrib.auth.models import User
 from django.core.handlers.base import logger
 from django.db.models import Q
@@ -16,7 +17,7 @@ from event_api.models import SaveFile, Wildcard, Streamer, CoinTransaction, \
     GameEvent, DeathLog, MastersProfile
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer
-from pokemon_api.models import Move, Pokemon, Item
+from pokemon_api.models import Move, Pokemon, Item, ItemNameLocalization
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer, ItemSelectSerializer
 from rewards_api.models import RewardBundle, StreamerRewardInventory
@@ -164,7 +165,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_trainers(self, request, *args, **kwargs):
         user: User = request.user
         is_pro = user.masters_profile.is_pro
-        trainer_ids = MastersProfile.objects.filter(is_pro=is_pro, profile_type=MastersProfile.TRAINER, trainer__isnull=False).values_list(
+        trainer_ids = MastersProfile.objects.filter(is_pro=is_pro, profile_type=MastersProfile.TRAINER,
+                                                    trainer__isnull=False).values_list(
             'trainer', flat=True)
         trainers = Trainer.objects.filter(id__in=trainer_ids)
         serializer = SelectTrainerSerializer(trainers, many=True)
@@ -473,14 +475,14 @@ class FileUploadView(APIView):
         if file_serializer.is_valid():
             file_serializer.save()
             save_results = data_reader(save_data)
-            trainer.gym_badge_1 = (save_results['badge_count'] & (1 << 0)) != 0
-            trainer.gym_badge_2 = (save_results['badge_count'] & (1 << 1)) != 0
-            trainer.gym_badge_3 = (save_results['badge_count'] & (1 << 2)) != 0
-            trainer.gym_badge_4 = (save_results['badge_count'] & (1 << 3)) != 0
-            trainer.gym_badge_5 = (save_results['badge_count'] & (1 << 4)) != 0
-            trainer.gym_badge_6 = (save_results['badge_count'] & (1 << 5)) != 0
-            trainer.gym_badge_7 = (save_results['badge_count'] & (1 << 6)) != 0
-            trainer.gym_badge_8 = (save_results['badge_count'] & (1 << 7)) != 0
+            trainer.gym_badge_1 = (save_results['badge_count'] & 0b00000001) != 0
+            trainer.gym_badge_2 = (save_results['badge_count'] & 0b00000010) != 0
+            trainer.gym_badge_3 = (save_results['badge_count'] & 0b00000100) != 0
+            trainer.gym_badge_4 = (save_results['badge_count'] & 0b00001000) != 0
+            trainer.gym_badge_5 = (save_results['badge_count'] & 0b00010000) != 0
+            trainer.gym_badge_6 = (save_results['badge_count'] & 0b00100000) != 0
+            trainer.gym_badge_7 = (save_results['badge_count'] & 0b01000000) != 0
+            trainer.gym_badge_8 = (save_results['badge_count'] & 0b10000000) != 0
             trainer.save()
             team_saver(save_results.get('team'), trainer)
             box_saver(save_results.get('boxes'), trainer)
@@ -518,3 +520,24 @@ class FileUploadManyView(APIView):
             else:
                 return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(data=dict(status='done'), status=status.HTTP_201_CREATED)
+
+
+class LoadItemNamesView(APIView):
+    permission_classes = [IsAuthenticated, IsRoot]
+
+    def post(self, request, *args, **kwargs):
+        for item in Item.objects.all():
+            url = f'https://pokeapi.co/api/v2/item/{item.index}'
+            response = requests.get(url)
+            json_response = response.json()
+
+            new_es_localization, _ = ItemNameLocalization.objects.get_or_create(language='es', defaults=dict(
+                content=list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
+            ))
+            new_en_localization, _ = ItemNameLocalization.objects.get_or_create(language='en', defaults=dict(
+                content=list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
+            ))
+
+            item.name_localizations.add(new_es_localization)
+            item.name_localizations.add(new_en_localization)
+        return Response(status=status.HTTP_201_CREATED)

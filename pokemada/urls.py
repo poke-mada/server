@@ -6,7 +6,7 @@ from django.views.static import serve
 from rest_framework_swagger.views import get_swagger_view
 
 from api.data_loader_view import LoadJsonDataView
-from api.views import FileUploadView, FileUploadManyView
+from api.views import FileUploadView, FileUploadManyView, LoadItemNamesView
 from pokemada.views import pro_overlay, coach_overlay
 from django.conf.urls.static import static
 
@@ -21,6 +21,7 @@ urlpatterns = [
     path('upload_save/', FileUploadView.as_view()),
     path('load_data/', LoadJsonDataView.as_view()),
     path('upload_save_many/', FileUploadManyView.as_view()),
+    path('load_item_names/', LoadItemNamesView.as_view()),
     path('docs/', schema_view),
     re_path(r"^static/(?P<path>.*)$", serve, {"document_root": 'statics/'}),
     path('_nested_admin/', include('nested_admin.urls')),
