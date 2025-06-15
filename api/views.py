@@ -530,16 +530,22 @@ class LoadItemNamesView(APIView):
             url = f'https://pokeapi.co/api/v2/item/{item.index}'
             response = requests.get(url)
             json_response = response.json()
+            try:
+                new_es_localization, _ = ItemNameLocalization.objects.get_or_create(item=item, language='es', defaults=dict(
+                    content=list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
+                ))
+                item.name_localizations.add(new_es_localization)
+            except:
+                print(f'(es)translation not found for {item.name}#{item.index}')
 
-            new_es_localization, _ = ItemNameLocalization.objects.get_or_create(item=item, language='es', defaults=dict(
-                content=list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
-            ))
-            new_en_localization, _ = ItemNameLocalization.objects.get_or_create(item=item, language='en', defaults=dict(
-                content=list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
-            ))
+            try:
+                new_en_localization, _ = ItemNameLocalization.objects.get_or_create(item=item, language='en', defaults=dict(
+                    content=list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
+                ))
+                item.name_localizations.add(new_en_localization)
+            except:
+                print(f'(en)translation not found for {item.name}#{item.index}')
 
-            item.name_localizations.add(new_es_localization)
-            item.name_localizations.add(new_en_localization)
             item.api_loaded = True
             item.save()
         return Response(status=status.HTTP_201_CREATED)
