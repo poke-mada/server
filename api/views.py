@@ -526,7 +526,7 @@ class LoadItemNamesView(APIView):
     permission_classes = [IsAuthenticated, IsRoot]
 
     def post(self, request, *args, **kwargs):
-        for item in Item.objects.filter(index__gte=1, api_loaded=False):
+        for item in Item.objects.filter(index__gte=1, api_loaded=True):
             url = f'https://pokeapi.co/api/v2/item/{item.name.replace(" ", "-")}'
             response = requests.get(url)
             try:
