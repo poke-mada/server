@@ -527,7 +527,7 @@ class LoadItemNamesView(APIView):
 
     def post(self, request, *args, **kwargs):
         for item in Item.objects.filter(index__gte=1, api_loaded=False):
-            url = f'https://pokeapi.co/api/v2/item/{item.index}'
+            url = f'https://pokeapi.co/api/v2/item/{item.name.replace(" ", "-")}'
             response = requests.get(url)
             try:
                 json_response = response.json()
@@ -536,6 +536,7 @@ class LoadItemNamesView(APIView):
                     new_es_localization, _ = ItemNameLocalization.objects.get_or_create(item=item, language='es', defaults=dict(
                         content=list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
                     ))
+                    new_es_localization.content = list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
                     item.name_localizations.add(new_es_localization)
                 except IndexError:
                     print(f'(es)translation not found for {item.name}#{item.index}')
@@ -544,6 +545,7 @@ class LoadItemNamesView(APIView):
                     new_en_localization, _ = ItemNameLocalization.objects.get_or_create(item=item, language='en', defaults=dict(
                         content=list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
                     ))
+                    new_en_localization.content = list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
                     item.name_localizations.add(new_en_localization)
                 except IndexError:
                     print(f'(en)translation not found for {item.name}#{item.index}')
