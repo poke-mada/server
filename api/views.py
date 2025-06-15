@@ -527,7 +527,11 @@ class LoadItemNamesView(APIView):
 
     def post(self, request, *args, **kwargs):
         for item in Item.objects.filter(index__gte=1, api_loaded=True):
-            url = f'https://pokeapi.co/api/v2/item/{item.name.lower().replace(" ", "-")}'
+            if item.name == '???':
+                selector = item.index
+            else:
+                selector = item.name.lower().replace(" ", "-")
+            url = f'https://pokeapi.co/api/v2/item/{selector}'
             response = requests.get(url)
             try:
                 json_response = response.json()
