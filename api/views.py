@@ -526,7 +526,7 @@ class LoadItemNamesView(APIView):
     permission_classes = [IsAuthenticated, IsRoot]
 
     def post(self, request, *args, **kwargs):
-        for item in Item.objects.all():
+        for item in Item.objects.filter(index__gte=1):
             url = f'https://pokeapi.co/api/v2/item/{item.index}'
             response = requests.get(url)
             json_response = response.json()
