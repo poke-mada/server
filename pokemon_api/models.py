@@ -14,12 +14,20 @@ class ContextLocalization(models.Model):
 
 
 class ItemNameLocalization(models.Model):
-    item = models.ForeignKey("Item", on_delete=models.CASCADE, db_column='item_id', related_name='name_localizations', null=True)
+    item = models.ForeignKey("Item", on_delete=models.CASCADE, db_column='item_id', related_name='name_localizations',
+                             null=True)
     language = models.CharField(max_length=2, db_index=True, null=True, blank=False)
     content = models.TextField(null=True, blank=False)
 
 
 class Item(models.Model):
+    ITEM_BAGS = [
+        ('berries', 'berries bag'),
+        ('meds', 'meds bag'),
+        ('tms', 'tms bag'),
+        ('keys', 'keys bag'),
+        ('items', 'items bag')
+    ]
     id = models.AutoField(primary_key=True, unique=True)
     index = models.IntegerField()
     localization = models.CharField(max_length=2, db_index=True, default="en", null=True)
@@ -27,7 +35,7 @@ class Item(models.Model):
                                                        related_name="item_flavor_texts")
     name = models.CharField(max_length=50)
     api_loaded = models.BooleanField(default=False)
-
+    item_bag = models.CharField(max_length=100, null=True, blank=True, choices=ITEM_BAGS)
 
     def __str__(self):
         return self.name
