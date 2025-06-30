@@ -355,6 +355,6 @@ class ProfileImposterLog(models.Model):
                 profile=self.profile,
                 amount=self.imposter.coin_reward,
                 reason=f'encontrado {self.imposter.message}',
-                type=CoinTransaction.INPUT
+                TYPE=CoinTransaction.INPUT
             )
         super().save(*args, **kwargs)
