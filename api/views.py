@@ -168,7 +168,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['post'], detail=False)
     @permission_classes([IsTrainer])
     def register_imposter(self, request, *args, **kwargs):
-        message = kwargs.pop('message')
+        message = request.data.get('message')
         user: User = request.user
         current_profile: MastersProfile = user.masters_profile
 
