@@ -14,7 +14,7 @@ from rest_framework.views import APIView
 
 from api.permissions import IsTrainer, IsRoot
 from event_api.models import SaveFile, Wildcard, Streamer, CoinTransaction, \
-    GameEvent, DeathLog, MastersProfile
+    GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer
 from pokemon_api.models import Move, Pokemon, Item, ItemNameLocalization
@@ -168,7 +168,23 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['post'], detail=False)
     @permission_classes([IsTrainer])
     def register_imposter(self, request, *args, **kwargs):
+        message = kwargs.pop('message')
         user: User = request.user
+        current_profile: MastersProfile = user.masters_profile
+
+        if not current_profile:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        if current_profile.profile_type == MastersProfile.COACH:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        imposter = Imposter.objects.filter(message__iexact=message).first()
+
+        ProfileImposterLog.objects.get_or_create(
+            profile=current_profile,
+            imposter=imposter
+        )
+
         trainer = Trainer.get_from_user(user)
         serializer = self.get_serializer(trainer)
         return Response(serializer.data, status=status.HTTP_200_OK)
