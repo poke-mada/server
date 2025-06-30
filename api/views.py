@@ -155,38 +155,70 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @permission_classes([IsTrainer])
     def get_economy(self, request, *args, **kwargs):
         user: User = request.user
+        current_profile: MastersProfile = user.masters_profile
 
-        if not user.masters_profile:
+        if not current_profile:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+        if current_profile.profile_type == MastersProfile.COACH:
+            return Response(current_profile.coached.economy, status=status.HTTP_200_OK)
+
         return Response(user.masters_profile.economy, status=status.HTTP_200_OK)
+
+    @action(methods=['post'], detail=False)
+    @permission_classes([IsTrainer])
+    def register_imposter(self, request, *args, **kwargs):
+        user: User = request.user
+        trainer = Trainer.get_from_user(user)
+        serializer = self.get_serializer(trainer)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=False)
+    @permission_classes([IsTrainer])
+    def get_wildcard_count(self, request, *args, **kwargs):
+        user: User = request.user
+        current_profile: MastersProfile = user.masters_profile
+
+        if not current_profile:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        if current_profile.profile_type == MastersProfile.COACH:
+            return Response(current_profile.coached.wildcard_count, status=status.HTTP_200_OK)
+
+        return Response(user.masters_profile.wildcard_count, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
     def list_trainers(self, request, *args, **kwargs):
         user: User = request.user
         is_pro = user.masters_profile.is_pro
         trainer_ids = MastersProfile.objects.filter(is_pro=is_pro, profile_type=MastersProfile.TRAINER,
-                                                    trainer__isnull=False).values_list(
-            'trainer', flat=True)
+                                                    trainer__isnull=False).values_list('trainer', flat=True)
         trainers = Trainer.objects.filter(id__in=trainer_ids)
         serializer = SelectTrainerSerializer(trainers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
     def wildcards_with_inventory(self, request, *args, **kwargs):
+        current_profile: MastersProfile = request.user.masters_profile
+        trainer_user = request.user
+        if current_profile.profile_type == MastersProfile.COACH:
+            trainer_user = current_profile.coached.user
 
         serializer = WildcardWithInventorySerializer(
             Wildcard.objects.filter(is_active=True),
-            user=request.user,
+            user=trainer_user,
             many=True
         )
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=True)
     def list_boxes(self, request, pk=None, *args, **kwargs):
+        clean_pk = pk
         if pk == 'undefined' or pk == 0 or pk == '0':
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        trainer = Trainer.objects.filter(id=pk).first()
+            current_profile: MastersProfile = request.user.masters_profile
+            clean_pk = current_profile.trainer_id
+
+        trainer = Trainer.objects.filter(id=clean_pk).first()
         if trainer is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = ListedBoxSerializer(trainer.boxes.all(), many=True, read_only=True)
@@ -330,10 +362,15 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['POST'], detail=True)
     def use_card(self, request, *args, **kwargs):
         wildcard: Wildcard = self.get_object()
-        user = request.user
+        current_user = request.user
+        fixed_user = current_user
+        
+        if current_user.masters_profile.profile_type == MastersProfile.COACH:
+            return Response(data=dict(detail='coach_cant_use'), status=status.HTTP_400_BAD_REQUEST)
+
         quantity = int(request.data.get('quantity', 1))
-        if wildcard.can_use(user, quantity):
-            result = wildcard.use(user, quantity, **request.data)
+        if wildcard.can_use(fixed_user, quantity):
+            result = wildcard.use(fixed_user, quantity, **request.data)
             if result is True:
                 return Response(data=dict(detail='card_used'), status=status.HTTP_200_OK)
             elif result is False:
@@ -345,8 +382,14 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
     def buy_card(self, request, *args, **kwargs):
         wildcard: Wildcard = self.get_object()
         quantity = int(request.data.get('quantity', 1))
-        if wildcard.can_buy(request.user, quantity, True):
-            if wildcard.buy(request.user, quantity, True):
+
+        current_user = request.user
+        fixed_user = current_user
+        if current_user.masters_profile.profile_type == MastersProfile.COACH:
+            return Response(data=dict(detail='coach_cant_buy'), status=status.HTTP_400_BAD_REQUEST)
+
+        if wildcard.can_buy(fixed_user, quantity, True):
+            if wildcard.buy(fixed_user, quantity, True):
                 return Response(data=dict(detail='card_bought'), status=status.HTTP_200_OK)
             return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(data=dict(detail='no_enough_money'), status=status.HTTP_400_BAD_REQUEST)
@@ -354,12 +397,17 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['POST'], detail=True)
     async def buy_and_use_card(self, request, *args, **kwargs):
         wildcard: Wildcard = self.get_object()
-        user = request.user
         quantity = int(request.data.get('quantity', 1))
-        if wildcard.can_buy(user, quantity):
-            buyed = wildcard.buy(user, quantity)
+
+        current_user = request.user
+        fixed_user = current_user
+        if current_user.masters_profile.profile_type == MastersProfile.COACH:
+            return Response(data=dict(detail='coach_cant_use'), status=status.HTTP_400_BAD_REQUEST)
+
+        if wildcard.can_buy(fixed_user, quantity):
+            buyed = wildcard.buy(fixed_user, quantity)
             if buyed:
-                used = await wildcard.use(user, quantity, **request.data)
+                used = await wildcard.use(fixed_user, quantity, **request.data)
                 if used is True:
                     return Response(data=dict(detail='card_bought_and_used', amount=buyed), status=status.HTTP_200_OK)
                 elif used is False:
@@ -397,15 +445,6 @@ def team_saver(team, trainer):
         trainer_old=trainer.pk,
         team=[pokemon for pokemon in team if pokemon]
     )
-
-    # for pokemon in team:
-    #     if not trainer.current_team:
-    #         continue
-    #     if not pokemon:
-    #         continue
-    #     last_version = trainer.current_team.team.filter(mote=pokemon['mote']).first()
-    #     if last_version:
-    #         pokemon['notes'] = last_version.notes
 
     new_team_serializer = TrainerTeamSerializer(data=team_data)
     if new_team_serializer.is_valid(raise_exception=True):

@@ -144,11 +144,13 @@ class Wildcard(models.Model):
                 }
                 handler.validate(context)
                 result = handler.execute(context)
-                WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} carta/s {self.name} usada')
+                WildcardLog.objects.create(wildcard=self, trainer=trainer,
+                                           details=f'{amount} carta/s {self.name} usada')
             else:
                 # fallback default (log-only)
                 result = True
-                WildcardLog.objects.create(wildcard=self, trainer=trainer, details=f'{amount} wildcard(s) {self.name} used')
+                WildcardLog.objects.create(wildcard=self, trainer=trainer,
+                                           details=f'{amount} wildcard(s) {self.name} used')
             if not self.always_available:
                 inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
                 inventory.quantity -= amount
@@ -208,7 +210,8 @@ class MastersProfile(models.Model):
     }
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="masters_profile")
-    coached = models.ForeignKey("MastersProfile", on_delete=models.SET_NULL, null=True, blank=True, related_name="coaches")
+    coached = models.ForeignKey("MastersProfile", on_delete=models.SET_NULL, null=True, blank=True,
+                                related_name="coaches")
     trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="users", null=True, blank=True)
     profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER)
     death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0)
@@ -241,15 +244,18 @@ class MastersProfile(models.Model):
         if self.profile_type == MastersProfile.ADMIN:
             return 999
 
-        inputs = self.transactions.filter(
-            TYPE=CoinTransaction.INPUT
-        ).aggregate(Sum('amount'))['amount__sum'] or 0
+        if self.profile_type == MastersProfile.TRAINER:
+            inputs = self.transactions.filter(
+                TYPE=CoinTransaction.INPUT
+            ).aggregate(Sum('amount'))['amount__sum'] or 0
 
-        outputs = self.transactions.filter(
-            TYPE=CoinTransaction.OUTPUT
-        ).aggregate(Sum('amount'))['amount__sum'] or 0
+            outputs = self.transactions.filter(
+                TYPE=CoinTransaction.OUTPUT
+            ).aggregate(Sum('amount'))['amount__sum'] or 0
 
-        return inputs - outputs
+            return inputs - outputs
+
+        return None
 
 
 class MastersSegmentSettings(models.Model):
@@ -331,3 +337,24 @@ class MastersSegment(models.Model):
     delimiter_key = models.CharField(max_length=100, blank=True, null=True,
                                      help_text="Identificador del handler a usar (ej: 'second_badge')")
     name = models.CharField(max_length=100)
+
+
+class Imposter(models.Model):
+    message = models.CharField(max_length=100, unique=True, help_text="texto en MINUSCULAS para encontrar al impostor")
+    coin_reward = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(99)])
+
+
+class ProfileImposterLog(models.Model):
+    profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name="imposters")
+    imposter = models.ForeignKey(Imposter, on_delete=models.SET_NULL, null=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            CoinTransaction.objects.create(
+                profile=self.profile,
+                amount=self.imposter.coin_reward,
+                reason=f'encontrado {self.imposter.message}',
+                type=CoinTransaction.INPUT
+            )
+        super().save(*args, **kwargs)

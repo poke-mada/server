@@ -28,6 +28,7 @@ class Item(models.Model):
     name = models.CharField(max_length=50)
     api_loaded = models.BooleanField(default=False)
 
+
     def __str__(self):
         return self.name
 
