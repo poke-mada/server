@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from event_api.models import CoinTransaction, Wildcard, Streamer, StreamPlatformUrl, StreamerWildcardInventoryItem, \
-    WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings, DeathLog
+    WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings, DeathLog, ProfileImposterLog, \
+    Imposter
 from event_api.wildcards.handlers.settings.models import GiveItemHandlerSettings, GiveMoneyHandlerSettings, \
     GiveGameMoneyHandlerSettings
 from rewards_api.models import StreamerRewardInventory
@@ -75,6 +76,18 @@ class ErrorLogAdmin(admin.ModelAdmin):
 class DeathLogAdmin(admin.ModelAdmin):
     list_display = ('profile__user__streamer_profile__name', 'trainer__name', 'species_name', 'mote',)
     search_fields = ('profile__user__streamer_profile__name', 'trainer__name',)
+
+
+@admin.register(ProfileImposterLog)
+class ProfileImposterLogAdmin(admin.ModelAdmin):
+    list_display = ('profile__user__streamer_profile__name', 'imposter__message',)
+    search_fields = ('profile__user__streamer_profile__name', 'imposter__message',)
+
+
+@admin.register(Imposter)
+class ImposterLogAdmin(admin.ModelAdmin):
+    list_display = ('message', 'coin_reward')
+    search_fields = ('message', 'coin_reward',)
 
 
 @admin.register(Wildcard)
