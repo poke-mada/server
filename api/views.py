@@ -359,7 +359,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
         trainer: Trainer = Trainer.get_from_user(request.user)
         event: GameEvent = GameEvent.objects.filter(GameEvent.get_available(), pk=pk).first()
         if event:
-            mod_file = event.game_mod.get_mod_file_for_streamer(trainer.streamer)
+            mod_file = event.game_mod.get_mod_file_for_streamer(trainer.get_streamer())
             print(mod_file)
             return FileResponse(mod_file.file)
         return Response(status=status.HTTP_404_NOT_FOUND)
