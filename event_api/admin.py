@@ -128,6 +128,7 @@ class StreamPlatformInline(NestedTabularInline):
 class WildcardInventoryItem(NestedTabularInline):
     model = StreamerWildcardInventoryItem
     min_num = 0
+    extra = 0
 
 
 class RewardInventoryInline(NestedTabularInline):
