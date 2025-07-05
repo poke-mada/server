@@ -220,7 +220,7 @@ class MastersProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="masters_profile")
     coached = models.ForeignKey("MastersProfile", on_delete=models.SET_NULL, null=True, blank=True,
                                 related_name="coaches")
-    web_picture = models.ImageField('profiles/web/', null=True, blank=True)
+    web_picture = models.ImageField(upload_to='profiles/web/', null=True, blank=True)
     trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="users", null=True, blank=True)
     profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER)
     death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0)
