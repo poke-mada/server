@@ -143,7 +143,7 @@ class StreamerProfileInline(NestedStackedInline):
 
 class MastersSegmentSettingsAdmin(NestedStackedInline):
     model = MastersSegmentSettings
-    min_num = 1
+    min_num = 0
     extra = 0
     readonly_fields = ('is_current', 'community_pokemon_sprite')
 
