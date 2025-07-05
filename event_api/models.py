@@ -198,6 +198,19 @@ class Streamer(models.Model):
         return self.name
 
 
+class ProfilePlatformUrl(models.Model):
+    profile = models.ForeignKey("MastersProfile", on_delete=models.CASCADE)
+    platform = models.CharField(max_length=50)
+    url = models.CharField(max_length=260)
+
+    def __str__(self):
+        return self.platform
+
+    class Meta:
+        verbose_name = "Social"
+        verbose_name_plural = "Socials"
+
+
 class MastersProfile(models.Model):
     TRAINER = 0
     COACH = 1
@@ -272,7 +285,8 @@ class MastersSegmentSettings(models.Model):
     profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name="segments_settings", null=True,
                                 blank=True)
     is_current = models.BooleanField(default=True, verbose_name="Tramo Actual")
-    segment = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(99)], verbose_name="Tramo")
+    segment = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(99)],
+                                  verbose_name="Tramo")
     available_community_skip = models.BooleanField(default=True, verbose_name="Skip de Comunidad Disponible")
     community_pokemon_id = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(808)],
                                                verbose_name="Pokemon de comunidad")

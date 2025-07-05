@@ -6,7 +6,7 @@ from django.db import models
 
 from event_api.models import CoinTransaction, Wildcard, Streamer, StreamPlatformUrl, StreamerWildcardInventoryItem, \
     WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings, DeathLog, ProfileImposterLog, \
-    Imposter
+    Imposter, ProfilePlatformUrl
 from event_api.wildcards.handlers.settings.models import GiveItemHandlerSettings, GiveMoneyHandlerSettings, \
     GiveGameMoneyHandlerSettings
 from rewards_api.models import StreamerRewardInventory
@@ -113,6 +113,12 @@ class WildcardAdmin(admin.ModelAdmin):
         return super().formfield_for_dbfield(db_field, *args, **kwargs)
 
 
+class ProfilePlatformUrlInline(NestedTabularInline):
+    model = ProfilePlatformUrl
+    min_num = 0
+    extra = 0
+
+
 class StreamPlatformInline(NestedTabularInline):
     model = StreamPlatformUrl
     min_num = 0
@@ -140,6 +146,7 @@ class MastersSegmentSettingsAdmin(NestedStackedInline):
     min_num = 1
     extra = 0
     readonly_fields = ('is_current', 'community_pokemon_sprite')
+    inlines = [ProfilePlatformUrlInline]
 
 
 class MastersProfileInline(NestedStackedInline):
