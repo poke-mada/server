@@ -102,12 +102,9 @@ function doUpdateOverlayData(data) {
         const overlay = document.getElementById(`alert-overlay`);
         overlay.classList.add('d-none')
     }, 5000)
-    let audio = new Audio('https://para-mada-deploy.s3.us-east-1.amazonaws.com/pokemon-statics/overlay/laugh.mp3')
-    audio.play();
 
     const overlay = document.getElementById(`alert-overlay`);
     overlay.classList.remove('d-none')
-    const img = document.getElementById(`img-card`);
     const user = document.getElementById(`user`);
     const wildcard = document.getElementById(`wildcard-name`);
     const target = document.getElementById(`target`);
@@ -115,7 +112,4 @@ function doUpdateOverlayData(data) {
     user.innerText = data.user_name
     wildcard.innerText = data.wildcard.name
     target.innerText = data.target_name
-    img.setAttribute('src', data.wildcard.sprite_src)
-
-    console.log('updated')
 }

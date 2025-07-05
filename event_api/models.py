@@ -209,15 +209,25 @@ class MastersProfile(models.Model):
         ADMIN: 'Admin',
     }
 
+    LEAGUES = {
+        'A': 'Liga A',
+        'B': 'Liga B',
+        'C': 'Liga C',
+        'D': 'Liga D',
+        'E': 'Liga E'
+    }
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="masters_profile")
     coached = models.ForeignKey("MastersProfile", on_delete=models.SET_NULL, null=True, blank=True,
                                 related_name="coaches")
+    web_picture = models.ImageField('profiles/web/', null=True, blank=True)
     trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="users", null=True, blank=True)
     profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER)
     death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0)
     custom_sprite = models.ImageField(upload_to='profiles/sprites/', null=True, blank=True)
     rom_name = models.CharField(max_length=50, default="Pokémon X")
     is_pro = models.BooleanField(default=False)
+    tournament_league = models.CharField(max_length=1, choices=LEAGUES.items(), default='A')
     save_path = models.CharField(max_length=260, null=True, blank=True,
                                  default=r'%APPDATA%\Lime3DS\sdmc\Nintendo 3DS\00000000000000000000000000000000\00000000000000000000000000000000\title\00040000\00055d00\data\00000001')
 
@@ -262,7 +272,7 @@ class MastersSegmentSettings(models.Model):
     profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name="segments_settings", null=True,
                                 blank=True)
     is_current = models.BooleanField(default=True, verbose_name="Tramo Actual")
-    segment = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(99)])
+    segment = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(99)], verbose_name="Tramo")
     available_community_skip = models.BooleanField(default=True, verbose_name="Skip de Comunidad Disponible")
     community_pokemon_id = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(808)],
                                                verbose_name="Pokemon de comunidad")
