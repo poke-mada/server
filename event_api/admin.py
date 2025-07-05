@@ -146,13 +146,12 @@ class MastersSegmentSettingsAdmin(NestedStackedInline):
     min_num = 1
     extra = 0
     readonly_fields = ('is_current', 'community_pokemon_sprite')
-    inlines = [ProfilePlatformUrlInline]
 
 
 class MastersProfileInline(NestedStackedInline):
     model = MastersProfile
     readonly_fields = ('last_save_download', 'economy')
-    inlines = [MastersSegmentSettingsAdmin]
+    inlines = [MastersSegmentSettingsAdmin, ProfilePlatformUrlInline]
 
 
 class UserProfileAdmin(NestedModelAdmin, UserAdmin):
