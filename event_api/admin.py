@@ -159,6 +159,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     list_display = (
         'username',
         'masters_profile__trainer',
+        'masters_profile__profile_type',
         'first_name', 'last_name',
         'is_staff'
     )
