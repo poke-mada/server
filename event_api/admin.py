@@ -160,7 +160,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'username',
         'masters_profile__trainer',
         'masters_profile__profile_type',
-        'first_name', 'last_name',
+        'is_active',
         'is_staff'
     )
     inlines = [MastersProfileInline, StreamerProfileInline]
