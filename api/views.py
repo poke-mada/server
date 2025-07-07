@@ -340,7 +340,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_players(self, request, *args, **kwargs):
         user: User = request.user
         current_profile = user.masters_profile
-        profiles = MastersProfile.objects.filter(is_pro=current_profile.is_pro, profile_type=MastersProfile.TRAINER).exclude(id=current_profile.id).delete()
+        profiles = MastersProfile.objects.filter(is_pro=current_profile.is_pro, profile_type=MastersProfile.TRAINER).exclude(id=current_profile.id).all()
         serialized = ProfileSerializer(profiles, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
