@@ -24,7 +24,7 @@ class AlertHandler(BaseWildCardHandler):
             user_name=self.user.streamer_profile.name,
             wildcard=dict(
                 name=self.wildcard.name,
-                sprite_src=self.wildcard.sprite.url
+                sprite_src=''
             ),
             target_name=target_name
         )
