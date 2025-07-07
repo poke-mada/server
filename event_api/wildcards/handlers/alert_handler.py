@@ -1,5 +1,5 @@
 import json
-from event_api.models import Streamer
+from event_api.models import MastersProfile, Streamer
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 from channels.layers import get_channel_layer
@@ -17,7 +17,8 @@ class AlertHandler(BaseWildCardHandler):
         channel_layer = get_channel_layer()
         target_id = context.get('target_id')[0]
 
-        streamer = Streamer.objects.get(id=target_id)
+        profile: MastersProfile = MastersProfile.objects.get(id=target_id)
+        streamer = profile.user.streamer_profile
         target_name = streamer.name
         data = dict(
             user_name=self.user.streamer_profile.name,

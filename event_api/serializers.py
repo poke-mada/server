@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, Streamer, GameEvent, GameMod
+from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, Streamer, GameEvent, GameMod, \
+    MastersProfile
 from trainer_data.models import Trainer
 
 
@@ -59,7 +60,6 @@ class WildcardWithInventorySerializer(serializers.ModelSerializer):
 
 
 class GameModSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = GameMod
         fields = [
@@ -81,4 +81,21 @@ class GameEventSerializer(serializers.ModelSerializer):
             'id',
             'game_mod',
             'is_available',
+        ]
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
+    def get_name(self, obj: MastersProfile):
+        try:
+            return obj.user.streamer_profile.name
+        except TypeError:
+            return None
+
+    class Meta:
+        model = MastersProfile
+        fields = [
+            'id',
+            'name'
         ]

@@ -16,7 +16,7 @@ from api.permissions import IsTrainer, IsRoot
 from event_api.models import SaveFile, Wildcard, Streamer, CoinTransaction, \
     GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
-    SimplifiedWildcardSerializer, GameEventSerializer
+    SimplifiedWildcardSerializer, GameEventSerializer, ProfileSerializer
 from pokemon_api.models import Move, Pokemon, Item, ItemNameLocalization
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer, ItemSelectSerializer
@@ -336,6 +336,14 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
         return Response(serialized.data, status=status.HTTP_200_OK)
 
+    @action(methods=['get'], detail=False)
+    def list_players(self, request, *args, **kwargs):
+        user: User = request.user
+        current_profile = user.masters_profile
+        profiles = MastersProfile.objects.filter(is_pro=current_profile.is_pro).exclude(id=current_profile.id).delete()
+        serialized = ProfileSerializer(profiles, many=True)
+        return Response(serialized.data, status=status.HTTP_200_OK)
+
 
 class MoveViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Move.objects.all()
@@ -380,7 +388,7 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         wildcard: Wildcard = self.get_object()
         current_user = request.user
         fixed_user = current_user
-        
+
         if current_user.masters_profile.profile_type == MastersProfile.COACH:
             return Response(data=dict(detail='coach_cant_use'), status=status.HTTP_400_BAD_REQUEST)
 
@@ -592,13 +600,21 @@ class LoadItemNamesView(APIView):
                 json_response = response.json()
 
                 try:
-                    new_es_localization, created = ItemNameLocalization.objects.get_or_create(item=item, language='es', defaults=dict(
-                        content=list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
-                    ))
+                    new_es_localization, created = ItemNameLocalization.objects.get_or_create(item=item, language='es',
+                                                                                              defaults=dict(
+                                                                                                  content=list(filter(
+                                                                                                      lambda name:
+                                                                                                      name['language'][
+                                                                                                          'name'] == 'es',
+                                                                                                      json_response[
+                                                                                                          'names']))[0][
+                                                                                                      'name']
+                                                                                              ))
                     if created:
                         item.name_localizations.add(new_es_localization)
                     else:
-                        new_es_localization.content = list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
+                        new_es_localization.content = \
+                        list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
                         new_es_localization.save()
                 except IndexError:
                     print(f'(es)translation not found for {item.name}#{item.index}')
@@ -606,13 +622,21 @@ class LoadItemNamesView(APIView):
                     raise ValueError(f'error finding data on {response.content} from url {url} @ {item.index}')
 
                 try:
-                    new_en_localization, created = ItemNameLocalization.objects.get_or_create(item=item, language='en', defaults=dict(
-                        content=list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
-                    ))
+                    new_en_localization, created = ItemNameLocalization.objects.get_or_create(item=item, language='en',
+                                                                                              defaults=dict(
+                                                                                                  content=list(filter(
+                                                                                                      lambda name:
+                                                                                                      name['language'][
+                                                                                                          'name'] == 'en',
+                                                                                                      json_response[
+                                                                                                          'names']))[0][
+                                                                                                      'name']
+                                                                                              ))
                     if created:
                         item.name_localizations.add(new_en_localization)
                     else:
-                        new_en_localization.content = list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
+                        new_en_localization.content = \
+                        list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
                         new_en_localization.save()
                 except IndexError:
                     print(f'(en)translation not found for {item.name}#{item.index}')
