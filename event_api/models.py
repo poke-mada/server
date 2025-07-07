@@ -8,6 +8,7 @@ from django.utils.safestring import mark_safe
 
 from pokemon_api.scripting.save_reader import clamp
 from trainer_data.models import Trainer
+from websocket.sockets import DataConsumer
 
 
 # Create your models here.
@@ -38,6 +39,16 @@ class CoinTransaction(models.Model):
     reason = models.TextField(blank=False, default="No reason provided")
     TYPE = models.SmallIntegerField(choices=TRANSACTION_TYPES, default=INPUT)
     created_on = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        new_ = super(CoinTransaction, self).save(*args, **kwargs)
+        
+        DataConsumer.send_custom_data(self.profile.user.streamer_profile.name, dict(
+            type='coins_notification',
+            data=self.profile.economy
+        ))
+
+        return new_
 
     class Meta:
         verbose_name = 'Economy Log'

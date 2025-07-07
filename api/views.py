@@ -16,7 +16,7 @@ from api.permissions import IsTrainer, IsRoot
 from event_api.models import SaveFile, Wildcard, Streamer, CoinTransaction, \
     GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
-    SimplifiedWildcardSerializer, GameEventSerializer, ProfileSerializer
+    SimplifiedWildcardSerializer, GameEventSerializer, SelectProfileSerializer
 from pokemon_api.models import Move, Pokemon, Item, ItemNameLocalization
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer, ItemSelectSerializer
@@ -341,7 +341,14 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         user: User = request.user
         current_profile = user.masters_profile
         profiles = MastersProfile.objects.filter(is_pro=current_profile.is_pro, profile_type=MastersProfile.TRAINER).exclude(id=current_profile.id).all()
-        serialized = ProfileSerializer(profiles, many=True)
+        serialized = SelectProfileSerializer(profiles, many=True)
+        return Response(serialized.data, status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=False)
+    def get_profile(self, request, *args, **kwargs):
+        user: User = request.user
+        current_profile = user.masters_profile
+        serialized = ProfileSerializer(current_profile)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
 

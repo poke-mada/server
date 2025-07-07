@@ -1,3 +1,5 @@
+from cProfile import Profile
+
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
@@ -84,7 +86,7 @@ class GameEventSerializer(serializers.ModelSerializer):
         ]
 
 
-class ProfileSerializer(serializers.ModelSerializer):
+class SelectProfileSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
 
     def get_name(self, obj: MastersProfile):
@@ -98,4 +100,26 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name'
+        ]
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
+    def get_name(self, obj: MastersProfile):
+        try:
+            return obj.user.streamer_profile.name
+        except TypeError:
+            return None
+
+    class Meta:
+        model = MastersProfile
+        fields = [
+            'id',
+            'name',
+            'save_path',
+            'tournament_league',
+            'is_pro',
+            'web_picture',
+            'death_count'
         ]
