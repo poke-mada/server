@@ -536,7 +536,7 @@ class PokemonBytes:
 
     def get_level(self):
         growth_rate = self.raw_data[0x15]
-        experience = struct.unpack("<I", self.raw_data[0x10:0x15])[0]
+        experience = struct.unpack("<I", self.raw_data[0x10:0x14])[0]
         level = calculate_level(experience, growth_rate)
         print(level)
         return level
