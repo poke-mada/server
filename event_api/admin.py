@@ -104,7 +104,7 @@ class WildcardAdmin(admin.ModelAdmin):
         'give_money': [GiveMoneyHandlerSettingsInline],
         'give_game_money': [GiveGameMoneyHandlerSettingsInline],
         'steal_money': [GiveMoneyHandlerSettingsInline],
-        'give_random_money': [GiveRandomMoneyHandlerSettings],
+        'give_random_money': [GiveRandomMoneyHandlerSettingsInline],
     }
     list_display = ('name', 'price', 'quality', 'is_active')
     search_fields = ('name', 'price', 'quality',)
