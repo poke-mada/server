@@ -6,7 +6,7 @@ from django.db import models
 
 from event_api.models import CoinTransaction, Wildcard, Streamer, StreamPlatformUrl, StreamerWildcardInventoryItem, \
     WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings, DeathLog, ProfileImposterLog, \
-    Imposter, ProfilePlatformUrl
+    Imposter, ProfilePlatformUrl, Newsletter
 from event_api.wildcards.handlers.settings.models import GiveItemHandlerSettings, GiveMoneyHandlerSettings, \
     GiveGameMoneyHandlerSettings
 from rewards_api.models import StreamerRewardInventory
@@ -153,6 +153,12 @@ class MastersProfileInline(NestedStackedInline):
     model = MastersProfile
     readonly_fields = ('last_save_download', 'economy')
     inlines = [MastersSegmentSettingsAdmin, ProfilePlatformUrlInline]
+
+
+class NewsletterAdmin(NestedStackedInline):
+    model = Newsletter
+    readonly_fields = ('created_on',)
+    list_display = ('created_on', 'message')
 
 
 class UserProfileAdmin(NestedModelAdmin, UserAdmin):
