@@ -14,7 +14,7 @@ from rest_framework.views import APIView
 
 from api.permissions import IsTrainer, IsRoot
 from event_api.models import SaveFile, Wildcard, Streamer, CoinTransaction, \
-    GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter
+    GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter, Newsletter
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer, SelectProfileSerializer, ProfileSerializer
 from pokemon_api.models import Move, Pokemon, Item, ItemNameLocalization
@@ -25,7 +25,7 @@ from rewards_api.serializers import StreamerRewardSerializer, StreamerRewardSimp
 from trainer_data.models import Trainer, TrainerTeam, TrainerBox, TrainerBoxSlot
 from trainer_data.serializers import TrainerSerializer, TrainerTeamSerializer, SelectTrainerSerializer, \
     TrainerBoxSerializer, TrainerPokemonSerializer, EnTrainerSerializer, ListedBoxSerializer, \
-    EnROTrainerPokemonSerializer, ROTrainerPokemonSerializer
+    EnROTrainerPokemonSerializer, ROTrainerPokemonSerializer, NewsletterSerializer
 
 
 # Create your views here.
@@ -656,3 +656,8 @@ class LoadItemNamesView(APIView):
             item.api_loaded = True
             item.save()
         return Response(status=status.HTTP_201_CREATED)
+
+
+class NewsletterViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Newsletter.objects.all().order_by('-date')
+    serializer_class = NewsletterSerializer

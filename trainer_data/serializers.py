@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from event_api.models import Newsletter
 from pokemon_api.models import Type, Pokemon, Item, Move, PokemonNature, PokemonAbility, ContextLocalization
 from pokemon_api.serializers import PokemonSerializer, TypeSerializer, MoveSerializer, PokemonNatureSerializer
 from trainer_data.models import Trainer, TrainerBox, TrainerPokemon, TrainerTeam, TrainerBoxSlot
@@ -249,3 +250,9 @@ class ListedBoxSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrainerBox
         fields = ['box_number', 'box_identifier', 'name']
+
+
+class NewsletterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Newsletter
+        fields = '__all__'

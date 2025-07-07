@@ -8,6 +8,7 @@ router.register(r'trainers', TrainerViewSet)
 router.register(r'moves', MoveViewSet)
 router.register(r'wildcards', WildcardViewSet)
 router.register(r'events', GameEventViewSet)
+router.register(r'newsletter', NewsletterViewSet)
 
 
 urlpatterns = [
