@@ -7,7 +7,7 @@ from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 
 
 @WildCardExecutorRegistry.register("give_random_money", verbose='Give Random Money Handler')
-class GiveMoneyHandler(BaseWildCardHandler):
+class GiveRandomMoneyHandler(BaseWildCardHandler):
     admin_inline_model = GiveRandomMoneyHandlerSettings  # a model with extra config
 
     def execute(self, context):

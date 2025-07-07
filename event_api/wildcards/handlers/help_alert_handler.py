@@ -8,7 +8,7 @@ from websocket.sockets import DataConsumer
 
 
 @WildCardExecutorRegistry.register("help_alert_handler", verbose='Help Alert Handler')
-class AlertHandler(BaseWildCardHandler):
+class HelpAlertHandler(BaseWildCardHandler):
     def validate(self, context):
         return
 

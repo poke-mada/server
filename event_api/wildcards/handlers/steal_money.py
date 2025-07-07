@@ -6,7 +6,7 @@ from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 
 
 @WildCardExecutorRegistry.register("steal_money", verbose='Steal Money Handler')
-class GiveMoneyHandler(AlertHandler):
+class StealMoneyHandler(AlertHandler):
     admin_inline_model = GiveMoneyHandlerSettings  # a model with extra config
 
     def execute(self, context):

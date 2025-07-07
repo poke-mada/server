@@ -6,3 +6,6 @@ from .alert_handler import AlertHandler
 from .give_game_money import GiveGameMoneyHandler
 from .give_weak_item import GiveWeakItemHandler
 from .give_strong_item import GiveStrongItemHandler
+from .give_random_money import GiveRandomMoneyHandler
+from .steal_money import StealMoneyHandler
+from .help_alert_handler import HelpAlertHandler
