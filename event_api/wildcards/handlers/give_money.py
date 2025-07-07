@@ -17,3 +17,4 @@ class GiveMoneyHandler(BaseWildCardHandler):
             TYPE=CoinTransaction.INPUT,
             reason=f'se uso la carta {self.wildcard.name} {amount} veces'
         )
+        return True

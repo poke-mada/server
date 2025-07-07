@@ -43,3 +43,4 @@ class AlertHandler(BaseWildCardHandler):
             type='attack_notification',
             data=data
         ))
+        return True
