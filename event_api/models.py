@@ -382,3 +382,8 @@ class ProfileImposterLog(models.Model):
                 TYPE=CoinTransaction.INPUT
             )
         super().save(*args, **kwargs)
+
+
+class Newsletter(models.Model):
+    created_on = models.DateTimeField(auto_now_add=True)
+    message = models.TextField()
