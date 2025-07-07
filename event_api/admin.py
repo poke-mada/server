@@ -156,9 +156,10 @@ class MastersProfileInline(NestedStackedInline):
 
 
 @admin.register(Newsletter)
-class NewsletterAdmin(NestedStackedInline):
+class NewsletterAdmin(NestedModelAdmin):
     readonly_fields = ('created_on',)
     list_display = ('created_on', 'message')
+
 
 class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     list_display = (
