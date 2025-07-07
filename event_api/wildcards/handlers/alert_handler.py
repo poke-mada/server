@@ -4,6 +4,8 @@ from event_api.wildcards.registry import WildCardExecutorRegistry
 from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 from channels.layers import get_channel_layer
 
+from websocket.sockets import DataConsumer
+
 
 @WildCardExecutorRegistry.register("alert_handler", verbose='Alert Handler')
 class AlertHandler(BaseWildCardHandler):
@@ -16,14 +18,14 @@ class AlertHandler(BaseWildCardHandler):
         target_id = context.get('target_id')[0]
 
         streamer = Streamer.objects.get(id=target_id)
-
+        target_name = streamer.name
         data = dict(
             user_name=self.user.streamer_profile.name,
             wildcard=dict(
                 name=self.wildcard.name,
                 sprite_src=self.wildcard.sprite.url
             ),
-            target_name=streamer.name
+            target_name=target_name
         )
 
         for chat in Streamer.objects.all().values_list('name', flat=True):
@@ -35,3 +37,8 @@ class AlertHandler(BaseWildCardHandler):
                     'message': json.dumps(data)
                 }
             )
+
+        DataConsumer.send_custom_data(target_name, dict(
+            type='attack_notification',
+            data=data
+        ))

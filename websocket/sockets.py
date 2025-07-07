@@ -102,3 +102,17 @@ class DataConsumer(AsyncWebsocketConsumer):
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({"message": message}))
+
+
+    @classmethod
+    def send_custom_data(cls, streamer_name, new_message):
+        from asgiref.sync import async_to_sync
+        from channels.layers import get_channel_layer
+
+        channel_layer = get_channel_layer()
+        new_message = json.dumps(new_message)
+
+        async_to_sync(channel_layer.group_send)(
+            f'data_{streamer_name}',
+            {"type": "chat.message", "message": new_message}
+        )

@@ -44,7 +44,7 @@ class Trainer(models.Model):
         return self.users.filter(profile_type=MastersProfile.TRAINER).first()
 
     def __str__(self):
-        return self.streamer_name() or self.name
+        return f'{self.streamer_name()} - {self.name}' or self.name
 
     @classmethod
     def get_from_user(cls, user) -> Union["Trainer", None]:

@@ -6,7 +6,7 @@
       <paths name="pokemada droplet">
         <serverdata>
           <mappings>
-            <mapping deploy="/project/" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="project" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
