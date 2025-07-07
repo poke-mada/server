@@ -63,6 +63,14 @@ def clamp(value, min_value=1, max_value=251):
     return value
 
 
+def get_growth_rate(dex_number):
+    with open('personal_xy', 'rb') as f:
+        data = f.read()
+        index = 0x40 * dex_number
+        pk_data = data[index:index + 0x40]
+        return pk_data[0x15]
+
+
 def get_growth_table(growth_rate):
     return GROWTH_TABLES[growth_rate]
 
@@ -537,7 +545,7 @@ class PokemonBytes:
         pkmn.save()
 
     def get_level(self):
-        growth_rate = self.raw_data[0x15]
+        growth_rate = get_growth_rate(self.dex_number)
         experience = struct.unpack("<I", self.raw_data[0x10:0x14])[0]
         level = calculate_level(experience, growth_rate)
         return level
