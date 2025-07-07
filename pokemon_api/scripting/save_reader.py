@@ -3,6 +3,7 @@ import logging
 import struct
 
 from django.db.models import Q
+from .data import GROWTH_TABLES
 
 logger = logging.getLogger('django')
 
@@ -60,6 +61,25 @@ def clamp(value, min_value=1, max_value=251):
         return max_value
 
     return value
+
+
+def get_growth_table(growth_rate):
+    return GROWTH_TABLES[str(growth_rate)]
+
+
+def get_level(experience, growth_table):
+    if experience >= growth_table[-1]:
+        return 100
+
+    level = 1
+    while experience >= growth_table[level]:
+        level += 1
+    return level
+
+
+def calculate_level(experience, growth_rate):
+    growth_table = get_growth_table(growth_rate)
+    return get_level(experience, growth_table)
 
 
 class PokemonBytes:
@@ -351,7 +371,7 @@ class PokemonBytes:
         self.held_item_num = str(struct.unpack("<H", self.raw_data[0xA:0xC])[0])
         self.ability_num = struct.unpack("B", self.raw_data[0x14:0x15])[0]  # Ability
         self.nature_num = struct.unpack("B", self.raw_data[0x1C:0x1D])[0]  ## Nature
-        self.level = struct.unpack("B", self.raw_data[116:117])[0]  ### Current level
+        self.level = self.get_level()
         self.ev_hp = struct.unpack("B", self.raw_data[0x1E:0x1F])[0]
         self.ev_attack = struct.unpack("B", self.raw_data[0x1F:0x20])[0]
         self.ev_defense = struct.unpack("B", self.raw_data[0x20:0x21])[0]
@@ -514,6 +534,13 @@ class PokemonBytes:
 
         pkmn.save()
 
+    def get_level(self):
+        growth_rate = self.raw_data[0x15]
+        experience = struct.unpack("<I", self.raw_data[0x10:0x15])[0]
+        level = calculate_level(experience, growth_rate)
+        print(level)
+        return level
+
 
 def crypt(data, seed, i):
     value = data[i]
@@ -674,7 +701,7 @@ def data_reader(save_data):
     boxes = dict()
 
     trainer_name = get_string(original_thrash_nick)
-    misc = save_data[0x4200:0x4200+0x140]
+    misc = save_data[0x4200:0x4200 + 0x140]
     badge_count = misc[0xC]
     for slot in range(6):
         pokemon = PokemonBytes(get_pokemon_in_slot(save_data, slot))
