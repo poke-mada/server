@@ -431,7 +431,7 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         if wildcard.can_buy(fixed_user, quantity):
             buyed = wildcard.buy(fixed_user, quantity)
             if buyed:
-                used = await wildcard.use(fixed_user, quantity, **request.data)
+                used = wildcard.use(fixed_user, quantity, **request.data)
                 if used is True:
                     return Response(data=dict(detail='card_bought_and_used', amount=buyed), status=status.HTTP_200_OK)
                 elif used is False:
