@@ -7,7 +7,7 @@ from channels.layers import get_channel_layer
 from websocket.sockets import DataConsumer
 
 
-@WildCardExecutorRegistry.register("help_alert_handler", verbose='Alert Handler')
+@WildCardExecutorRegistry.register("help_alert_handler", verbose='Help Alert Handler')
 class AlertHandler(BaseWildCardHandler):
     def validate(self, context):
         return
