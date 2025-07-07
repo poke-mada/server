@@ -18,7 +18,7 @@ class TimerHandler(BaseWildCardHandler):
     def execute(self, context):
         DataConsumer.send_custom_data(self.user.streamer_profile.name, dict(
             type='start_timer_notification',
-            data=self.wildcard.timer_handler_settings
+            data=self.wildcard.timer_settings.time
         ))
 
         return True
