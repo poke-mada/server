@@ -18,7 +18,7 @@ class WildCardExecutorRegistry:
     @classmethod
     def get_executor(cls, type_name):
         executor = cls._registry.get(type_name)
-        
+
         if executor:
             return executor['handler']
 
