@@ -117,6 +117,9 @@ class Wildcard(models.Model):
         else:
             amount_to_buy = amount
 
+        if amount_to_buy == 0:
+            return True
+
         CoinTransaction.objects.create(
             profile=user.masters_profile,
             amount=self.price * amount_to_buy,
