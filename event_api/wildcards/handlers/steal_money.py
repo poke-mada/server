@@ -1,8 +1,7 @@
 from event_api.models import CoinTransaction, MastersProfile
-from event_api.wildcards import AlertHandler
+from .alert_handler import AlertHandler
 from event_api.wildcards.handlers.settings.models import GiveMoneyHandlerSettings
 from event_api.wildcards.registry import WildCardExecutorRegistry
-from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 
 
 @WildCardExecutorRegistry.register("steal_money", verbose='Steal Money Handler')
