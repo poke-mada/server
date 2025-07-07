@@ -52,7 +52,7 @@ class Trainer(models.Model):
         if user.masters_profile:
             match user.masters_profile.profile_type:
                 case MastersProfile.ADMIN:
-                    return None
+                    return user.masters_profile.trainer
                 case MastersProfile.TRAINER:
                     return user.masters_profile.trainer
                 case MastersProfile.COACH:
