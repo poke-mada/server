@@ -45,7 +45,7 @@ class AlertHandler(BaseWildCardHandler):
         ))
 
         Newsletter.objects.create(
-            member=f'{self.user.streamer_profile.name} ha atacado a {target_name} usando {self.wildcard.name}'
+            message=f'{self.user.streamer_profile.name} ha atacado a {target_name} usando {self.wildcard.name}'
         )
-        
+
         return True
