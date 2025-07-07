@@ -64,7 +64,7 @@ def clamp(value, min_value=1, max_value=251):
 
 
 def get_growth_table(growth_rate):
-    return GROWTH_TABLES[str(growth_rate)]
+    return GROWTH_TABLES[growth_rate]
 
 
 def get_level(experience, growth_table):
