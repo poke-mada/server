@@ -9,7 +9,7 @@ from websocket.sockets import DataConsumer
 
 
 @WildCardExecutorRegistry.register("timer_handler", verbose='Timer Handler')
-class AlertHandler(BaseWildCardHandler):
+class TimerHandler(BaseWildCardHandler):
     admin_inline_model = TimerHandlerSettings  # a model with extra config
 
     def validate(self, context):

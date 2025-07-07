@@ -9,3 +9,4 @@ from .give_strong_item import GiveStrongItemHandler
 from .give_random_money import GiveRandomMoneyHandler
 from .steal_money import StealMoneyHandler
 from .help_alert_handler import HelpAlertHandler
+from .timer_handler import TimerHandler
