@@ -372,6 +372,7 @@ class PokemonBytes:
         self.ability_num = struct.unpack("B", self.raw_data[0x14:0x15])[0]  # Ability
         self.nature_num = struct.unpack("B", self.raw_data[0x1C:0x1D])[0]  ## Nature
         self.level = self.get_level()
+        self.exp = struct.unpack("<I", self.raw_data[0x10:0x14])[0]
         self.ev_hp = struct.unpack("B", self.raw_data[0x1E:0x1F])[0]
         self.ev_attack = struct.unpack("B", self.raw_data[0x1F:0x20])[0]
         self.ev_defense = struct.unpack("B", self.raw_data[0x20:0x21])[0]
@@ -471,6 +472,7 @@ class PokemonBytes:
         if self.dex_number == 0:
             return None
         return dict(
+            exp=self.exp,
             pid=self.pid,
             suffix=self.suffix,
             level=clamp(self.level, max_value=100),
@@ -538,7 +540,6 @@ class PokemonBytes:
         growth_rate = self.raw_data[0x15]
         experience = struct.unpack("<I", self.raw_data[0x10:0x14])[0]
         level = calculate_level(experience, growth_rate)
-        print(level)
         return level
 
 
