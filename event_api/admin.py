@@ -8,7 +8,7 @@ from event_api.models import CoinTransaction, Wildcard, Streamer, StreamPlatform
     WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings, DeathLog, ProfileImposterLog, \
     Imposter, ProfilePlatformUrl, Newsletter
 from event_api.wildcards.handlers.settings.models import GiveItemHandlerSettings, GiveMoneyHandlerSettings, \
-    GiveGameMoneyHandlerSettings, GiveRandomMoneyHandlerSettings
+    GiveGameMoneyHandlerSettings, GiveRandomMoneyHandlerSettings, TimerHandlerSettings
 from rewards_api.models import StreamerRewardInventory
 from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 
@@ -60,6 +60,13 @@ class GiveGameMoneyHandlerSettingsInline(admin.StackedInline):
     extra = 0
 
 
+# admin.py
+class TimerHandlerSettingsInline(admin.StackedInline):
+    model = TimerHandlerSettings
+    min_num = 1
+    extra = 0
+
+
 @admin.register(CoinTransaction)
 class CoinTransactionAdmin(admin.ModelAdmin):
     list_display = ('created_on', 'profile', 'reason', 'amount', 'TYPE',)
@@ -105,6 +112,7 @@ class WildcardAdmin(admin.ModelAdmin):
         'give_game_money': [GiveGameMoneyHandlerSettingsInline],
         'steal_money': [GiveMoneyHandlerSettingsInline],
         'give_random_money': [GiveRandomMoneyHandlerSettingsInline],
+        'timer_handler': [TimerHandlerSettingsInline],
     }
     list_display = ('name', 'price', 'quality', 'is_active')
     search_fields = ('name', 'price', 'quality',)
