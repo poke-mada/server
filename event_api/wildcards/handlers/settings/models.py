@@ -43,3 +43,8 @@ class GiveRandomMoneyHandlerSettings(WildcardHandlerSettings):
 class GiveGameMoneyHandlerSettings(WildcardHandlerSettings):
     wildcard = models.OneToOneField('Wildcard', on_delete=models.CASCADE, related_name="give_game_money_settings", blank=True)
     quantity = models.IntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(1000000)], blank=True)
+
+
+class TimerHandlerSettings(WildcardHandlerSettings):
+    wildcard = models.OneToOneField('Wildcard', on_delete=models.CASCADE, related_name="timer_settings", blank=True)
+    time = models.IntegerField(default=0, validators=[MinValueValidator(1)], blank=True)
