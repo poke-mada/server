@@ -659,5 +659,5 @@ class LoadItemNamesView(APIView):
 
 
 class NewsletterViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Newsletter.objects.all().order_by('-date')
+    queryset = Newsletter.objects.all().order_by('-created_on')
     serializer_class = NewsletterSerializer
