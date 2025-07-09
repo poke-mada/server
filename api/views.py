@@ -43,7 +43,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return self.queryset.filter(filters)
 
     @action(methods=['get'], detail=False)
-    @permission_classes([IsTrainer])
     def get_trainer(self, request, *args, **kwargs):
         user: User = request.user
         trainer = Trainer.get_from_user(user)
@@ -74,7 +73,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['post'], detail=False)
-    @permission_classes([IsTrainer])
     def register_death(self, request, *args, **kwargs):
         from websocket.sockets import OverlayConsumer
         user: User = request.user

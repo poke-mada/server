@@ -20,6 +20,7 @@ class IsTrainer(BasePermission):
 
 class IsCoach(BasePermission):
     def has_permission(self, request, view):
+        from event_api.models import MastersProfile
         user: User = request.user
         has_coaching = user.masters_profile.profile_type == MastersProfile.COACH
         return request.user.is_superuser or has_coaching
