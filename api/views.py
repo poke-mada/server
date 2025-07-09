@@ -33,6 +33,7 @@ from trainer_data.serializers import TrainerSerializer, TrainerTeamSerializer, S
 class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Trainer.objects.filter(is_active=True)
     serializer_class = TrainerSerializer
+    permission_classes = [IsTrainer]
 
     def _get_queryset(self):
         user: User = self.request.user
