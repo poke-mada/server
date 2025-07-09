@@ -80,9 +80,10 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         trainer = Trainer.get_from_user(user)
         pid = request.data.get('pid')
         mote = request.data.get('mote')
-        dex_number = request.data.get('dex_number')
+        dex_number = request.data.get('species')
+        species = Pokemon.objects.filter(dex_number=dex_number).first().name
         _, is_created = DeathLog.objects.get_or_create(profile=profile, trainer=trainer, pid=pid, mote=mote,
-                                                       species_name=dex_number)
+                                                       species_name=species)
 
         if is_created:
             profile.death_count += 1
