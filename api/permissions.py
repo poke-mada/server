@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from rest_framework.permissions import BasePermission
+from rest_framework.permissions import BasePermission, DjangoModelPermissions
 
 
 class IsRoot(BasePermission):
@@ -7,7 +7,7 @@ class IsRoot(BasePermission):
         return bool(request.user.is_superuser)
 
 
-class IsTrainer(BasePermission):
+class IsTrainer(DjangoModelPermissions):
     def has_permission(self, request, view):
         from event_api.models import MastersProfile
         user: User = request.user
