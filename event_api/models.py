@@ -257,7 +257,8 @@ class MastersProfile(models.Model):
     tournament_league = models.CharField(max_length=1, choices=LEAGUES.items(), default='A')
     save_path = models.CharField(max_length=260, null=True, blank=True,
                                  default=r'%APPDATA%\Lime3DS\sdmc\Nintendo 3DS\00000000000000000000000000000000\00000000000000000000000000000000\title\00040000\00055d00\data\00000001')
-
+    is_tester = models.BooleanField(default=False)
+    
     def __str__(self):
         return f"{self.user.username} - {self.trainer.name if self.trainer else '-'} | {self.get_profile_type_display()}"
 
