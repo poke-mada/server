@@ -183,7 +183,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'username',
         'masters_profile__trainer',
         'masters_profile__profile_type',
-        'is_staff',
+        'is_tester',
         'is_active',
         'is_staff'
     )
