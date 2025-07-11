@@ -189,14 +189,13 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     )
     inlines = [MastersProfileInline, StreamerProfileInline]
 
+    @admin.display(description='Profile Type', ordering='masters_profile__profile_type')
     def profile_type(self, obj):
         return obj.masters_profile.get_profile_type_display()
 
+    @admin.display(description='Is Tester', boolean=True)
     def is_tester(self, obj):
         return obj.masters_profile.is_tester
-
-    is_tester.boolean = True
-    is_tester.short_description = 'Is Tester'
 
 
 admin.site.register(User, UserProfileAdmin)
