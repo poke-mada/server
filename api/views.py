@@ -74,7 +74,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['post'], detail=False)
-    @permission_classes([IsTrainer])
     def register_death(self, request, *args, **kwargs):
         from websocket.sockets import OverlayConsumer
         user: User = request.user
@@ -96,7 +95,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
-    @permission_classes([IsTrainer])
     def get_rewards(self, request, *args, **kwargs):
         streamer = request.user.streamer_profile
         bundles = RewardBundle.objects.filter(owners__streamer=streamer, owners__is_available=True)
@@ -152,7 +150,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
-    @permission_classes([IsTrainer])
     def get_economy(self, request, *args, **kwargs):
         user: User = request.user
         current_profile: MastersProfile = user.masters_profile
@@ -166,7 +163,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(user.masters_profile.economy, status=status.HTTP_200_OK)
 
     @action(methods=['post'], detail=False)
-    @permission_classes([IsTrainer])
     def register_imposter(self, request, *args, **kwargs):
         message = request.data.get('message')
         user: User = request.user
@@ -190,7 +186,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
-    @permission_classes([IsTrainer])
     def get_wildcard_count(self, request, *args, **kwargs):
         user: User = request.user
         current_profile: MastersProfile = user.masters_profile
@@ -241,7 +236,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
-    @permission_classes([IsRoot])
     def reload_teams(self, request, *args, **kwargs):
         trainers = self.queryset
         for trainer in trainers:
@@ -254,7 +248,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response([], status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=True)
-    @permission_classes([IsRoot])
     def reload_team_by_trainer(self, request, *args, **kwargs):
         trainer = self.get_object()
         last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
@@ -266,7 +259,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(data=dict(detail=f'Reloaded {trainer.name}\'s team'), status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
-    @permission_classes([IsRoot])
     def reload_boxes(self, request, *args, **kwargs):
         trainers = self.get_queryset()
         total_trainers = trainers.count()
@@ -281,7 +273,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(data=dict(detail=f'Reloaded {total_trainers} trainer\'s boxes'), status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=True)
-    @permission_classes([IsRoot])
     def reload_by_trainer_boxes(self, request, *args, **kwargs):
         trainer = self.get_object()
         last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
