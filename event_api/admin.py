@@ -182,12 +182,21 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     list_display = (
         'username',
         'masters_profile__trainer',
-        'masters_profile__profile_type',
-        'masters_profile__is_tester',
+        'profile_type',
+        'is_tester',
         'is_active',
         'is_staff'
     )
     inlines = [MastersProfileInline, StreamerProfileInline]
+
+    def profile_type(self, obj):
+        return obj.masters_profile.get_profile_type_display()
+
+    def is_tester(self, obj):
+        return obj.masters_profile.is_tester
+
+    is_tester.boolean = True
+    is_tester.short_description = 'Is Tester'
 
 
 admin.site.register(User, UserProfileAdmin)
