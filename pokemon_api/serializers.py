@@ -90,7 +90,7 @@ class ItemSelectSerializer(serializers.ModelSerializer):
     title = serializers.SerializerMethodField()
 
     def get_value(self, obj):
-        return obj.index
+        return obj.id
 
     def get_title(self, obj: Item):
         name_localization: ItemNameLocalization = obj.name_localizations.filter(
