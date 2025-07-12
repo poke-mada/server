@@ -156,7 +156,7 @@ class RewardInventoryInline(NestedTabularInline):
 
 class StreamerProfileInline(NestedStackedInline):
     model = Streamer
-    inlines = [StreamPlatformInline, WildcardInventoryItem, RewardInventoryInline]
+    inlines = [WildcardInventoryItem, RewardInventoryInline]
 
 
 class MastersSegmentSettingsAdmin(NestedStackedInline):
