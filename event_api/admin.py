@@ -184,6 +184,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'masters_profile__trainer',
         'profile_type',
         'is_tester',
+        'is_pro',
         'is_active',
         'is_staff'
     )
@@ -196,6 +197,10 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     @admin.display(description='Is Tester', boolean=True, ordering='masters_profile__is_tester')
     def is_tester(self, obj):
         return obj.masters_profile.is_tester
+
+    @admin.display(description='Is Pro', boolean=True, ordering='masters_profile__is_pro')
+    def is_pro(self, obj):
+        return obj.masters_profile.is_pro
 
 
 admin.site.register(User, UserProfileAdmin)
