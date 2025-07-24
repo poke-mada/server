@@ -21,7 +21,7 @@ class OverlayConsumer(AsyncWebsocketConsumer):
     def get_trainer(cls, streamer_name):
         from event_api.models import MastersProfile
         profile: MastersProfile = MastersProfile.objects.filter(
-            user__username__iexact=streamer_name,
+            streamer_name__iexact=streamer_name,
             user__masters_profile__profile_type=MastersProfile.TRAINER
         ).first()
 
