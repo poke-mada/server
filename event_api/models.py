@@ -20,7 +20,8 @@ class SaveFile(models.Model):
 
 
 class ErrorLog(models.Model):
-    profile = models.ForeignKey("MastersProfile", on_delete=models.CASCADE, related_name='errors', null=True, blank=False)
+    profile = models.ForeignKey("MastersProfile", on_delete=models.CASCADE, related_name='errors', null=True,
+                                blank=False)
     trainer = models.ForeignKey(Trainer, on_delete=models.SET_NULL, null=True)
     details = models.TextField(null=True, blank=True)
     message = models.TextField(null=True, blank=False)
@@ -188,7 +189,8 @@ class WildcardLog(models.Model):
 
 
 class StreamerWildcardInventoryItem(models.Model):
-    profile = models.ForeignKey("MastersProfile", on_delete=models.CASCADE, related_name="wildcard_inventory", null=True)
+    profile = models.ForeignKey("MastersProfile", on_delete=models.CASCADE, related_name="wildcard_inventory",
+                                null=True)
     streamer = models.ForeignKey("Streamer", on_delete=models.CASCADE, related_name='wildcard_inventory')
     wildcard = models.ForeignKey(Wildcard, on_delete=models.PROTECT)
     quantity = models.IntegerField(validators=[MinValueValidator(0)])
@@ -291,17 +293,53 @@ class MastersProfile(models.Model):
 
 
 class MastersSegmentSettings(models.Model):
+    LEAGUES = {
+        '-': '------',
+        'A': 'Liga A',
+        'B': 'Liga B',
+        'C': 'Liga C',
+        'D': 'Liga D',
+        'E': 'Liga E'
+    }
+
     profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name="segments_settings", null=True,
                                 blank=True)
     is_current = models.BooleanField(default=True, verbose_name="Tramo Actual")
     segment = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(99)],
                                   verbose_name="Tramo")
     available_community_skip = models.BooleanField(default=True, verbose_name="Skip de Comunidad Disponible")
-    community_pokemon_id = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(808)],
-                                               verbose_name="Pokemon de comunidad")
+    community_pokemon_id = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(821)],
+                                               verbose_name="Pokemon de comunidad", null=True, blank=True)
+
+    karma = models.DecimalField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=1, decimal_places=1,
+                                verbose_name="Karma", help_text="Capacidad de usar comodines de ataque fuerte", max_digits=3)
+    steal_karma = models.DecimalField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0,
+                                      decimal_places=1, verbose_name="Karma de Robo Justo",
+                                      help_text="Al juntar 3, se desbloquea \"Robo justo\"", max_digits=3)
+    attacks_received_left = models.DecimalField(validators=[MinValueValidator(0), MaxValueValidator(4)],
+                                                decimal_places=1, verbose_name="Experiencia", default=4,
+                                                help_text="Ataques que puede recibir en el tramo", max_digits=3)
+    shinies_freed = models.IntegerField(validators=[MinValueValidator(0)],
+                                        help_text="Cuantos shinies ha liberado en el tramo", default=0,
+                                        verbose_name="Shinies liberados")
+    cure_lady_left = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(1)],
+                                         help_text="Cuantos comodines de Dama de la Cura quedan en el tramo", default=1,
+                                         verbose_name="Dama de la Cura restantes")
+    death_count = models.IntegerField(validators=[MinValueValidator(0)], help_text="Muertes en un tramo", default=0,
+                                      verbose_name="Conteo de muertes")
+    tournament_league = models.CharField(max_length=1, choices=LEAGUES.items(), default='-', verbose_name="Liga", help_text="Liga a la que se llegó en este tramo")
+
+    team = models.CharField
+
+    # TODO: al final de tramo se borran escudo protector y reversa y todos los ofensivos medios y fuertes
+    # TODO: escudo a seleccion, no automatico
 
     def save(self, *args, **kwargs):
         if not self.pk:
+            current_segment = self.profile.segments_settings.filter(is_current=True)
+            if current_segment:
+                self.tournament_league = current_segment.tournament_league
+
             self.profile.segments_settings.update(is_current=False)
         super().save(*args, **kwargs)
 

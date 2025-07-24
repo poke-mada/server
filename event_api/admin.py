@@ -137,17 +137,17 @@ class ProfilePlatformUrlInline(NestedTabularInline):
 
 
 class WildcardInventoryItem(NestedTabularInline):
+    fields = ('wildcard', 'quantity')
     model = StreamerWildcardInventoryItem
     min_num = 0
     extra = 0
 
 
 class RewardInventoryInline(NestedTabularInline):
+    fields = ('reward', 'exchanges', 'is_available')
     model = StreamerRewardInventory
     min_num = 0
     extra = 0
-
-
 
 
 class MastersSegmentSettingsAdmin(NestedStackedInline):
