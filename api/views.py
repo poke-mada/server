@@ -84,11 +84,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         mote = request.data.get('mote')
         dex_number = request.data.get('species')
         species = Pokemon.objects.filter(dex_number=dex_number).first().name
-        try:
-            _, is_created = DeathLog.objects.get_or_create(profile=profile, trainer=trainer, pid=pid, mote=mote,
-                                                           species_name=species)
-        except:
-            _, is_created = [0, False]
+        _, is_created = DeathLog.objects.get_or_create(profile=profile, trainer=trainer, pid=pid, mote=mote, species_name=species)
 
         if is_created:
             current_segment: MastersSegmentSettings = profile.current_segment_settings
