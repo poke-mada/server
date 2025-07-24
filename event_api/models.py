@@ -20,6 +20,7 @@ class SaveFile(models.Model):
 
 
 class ErrorLog(models.Model):
+    profile = models.ForeignKey("MastersProfile", on_delete=models.CASCADE, related_name='errors', null=True, blank=False)
     trainer = models.ForeignKey(Trainer, on_delete=models.SET_NULL, null=True)
     details = models.TextField(null=True, blank=True)
     message = models.TextField(null=True, blank=False)
@@ -32,7 +33,6 @@ class CoinTransaction(models.Model):
         (INPUT, 'Ingreso'),
         (OUTPUT, 'Egreso')
     )
-    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name='transactions', null=True, blank=True)
     profile = models.ForeignKey("MastersProfile", on_delete=models.CASCADE, related_name='transactions', null=True,
                                 blank=False)
     amount = models.IntegerField()
@@ -145,7 +145,7 @@ class Wildcard(models.Model):
     def use(self, user: User, amount: int, **kwargs):
         from event_api.wildcards.registry import get_executor
 
-        trainer = user.masters_profile.trainer
+        profile: MastersProfile = user.masters_profile
         try:
             streamer = user.streamer_profile
             handler_cls = get_executor(self.handler_key)
@@ -158,12 +158,12 @@ class Wildcard(models.Model):
                 }
                 handler.validate(context)
                 result = handler.execute(context)
-                WildcardLog.objects.create(wildcard=self, trainer=trainer,
+                WildcardLog.objects.create(wildcard=self, profile=profile,
                                            details=f'{amount} carta/s {self.name} usada')
             else:
                 # fallback default (log-only)
                 result = True
-                WildcardLog.objects.create(wildcard=self, trainer=trainer,
+                WildcardLog.objects.create(wildcard=self, profile=profile,
                                            details=f'{amount} wildcard(s) {self.name} used')
             if not self.always_available:
                 inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
@@ -173,7 +173,7 @@ class Wildcard(models.Model):
         except Exception as e:
             import traceback
             ErrorLog.objects.create(
-                trainer=trainer,
+                profile=profile,
                 details=f'{amount} wildcard(s) {self.name} tried to execute',
                 message=traceback.format_exc()
             )
@@ -181,21 +181,14 @@ class Wildcard(models.Model):
 
 
 class WildcardLog(models.Model):
+    profile = models.ForeignKey("MastersProfile", on_delete=models.CASCADE, related_name="wildcard_logs", null=True)
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name='use_logs', null=True)
     wildcard = models.ForeignKey(Wildcard, on_delete=models.CASCADE, related_name='use_logs')
     details = models.TextField(blank=False, default="No details provided")
 
 
-class StreamPlatformUrl(models.Model):
-    streamer = models.ForeignKey("Streamer", on_delete=models.CASCADE)
-    platform = models.CharField(max_length=50)
-    url = models.URLField()
-
-    def __str__(self):
-        return self.platform
-
-
 class StreamerWildcardInventoryItem(models.Model):
+    profile = models.ForeignKey("MastersProfile", on_delete=models.CASCADE, related_name="wildcard_inventory", null=True)
     streamer = models.ForeignKey("Streamer", on_delete=models.CASCADE, related_name='wildcard_inventory')
     wildcard = models.ForeignKey(Wildcard, on_delete=models.PROTECT)
     quantity = models.IntegerField(validators=[MinValueValidator(0)])
@@ -237,6 +230,7 @@ class MastersProfile(models.Model):
     }
 
     LEAGUES = {
+        '-': '------',
         'A': 'Liga A',
         'B': 'Liga B',
         'C': 'Liga C',
@@ -245,16 +239,16 @@ class MastersProfile(models.Model):
     }
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="masters_profile")
+    streamer_name = models.CharField(max_length=50, default="", blank=False, null=True)
     coached = models.ForeignKey("MastersProfile", on_delete=models.SET_NULL, null=True, blank=True,
                                 related_name="coaches")
-    web_picture = models.ImageField(upload_to='profiles/web/', null=True, blank=True)
+    web_picture = models.ImageField(upload_to='profiles/web/', null=True, blank=False)
     trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="users", null=True, blank=True)
     profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER)
     death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0)
-    custom_sprite = models.ImageField(upload_to='profiles/sprites/', null=True, blank=True)
     rom_name = models.CharField(max_length=50, default="Pokémon X")
     is_pro = models.BooleanField(default=False)
-    tournament_league = models.CharField(max_length=1, choices=LEAGUES.items(), default='A')
+    tournament_league = models.CharField(max_length=1, choices=LEAGUES.items(), default='-')
     save_path = models.CharField(max_length=260, null=True, blank=True,
                                  default=r'%APPDATA%\Lime3DS\sdmc\Nintendo 3DS\00000000000000000000000000000000\00000000000000000000000000000000\title\00040000\00055d00\data\00000001')
     is_tester = models.BooleanField(default=False)
@@ -366,8 +360,8 @@ class DeathLog(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="death_log")
     created_on = models.DateTimeField(auto_now_add=True)
     died_in = models.CharField(max_length=100)
-    pid = models.CharField(max_length=100)
-    species_name = models.CharField(max_length=100)
+    pid = models.CharField(max_length=100, unique=True)
+    species_name = models.CharField(max_length=100, unique=True)
     mote = models.CharField(max_length=100)
 
 

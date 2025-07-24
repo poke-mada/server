@@ -28,16 +28,10 @@ class Trainer(models.Model):
     gym_badge_8 = models.BooleanField(default=False)
 
     def streamer_name(self):
-        if not self.get_streamer():
-            return f'T - {self.name}'
-        return self.get_streamer().name
-
-    def get_streamer(self):
-        from event_api.models import MastersProfile
         profile = self.get_trainer_profile()
-        if profile and hasattr(profile.user, 'streamer_profile') and profile.user.streamer_profile:
-            return profile.user.streamer_profile
-        return None
+        if not profile:
+            return f'T - {self.name}'
+        return profile.streamer_name
 
     def get_trainer_profile(self):
         from event_api.models import MastersProfile

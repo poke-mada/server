@@ -1,12 +1,11 @@
 from django.conf import settings
 from django.contrib import admin
-from django.template.defaulttags import url
 from django.urls import path, include, re_path
 from django.views.static import serve
 
 from api.data_loader_view import LoadJsonDataView
 from api.views import FileUploadView, FileUploadManyView, LoadItemNamesView
-from pokemada.views import pro_overlay, coach_overlay
+from pokemada.views import overlay, showdown
 from django.conf.urls.static import static
 
 urlpatterns = [
@@ -14,8 +13,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('user/', include('api_auth.urls')),
     path('api/', include('api.router')),
-    path('coach_overlay/<str:streamer_name>/', coach_overlay),
-    path('pro_overlay/<str:streamer_name>/', pro_overlay),
+    path('overlay/<str:streamer_name>/', overlay),
+    path('showdown/<str:streamer_name>/', showdown),
     path('upload_save/', FileUploadView.as_view()),
     path('load_data/', LoadJsonDataView.as_view()),
     path('upload_save_many/', FileUploadManyView.as_view()),

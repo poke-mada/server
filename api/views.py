@@ -83,8 +83,10 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         mote = request.data.get('mote')
         dex_number = request.data.get('species')
         species = Pokemon.objects.filter(dex_number=dex_number).first().name
-        _, is_created = DeathLog.objects.get_or_create(profile=profile, trainer=trainer, pid=pid, mote=mote,
-                                                       species_name=species)
+        try:
+            _, is_created = DeathLog.objects.get_or_create(profile=profile, trainer=trainer, pid=pid, mote=mote, species_name=species)
+        except:
+            _, is_created = [0, False]
 
         if is_created:
             profile.death_count += 1
@@ -366,8 +368,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
         trainer: Trainer = Trainer.get_from_user(request.user)
         event: GameEvent = GameEvent.objects.filter(GameEvent.get_available(), pk=pk).first()
         if event:
-            mod_file = event.game_mod.get_mod_file_for_streamer(trainer.get_streamer())
-            print(mod_file)
+            mod_file = event.game_mod.get_mod_file_for_streamer(trainer.get_trainer_profile())
             return FileResponse(mod_file.file)
         return Response(status=status.HTTP_404_NOT_FOUND)
 

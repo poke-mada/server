@@ -4,15 +4,24 @@ from django.shortcuts import render
 from event_api.models import Streamer, MastersProfile
 
 
-def coach_overlay(request, streamer_name):
-    streamer = Streamer.objects.filter(name=streamer_name, user__masters_profile__profile_type=MastersProfile.TRAINER).first()
-    if not streamer:
-        raise Http404("Streamer not found")
+def overlay(request, streamer_name):
+    profile: MastersProfile = MastersProfile.objects.filter(
+        user__username__iexact=streamer_name,
+        user__masters_profile__profile_type=MastersProfile.TRAINER
+    ).first()
 
-    coach: MastersProfile = streamer.user.masters_profile.coaches.filter(user__is_active=True).first()
+    if not profile:
+        raise Http404("Profile not found")
+
+    coach: MastersProfile = profile.coaches.filter(user__is_active=True).first()
     coach_name = 'Sin coach'
     if coach:
         coach_name = coach.user.streamer_profile.name
+
+    if profile.is_pro:
+        return render(request, 'pro_overlay.html', {
+            'streamer_name': streamer_name
+        })
 
     return render(request, 'coach_overlay.html', {
         'coach_name': coach_name,
@@ -20,10 +29,26 @@ def coach_overlay(request, streamer_name):
     })
 
 
-def pro_overlay(request, streamer_name):
-    streamer = Streamer.objects.filter(name=streamer_name, user__masters_profile__profile_type=MastersProfile.TRAINER).first()
-    if streamer is None:
-        raise Http404("Streamer not found")
-    return render(request, 'pro_overlay.html', {
+def showdown(request, streamer_name):
+    profile: MastersProfile = MastersProfile.objects.filter(
+        user__username__iexact=streamer_name,
+        user__masters_profile__profile_type=MastersProfile.TRAINER
+    ).first()
+
+    if not profile:
+        raise Http404("Profile not found")
+
+    coach: MastersProfile = profile.coaches.filter(user__is_active=True).first()
+    coach_name = 'Sin coach'
+    if coach:
+        coach_name = coach.user.streamer_profile.name
+
+    if profile.is_pro:
+        return render(request, 'pro_showdown_overlay.html', {
+            'streamer_name': streamer_name
+        })
+
+    return render(request, 'coach_showdown_overlay.html', {
+        'coach_name': coach_name,
         'streamer_name': streamer_name
     })

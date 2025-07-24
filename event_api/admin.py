@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.db import models
 
-from event_api.models import CoinTransaction, Wildcard, Streamer, StreamPlatformUrl, StreamerWildcardInventoryItem, \
+from event_api.models import CoinTransaction, Wildcard, Streamer, StreamerWildcardInventoryItem, \
     WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings, DeathLog, ProfileImposterLog, \
     Imposter, ProfilePlatformUrl, Newsletter
 from event_api.wildcards.handlers.settings.models import GiveItemHandlerSettings, GiveMoneyHandlerSettings, \
@@ -76,26 +76,26 @@ class CoinTransactionAdmin(admin.ModelAdmin):
 
 @admin.register(WildcardLog)
 class WildcardLogAdmin(admin.ModelAdmin):
-    list_display = ('trainer__name', 'wildcard__name', 'details',)
-    search_fields = ('trainer__name', 'wildcard__name')
+    list_display = ('profile__user__username', 'wildcard__name', 'details',)
+    search_fields = ('profile__user__username', 'wildcard__name')
 
 
 @admin.register(ErrorLog)
 class ErrorLogAdmin(admin.ModelAdmin):
-    list_display = ('trainer__name', 'details', 'message',)
-    search_fields = ('trainer__name',)
+    list_display = ('profile__user__username', 'details', 'message',)
+    search_fields = ('profile__user__username',)
 
 
 @admin.register(DeathLog)
 class DeathLogAdmin(admin.ModelAdmin):
-    list_display = ('profile__user__streamer_profile__name', 'trainer__name', 'species_name', 'mote',)
-    search_fields = ('profile__user__streamer_profile__name', 'trainer__name',)
+    list_display = ('profile__user__username', 'trainer__name', 'species_name', 'mote',)
+    search_fields = ('profile__user__username', 'trainer__name',)
 
 
 @admin.register(ProfileImposterLog)
 class ProfileImposterLogAdmin(admin.ModelAdmin):
-    list_display = ('profile__user__streamer_profile__name', 'imposter__message',)
-    search_fields = ('profile__user__streamer_profile__name', 'imposter__message',)
+    list_display = ('profile__user__username', 'imposter__message',)
+    search_fields = ('profile__user__username', 'imposter__message',)
 
 
 @admin.register(Imposter)
@@ -136,12 +136,6 @@ class ProfilePlatformUrlInline(NestedTabularInline):
     extra = 0
 
 
-class StreamPlatformInline(NestedTabularInline):
-    model = StreamPlatformUrl
-    min_num = 0
-    extra = 0
-
-
 class WildcardInventoryItem(NestedTabularInline):
     model = StreamerWildcardInventoryItem
     min_num = 0
@@ -154,9 +148,6 @@ class RewardInventoryInline(NestedTabularInline):
     extra = 0
 
 
-class StreamerProfileInline(NestedStackedInline):
-    model = Streamer
-    inlines = [WildcardInventoryItem, RewardInventoryInline]
 
 
 class MastersSegmentSettingsAdmin(NestedStackedInline):
@@ -169,7 +160,7 @@ class MastersSegmentSettingsAdmin(NestedStackedInline):
 class MastersProfileInline(NestedStackedInline):
     model = MastersProfile
     readonly_fields = ('last_save_download', 'economy')
-    inlines = [MastersSegmentSettingsAdmin, ProfilePlatformUrlInline]
+    inlines = [MastersSegmentSettingsAdmin, ProfilePlatformUrlInline, WildcardInventoryItem, RewardInventoryInline]
 
 
 @admin.register(Newsletter)
@@ -188,7 +179,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'is_active',
         'is_staff'
     )
-    inlines = [MastersProfileInline, StreamerProfileInline]
+    inlines = [MastersProfileInline]
 
     @admin.display(description='Profile Type', ordering='masters_profile__profile_type')
     def profile_type(self, obj):
