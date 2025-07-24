@@ -92,7 +92,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             profile.death_count += 1
             profile.save()
 
-        OverlayConsumer.send_overlay_data(user.streamer_profile.name)
+        OverlayConsumer.send_overlay_data(profile.streamer_name)
         serializer = self.get_serializer(trainer)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -549,7 +549,7 @@ class FileUploadView(APIView):
             trainer.save()
             team_saver(save_results.get('team'), trainer)
             box_saver(save_results.get('boxes'), trainer)
-            OverlayConsumer.send_overlay_data(trainer.streamer_name())
+            OverlayConsumer.send_overlay_data(profile.streamer_name)
         else:
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(file_serializer.data, status=status.HTTP_201_CREATED)
