@@ -431,9 +431,12 @@ class DeathLog(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="death_log")
     created_on = models.DateTimeField(auto_now_add=True)
     died_in = models.CharField(max_length=100)
-    pid = models.CharField(max_length=100, unique=True)
-    species_name = models.CharField(max_length=100, unique=True)
+    pid = models.CharField(max_length=100)
+    species_name = models.CharField(max_length=100)
     mote = models.CharField(max_length=100)
+
+    class Meta:
+        unique_together = ("profile", "species_name")
 
 
 class MastersSegment(models.Model):
