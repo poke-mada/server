@@ -29,7 +29,7 @@ class SimplifiedWildcardSerializer(serializers.ModelSerializer):
 
 
 class WildcardWithInventorySerializer(serializers.ModelSerializer):
-    quality_display = serializers.CharField(source='get_quality_display')
+    quality_display = serializers.CharField(source='get_category_display')
     inventory = serializers.SerializerMethodField()
     sprite_name = serializers.CharField()
 
