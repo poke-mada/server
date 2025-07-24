@@ -142,7 +142,6 @@ class Wildcard(models.Model):
         if self.category == Wildcard.OFFENSIVE and current_segment.karma < self.karma_consumption:
             # si es un comodin de ataque y no hay karma suficiente no puede usarse
             return False
-
         return (inventory and inventory.quantity >= amount) or self.always_available
 
     def buy(self, user: User, amount: int, force_buy=False):
@@ -190,6 +189,8 @@ class Wildcard(models.Model):
                 result = handler.execute(context)
                 WildcardLog.objects.create(wildcard=self, profile=profile,
                                            details=f'{amount} carta/s {self.name} usada')
+                if result == 'cannot_attack':
+                    return False
             else:
                 # fallback default (log-only)
                 result = True

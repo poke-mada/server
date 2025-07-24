@@ -13,6 +13,8 @@ class MidAttackHandler(AlertHandler):
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         target_current_segment: MastersSegmentSettings = target_profile.current_segment_settings
         source_current_segment: MastersSegmentSettings = self.user.masters_profile.current_segment_settings
+        if target_current_segment.attacks_received_left < self.wildcard.karma_consumption:
+            return 'cannot_attack'
 
         target_current_segment.karma += self.wildcard.karma_consumption
         target_current_segment.attacks_received_left -= self.wildcard.karma_consumption

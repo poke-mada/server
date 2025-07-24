@@ -489,7 +489,7 @@ def team_saver(team, trainer):
 
 
 def box_saver(boxes, trainer: Trainer):
-    trainer.boxes.all().delete()
+    TrainerBox.objects.filter(trainer=trainer).delete()
     boxes_hash = dict()
     for box_num in range(7):
         boxes_hash[box_num] = TrainerBox.objects.create(box_number=box_num, trainer=trainer)
