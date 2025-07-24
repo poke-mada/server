@@ -481,16 +481,16 @@ def team_saver(team, trainer):
 
 def box_saver(boxes, trainer: Trainer):
     trainer.boxes.all().delete()
-    boxes = dict()
+    boxes_hash = dict()
     for box_num in range(7):
-        boxes[box_num] = TrainerBox.objects.create(box_number=box_num, trainer=trainer)
+        boxes_hash[box_num] = TrainerBox.objects.create(box_number=box_num, trainer=trainer)
 
     for box_num, data in boxes.items():
         if not data:
             continue
         box_name = data['name']
         slots = data['slots']
-        box = boxes[box_num]
+        box = boxes_hash[box_num]
         box.name = box_name
         box.save()
         for slot in slots:
