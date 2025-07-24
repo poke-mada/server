@@ -51,7 +51,7 @@ class WildcardWithInventorySerializer(serializers.ModelSerializer):
             'special_price',
             'sprite',
             'description',
-            'quality',
+            'category',
             'is_active',
             'extra_url',
             'always_available',
