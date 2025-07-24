@@ -1,8 +1,6 @@
-import json
-from event_api.models import MastersProfile, Streamer, Newsletter
+from event_api.models import MastersProfile, Newsletter
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from event_api.wildcards.wildcard_handler import BaseWildCardHandler
-from channels.layers import get_channel_layer
 
 from websocket.sockets import DataConsumer
 
@@ -13,8 +11,6 @@ class HelpAlertHandler(BaseWildCardHandler):
         return
 
     def execute(self, context):
-        from asgiref.sync import async_to_sync
-        channel_layer = get_channel_layer()
         target_id = context.get('target_id')[0]
 
         profile: MastersProfile = MastersProfile.objects.get(id=target_id)

@@ -81,12 +81,24 @@ class Wildcard(models.Model):
         (CHOSEN_ONE, 'El Elegido'),
     )
 
-    name = models.CharField(max_length=500)
+    LOW = 0
+    MID = 1
+    STRONG = 2
+
+    ATTACK_LEVELS = (
+        (LOW, 'Bajo/Especial'),
+        (MID, 'Medio'),
+        (STRONG, 'Fuerte'),
+    )
+
+    name = models.CharField(max_length=500, blank=False)
     price = models.IntegerField(validators=[MinValueValidator(-1)], null=True, blank=True)
     special_price = models.CharField(max_length=500, null=True, blank=True)
-    sprite = models.ImageField(upload_to='wildcards/', null=True, blank=True)
+    sprite = models.ImageField(upload_to='wildcards/', null=True, blank=False)
     description = models.TextField(blank=False, default="")
-    quality = models.SmallIntegerField(choices=QUALITIES, default=AESTETHICAL)
+    category = models.SmallIntegerField(choices=QUALITIES, default=AESTETHICAL, verbose_name="Categoría")
+    attack_level = models.SmallIntegerField(choices=ATTACK_LEVELS, default=LOW, verbose_name="Nivel de Ataque",
+                                            help_text="Nivel de Ataque solo para comodines de ATAQUE")
     is_active = models.BooleanField(default=True)
     extra_url = models.URLField(blank=True, null=True)
     always_available = models.BooleanField(default=False)  # models.py (dentro de Wildcard)
@@ -95,6 +107,18 @@ class Wildcard(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def karma_consumption(self):
+        if self.attack_level == Wildcard.STRONG and self.category == Wildcard.OFFENSIVE:
+            return 1
+
+        if self.attack_level == Wildcard.MID and self.category == Wildcard.OFFENSIVE:
+            return 0
+
+        if self.attack_level == Wildcard.LOW and self.category == Wildcard.OFFENSIVE:
+            return 0
+        return 0
 
     @property
     def sprite_name(self):
@@ -114,6 +138,11 @@ class Wildcard(models.Model):
     def can_use(self, user: User, amount):
         streamer = user.streamer_profile
         inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
+        current_segment = user.masters_profile.current_segment_settings
+        if self.category == Wildcard.OFFENSIVE and current_segment.karma < self.karma_consumption:
+            # si es un comodin de ataque y no hay karma suficiente no puede usarse
+            return False
+
         return (inventory and inventory.quantity >= amount) or self.always_available
 
     def buy(self, user: User, amount: int, force_buy=False):
@@ -312,7 +341,8 @@ class MastersSegmentSettings(models.Model):
                                                verbose_name="Pokemon de comunidad", null=True, blank=True)
 
     karma = models.DecimalField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=1, decimal_places=1,
-                                verbose_name="Karma", help_text="Capacidad de usar comodines de ataque fuerte", max_digits=3)
+                                verbose_name="Karma", help_text="Capacidad de usar comodines de ataque fuerte",
+                                max_digits=3)
     steal_karma = models.DecimalField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0,
                                       decimal_places=1, verbose_name="Karma de Robo Justo",
                                       help_text="Al juntar 3, se desbloquea \"Robo justo\"", max_digits=3)
@@ -327,12 +357,14 @@ class MastersSegmentSettings(models.Model):
                                          verbose_name="Dama de la Cura restantes")
     death_count = models.IntegerField(validators=[MinValueValidator(0)], help_text="Muertes en un tramo", default=0,
                                       verbose_name="Conteo de muertes")
-    tournament_league = models.CharField(max_length=1, choices=LEAGUES.items(), default='-', verbose_name="Liga", help_text="Liga a la que se llegó en este tramo")
+    tournament_league = models.CharField(max_length=1, choices=LEAGUES.items(), default='-', verbose_name="Liga",
+                                         help_text="Liga a la que se llegó en este tramo")
 
     team = models.CharField
 
     # TODO: al final de tramo se borran escudo protector y reversa y todos los ofensivos medios y fuertes
     # TODO: escudo a seleccion, no automatico
+    # TODO: 15 monedas -muertes de tramo
 
     def save(self, *args, **kwargs):
         if not self.pk:

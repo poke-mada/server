@@ -14,7 +14,8 @@ from rest_framework.views import APIView
 
 from api.permissions import IsTrainer, IsRoot
 from event_api.models import SaveFile, Wildcard, Streamer, CoinTransaction, \
-    GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter, Newsletter
+    GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter, Newsletter, MastersSegment, \
+    MastersSegmentSettings
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer, SelectProfileSerializer, ProfileSerializer
 from pokemon_api.models import Move, Pokemon, Item, ItemNameLocalization
@@ -84,11 +85,16 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         dex_number = request.data.get('species')
         species = Pokemon.objects.filter(dex_number=dex_number).first().name
         try:
-            _, is_created = DeathLog.objects.get_or_create(profile=profile, trainer=trainer, pid=pid, mote=mote, species_name=species)
+            _, is_created = DeathLog.objects.get_or_create(profile=profile, trainer=trainer, pid=pid, mote=mote,
+                                                           species_name=species)
         except:
             _, is_created = [0, False]
 
         if is_created:
+            current_segment: MastersSegmentSettings = profile.current_segment_settings
+            current_segment.death_count += 1
+            current_segment.save()
+
             profile.death_count += 1
             profile.save()
 
@@ -205,7 +211,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         user: User = request.user
         is_tester = user.masters_profile.is_tester
         is_pro = user.masters_profile.is_pro
-        trainer_ids = MastersProfile.objects.filter(is_pro=is_pro, profile_type=MastersProfile.TRAINER, is_tester=is_tester,
+        trainer_ids = MastersProfile.objects.filter(is_pro=is_pro, profile_type=MastersProfile.TRAINER,
+                                                    is_tester=is_tester,
                                                     trainer__isnull=False).values_list('trainer', flat=True)
         trainers = Trainer.objects.filter(id__in=trainer_ids)
         serializer = SelectTrainerSerializer(trainers, many=True)
@@ -334,7 +341,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_players(self, request, *args, **kwargs):
         user: User = request.user
         current_profile = user.masters_profile
-        profiles = MastersProfile.objects.filter(is_pro=current_profile.is_pro, profile_type=MastersProfile.TRAINER).exclude(id=current_profile.id).all()
+        profiles = MastersProfile.objects.filter(is_pro=current_profile.is_pro,
+                                                 profile_type=MastersProfile.TRAINER).exclude(
+            id=current_profile.id).all()
         serialized = SelectProfileSerializer(profiles, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
@@ -600,21 +609,20 @@ class LoadItemNamesView(APIView):
                 json_response = response.json()
 
                 try:
-                    new_es_localization, created = ItemNameLocalization.objects.get_or_create(item=item, language='es',
-                                                                                              defaults=dict(
-                                                                                                  content=list(filter(
-                                                                                                      lambda name:
-                                                                                                      name['language'][
-                                                                                                          'name'] == 'es',
-                                                                                                      json_response[
-                                                                                                          'names']))[0][
-                                                                                                      'name']
-                                                                                              ))
+                    new_es_localization, created = ItemNameLocalization.objects.get_or_create(
+                        item=item, language='es',
+                        defaults=dict(
+                            content=list(filter(
+                                lambda name:
+                                name['language']['name'] == 'es',
+                                json_response['names']))[0]['name']
+                        ))
                     if created:
                         item.name_localizations.add(new_es_localization)
                     else:
                         new_es_localization.content = \
-                        list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0]['name']
+                            list(filter(lambda name: name['language']['name'] == 'es', json_response['names']))[0][
+                                'name']
                         new_es_localization.save()
                 except IndexError:
                     print(f'(es)translation not found for {item.name}#{item.index}')
@@ -622,21 +630,20 @@ class LoadItemNamesView(APIView):
                     raise ValueError(f'error finding data on {response.content} from url {url} @ {item.index}')
 
                 try:
-                    new_en_localization, created = ItemNameLocalization.objects.get_or_create(item=item, language='en',
-                                                                                              defaults=dict(
-                                                                                                  content=list(filter(
-                                                                                                      lambda name:
-                                                                                                      name['language'][
-                                                                                                          'name'] == 'en',
-                                                                                                      json_response[
-                                                                                                          'names']))[0][
-                                                                                                      'name']
-                                                                                              ))
+                    new_en_localization, created = ItemNameLocalization.objects.get_or_create(
+                        item=item, language='en',
+                        defaults=dict(
+                            content=list(filter(
+                                lambda name:
+                                name['language']['name'] == 'en',
+                                json_response['names']))[0]['name']
+                        ))
                     if created:
                         item.name_localizations.add(new_en_localization)
                     else:
                         new_en_localization.content = \
-                        list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0]['name']
+                            list(filter(lambda name: name['language']['name'] == 'en', json_response['names']))[0][
+                                'name']
                         new_en_localization.save()
                 except IndexError:
                     print(f'(en)translation not found for {item.name}#{item.index}')
