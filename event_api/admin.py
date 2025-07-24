@@ -114,8 +114,8 @@ class WildcardAdmin(admin.ModelAdmin):
         'give_random_money': [GiveRandomMoneyHandlerSettingsInline],
         'timer_handler': [TimerHandlerSettingsInline],
     }
-    list_display = ('name', 'price', 'quality', 'is_active')
-    search_fields = ('name', 'price', 'quality',)
+    list_display = ('name', 'price', 'category', 'is_active')
+    search_fields = ('name', 'price', 'category',)
     actions = [disable_wildcards, enable_wildcards]
 
     def get_inline_instances(self, request, obj=None):
