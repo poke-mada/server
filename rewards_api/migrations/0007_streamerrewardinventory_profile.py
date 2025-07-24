@@ -7,8 +7,11 @@ from django.db import migrations, models
 def declare_profile(apps, schema_editor):
     StreamerRewardInventory = apps.get_model("rewards_api", "StreamerRewardInventory")
     for item in StreamerRewardInventory.objects.all():
-        item.profile = item.streamer.user.masters_profile
-        item.save()
+        try:
+            item.profile = item.streamer.user.masters_profile
+            item.save()
+        except:
+            continue
 
 
 class Migration(migrations.Migration):
