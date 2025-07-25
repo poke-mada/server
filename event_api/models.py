@@ -176,7 +176,7 @@ class Wildcard(models.Model):
 
         profile: MastersProfile = user.masters_profile
         try:
-            streamer = user.streamer_profile
+            streamer = user.masters_profile
             handler_cls = get_executor(self.handler_key)
 
             if handler_cls:
