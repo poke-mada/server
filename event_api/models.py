@@ -136,7 +136,7 @@ class Wildcard(models.Model):
                 (user.masters_profile.economy >= self.price * amount_to_buy) or self.always_available)
 
     def can_use(self, user: User, amount):
-        streamer = user.streamer_profile
+        streamer = user.masters_profile
         inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
         current_segment = user.masters_profile.current_segment_settings
         if self.category == Wildcard.OFFENSIVE and current_segment.karma < self.karma_consumption:
