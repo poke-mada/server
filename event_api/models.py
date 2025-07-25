@@ -44,7 +44,7 @@ class CoinTransaction(models.Model):
     def save(self, *args, **kwargs):
         new_ = super(CoinTransaction, self).save(*args, **kwargs)
 
-        DataConsumer.send_custom_data(self.profile.user.streamer_profile.name, dict(
+        DataConsumer.send_custom_data(self.profile.user.masters_profile.streamer_name, dict(
             type='coins_notification',
             data=self.profile.economy
         ))
@@ -149,7 +149,7 @@ class Wildcard(models.Model):
             return False
         if self.always_available:
             return True
-        inventory, _ = user.streamer_profile.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
+        inventory, _ = user.masters_profile.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
 
         already_in_possession = inventory.quantity
         if not force_buy:
