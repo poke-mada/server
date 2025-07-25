@@ -395,7 +395,7 @@ class GameMod(models.Model):
     mod_description = models.TextField(blank=True, null=True)
 
     def get_mod_file_for_streamer(self, streamer):
-        streamer_variant = self.variants.filter(streamer=streamer).first()
+        streamer_variant = self.variants.first()
         if streamer_variant:
             return streamer_variant.mod_file
 
