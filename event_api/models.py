@@ -44,7 +44,7 @@ class CoinTransaction(models.Model):
     def save(self, *args, **kwargs):
         new_ = super(CoinTransaction, self).save(*args, **kwargs)
 
-        DataConsumer.send_custom_data(self.profile.user.masters_profile.streamer_name, dict(
+        DataConsumer.send_custom_data(self.profile.user.username, dict(
             type='coins_notification',
             data=self.profile.economy
         ))
