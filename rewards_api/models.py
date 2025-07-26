@@ -94,9 +94,8 @@ class MoneyReward(models.Model):
 class StreamerRewardInventory(models.Model):
     profile = models.ForeignKey("event_api.MastersProfile", on_delete=models.CASCADE, related_name='reward_inventory', null=True, blank=False)
     reward = models.ForeignKey(RewardBundle, on_delete=models.SET_NULL, null=True, related_name='owners')
-    streamer = models.ForeignKey(Streamer, on_delete=models.SET_NULL, null=True, related_name='rewards')
     exchanges = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     is_available = models.BooleanField(default=True)
 
     class Meta:
-        unique_together = ['reward', 'streamer']
+        unique_together = ['reward', 'profile']

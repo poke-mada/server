@@ -100,8 +100,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['get'], detail=False)
     def get_rewards(self, request, *args, **kwargs):
-        streamer = request.user.streamer_profile
-        bundles = RewardBundle.objects.filter(owners__streamer=streamer, owners__is_available=True)
+        profile = request.user.masters_profile
+        bundles = RewardBundle.objects.filter(owners__profile=profile, owners__is_available=True)
         serializer = StreamerRewardSimpleSerializer(bundles, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
