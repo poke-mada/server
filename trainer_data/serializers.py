@@ -80,7 +80,7 @@ class TrainerTeamSerializer(serializers.ModelSerializer):
 
 # noinspection PyMethodMayBeStatic
 class ROTrainerPokemonSerializer(serializers.ModelSerializer):
-    localization = '*'
+    localization = 'es'
     nature = PokemonNatureSerializer()
     species = serializers.CharField(source='pokemon.name', read_only=True)
     dex_number = serializers.IntegerField(source='pokemon.dex_number', read_only=True)
