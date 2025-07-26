@@ -119,7 +119,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         trainer: Trainer = Trainer.get_from_user(request.user)
         logger.debug(str(trainer))
         profile: MastersProfile = user.masters_profile
-        reward: StreamerRewardInventory = profile.rewards.filter(reward_id=reward_id, is_available=True).first()
+        reward: StreamerRewardInventory = profile.reward_inventory.filter(reward_id=reward_id, is_available=True).first()
         if not reward:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
