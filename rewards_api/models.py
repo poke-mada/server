@@ -36,7 +36,7 @@ class Reward(models.Model):
     is_active = models.BooleanField(default=True)
     bundle = models.ForeignKey(RewardBundle, on_delete=models.SET_NULL, null=True, related_name='rewards')
 
-    pokemon_pid = models.PositiveIntegerField(blank=True, null=True)
+    pokemon_pid = models.PositiveBigIntegerField(blank=True, null=True)
     pokemon_data = models.FileField(upload_to='pokemon_rewards', null=True, blank=True)
     item = models.ForeignKey(Item, on_delete=models.SET_NULL, null=True, blank=True)
     wildcard = models.ForeignKey("event_api.Wildcard", on_delete=models.SET_NULL, null=True, blank=True)
