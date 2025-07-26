@@ -2,7 +2,7 @@ from event_api.wildcards.registry import WildCardExecutorRegistry
 from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 from pokemon_api.models import Item
 
-available_items = [541, 268, 219, 214, 271, 286, 221, 267, 542, 232, 295, 253, 265, 547, 230, 284, 285, 283, 282]
+available_items = [541, 268, 219, 214, 271, 286, 221, 267, 542, 232, 295, 253, 265, 547, 230, 284, 285, 283, 282, 184]
 
 
 @WildCardExecutorRegistry.register("weak_item", verbose='Give Weak Item Handler')
