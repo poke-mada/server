@@ -137,7 +137,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
             elif _reward.reward_type == _reward.WILDCARD:
                 w_reward = _reward.wildcard_reward
-                inventory, _ = streamer.wildcard_inventory.get_or_create(
+                inventory, _ = profile.wildcard_inventory.get_or_create(
                     wildcard=w_reward.wildcard,
                     defaults=dict(quantity=0)
                 )
