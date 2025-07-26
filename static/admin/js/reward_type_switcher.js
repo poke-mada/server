@@ -36,6 +36,7 @@
                 case '3': //Pokemon
                     console.log(rewardType);
                     $inline.find('.field-pokemon_data').children().show();
+                    $inline.find('.field-pokemon_pid').children().show();
                     break;
                 default:
                     console.log(rewardType)

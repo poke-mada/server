@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from rewards_api.models import RewardBundle, Reward, PokemonReward
+from rewards_api.models import RewardBundle, Reward
 
 
 class ByteArrayFileField(serializers.FileField):
@@ -12,86 +12,54 @@ class ByteArrayFileField(serializers.FileField):
             return list(f.read())
 
 
-class PokemonRewardSerializer(serializers.ModelSerializer):
-    pokemon_data = ByteArrayFileField()
+class PokemonPIDField(serializers.FileField):
+    def to_representation(self, value):
+        """Lee los bytes del archivo y los convierte en una lista de enteros"""
+        if not value:
+            return None
 
-    class Meta:
-        model = PokemonReward
-        fields = (
-            'pokemon_data',
-            'pokemon_pid'
-        )
-
-
-class PokemonRewardSimpleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PokemonReward
-        fields = (
-            'pokemon_pid',
-        )
-
-
-# class WildcardRewardSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = WildcardReward
-#         fields = (
-#             'wildcard',
-#             'quantity'
-#         )
-#
-#
-# class MoneyRewardSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = MoneyReward
-#         fields = ['quantity']
-#
-#
-# class ItemRewardSerializer(serializers.ModelSerializer):
-#     item = serializers.SerializerMethodField()
-#
-#     def get_item(self, obj):
-#         return obj.item.index
-#
-#     class Meta:
-#         model = ItemReward
-#         fields = (
-#             'item',
-#             'quantity',
-#             'bag'
-#         )
+        return hex(value)
 
 
 class SimpleRewardSerializer(serializers.ModelSerializer):
-    pokemon_reward = PokemonRewardSimpleSerializer()
-    # wildcard_reward = WildcardRewardSerializer()
-    # money_reward = MoneyRewardSerializer()
-    # item_reward = ItemRewardSerializer()
+    pokemon_pid = PokemonPIDField()
+    bag = serializers.SerializerMethodField()
+
+    def get_bag(self, obj: Reward):
+        if not obj.item:
+            return None
+        return obj.item.item_bag
 
     class Meta:
         model = Reward
         fields = (
             'reward_type',
-            'pokemon_reward',
-            # 'wildcard_reward',
-            # 'money_reward',
-            # 'item_reward',
+            'pokemon_pid',
+            'bag',
+            'item',
+            'wildcard',
+            'quantity',
         )
 
 
 class RewardSerializer(serializers.ModelSerializer):
-    pokemon_reward = PokemonRewardSerializer()
-    # wildcard_reward = WildcardRewardSerializer()
-    # money_reward = MoneyRewardSerializer()
-    # item_reward = ItemRewardSerializer()
+    pokemon_data = ByteArrayFileField()
+    bag = serializers.SerializerMethodField()
+
+    def get_bag(self, obj: Reward):
+        if not obj.item:
+            return None
+        return obj.item.item_bag
 
     class Meta:
         model = Reward
         fields = (
             'reward_type',
-            'pokemon_reward',
-            # 'wildcard_reward',
-            # 'money_reward',
-            # 'item_reward',
+            'pokemon_data',
+            'bag',
+            'item',
+            'wildcard',
+            'quantity',
         )
 
 

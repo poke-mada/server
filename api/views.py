@@ -119,37 +119,37 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         trainer: Trainer = Trainer.get_from_user(request.user)
         logger.debug(str(trainer))
         profile: MastersProfile = user.masters_profile
-        reward: StreamerRewardInventory = profile.reward_inventory.filter(reward_id=reward_id, is_available=True).first()
-        if not reward:
+        reward_inventory: StreamerRewardInventory = profile.reward_inventory.filter(reward_id=reward_id, is_available=True).first()
+        if not reward_inventory:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        for _reward in reward.reward.rewards.all():
-            if not _reward.is_active:
+        bundle = reward_inventory.reward
+
+        for reward in bundle.rewards.all():
+            if not reward.is_active:
                 continue
 
-            if _reward.reward_type == _reward.MONEY:
+            if reward.reward_type == reward.MONEY:
                 CoinTransaction.objects.create(
                     profile=user.masters_profile,
-                    amount=_reward.money_reward.quantity,
+                    amount=reward.quantity,
                     TYPE=CoinTransaction.INPUT,
-                    reason=f'Se obtuvo {_reward.money_reward.quantity} moneda/s al canjear el premio {reward.reward.id}'
+                    reason=f'Se obtuvo {reward.quantity} moneda/s al canjear el premio {bundle.id}'
                 )
-
-            elif _reward.reward_type == _reward.WILDCARD:
-                w_reward = _reward.wildcard_reward
+            elif reward.reward_type == reward.WILDCARD:
                 inventory, _ = profile.wildcard_inventory.get_or_create(
-                    wildcard=w_reward.wildcard,
+                    wildcard=reward.wildcard,
                     defaults=dict(quantity=0)
                 )
-                inventory.quantity += w_reward.quantity
+                inventory.quantity += reward.quantity
                 inventory.save()
 
-        reward.exchanges += 1
+        reward_inventory.exchanges += 1
         if not user.is_superuser:
-            reward.is_available = False
-        reward.save()
+            reward_inventory.is_available = False
+        reward_inventory.save()
 
-        serializer = StreamerRewardSerializer(reward.reward)
+        serializer = StreamerRewardSerializer(reward_inventory.reward)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 

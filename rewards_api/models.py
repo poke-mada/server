@@ -36,43 +36,28 @@ class Reward(models.Model):
     is_active = models.BooleanField(default=True)
     bundle = models.ForeignKey(RewardBundle, on_delete=models.SET_NULL, null=True, related_name='rewards')
 
+    pokemon_pid = models.PositiveIntegerField(blank=True, null=True)
     pokemon_data = models.FileField(upload_to='pokemon_rewards', null=True, blank=True)
-
-    bag = models.CharField(max_length=10, null=True, blank=True)
     item = models.ForeignKey(Item, on_delete=models.SET_NULL, null=True, blank=True)
-
     wildcard = models.ForeignKey("event_api.Wildcard", on_delete=models.SET_NULL, null=True, blank=True)
-
     quantity = models.IntegerField(default=1, validators=[MinValueValidator(1)], null=True, blank=True)
 
     def __str__(self):
         return f'{self.pk} - {self.get_reward_type_display()}'
 
-
-class PokemonReward(models.Model):
-    reward = models.OneToOneField(Reward, on_delete=models.SET_NULL, null=True, related_name='pokemon_reward',
-                                  blank=True)
-    pokemon_data = models.FileField(upload_to='pokemon_rewards')
-    pokemon_pid = models.PositiveIntegerField(db_index=True, unique=True, blank=True)
-    pokemon = models.ForeignKey(TrainerPokemon, on_delete=models.SET_NULL, null=True, blank=True)
-
     def save(self, *args, **kwargs):
-        from pokemon_api.scripting.save_reader import PokemonBytes
-        pokemon = PokemonBytes(self.pokemon_data.read())
-        pokemon.get_atts()
-        self.pokemon_pid = pokemon.pid
-        if not self.pokemon:
-            trained_pokemon = pokemon.to_trained_pokemon()
-            self.pokemon = trained_pokemon
+        if self.reward_type == Reward.POKEMON and self.pokemon_data:
+            from pokemon_api.scripting.save_reader import PokemonBytes
+            import struct
+            pokemon = PokemonBytes(self.pokemon_data.read())
+            self.pokemon_pid = struct.unpack("<I", pokemon.raw_data[0x18:0x1C])[0]
+            print(self.pokemon_pid)
         super().save(*args, **kwargs)
-
-    def full_clean(self, exclude=None, validate_unique=True, validate_constraints=True):
-        super().full_clean(exclude, validate_unique, validate_constraints)
-        # TODO: validate pokemon data to be coherent
 
 
 class StreamerRewardInventory(models.Model):
-    profile = models.ForeignKey("event_api.MastersProfile", on_delete=models.CASCADE, related_name='reward_inventory', null=True, blank=False)
+    profile = models.ForeignKey("event_api.MastersProfile", on_delete=models.CASCADE, related_name='reward_inventory',
+                                null=True, blank=False)
     reward = models.ForeignKey(RewardBundle, on_delete=models.SET_NULL, null=True, related_name='owners')
     exchanges = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     is_available = models.BooleanField(default=True)
