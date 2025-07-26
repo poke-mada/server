@@ -238,7 +238,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         trainer = Trainer.objects.filter(id=clean_pk).first()
         if trainer is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = ListedBoxSerializer(trainer.boxes.all(), many=True, read_only=True)
+        serializer = ListedBoxSerializer(trainer.boxes.all().order_by('box_number'), many=True, read_only=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
