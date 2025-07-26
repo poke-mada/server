@@ -36,16 +36,14 @@ class Reward(models.Model):
     is_active = models.BooleanField(default=True)
     bundle = models.ForeignKey(RewardBundle, on_delete=models.SET_NULL, null=True, related_name='rewards')
 
-    def get_reward(self):
-        match self.reward_type:
-            case self.ITEM:
-                return self.item_reward
-            case self.WILDCARD:
-                return self.wildcard_reward
-            case self.MONEY:
-                return self.money_reward
-            case self.POKEMON:
-                return self.pokemon_reward
+    pokemon_data = models.FileField(upload_to='pokemon_rewards', null=True, blank=True)
+
+    bag = models.CharField(max_length=10, null=True, blank=True)
+    item = models.ForeignKey(Item, on_delete=models.SET_NULL, null=True, blank=True)
+
+    wildcard = models.ForeignKey("event_api.Wildcard", on_delete=models.SET_NULL, null=True, blank=True)
+
+    quantity = models.IntegerField(default=1, validators=[MinValueValidator(1)], null=True, blank=True)
 
     def __str__(self):
         return f'{self.pk} - {self.get_reward_type_display()}'
@@ -71,24 +69,6 @@ class PokemonReward(models.Model):
     def full_clean(self, exclude=None, validate_unique=True, validate_constraints=True):
         super().full_clean(exclude, validate_unique, validate_constraints)
         # TODO: validate pokemon data to be coherent
-
-
-class ItemReward(models.Model):
-    reward = models.OneToOneField(Reward, on_delete=models.SET_NULL, null=True, related_name='item_reward')
-    item = models.ForeignKey(Item, on_delete=models.SET_NULL, null=True)
-    quantity = models.IntegerField(default=1, validators=[MinValueValidator(1)])
-    bag = models.CharField(max_length=10, null=True, blank=False)
-
-
-class WildcardReward(models.Model):
-    reward = models.OneToOneField(Reward, on_delete=models.SET_NULL, null=True, related_name='wildcard_reward')
-    wildcard = models.ForeignKey("event_api.Wildcard", on_delete=models.SET_NULL, null=True)
-    quantity = models.IntegerField(default=1, validators=[MinValueValidator(1)])
-
-
-class MoneyReward(models.Model):
-    reward = models.OneToOneField(Reward, on_delete=models.SET_NULL, null=True, related_name='money_reward')
-    quantity = models.IntegerField(default=1, validators=[MinValueValidator(1)])
 
 
 class StreamerRewardInventory(models.Model):

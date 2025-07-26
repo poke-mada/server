@@ -1,59 +1,64 @@
 from django.contrib import admin
+from django.core.handlers.asgi import ASGIRequest
+from django.forms import forms
+from django.forms.models import BaseInlineFormSet
+from nested_admin.nested import NestedModelAdmin
 
-from rewards_api.models import RewardBundle, PokemonReward, Reward, ItemReward, MoneyReward, WildcardReward
-from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
+from rewards_api.models import RewardBundle, Reward
 
-
-class PokemonRewardAdmin(NestedTabularInline):
-    model = PokemonReward
-    min_num = 0
-    max_num = 1
-
-
-class WildcardRewardAdmin(NestedTabularInline):
-    model = WildcardReward
-    min_num = 0
-    max_num = 1
+ITEM = 0
+WILDCARD = 1
+MONEY = 2
+POKEMON = 3
 
 
-class ItemRewardAdmin(NestedTabularInline):
-    model = ItemReward
-    min_num = 0
-    max_num = 1
+class CoinsRewardDetailFormSet(BaseInlineFormSet):
+    def clean(self):
+        super().clean()
+        for form in self.forms:
+            if not form.cleaned_data.get('amount'):
+                raise forms.ValidationError("Amount is required for coin rewards.")
 
 
-class MoneyRewardAdmin(NestedTabularInline):
-    model = MoneyReward
-    min_num = 0
-    max_num = 1
+class ItemRewardDetailFormSet(BaseInlineFormSet):
+    def clean(self):
+        super().clean()
+        for form in self.forms:
+            if not form.cleaned_data.get('item'):
+                raise forms.ValidationError("Item is required for item rewards.")
+            if not form.cleaned_data.get('amount'):
+                raise forms.ValidationError("Amount is required for item rewards.")
 
 
-class RewardInline(NestedStackedInline):
+class WildcardRewardDetailFormSet(BaseInlineFormSet):
+    def clean(self):
+        super().clean()
+        for form in self.forms:
+            if not form.cleaned_data.get('wildcard'):
+                raise forms.ValidationError("Wildcard is required for item rewards.")
+            if not form.cleaned_data.get('amount'):
+                raise forms.ValidationError("Amount is required for item rewards.")
+
+
+class PokemonRewardDetailFormSet(BaseInlineFormSet):
+    def clean(self):
+        super().clean()
+        for form in self.forms:
+            if not form.cleaned_data.get('pokemon_data'):
+                raise forms.ValidationError("Pokemon Data is required for item rewards.")
+
+
+class RewardInline(admin.TabularInline):
     model = Reward
     min_num = 1
     extra = 0
+    sortable_by = ['reward_type']
+
+    class Media:
+        js = ('admin/js/reward_type_switcher.js',)
 
 
 @admin.register(RewardBundle)
-class RewardBundleAdmin(NestedModelAdmin):
+class RewardBundleAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     inlines = [RewardInline]
-
-
-@admin.register(Reward)
-class RewardAdmin(NestedModelAdmin):
-    min_num = 1
-    extra = 0
-    inlines = [ItemRewardAdmin, WildcardRewardAdmin, MoneyRewardAdmin, PokemonRewardAdmin]
-
-    inlines_map = {
-        'Item': [ItemRewardAdmin],
-        'Wildcard': [WildcardRewardAdmin],
-        'Money': [MoneyRewardAdmin],
-        'Pokemon': [PokemonRewardAdmin]
-    }
-
-    def get_inline_instances(self, request, obj: Reward = None):
-        if obj and obj.get_reward_type_display() in self.inlines_map:
-            return [inline(self.model, self.admin_site) for inline in self.inlines_map[obj.get_reward_type_display()]]
-        return []

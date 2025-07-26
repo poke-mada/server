@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'api',
     'corsheaders',
     'websocket',
-    'storages'
+    'storages',
+    'admin_panel'
 ]
 
 MIDDLEWARE = [
