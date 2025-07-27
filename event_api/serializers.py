@@ -123,3 +123,12 @@ class ProfileSerializer(serializers.ModelSerializer):
             'web_picture',
             'death_count'
         ]
+
+
+class SelectMastersProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MastersProfile
+        fields = [
+            'id',
+            'streamer_name'
+        ]

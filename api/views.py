@@ -21,7 +21,8 @@ from event_api.models import SaveFile, Wildcard, Streamer, CoinTransaction, \
     GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter, Newsletter, MastersSegment, \
     MastersSegmentSettings
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
-    SimplifiedWildcardSerializer, GameEventSerializer, SelectProfileSerializer, ProfileSerializer
+    SimplifiedWildcardSerializer, GameEventSerializer, SelectProfileSerializer, ProfileSerializer, \
+    SelectMastersProfileSerializer
 from pokemon_api.models import Move, Pokemon, Item, ItemNameLocalization
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer, ItemSelectSerializer
@@ -216,6 +217,17 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
                                                     trainer__isnull=False).values_list('trainer', flat=True)
         trainers = Trainer.objects.filter(id__in=trainer_ids)
         serializer = SelectTrainerSerializer(trainers, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=False)
+    def list_streamers(self, request, *args, **kwargs):
+        user: User = request.user
+        is_tester = user.masters_profile.is_tester
+        is_pro = user.masters_profile.is_pro
+        profiles = MastersProfile.objects.filter(is_pro=is_pro, profile_type=MastersProfile.TRAINER,
+                                                    is_tester=is_tester,
+                                                    trainer__isnull=False)
+        serializer = SelectMastersProfileSerializer(profiles, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
