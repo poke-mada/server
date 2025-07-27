@@ -116,6 +116,7 @@ class WildcardAdmin(admin.ModelAdmin):
     }
     list_display = ('name', 'price', 'category', 'is_active')
     search_fields = ('name', 'price', 'category',)
+    list_filter = ('category', 'is_active')
     actions = [disable_wildcards, enable_wildcards]
 
     def get_inline_instances(self, request, obj=None):
