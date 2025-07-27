@@ -29,4 +29,9 @@ class StrongAttackHandler(AlertHandler):
             data=source_current_segment.karma
         ))
 
+        DataConsumer.send_custom_data(target_profile.streamer_name, dict(
+            type='karma',
+            data=target_current_segment.karma
+        ))
+
         return super().execute(context)
