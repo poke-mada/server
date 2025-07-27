@@ -9,7 +9,7 @@ class MidAttackHandler(AlertHandler):
     admin_inline_model = GiveMoneyHandlerSettings  # a model with extra config
 
     def execute(self, context):
-        target_id = context.get('target_id')[0]
+        target_id = context.get('target_id')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         target_current_segment: MastersSegmentSettings = target_profile.current_segment_settings
         source_current_segment = self.user.masters_profile.current_segment_settings

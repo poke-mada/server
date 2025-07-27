@@ -394,6 +394,9 @@ class GameEvent(models.Model):
     available_date_to = models.DateTimeField()
     force_available = models.BooleanField()
 
+    def __str__(self):
+        return f'{self.game_mod.mod_name}'
+
     def is_available(self):
         if self.force_available:
             return True

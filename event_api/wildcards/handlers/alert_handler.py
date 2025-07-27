@@ -15,7 +15,7 @@ class AlertHandler(BaseWildCardHandler):
     def execute(self, context):
         from asgiref.sync import async_to_sync
         channel_layer = get_channel_layer()
-        target_id = context.get('target_id')[0]
+        target_id = context.get('target_id')
 
         profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         streamer = profile.user.streamer_profile

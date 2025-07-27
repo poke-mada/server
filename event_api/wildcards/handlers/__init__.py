@@ -10,3 +10,5 @@ from .give_random_money import GiveRandomMoneyHandler
 from .steal_money import StealMoneyHandler
 from .help_alert_handler import HelpAlertHandler
 from .timer_handler import TimerHandler
+from .strong_attack_handler import StrongAttackHandler
+from .mid_attack_handler import MidAttackHandler
