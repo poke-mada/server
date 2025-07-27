@@ -24,12 +24,12 @@ class MidAttackHandler(AlertHandler):
 
         DataConsumer.send_custom_data(self.user.masters_profile.streamer_name, dict(
             type='karma',
-            data=source_current_segment.karma
+            data=str(source_current_segment.karma)
         ))
 
         DataConsumer.send_custom_data(target_profile.streamer_name, dict(
             type='karma',
-            data=target_current_segment.karma
+            data=str(target_current_segment.karma)
         ))
 
         return super().execute(context)
