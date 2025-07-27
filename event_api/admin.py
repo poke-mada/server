@@ -204,7 +204,7 @@ class GameModInline(admin.StackedInline):
 
 @admin.register(GameEvent, site=staff_site)
 class GameEventAdmin(admin.ModelAdmin):
-    list_display = ('available_date_from', 'available_date_to',)
+    list_display = ('available_date_from', 'game_mod__mod_name', 'available_date_to',)
     inlines = [GameModInline]
 
 
