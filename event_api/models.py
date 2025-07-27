@@ -389,27 +389,7 @@ class LoaderThread(models.Model):
     thread_id = models.CharField(max_length=100, default="", blank=True)
 
 
-class GameMod(models.Model):
-    mod_file = models.FileField(upload_to='mods/', null=False)
-    mod_name = models.CharField(max_length=50, blank=False)
-    mod_description = models.TextField(blank=True, null=True)
-
-    def get_mod_file_for_streamer(self, streamer):
-        streamer_variant = self.variants.first()
-        if streamer_variant:
-            return streamer_variant.mod_file
-
-        return self.mod_file
-
-
-class StreamerGameMod(models.Model):
-    streamer = models.ForeignKey(Streamer, on_delete=models.CASCADE, related_name="mods")
-    game_mod = models.ForeignKey(GameMod, on_delete=models.CASCADE, related_name="variants")
-    mod_file = models.FileField(upload_to='mods/streamer/', null=False)
-
-
 class GameEvent(models.Model):
-    game_mod = models.OneToOneField(GameMod, on_delete=models.PROTECT, related_name="events")
     available_date_from = models.DateTimeField()
     available_date_to = models.DateTimeField()
     force_available = models.BooleanField()
@@ -424,6 +404,16 @@ class GameEvent(models.Model):
     def get_available():
         now_time = datetime.now()
         return Q(force_available=True) | Q(available_date_from__gte=now_time, available_date_to__lte=now_time)
+
+
+class GameMod(models.Model):
+    event = models.OneToOneField(GameEvent, on_delete=models.PROTECT, related_name="game_mod")
+    mod_file = models.FileField(upload_to='mods/', null=False)
+    mod_name = models.CharField(max_length=50, blank=False)
+    mod_description = models.TextField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        return super().save(*args, **kwargs)
 
 
 class DeathLog(models.Model):

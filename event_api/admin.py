@@ -1,24 +1,20 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User, Group
-from django.db import models
-from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
+from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 
-from event_api.models import CoinTransaction, Wildcard, Streamer, StreamerWildcardInventoryItem, \
+from admin_panel.admin import staff_site
+from event_api.models import CoinTransaction, Wildcard, StreamerWildcardInventoryItem, \
     WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings, DeathLog, ProfileImposterLog, \
     Imposter, ProfilePlatformUrl, Newsletter
+from event_api.wildcards import WildCardExecutorRegistry
 from event_api.wildcards.handlers.settings.models import GiveItemHandlerSettings, GiveMoneyHandlerSettings, \
     GiveGameMoneyHandlerSettings, GiveRandomMoneyHandlerSettings, TimerHandlerSettings
 from rewards_api.models import StreamerRewardInventory
-from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
-
-import event_api.wildcards.handlers  # Replace with actual path
-from event_api.wildcards import WildCardExecutorRegistry
 
 # Register your models here.
 
-admin.site.unregister(Group)
 admin.site.unregister(User)
 
 
@@ -67,44 +63,48 @@ class TimerHandlerSettingsInline(admin.StackedInline):
     extra = 0
 
 
-@admin.register(CoinTransaction)
+@admin.register(CoinTransaction, site=staff_site)
 class CoinTransactionAdmin(admin.ModelAdmin):
-    list_display = ('created_on', 'profile', 'reason', 'amount', 'TYPE',)
+    list_display = ('created_on', 'profile__streamer_name', 'reason', 'amount', 'TYPE',)
     readonly_fields = ('created_on',)
-    search_fields = ('profile', 'TYPE')
+    search_fields = ('profile__streamer_name', 'TYPE')
+    list_filter = ('profile__streamer_name',)
 
 
-@admin.register(WildcardLog)
+@admin.register(WildcardLog, site=staff_site)
 class WildcardLogAdmin(admin.ModelAdmin):
-    list_display = ('profile__user__username', 'wildcard__name', 'details',)
-    search_fields = ('profile__user__username', 'wildcard__name')
+    list_display = ('profile__streamer_name', 'wildcard__name', 'details',)
+    search_fields = ('profile__streamer_name', 'wildcard__name')
 
 
 @admin.register(ErrorLog)
 class ErrorLogAdmin(admin.ModelAdmin):
-    list_display = ('profile__user__username', 'details', 'message',)
-    search_fields = ('profile__user__username',)
+    list_display = ('profile__streamer_name', 'details', 'message',)
+    search_fields = ('profile__streamer_name',)
+    list_filter = ('profile__streamer_name',)
 
 
-@admin.register(DeathLog)
+@admin.register(DeathLog, site=staff_site)
 class DeathLogAdmin(admin.ModelAdmin):
-    list_display = ('profile__user__username', 'trainer__name', 'species_name', 'mote',)
-    search_fields = ('profile__user__username', 'trainer__name',)
+    list_display = ('profile__streamer_name', 'trainer__name', 'species_name', 'mote',)
+    search_fields = ('profile__streamer_name', 'trainer__name',)
+    list_filter = ('profile__streamer_name',)
 
 
-@admin.register(ProfileImposterLog)
+@admin.register(ProfileImposterLog, site=staff_site)
 class ProfileImposterLogAdmin(admin.ModelAdmin):
-    list_display = ('profile__user__username', 'imposter__message',)
-    search_fields = ('profile__user__username', 'imposter__message',)
+    list_display = ('profile__streamer_name', 'imposter__message',)
+    search_fields = ('profile__streamer_name', 'imposter__message',)
+    list_filter = ('profile__streamer_name',)
 
 
-@admin.register(Imposter)
+@admin.register(Imposter, site=staff_site)
 class ImposterLogAdmin(admin.ModelAdmin):
     list_display = ('message', 'coin_reward')
     search_fields = ('message', 'coin_reward',)
 
 
-@admin.register(Wildcard)
+@admin.register(Wildcard, site=staff_site)
 class WildcardAdmin(admin.ModelAdmin):
     inlines_map = {
         'give_item': [GiveItemHandlerSettingsInline],
@@ -163,7 +163,7 @@ class MastersProfileInline(NestedStackedInline):
     inlines = [MastersSegmentSettingsAdmin, ProfilePlatformUrlInline, WildcardInventoryItem, RewardInventoryInline]
 
 
-@admin.register(Newsletter)
+@admin.register(Newsletter, site=staff_site)
 class NewsletterAdmin(NestedModelAdmin):
     readonly_fields = ('created_on',)
     list_display = ('created_on', 'message')
@@ -179,6 +179,8 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'is_active',
         'is_staff'
     )
+
+    list_filter = ('masters_profile__is_pro', 'is_staff', 'masters_profile__profile_type')
     inlines = [MastersProfileInline]
 
     @admin.display(description='Profile Type', ordering='masters_profile__profile_type')
@@ -198,11 +200,9 @@ class GameModInline(admin.StackedInline):
     model = GameMod
     max_num = 1
     min_num = 1
-    list_display = ('profile__user__username', 'details', 'message',)
-    search_fields = ('profile__user__username',)
 
 
-@admin.register(GameEvent)
+@admin.register(GameEvent, site=staff_site)
 class GameEventAdmin(admin.ModelAdmin):
     list_display = ('available_date_from', 'available_date_to',)
     inlines = [GameModInline]

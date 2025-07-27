@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders',
     'admin_panel',
+    'corsheaders',
     'channels',
     'event_api',
     'rewards_api',
@@ -119,25 +119,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-
 MEDIA_URL = '/media/'
-# noinspection PyUnresolvedReferences
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 STORAGES = {
     "staticfiles": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "BACKEND": "pokemada.storages.StaticsStorage",
     },
     "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
-        "OPTIONS": {
-            "location": MEDIA_ROOT,
-            "base_url": MEDIA_URL,
-        },
+        "BACKEND": "pokemada.storages.MediaStorage",
     }
 }
 # Default primary key field type

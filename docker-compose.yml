@@ -24,6 +24,7 @@ services:
       dockerfile: ./compose/local/Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
     environment:
+      - DJANGO_ENV=dev
       - DJANGO_SETTINGS_MODULE=pokemada.local_settings
     volumes:
       - .:/app
@@ -49,6 +50,8 @@ services:
       context: .
       dockerfile: ./compose/nginx/Dockerfile
     restart: always
+    volumes:
+      - ./compose/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
     ports:
       - "8000:8000"
     links:

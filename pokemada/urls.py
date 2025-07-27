@@ -23,4 +23,4 @@ urlpatterns = [
     path('load_item_names/', LoadItemNamesView.as_view()),
     re_path(r"^static/(?P<path>.*)$", serve, {"document_root": 'statics/'}),
     path('_nested_admin/', include('nested_admin.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+]

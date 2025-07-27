@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from admin_panel.admin import staff_site
 from market.models import MarketPost, MarketSlot, BankedAsset, MarketPostOffer, MarketTransaction, MarketAlert
 
 
@@ -25,28 +26,28 @@ class MarketSlotOfferInline(admin.TabularInline):
     min_num = 1
 
 
-@admin.register(MarketPost)
+@admin.register(MarketPost, site=staff_site)
 class MarketPostAdmin(admin.ModelAdmin):
     list_display = ('creator', 'status')
     inlines = [MarketSlotPostInline]
 
 
-@admin.register(MarketPostOffer)
+@admin.register(MarketPostOffer, site=staff_site)
 class MarketPostOfferAdmin(admin.ModelAdmin):
     list_display = ('creator', 'status')
     inlines = [MarketSlotOfferInline]
 
 
-@admin.register(BankedAsset)
+@admin.register(BankedAsset, site=staff_site)
 class BankedAssetAdmin(admin.ModelAdmin):
     list_display = ('user', 'content_type', 'quantity')
 
 
-@admin.register(MarketTransaction)
+@admin.register(MarketTransaction, site=staff_site)
 class MarketTransactionAdmin(admin.ModelAdmin):
     list_display = ('created_on', 'source__creator', 'source', 'target', 'target__creator')
     readonly_fields = ['created_on']
     actions = [perform_transactions]
 
 
-admin.site.register(MarketAlert)
+staff_site.register(MarketAlert)

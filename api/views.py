@@ -1,10 +1,14 @@
+import os
 from datetime import datetime
 
+import boto3
 import requests
+from botocore.config import Config
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.handlers.base import logger
 from django.db.models import Q
-from django.http import HttpResponse, FileResponse
+from django.http import HttpResponse, FileResponse, HttpResponseRedirect
 from rest_framework import viewsets, status
 from rest_framework.decorators import action, permission_classes
 from rest_framework.parsers import FileUploadParser, MultiPartParser
@@ -370,11 +374,28 @@ class GameEventViewSet(viewsets.ModelViewSet):
 
     @action(methods=['get'], detail=True)
     def mod_file(self, request, pk=None, *args, **kwargs):
-        trainer: Trainer = Trainer.get_from_user(request.user)
         event: GameEvent = GameEvent.objects.filter(GameEvent.get_available(), pk=pk).first()
         if event:
-            mod_file = event.game_mod.get_mod_file_for_streamer(trainer.get_trainer_profile())
-            return FileResponse(mod_file.file)
+            documento = event.game_mod.mod_file
+
+            file_field = documento.file
+            s3_key = file_field.name  # Ej: "prod/media/documentos/archivo.pdf"
+            ENVIRONMENT = os.getenv("DJANGO_ENV", "prod")  # "dev", "stage" o "prod"
+            full_s3_path = os.path.join(ENVIRONMENT, 'dedsafio-pokemon/media', s3_key)
+            s3 = boto3.client(
+                's3',
+                region_name='us-east-1',
+                aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                config=Config(signature_version='s3v4')
+            )
+            presigned_url = s3.generate_presigned_url(
+                'get_object',
+                Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': full_s3_path},
+                ExpiresIn=60,
+            )
+
+            return HttpResponseRedirect(redirect_to=presigned_url)
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
