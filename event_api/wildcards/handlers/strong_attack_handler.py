@@ -18,6 +18,7 @@ class StrongAttackHandler(AlertHandler):
             return 'cannot_attack'
 
         target_current_segment.karma += self.wildcard.karma_consumption
+        target_current_segment.steal_karma += self.wildcard.karma_consumption
         target_current_segment.attacks_received_left -= self.wildcard.karma_consumption
         target_current_segment.save()
 

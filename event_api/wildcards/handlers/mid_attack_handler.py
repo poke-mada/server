@@ -16,6 +16,7 @@ class MidAttackHandler(AlertHandler):
         source_current_segment = self.user.masters_profile.current_segment_settings
 
         target_current_segment.karma += 0.5
+        target_current_segment.steal_karma += 0.5
         target_current_segment.attacks_received_left -= 0.5
         target_current_segment.save()
 
