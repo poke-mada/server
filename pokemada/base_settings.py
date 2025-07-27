@@ -38,17 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'rewards_api',
+    'corsheaders',
+    'admin_panel',
     'channels',
     'event_api',
+    'rewards_api',
     'pokemon_api',
     'trainer_data',
     'market',
     'api',
-    'corsheaders',
     'websocket',
-    'storages',
-    'admin_panel'
+    'storages'
 ]
 
 MIDDLEWARE = [

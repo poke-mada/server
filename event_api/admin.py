@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db import models
+from rest_framework.authtoken.models import Token
 
 from event_api.models import CoinTransaction, Wildcard, Streamer, StreamerWildcardInventoryItem, \
     WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings, DeathLog, ProfileImposterLog, \
@@ -17,9 +18,8 @@ from event_api.wildcards import WildCardExecutorRegistry
 
 # Register your models here.
 
+admin.site.unregister(Group)
 admin.site.unregister(User)
-admin.site.register(GameEvent)
-admin.site.register(GameMod)
 
 
 @admin.action(description="Disable wildcards")
@@ -192,6 +192,20 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     @admin.display(description='Is Pro', boolean=True, ordering='masters_profile__is_pro')
     def is_pro(self, obj):
         return obj.masters_profile.is_pro
+
+
+class GameModInline(admin.StackedInline):
+    model = GameMod
+    max_num = 1
+    min_num = 1
+    list_display = ('profile__user__username', 'details', 'message',)
+    search_fields = ('profile__user__username',)
+
+
+@admin.register(GameEvent)
+class GameEventAdmin(admin.ModelAdmin):
+    list_display = ('available_date_from', 'available_date_to',)
+    inlines = [GameModInline]
 
 
 admin.site.register(User, UserProfileAdmin)

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from pip._vendor.rich.box import Box
 
+from admin_panel.admin import staff_site
 from event_api.models import SaveFile
 from .models import Trainer, TrainerPokemon, TrainerBox, TrainerTeam, TrainerBoxSlot
 
@@ -55,14 +56,14 @@ class TrainerPokemonLinear(admin.TabularInline):
     max_num = 6
 
 
-@admin.register(Trainer)
+@admin.register(Trainer, site=staff_site)
 class TrainerAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
     inlines = [SaveFileAdmin]
 
 
-@admin.register(TrainerPokemon)
+@admin.register(TrainerPokemon, site=staff_site)
 class TrainerPokemonAdmin(admin.ModelAdmin):
     readonly_fields = ('moves', 'types', 'suffix')
     list_display = ('id', 'pokemon__dex_number', 'team__trainer_old__name', 'pokemon', 'mote', 'level')
@@ -70,7 +71,7 @@ class TrainerPokemonAdmin(admin.ModelAdmin):
     inlines = [MoveLinear]
 
 
-@admin.register(TrainerTeam)
+@admin.register(TrainerTeam, site=staff_site)
 class TrainerTeamAdmin(admin.ModelAdmin):
     list_display = ('trainer_old__name', 'version')
     search_fields = ('trainer_old__name', 'version')
@@ -78,7 +79,7 @@ class TrainerTeamAdmin(admin.ModelAdmin):
     inlines = [TrainerPokemonLinear]
 
 
-@admin.register(TrainerBox)
+@admin.register(TrainerBox, site=staff_site)
 class TrainerBoxAdmin(admin.ModelAdmin):
     list_display = ('trainer__name', 'box_number')
     search_fields = ('trainer__name', 'box_number')

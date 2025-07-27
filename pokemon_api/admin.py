@@ -6,11 +6,13 @@ from nested_admin.nested import NestedModelAdmin, NestedStackedInline, NestedTab
 from pokemon_api import models
 from pokemon_api.models import ContextLocalization, ItemNameLocalization
 
+from admin_panel.admin import staff_site
+
 # Register your models here.
-admin.site.register(models.MoveCategory)
+staff_site.register(models.MoveCategory)
 
 
-@admin.register(models.Move)
+@admin.register(models.Move, site=staff_site)
 class MoveAdmin(admin.ModelAdmin):
     readonly_fields = ('name_localizations', 'flavor_text_localizations')
     list_display = ('index', 'name', 'move_type', 'power', 'accuracy')
@@ -22,7 +24,7 @@ class NameLocalizationInline(NestedTabularInline):
     fields = ('language', 'content')
 
 
-@admin.register(models.Item)
+@admin.register(models.Item, site=staff_site)
 class ItemAdmin(NestedModelAdmin):
     readonly_fields = ('flavor_text_localizations',)
     list_display = ('index', 'name', 'api_loaded')
@@ -30,28 +32,28 @@ class ItemAdmin(NestedModelAdmin):
     inlines = [NameLocalizationInline]
 
 
-@admin.register(models.Type)
+@admin.register(models.Type, site=staff_site)
 class TypeAdmin(admin.ModelAdmin):
     readonly_fields = ('name_localizations',)
     list_display = ('index', 'name', 'localization')
     search_fields = ('index', 'name', 'localization')
 
 
-@admin.register(models.PokemonNature)
+@admin.register(models.PokemonNature, site=staff_site)
 class PokemonNatureAdmin(admin.ModelAdmin):
     readonly_fields = ('name_localizations',)
     list_display = ('name', 'localization', 'stat_up', 'stat_down')
     search_fields = ('name', 'localization')
 
 
-@admin.register(models.PokemonAbility)
+@admin.register(models.PokemonAbility, site=staff_site)
 class PokemonAbilityAdmin(admin.ModelAdmin):
     readonly_fields = ('name_localizations', 'flavor_text_localizations')
     list_display = ('index', 'name', 'localization')
     search_fields = ('index', 'name', 'localization')
 
 
-@admin.register(models.Pokemon)
+@admin.register(models.Pokemon, site=staff_site)
 class PokemonAdmin(admin.ModelAdmin):
     list_display = ('dex_number', 'form', 'name')
     search_fields = ('name', 'dex_number')

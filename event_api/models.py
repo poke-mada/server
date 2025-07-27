@@ -409,7 +409,7 @@ class StreamerGameMod(models.Model):
 
 
 class GameEvent(models.Model):
-    game_mod = models.ForeignKey(GameMod, on_delete=models.PROTECT, related_name="events")
+    game_mod = models.OneToOneField(GameMod, on_delete=models.PROTECT, related_name="events")
     available_date_from = models.DateTimeField()
     available_date_to = models.DateTimeField()
     force_available = models.BooleanField()
