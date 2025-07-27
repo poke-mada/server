@@ -369,7 +369,7 @@ class MastersSegmentSettings(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            current_segment = self.profile.segments_settings.filter(is_current=True)
+            current_segment = self.profile.segments_settings.filter(is_current=True).first()
             if current_segment:
                 self.tournament_league = current_segment.tournament_league
 
