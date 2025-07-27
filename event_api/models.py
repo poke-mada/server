@@ -410,7 +410,7 @@ class GameEvent(models.Model):
 
 
 class GameMod(models.Model):
-    event = models.OneToOneField(GameEvent, on_delete=models.PROTECT, related_name="game_mod")
+    event = models.OneToOneField(GameEvent, on_delete=models.PROTECT, related_name="game_mod", null=True)
     mod_file = models.FileField(upload_to='mods/', null=False)
     mod_name = models.CharField(max_length=50, blank=False)
     mod_description = models.TextField(blank=True, null=True)
