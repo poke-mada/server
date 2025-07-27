@@ -9,7 +9,7 @@ from pokemon_api.models import ContextLocalization, ItemNameLocalization
 from admin_panel.admin import staff_site
 
 # Register your models here.
-staff_site.register(models.MoveCategory)
+admin.site.register(models.MoveCategory)
 
 
 @admin.register(models.Move)
@@ -30,6 +30,20 @@ class ItemAdmin(NestedModelAdmin):
     list_display = ('index', 'name', 'api_loaded')
     search_fields = ('index', 'name', 'localization')
     inlines = [NameLocalizationInline]
+
+
+@admin.register(models.Item, site=staff_site)
+class ItemAdmin2(NestedModelAdmin):
+    list_display = ('index', 'name', 'api_loaded')
+    search_fields = ('index', 'name', 'localization')
+
+    def has_module_permission(self, request):
+        # Oculta el modelo del index del admin
+        return False
+
+    def has_view_permission(self, request, obj=None):
+        # Permite acceder a la vista autocomplete
+        return True
 
 
 @admin.register(models.Type)

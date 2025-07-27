@@ -19,6 +19,7 @@ class RewardInline(admin.TabularInline):
     extra = 0
     readonly_fields = ('pokemon_pid',)
     sortable_by = ('reward_type',)
+    autocomplete_fields = ('item', 'wildcard')
 
     class Media:
         js = ('admin/js/reward_type_switcher.js',)
