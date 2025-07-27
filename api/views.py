@@ -431,13 +431,16 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
             return Response(data=dict(detail='coach_cant_use'), status=status.HTTP_400_BAD_REQUEST)
 
         quantity = int(request.data.get('quantity', 1))
-        if wildcard.can_use(fixed_user, quantity):
+        can_use = wildcard.can_use(fixed_user, quantity)
+        if can_use is True:
             result = wildcard.use(fixed_user, quantity, **request.data)
             if result is True:
                 return Response(data=dict(detail='card_used'), status=status.HTTP_200_OK)
             elif result is False:
                 return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             return Response(result, status=status.HTTP_200_OK)
+        if can_use is not False:
+            return Response(data=dict(detail=can_use), status=status.HTTP_400_BAD_REQUEST)
         return Response(data=dict(detail='no_card_available'), status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['POST'], detail=True)
@@ -453,28 +456,6 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         if wildcard.can_buy(fixed_user, quantity, True):
             if wildcard.buy(fixed_user, quantity, True):
                 return Response(data=dict(detail='card_bought'), status=status.HTTP_200_OK)
-            return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        return Response(data=dict(detail='no_enough_money'), status=status.HTTP_400_BAD_REQUEST)
-
-    @action(methods=['POST'], detail=True)
-    def buy_and_use_card(self, request, *args, **kwargs):
-        wildcard: Wildcard = self.get_object()
-        quantity = int(request.data.get('quantity', 1))
-
-        current_user = request.user
-        fixed_user = current_user
-        if current_user.masters_profile.profile_type == MastersProfile.COACH:
-            return Response(data=dict(detail='coach_cant_use'), status=status.HTTP_400_BAD_REQUEST)
-
-        if wildcard.can_buy(fixed_user, quantity):
-            buyed = wildcard.buy(fixed_user, quantity)
-            if buyed:
-                used = wildcard.use(fixed_user, quantity, **request.data)
-                if used is True:
-                    return Response(data=dict(detail='card_bought_and_used', amount=buyed), status=status.HTTP_200_OK)
-                elif used is False:
-                    return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-                return Response(used, status=status.HTTP_200_OK)
             return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(data=dict(detail='no_enough_money'), status=status.HTTP_400_BAD_REQUEST)
 

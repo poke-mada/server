@@ -141,7 +141,7 @@ class Wildcard(models.Model):
         current_segment = user.masters_profile.current_segment_settings
         if self.category == Wildcard.OFFENSIVE and current_segment.karma < self.karma_consumption:
             # si es un comodin de ataque y no hay karma suficiente no puede usarse
-            return False
+            return 'cant_use'
         return (inventory and inventory.quantity >= amount) or self.always_available
 
     def buy(self, user: User, amount: int, force_buy=False):
