@@ -27,7 +27,7 @@ class GiftSequenceAdmin(admin.ModelAdmin):
 
 @admin.register(MastersProfile, site=staff_site)
 class MastersProfileAdmin(admin.ModelAdmin):
-    search_fields = ('streamer_name',)
+    search_fields = ('streamer_name', 'user__username')
 
     def has_module_permission(self, request):
         # Oculta el modelo del index del admin
