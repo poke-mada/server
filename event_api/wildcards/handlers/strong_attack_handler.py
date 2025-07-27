@@ -1,6 +1,7 @@
 from event_api.models import MastersProfile, MastersSegmentSettings
 from event_api.wildcards.handlers.settings.models import GiveMoneyHandlerSettings
 from event_api.wildcards.registry import WildCardExecutorRegistry
+from websocket.sockets import DataConsumer
 from .alert_handler import AlertHandler
 
 
@@ -22,5 +23,10 @@ class StrongAttackHandler(AlertHandler):
 
         source_current_segment.karma -= self.wildcard.karma_consumption
         source_current_segment.save()
+
+        DataConsumer.send_custom_data(self.user.masters_profile.streamer_name, dict(
+            type='karma',
+            data=source_current_segment.karma
+        ))
 
         return super().execute(context)

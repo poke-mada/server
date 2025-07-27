@@ -18,8 +18,7 @@ class AlertHandler(BaseWildCardHandler):
         target_id = context.get('target_id')
 
         profile: MastersProfile = MastersProfile.objects.get(id=target_id)
-        streamer = profile.user.streamer_profile
-        target_name = streamer.name
+        target_name = profile.streamer_name
         data = dict(
             user_name=self.user.streamer_profile.name,
             wildcard=dict(
@@ -45,7 +44,7 @@ class AlertHandler(BaseWildCardHandler):
         ))
 
         Newsletter.objects.create(
-            message=f'{self.user.streamer_profile.name} ha atacado a {target_name} usando {self.wildcard.name}'
+            message=f'<strong>{self.user.streamer_profile.name}</strong> ha atacado a <strong>{target_name}</strong> usando <strong>{self.wildcard.name}</strong>'
         )
 
         return True
