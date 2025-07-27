@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='gamemod',
             name='event',
-            field=models.OneToOneField(default=None, on_delete=django.db.models.deletion.PROTECT, related_name='game_mod', to='event_api.gameevent'),
+            field=models.OneToOneField(default=None, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='game_mod', to='event_api.gameevent'),
             preserve_default=False,
         ),
         migrations.DeleteModel(
