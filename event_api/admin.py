@@ -146,6 +146,7 @@ class WildcardInventoryItem(NestedTabularInline):
 
 class RewardInventoryInline(NestedTabularInline):
     fields = ('reward', 'exchanges', 'is_available')
+    readonly_fields = ('exchanges',)
     model = StreamerRewardInventory
     min_num = 0
     extra = 0

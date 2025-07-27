@@ -20,7 +20,7 @@ class AlertHandler(BaseWildCardHandler):
         profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         target_name = profile.streamer_name
         data = dict(
-            user_name=self.user.streamer_profile.name,
+            user_name=self.user.masters_profile.streamer_name,
             wildcard=dict(
                 name=self.wildcard.name,
                 sprite_src=''
@@ -28,7 +28,7 @@ class AlertHandler(BaseWildCardHandler):
             target_name=target_name
         )
 
-        for chat in Streamer.objects.all().values_list('name', flat=True):
+        for chat in MastersProfile.objects.all().values_list('streamer_name', flat=True):
             # noinspection PyArgumentList
             async_to_sync(channel_layer.group_send)(
                 f'chat_{chat}',
@@ -38,13 +38,13 @@ class AlertHandler(BaseWildCardHandler):
                 }
             )
 
-        DataConsumer.send_custom_data(target_name, dict(
+        DataConsumer.send_custom_data(profile.user.username, dict(
             type='attack_notification',
             data=data
         ))
 
         Newsletter.objects.create(
-            message=f'<strong>{self.user.streamer_profile.name}</strong> ha atacado a <strong>{target_name}</strong> usando <strong>{self.wildcard.name}</strong>'
+            message=f'<strong>{self.user.masters_profile.streamer_name}</strong> ha atacado a <strong>{target_name}</strong> usando <strong>{self.wildcard.name}</strong>'
         )
 
         return True
