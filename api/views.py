@@ -172,7 +172,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(user.masters_profile.economy, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
-    def get_economy(self, request, *args, **kwargs):
+    def get_karma(self, request, *args, **kwargs):
         user: User = request.user
         current_profile: MastersProfile = user.masters_profile
 
