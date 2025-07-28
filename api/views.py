@@ -241,7 +241,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             trainer_user = current_profile.coached.user
 
         serializer = WildcardWithInventorySerializer(
-            Wildcard.objects.filter(is_active=True),
+            Wildcard.objects.filter(is_active=True).exclude(name='Ayuda Del Coach').exclude(pk=55),
             user=trainer_user,
             many=True
         )
