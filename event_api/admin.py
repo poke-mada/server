@@ -136,6 +136,7 @@ class WildcardAdmin(admin.ModelAdmin):
         'give_money': [GiveMoneyHandlerSettingsInline],
         'give_game_money': [GiveGameMoneyHandlerSettingsInline],
         'steal_money': [GiveMoneyHandlerSettingsInline],
+        'release_pokemon': [GiveMoneyHandlerSettingsInline],
         'give_random_money': [GiveRandomMoneyHandlerSettingsInline],
         'timer_handler': [TimerHandlerSettingsInline],
     }
