@@ -20,6 +20,8 @@ class MidAttackHandler(AlertHandler):
         target_current_segment.attacks_received_left -= 0.5
         target_current_segment.save()
 
+        # TODO: FALTA AGREGAR ESCUDO PROTECTOR
+
         source_current_segment.karma -= self.wildcard.karma_consumption
         source_current_segment.save()
 

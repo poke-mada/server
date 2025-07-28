@@ -377,6 +377,14 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         serialized = DeathLogSerializer(death_mons, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
+    @action(methods=['get'], detail=False)
+    def list_releasable(self, request, *args, **kwargs):
+        profile = request.user.masters_profile
+        banned_mons = BannedPokemon.objects.filter(profile=profile).values_list('dex_number', flat=True)
+        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), ~Q(dex_number__in=[658, profile.starter_dex_number]), profile=profile, revived=False)
+        serialized = DeathLogSerializer(death_mons, many=True)
+        return Response(serialized.data, status=status.HTTP_200_OK)
+
 
 class MoveViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Move.objects.all()

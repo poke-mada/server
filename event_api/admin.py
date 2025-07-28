@@ -28,6 +28,15 @@ def enable_wildcards(modeladmin, request, queryset):
     queryset.update(is_active=True)
 
 
+@admin.action(description="Duplicar y banear")
+def duplicate_and_ban(modeladmin, request, queryset):
+    for log in queryset.all():  # type: DeathLog
+        log.pk = None
+        log.revived = False
+        log.save()
+        BannedPokemon.objects.create(profile=log.profile, species_name=log.species_name, dex_number=log.dex_number, reason=f'Se murió dos veces')
+
+
 # admin.py
 class GiveItemHandlerSettingsInline(admin.StackedInline):
     model = GiveItemHandlerSettings
@@ -96,10 +105,11 @@ class DeathLogAdmin(admin.ModelAdmin):
     search_fields = ('profile__streamer_name',)
     list_filter = ('profile__streamer_name',)
     readonly_fields = ('created_on', 'species_name')
+    actions = [duplicate_and_ban]
 
 
 @admin.register(BannedPokemon, site=staff_site)
-class DeathLogAdmin(admin.ModelAdmin):
+class BannedPokemonAdmin(admin.ModelAdmin):
     list_display = ('profile__streamer_name', 'dex_number', 'species_name', 'reason')
     search_fields = ('profile__streamer_name',)
     list_filter = ('profile__streamer_name',)

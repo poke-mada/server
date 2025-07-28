@@ -28,6 +28,8 @@ class AlertHandler(BaseWildCardHandler):
             target_name=target_name
         )
 
+        # TODO: FALTA AGREGAR ESCUDO PROTECTOR
+
         for chat in MastersProfile.objects.all().values_list('streamer_name', flat=True):
             # noinspection PyArgumentList
             async_to_sync(channel_layer.group_send)(

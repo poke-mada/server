@@ -11,7 +11,7 @@ class HelpAlertHandler(BaseWildCardHandler):
         return
 
     def execute(self, context):
-        target_id = context.get('target_id')[0]
+        target_id = context.get('target_id')
 
         profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         target_name = profile.streamer_name

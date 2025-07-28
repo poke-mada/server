@@ -17,6 +17,8 @@ class StrongAttackHandler(AlertHandler):
         if target_current_segment.attacks_received_left < self.wildcard.karma_consumption:
             return 'cannot_attack'
 
+        # TODO: FALTA AGREGAR ESCUDO PROTECTOR
+
         target_current_segment.karma += self.wildcard.karma_consumption
         target_current_segment.steal_karma += self.wildcard.karma_consumption
         target_current_segment.attacks_received_left -= self.wildcard.karma_consumption

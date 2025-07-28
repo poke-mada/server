@@ -282,6 +282,7 @@ class MastersProfile(models.Model):
     streamer_name = models.CharField(max_length=50, default="", blank=False, null=True)
     coached = models.ForeignKey("MastersProfile", on_delete=models.SET_NULL, null=True, blank=True,
                                 related_name="coaches")
+    starter_dex_number = models.IntegerField(null=True, blank=True)
     already_won_lysson = models.BooleanField(default=False)
     web_picture = models.ImageField(upload_to='profiles/web/', null=True, blank=False)
     trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="users", null=True, blank=True)
