@@ -140,6 +140,21 @@ class Wildcard(models.Model):
         inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
         current_segment = user.masters_profile.current_segment_settings
 
+        if self.handler_key == 'release_pokemon':
+            dex_number = data.get('dex_number')
+            if not dex_number:
+                return 'Necesitas seleccionar un pokemon a liberar'
+
+            last_non_revived_death = DeathLog.objects.filter(dex_number=dex_number, profile=user.masters_profile,
+                                                             revived=False)
+            if last_non_revived_death:
+                return 'Este pokemon está muerto'
+
+            banned = BannedPokemon.objects.filter(dex_number=dex_number, profile=user.masters_profile)
+
+            if banned:
+                return 'Este pokemon está baneado'
+
         if self.handler_key == 'revive_pokemon':
             dex_number = data.get('dex_number')
             if not dex_number:
@@ -149,6 +164,11 @@ class Wildcard(models.Model):
                                                              revived=False)
             if not last_non_revived_death:
                 return 'Este pokemon no está muerto'
+
+            banned = BannedPokemon.objects.filter(dex_number=dex_number, profile=user.masters_profile)
+
+            if banned:
+                return 'Este pokemon está baneado'
 
         if self.category == Wildcard.OFFENSIVE and current_segment.karma < self.karma_consumption:
             # si es un comodin de ataque y no hay karma suficiente no puede usarse
