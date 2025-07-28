@@ -28,8 +28,8 @@ class InventoryGiftQuerySequence(models.Model):
         self.save()
 
     class Meta:
-        verbose_name = 'Gift Log'
-        verbose_name_plural = 'Gift Logs'
+        verbose_name = 'Envío de Preset'
+        verbose_name_plural = 'Envío de Presets'
 
 
 # Create your models here.
@@ -87,7 +87,3 @@ class DirectGift(models.Model):
 
     def __str__(self):
         return f'{self.pk} - {self.get_type_display()}'
-
-    class Meta:
-        verbose_name = 'Envío de Preset'
-        verbose_name_plural = 'Envío de Presets'
