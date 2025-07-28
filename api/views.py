@@ -456,7 +456,7 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
 
         if result is True:
             return Response(data=dict(detail='card_used'), status=status.HTTP_200_OK)
-        return Response(result, status=status.HTTP_400_BAD_REQUEST)
+        return Response(result, status=status.HTTP_200_OK)
 
     @action(methods=['POST'], detail=True)
     def buy_card(self, request, *args, **kwargs):
