@@ -22,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000 --verbosity 3
     environment:
       - DJANGO_ENV=dev
       - DJANGO_SETTINGS_MODULE=pokemada.local_settings

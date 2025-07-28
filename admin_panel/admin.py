@@ -31,10 +31,10 @@ class GiftSequenceAdmin(admin.ModelAdmin):
 
 
 class DirectGiftInline(admin.TabularInline):
-    fields = ('type', 'wildcard', 'quantity')
     model = DirectGift
     min_num = 1
     extra = 0
+    sortable_by = ('type',)
     autocomplete_fields = ('wildcard',)
 
     class Media:
