@@ -22,7 +22,7 @@ from event_api.models import SaveFile, Wildcard, CoinTransaction, \
     MastersSegmentSettings, BannedPokemon
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer, SelectProfileSerializer, ProfileSerializer, \
-    SelectMastersProfileSerializer
+    SelectMastersProfileSerializer, DeathLogSerializer
 from pokemon_api.models import Move, Pokemon, Item, ItemNameLocalization
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer, ItemSelectSerializer
@@ -373,6 +373,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_revivable(self, request, *args, **kwargs):
         profile = request.user.masters_profile
         banned_mons = BannedPokemon.objects.filter(profile=profile).values_list('dex_number', flat=True)
+        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), profile=profile, revived=False)
+        serialized = DeathLogSerializer(death_mons, many=True)
+        return Response(serialized.data, status=status.HTTP_200_OK)
 
 
 class MoveViewSet(viewsets.ReadOnlyModelViewSet):

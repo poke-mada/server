@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, GameEvent, GameMod, \
-    MastersProfile
+    MastersProfile, DeathLog
 from trainer_data.models import Trainer
 
 
@@ -131,4 +131,22 @@ class SelectMastersProfileSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'streamer_name'
+        ]
+
+
+class DeathLogSerializer(serializers.ModelSerializer):
+    value = serializers.SerializerMethodField()
+    title = serializers.SerializerMethodField()
+
+    def get_value(self, obj: DeathLog):
+        return obj.dex_number
+
+    def get_title(self, obj: DeathLog):
+        return f'{obj.dex_number} - {obj.mote or obj.species_name}'
+
+    class Meta:
+        model = DeathLog
+        fields = [
+            'value',
+            'title'
         ]
