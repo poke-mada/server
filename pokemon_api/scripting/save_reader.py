@@ -716,7 +716,7 @@ def data_reader(save_data):
         pokemon = PokemonBytes(get_pokemon_in_slot(save_data, slot))
         pokemon.get_atts()
         pokemon_data = pokemon.to_dict()
-        pokemon_data['is_death'] = pokemon
+        #pokemon_data['is_death'] = pokemon
         trainer_team.append(pokemon_data)
 
     for box in total_boxes:
