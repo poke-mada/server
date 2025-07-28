@@ -384,8 +384,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_releasable(self, request, *args, **kwargs):
         profile = request.user.masters_profile
         banned_mons = BannedPokemon.objects.filter(profile=profile).values_list('dex_number', flat=True)
-        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), profile=profile,
-                                             revived=False).values_list('dex_number', flat=True).values_list(
+        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), profile=profile,revived=False).values_list('dex_number', flat=True).values_list(
             'dex_number', flat=True)
         boxed_mons = TrainerBox.objects.filter(trainer=profile.trainer).values_list('slots__pokemon_id', flat=True)
         releasable_mons = TrainerPokemon.objects.filter(~Q(pokemon__dex_number__in=banned_mons),

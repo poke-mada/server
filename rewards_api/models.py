@@ -16,6 +16,10 @@ class RewardBundle(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Preset De Inventario"
+        verbose_name_plural = "Presets de Inventario"
+
 
 # Create your models here.
 class Reward(models.Model):
@@ -52,6 +56,10 @@ class Reward(models.Model):
             self.pokemon_pid = struct.unpack("<I", pokemon.raw_data[0x18:0x1C])[0]
             print(self.pokemon_pid)
         super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Elemento del Inventario"
+        verbose_name_plural = "Elementos del Inventario"
 
 
 class StreamerRewardInventory(models.Model):

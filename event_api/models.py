@@ -52,8 +52,8 @@ class CoinTransaction(models.Model):
         return new_
 
     class Meta:
-        verbose_name = 'Economy Log'
-        verbose_name_plural = 'Economy Logs'
+        verbose_name = 'Transaccion'
+        verbose_name_plural = 'Registro de Economia'
 
 
 class Wildcard(models.Model):
@@ -242,11 +242,19 @@ class Wildcard(models.Model):
             )
             return f'error: {error.id}'
 
+    class Meta:
+        verbose_name = "Comodín"
+        verbose_name_plural = "Comodines"
+
 
 class WildcardLog(models.Model):
     profile = models.ForeignKey("MastersProfile", on_delete=models.CASCADE, related_name="wildcard_logs", null=True)
     wildcard = models.ForeignKey(Wildcard, on_delete=models.CASCADE, related_name='use_logs')
     details = models.TextField(blank=False, default="No details provided")
+
+    class Meta:
+        verbose_name = "Registro de comodin"
+        verbose_name_plural = "Registro de comodines"
 
 
 class StreamerWildcardInventoryItem(models.Model):
@@ -277,6 +285,10 @@ class BannedPokemon(models.Model):
     dex_number = models.IntegerField()
     species_name = models.CharField(max_length=50)
     reason = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = "Pokemon Baneado"
+        verbose_name_plural = "Pokemon Baneados"
 
 
 class MastersProfile(models.Model):
@@ -444,6 +456,10 @@ class GameEvent(models.Model):
         now_time = datetime.now()
         return Q(force_available=True) | Q(available_date_from__gte=now_time, available_date_to__lte=now_time)
 
+    class Meta:
+        verbose_name = "Evento del Juego"
+        verbose_name_plural = "Eventos del Juego"
+
 
 class GameMod(models.Model):
     event = models.OneToOneField(GameEvent, on_delete=models.PROTECT, related_name="game_mod", null=True)
@@ -451,8 +467,9 @@ class GameMod(models.Model):
     mod_name = models.CharField(max_length=50, blank=False)
     mod_description = models.TextField(blank=True, null=True)
 
-    def save(self, *args, **kwargs):
-        return super().save(*args, **kwargs)
+    class Meta:
+        verbose_name = "Mod"
+        verbose_name_plural = "Mods"
 
 
 class DeathLog(models.Model):
@@ -469,6 +486,10 @@ class DeathLog(models.Model):
             self.species_name = Pokemon.objects.filter(dex_number=self.dex_number).first().name
         super().save(*args, **kwargs)
 
+    class Meta:
+        verbose_name = "Acta de Defunción"
+        verbose_name_plural = "Registro de muertes"
+
 
 class MastersSegment(models.Model):
     end_date = models.DateTimeField()
@@ -480,6 +501,10 @@ class MastersSegment(models.Model):
 class Imposter(models.Model):
     message = models.CharField(max_length=100, unique=True, help_text="texto en MINUSCULAS para encontrar al impostor")
     coin_reward = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(99)])
+
+    class Meta:
+        verbose_name = "Impostor"
+        verbose_name_plural = "Impostores"
 
 
 class ProfileImposterLog(models.Model):
@@ -501,3 +526,7 @@ class ProfileImposterLog(models.Model):
 class Newsletter(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     message = models.TextField()
+
+    class Meta:
+        verbose_name = "Noticia"
+        verbose_name_plural = "Tablon de Noticias"
