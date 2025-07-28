@@ -5,7 +5,7 @@ from rest_framework import serializers
 
 from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, GameEvent, GameMod, \
     MastersProfile, DeathLog
-from trainer_data.models import Trainer
+from trainer_data.models import Trainer, TrainerPokemon
 
 
 class SaveFileSerializer(serializers.ModelSerializer):
@@ -146,6 +146,24 @@ class DeathLogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DeathLog
+        fields = [
+            'value',
+            'title'
+        ]
+
+
+class ReleasableSerializer(serializers.ModelSerializer):
+    value = serializers.SerializerMethodField()
+    title = serializers.SerializerMethodField()
+
+    def get_value(self, obj: TrainerPokemon):
+        return obj.pokemon.dex_number
+
+    def get_title(self, obj: TrainerPokemon):
+        return f'{obj.pokemon.dex_number} - {obj.mote or obj.pokemon.name}'
+
+    class Meta:
+        model = TrainerPokemon
         fields = [
             'value',
             'title'

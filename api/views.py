@@ -22,13 +22,13 @@ from event_api.models import SaveFile, Wildcard, CoinTransaction, \
     MastersSegmentSettings, BannedPokemon
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer, SelectProfileSerializer, ProfileSerializer, \
-    SelectMastersProfileSerializer, DeathLogSerializer
+    SelectMastersProfileSerializer, DeathLogSerializer, ReleasableSerializer
 from pokemon_api.models import Move, Pokemon, Item, ItemNameLocalization
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer, ItemSelectSerializer
 from rewards_api.models import RewardBundle, StreamerRewardInventory
 from rewards_api.serializers import StreamerRewardSerializer, StreamerRewardSimpleSerializer
-from trainer_data.models import Trainer, TrainerTeam, TrainerBox, TrainerBoxSlot
+from trainer_data.models import Trainer, TrainerTeam, TrainerBox, TrainerBoxSlot, TrainerPokemon
 from trainer_data.serializers import TrainerSerializer, TrainerTeamSerializer, SelectTrainerSerializer, \
     TrainerBoxSerializer, TrainerPokemonSerializer, EnTrainerSerializer, ListedBoxSerializer, \
     EnROTrainerPokemonSerializer, ROTrainerPokemonSerializer, NewsletterSerializer
@@ -381,8 +381,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_releasable(self, request, *args, **kwargs):
         profile = request.user.masters_profile
         banned_mons = BannedPokemon.objects.filter(profile=profile).values_list('dex_number', flat=True)
-        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), ~Q(dex_number__in=[658, profile.starter_dex_number]), profile=profile, revived=False)
-        serialized = DeathLogSerializer(death_mons, many=True)
+        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), profile=profile, revived=False).values_list('dex_number', flat=True).values_list('dex_number', flat=True)
+        releasable_mons = TrainerPokemon.objects.filter(~Q(pokemon__dex_number__in=banned_mons), ~Q(pokemon__dex_number__in=[658, profile.starter_dex_number]), ~Q(pokemon__dex_number__in=death_mons), team__trainer=profile.trainer)
+        serialized = ReleasableSerializer(releasable_mons, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
 
