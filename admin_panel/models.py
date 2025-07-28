@@ -56,10 +56,10 @@ class DirectGiftQuerySequence(models.Model):
                     )
                 elif gift.type == DirectGiftQuerySequence.WILDCARD:
                     item, is_created = StreamerWildcardInventoryItem.objects.get_or_create(profile=target, wildcard=gift.wildcard, defaults=dict(
-                        quantity=1
+                        quantity=gift.quantity
                     ))
                     if not is_created:
-                        item.quantity += 1
+                        item.quantity += gift.quantity
                         item.save()
         self.run_times += 1
         self.save()

@@ -16,7 +16,7 @@ class StaffAdminArea(admin.AdminSite):
 staff_site = StaffAdminArea(name='StaffAdmin')
 
 
-@admin.action(description="Ejecutar Secuencia")
+@admin.action(description="Entregar Paquete")
 def run_sequence(modeladmin, request, queryset):
     for obj in queryset:
         obj.run()
