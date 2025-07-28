@@ -8,7 +8,7 @@ from ...models import DeathLog
 class RevivePokemonHandler(BaseWildCardHandler):
 
     def execute(self, context):
-        dex_number = context.get('dex_number')[0]
+        dex_number = context.get('dex_number')
         if not dex_number:
             return False
 

@@ -141,9 +141,7 @@ class Wildcard(models.Model):
         current_segment = user.masters_profile.current_segment_settings
 
         if self.handler_key == 'revive_pokemon':
-            if not data.get('dex_number'):
-                return 'Necesitas seleccionar un pokemon a revivir'
-            dex_number = data.get('dex_number')[0]
+            dex_number = data.get('dex_number')
             if not dex_number:
                 return 'Necesitas seleccionar un pokemon a revivir'
 
