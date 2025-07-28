@@ -7,7 +7,7 @@ from nested_admin.nested import NestedStackedInline, NestedTabularInline, Nested
 from admin_panel.admin import staff_site
 from event_api.models import CoinTransaction, Wildcard, StreamerWildcardInventoryItem, \
     WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings, DeathLog, ProfileImposterLog, \
-    Imposter, ProfilePlatformUrl, Newsletter
+    Imposter, ProfilePlatformUrl, Newsletter, BannedPokemon
 from event_api.wildcards import WildCardExecutorRegistry
 from event_api.wildcards.handlers.settings.models import GiveItemHandlerSettings, GiveMoneyHandlerSettings, \
     GiveGameMoneyHandlerSettings, GiveRandomMoneyHandlerSettings, TimerHandlerSettings
@@ -96,6 +96,14 @@ class DeathLogAdmin(admin.ModelAdmin):
     search_fields = ('profile__streamer_name',)
     list_filter = ('profile__streamer_name',)
     readonly_fields = ('created_on', 'species_name')
+
+
+@admin.register(BannedPokemon, site=staff_site)
+class DeathLogAdmin(admin.ModelAdmin):
+    list_display = ('profile__streamer_name', 'dex_number', 'species_name', 'reason')
+    search_fields = ('profile__streamer_name',)
+    list_filter = ('profile__streamer_name',)
+    readonly_fields = ('species_name',)
 
 
 @admin.register(ProfileImposterLog, site=staff_site)
