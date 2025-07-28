@@ -443,7 +443,7 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         if isinstance(can_use, str):
             return Response(data=dict(detail=can_use), status=status.HTTP_400_BAD_REQUEST)
 
-        if can_use is not True:
+        if not can_use:
             return Response(data=dict(detail='No dispones de este comodin'), status=status.HTTP_400_BAD_REQUEST)
 
         result = wildcard.use(fixed_user, quantity, **request.data)
