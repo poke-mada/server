@@ -25,12 +25,12 @@ class StrongAttackHandler(AlertHandler):
         source_current_segment.karma -= self.wildcard.karma_consumption
         source_current_segment.save()
 
-        DataConsumer.send_custom_data(self.user.masters_profile.streamer_name, dict(
+        DataConsumer.send_custom_data(self.user.username, dict(
             type='karma',
             data=str(source_current_segment.karma)
         ))
 
-        DataConsumer.send_custom_data(target_profile.streamer_name, dict(
+        DataConsumer.send_custom_data(target_profile.user.username, dict(
             type='karma',
             data=str(target_current_segment.karma)
         ))
