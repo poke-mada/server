@@ -145,7 +145,8 @@ class Wildcard(models.Model):
             if not dex_number:
                 return 'Necesitas seleccionar un pokemon a revivir'
 
-            last_non_revived_death = DeathLog.objects.filter(dex_number=dex_number, profile=user.masters_profile, revived=False)
+            last_non_revived_death = DeathLog.objects.filter(dex_number=dex_number, profile=user.masters_profile,
+                                                             revived=False)
             if not last_non_revived_death:
                 return 'Este pokemon no está muerto'
 
@@ -347,7 +348,8 @@ class MastersSegmentSettings(models.Model):
     is_current = models.BooleanField(default=True, verbose_name="Tramo Actual")
     segment = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(99)],
                                   verbose_name="Tramo")
-    community_skip_used_in = models.CharField(max_length=255, verbose_name="Skip de Comunidad en", null=True, blank=True)
+    community_skip_used_in = models.CharField(max_length=255, verbose_name="Skip de Comunidad en", null=True,
+                                              blank=True)
     available_community_skip = models.BooleanField(default=True, verbose_name="Skip de Comunidad Disponible")
     community_pokemon_id = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(821)],
                                                verbose_name="Pokemon de comunidad", null=True, blank=True)
@@ -440,6 +442,12 @@ class DeathLog(models.Model):
     species_name = models.CharField(max_length=100)
     mote = models.CharField(max_length=100)
     revived = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            from pokemon_api.models import Pokemon
+            self.species_name = Pokemon.objects.get(dex_number=self.dex_number).name
+        super().save(*args, **kwargs)
 
 
 class MastersSegment(models.Model):
