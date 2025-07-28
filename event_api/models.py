@@ -253,6 +253,13 @@ class ProfilePlatformUrl(models.Model):
         verbose_name_plural = "Socials"
 
 
+class BannedPokemon(models.Model):
+    profile = models.ForeignKey("MastersProfile", on_delete=models.CASCADE, related_name="banned_mons")
+    dex_number = models.IntegerField()
+    species_name = models.CharField(max_length=50)
+    reason = models.TextField(blank=True)
+
+
 class MastersProfile(models.Model):
     TRAINER = 0
     COACH = 1

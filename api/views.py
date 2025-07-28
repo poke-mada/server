@@ -19,7 +19,7 @@ from rest_framework.views import APIView
 from api.permissions import IsTrainer, IsRoot
 from event_api.models import SaveFile, Wildcard, CoinTransaction, \
     GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter, Newsletter, MastersSegment, \
-    MastersSegmentSettings
+    MastersSegmentSettings, BannedPokemon
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer, SelectProfileSerializer, ProfileSerializer, \
     SelectMastersProfileSerializer
@@ -113,7 +113,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         trainer: Trainer = Trainer.get_from_user(request.user)
         logger.debug(str(trainer))
         profile: MastersProfile = user.masters_profile
-        reward_inventory: StreamerRewardInventory = profile.reward_inventory.filter(reward_id=reward_id, is_available=True).first()
+        reward_inventory: StreamerRewardInventory = profile.reward_inventory.filter(reward_id=reward_id,
+                                                                                    is_available=True).first()
         if not reward_inventory:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -227,8 +228,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         is_tester = user.masters_profile.is_tester
         is_pro = user.masters_profile.is_pro
         profiles = MastersProfile.objects.filter(is_pro=is_pro, profile_type=MastersProfile.TRAINER,
-                                                    is_tester=is_tester,
-                                                    trainer__isnull=False)
+                                                 is_tester=is_tester,
+                                                 trainer__isnull=False)
         serializer = SelectMastersProfileSerializer(profiles, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -368,6 +369,11 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         serialized = ProfileSerializer(current_profile)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
+    @action(methods=['get'], detail=False)
+    def list_revivable(self, request, *args, **kwargs):
+        profile = request.user.masters_profile
+        banned_mons = BannedPokemon.objects.filter(profile=profile).values_list('dex_number', flat=True)
+
 
 class MoveViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Move.objects.all()
@@ -448,10 +454,9 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
                                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             return Response(data=dict(detail=result), status=status.HTTP_400_BAD_REQUEST)
 
-        if result:
+        if result is True:
             return Response(data=dict(detail='card_used'), status=status.HTTP_200_OK)
-        return Response(result, status=status.HTTP_200_OK)
-
+        return Response(result, status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['POST'], detail=True)
     def buy_card(self, request, *args, **kwargs):
@@ -505,7 +510,8 @@ def team_saver(team, trainer: Trainer):
                                                  revived=False).first()
             if not last_death:
                 species_name = Pokemon.objects.filter(dex_number=dex_number).first().name
-                DeathLog.objects.create(dex_number=dex_number, profile=trainer.get_trainer_profile(), species_name=species_name, mote=pokemon['mote'])
+                DeathLog.objects.create(dex_number=dex_number, profile=trainer.get_trainer_profile(),
+                                        species_name=species_name, mote=pokemon['mote'])
 
     new_team_serializer = TrainerTeamSerializer(data=team_data)
     if new_team_serializer.is_valid(raise_exception=True):
@@ -540,7 +546,8 @@ def box_saver(boxes, trainer: Trainer):
                                                      revived=False).first()
                 if not last_death:
                     species_name = Pokemon.objects.filter(dex_number=dex_number).first().name
-                    DeathLog.objects.create(dex_number=dex_number, profile=trainer.get_trainer_profile(), species_name=species_name, mote=pokemon['mote'])
+                    DeathLog.objects.create(dex_number=dex_number, profile=trainer.get_trainer_profile(),
+                                            species_name=species_name, mote=pokemon['mote'])
 
             if pokemon_serializer.is_valid(raise_exception=True):
                 pokemon = pokemon_serializer.save()
