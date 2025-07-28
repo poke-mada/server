@@ -466,7 +466,7 @@ class DeathLog(models.Model):
     def save(self, *args, **kwargs):
         if not self.species_name:
             from pokemon_api.models import Pokemon
-            self.species_name = Pokemon.objects.get(dex_number=self.dex_number).name
+            self.species_name = Pokemon.objects.filter(dex_number=self.dex_number).first().name
         super().save(*args, **kwargs)
 
 

@@ -22,7 +22,7 @@ class ReleasePokemonHandler(BaseWildCardHandler):
         if banned_mon:
             return False
 
-        species_name = Pokemon.objects.get(dex_number=dex_number).name
+        species_name = Pokemon.objects.filter(dex_number=dex_number).first().name
         BannedPokemon.objects.create(dex_number=dex_number, profile=self.user.masters_profile, species_name=species_name, reason='El pokemon se liberó con Venta Ilegal')
 
         money_quantity = self.wildcard.give_money_settings.quantity
