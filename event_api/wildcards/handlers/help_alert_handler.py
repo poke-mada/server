@@ -14,10 +14,9 @@ class HelpAlertHandler(BaseWildCardHandler):
         target_id = context.get('target_id')[0]
 
         profile: MastersProfile = MastersProfile.objects.get(id=target_id)
-        streamer = profile.user.streamer_profile
-        target_name = streamer.name
+        target_name = profile.streamer_name
         data = dict(
-            user_name=self.user.streamer_profile.name,
+            user_name=self.user.masters_profile.streamer_name,
             wildcard=dict(
                 name=self.wildcard.name,
                 sprite_src=''
@@ -31,7 +30,7 @@ class HelpAlertHandler(BaseWildCardHandler):
         ))
 
         Newsletter.objects.create(
-            message=f'{self.user.streamer_profile.name} ha ayudado a {target_name} usando {self.wildcard.name}'
+            message=f'{self.user.masters_profile.streamer_name} ha ayudado a {target_name} usando {self.wildcard.name}'
         )
 
         return True

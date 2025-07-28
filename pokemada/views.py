@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render
 
-from event_api.models import Streamer, MastersProfile
+from event_api.models import MastersProfile
 
 
 def overlay(request, streamer_name):
@@ -16,7 +16,7 @@ def overlay(request, streamer_name):
     coach: MastersProfile = profile.coaches.filter(user__is_active=True).first()
     coach_name = 'Sin coach'
     if coach:
-        coach_name = coach.user.streamer_profile.name
+        coach_name = coach.streamer_name
 
     if profile.is_pro:
         return render(request, 'pro_overlay.html', {
@@ -41,7 +41,7 @@ def showdown(request, streamer_name):
     coach: MastersProfile = profile.coaches.filter(user__is_active=True).first()
     coach_name = 'Sin coach'
     if coach:
-        coach_name = coach.user.streamer_profile.name
+        coach_name = coach.streamer_name
 
     if profile.is_pro:
         return render(request, 'pro_showdown_overlay.html', {

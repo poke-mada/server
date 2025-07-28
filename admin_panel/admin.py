@@ -37,17 +37,17 @@ class DirectGiftInline(admin.TabularInline):
     extra = 0
     autocomplete_fields = ('wildcard',)
 
+    class Media:
+        js = ('admin/js/gift_type_switcher.js',)
+
 
 @admin.register(DirectGiftQuerySequence, site=staff_site)
 class GiftSequenceAdmin(admin.ModelAdmin):
     list_display = ('name', 'created', 'modified', 'run_times')
     readonly_fields = ('created', 'modified', 'run_times')
-    inlines = [DirectGiftInline]
     autocomplete_fields = ('targets',)
+    inlines = [DirectGiftInline]
     actions = [run_sequence]
-
-    class Media:
-        js = ('admin/js/gift_type_switcher.js',)
 
 
 @admin.register(MastersProfile, site=staff_site)

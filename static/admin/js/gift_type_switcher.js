@@ -19,7 +19,7 @@
             $inline.find('.delete').children().show();  // Siempre mostrar
 
             switch (rewardType) {
-                case '2': // Coins
+                case '0': // Coins
                     $inline.find('.field-quantity').children().show();
                     break;
                 case '1': // Wildcards
@@ -36,7 +36,6 @@
                 var $inline = $(this);
                 updateFields($inline);
                 $inline.find('.field-type').change(function() {
-                    console.log('awa')
                     updateFields($inline);
                 });
             });

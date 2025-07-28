@@ -3,7 +3,7 @@ from cProfile import Profile
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, Streamer, GameEvent, GameMod, \
+from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, GameEvent, GameMod, \
     MastersProfile
 from trainer_data.models import Trainer
 
@@ -91,7 +91,7 @@ class SelectProfileSerializer(serializers.ModelSerializer):
 
     def get_name(self, obj: MastersProfile):
         try:
-            return obj.user.streamer_profile.name
+            return obj.streamer_name
         except TypeError:
             return None
 
@@ -108,7 +108,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def get_name(self, obj: MastersProfile):
         try:
-            return obj.user.streamer_profile.name
+            return obj.streamer_name
         except TypeError:
             return None
 

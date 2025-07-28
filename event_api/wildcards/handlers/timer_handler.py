@@ -1,5 +1,5 @@
 import json
-from event_api.models import MastersProfile, Streamer, Newsletter
+from event_api.models import MastersProfile, Newsletter
 from event_api.wildcards.handlers.settings.models import TimerHandlerSettings
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from event_api.wildcards.wildcard_handler import BaseWildCardHandler
@@ -16,7 +16,7 @@ class TimerHandler(BaseWildCardHandler):
         return
 
     def execute(self, context):
-        DataConsumer.send_custom_data(self.user.streamer_profile.name, dict(
+        DataConsumer.send_custom_data(self.user.masters_profile.streamer_name, dict(
             type='start_timer_notification',
             data=self.wildcard.timer_settings.time
         ))

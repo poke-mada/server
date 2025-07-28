@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.db import models, transaction
 from django.db.models import Q, Sum, QuerySet
 
-from event_api.models import Streamer, CoinTransaction
+from event_api.models import CoinTransaction, MastersProfile
 from pokemon_api.models import Pokemon
 
 
@@ -23,7 +23,7 @@ class BankedAsset(models.Model):
             Q(app_label='pokemon_api', model='item') |
             Q(app_label='trainer_data', model='trainerpokemon')
     )
-    user = models.ForeignKey(Streamer, on_delete=models.CASCADE)
+    user = models.ForeignKey(MastersProfile, on_delete=models.CASCADE)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, limit_choices_to=CONTENT_TYPES_LIMIT)
     object_id = models.PositiveIntegerField()
 
@@ -55,18 +55,18 @@ class BankedAsset(models.Model):
 class MarketTransactor(object):
     __slots__ = ['creator', 'items']
 
-    def perform_transaction(self, target: Streamer, force_transaction=False):
+    def perform_transaction(self, target: MastersProfile, force_transaction=False):
         vendor = self.creator
         items = self.items.all()
         for item in items:
             if item.item_type == 0:
                 CoinTransaction.objects.create(
-                    profile=vendor.user.masters_profile,
+                    profile=vendor,
                     TYPE=CoinTransaction.OUTPUT,
                     amount=item.quantity
                 )
                 CoinTransaction.objects.create(
-                    profile=target.user.masters_profile,
+                    profile=target,
                     TYPE=CoinTransaction.INPUT,
                     amount=item.quantity
                 )
@@ -95,7 +95,7 @@ class MarketPost(models.Model, MarketTransactor):
         CLOSED: 'Cerrado',
         CANCELLED: 'Cancelado',
     }
-    creator = models.ForeignKey(Streamer, on_delete=models.CASCADE)
+    creator = models.ForeignKey(MastersProfile, on_delete=models.CASCADE)
     status = models.SmallIntegerField(choices=STATUSES.items(), default=DRAFT)
 
     already_closed = models.BooleanField(default=False)
@@ -117,7 +117,7 @@ class MarketPostOffer(models.Model, MarketTransactor):
         CLOSED: 'Cerrado',
         CANCELLED: 'Cancelado',
     }
-    creator = models.ForeignKey(Streamer, on_delete=models.CASCADE)
+    creator = models.ForeignKey(MastersProfile, on_delete=models.CASCADE)
     post = models.ForeignKey(MarketPost, on_delete=models.PROTECT, related_name='offers')
     status = models.SmallIntegerField(choices=STATUSES.items(), default=DRAFT)
     already_closed = models.BooleanField(default=False)

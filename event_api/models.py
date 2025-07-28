@@ -125,7 +125,7 @@ class Wildcard(models.Model):
         return self.sprite.name
 
     def can_buy(self, user: User, amount, force_buy=False):
-        inventory, _ = user.streamer_profile.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
+        inventory, _ = user.masters_profile.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
 
         already_in_possession = inventory.quantity
         if not force_buy:
@@ -226,14 +226,6 @@ class StreamerWildcardInventoryItem(models.Model):
 
     def __str__(self):
         return f'x{self.quantity} {self.wildcard.name}'
-
-
-class Streamer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="streamer_profile", null=True, blank=True)
-    name = models.CharField(max_length=50, default="")
-
-    def __str__(self):
-        return self.name
 
 
 class ProfilePlatformUrl(models.Model):

@@ -17,7 +17,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.permissions import IsTrainer, IsRoot
-from event_api.models import SaveFile, Wildcard, Streamer, CoinTransaction, \
+from event_api.models import SaveFile, Wildcard, CoinTransaction, \
     GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter, Newsletter, MastersSegment, \
     MastersSegmentSettings
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
@@ -62,19 +62,17 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['get'], detail=False, permission_classes=[])
     def get_deaths(self, request, *args, **kwargs):
         streamer_name = request.GET.get('streamer', False)
-        streamer = Streamer.objects.filter(name=streamer_name).first()
-        profile = streamer.user.masters_profile
+        profile = MastersProfile.objects.filter(streamer_name=streamer_name).first()
         return Response(data=dict(death_count=profile.death_count), status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False, permission_classes=[])
     def get_data(self, request, *args, **kwargs):
         from websocket.serializers import OverlaySerializer
         streamer_name = request.GET.get('streamer', False)
-        streamer = Streamer.objects.filter(name=streamer_name).first()
-        if not streamer:
+        profile = MastersProfile.objects.filter(streamer_name=streamer_name).first()
+        if not profile:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        profile = streamer.user.masters_profile
         serializer = OverlaySerializer(profile.trainer)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)

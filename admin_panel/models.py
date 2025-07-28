@@ -35,7 +35,7 @@ class InventoryGiftQuerySequence(models.Model):
 # Create your models here.
 class DirectGiftQuerySequence(models.Model):
     WILDCARD = 1
-    MONEY = 2
+    MONEY = 0
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     run_times = models.IntegerField(default=0)
@@ -72,7 +72,7 @@ class DirectGiftQuerySequence(models.Model):
 # Create your models here.
 class DirectGift(models.Model):
     WILDCARD = 1
-    MONEY = 2
+    MONEY = 0
 
     REWARD_TYPES = {
         WILDCARD: 'Wildcard',
@@ -82,9 +82,12 @@ class DirectGift(models.Model):
     type = models.SmallIntegerField(choices=REWARD_TYPES.items(), default=MONEY)
     sequence = models.ForeignKey(DirectGiftQuerySequence, on_delete=models.SET_NULL, null=True, related_name='gifts')
 
-    item = models.ForeignKey("pokemon_api.Item", on_delete=models.SET_NULL, null=True, blank=True)
     wildcard = models.ForeignKey("event_api.Wildcard", on_delete=models.SET_NULL, null=True, blank=True)
     quantity = models.IntegerField(default=1, null=True, blank=True)
 
     def __str__(self):
-        return f'{self.pk} - {self.get_reward_type_display()}'
+        return f'{self.pk} - {self.get_type_display()}'
+
+    def save(self, *args, **kwargs):
+        print(self)
+        return super().save(*args, **kwargs)

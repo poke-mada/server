@@ -1,5 +1,5 @@
 import json
-from event_api.models import MastersProfile, Streamer, Newsletter
+from event_api.models import MastersProfile, Newsletter
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 from channels.layers import get_channel_layer

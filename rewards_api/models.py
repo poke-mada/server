@@ -3,7 +3,6 @@ import uuid
 from django.core.validators import MinValueValidator
 from django.db import models
 
-from event_api.models import Streamer
 from pokemon_api.models import Item, Pokemon
 from trainer_data.models import TrainerPokemon
 
