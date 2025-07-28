@@ -506,15 +506,6 @@ def team_saver(team, trainer: Trainer):
         trainer_old=trainer.pk,
         team=[pokemon for pokemon in team if pokemon]
     )
-    for pokemon in team:
-        dex_number = pokemon['dex_number']
-        if pokemon and pokemon['is_death']:
-            last_death = DeathLog.objects.filter(dex_number=dex_number, profile=trainer.get_trainer_profile(),
-                                                 revived=False).first()
-            if not last_death:
-                species_name = Pokemon.objects.filter(dex_number=dex_number).first().name
-                DeathLog.objects.create(dex_number=dex_number, profile=trainer.get_trainer_profile(),
-                                        species_name=species_name, mote=pokemon['mote'])
 
     new_team_serializer = TrainerTeamSerializer(data=team_data)
     if new_team_serializer.is_valid(raise_exception=True):
