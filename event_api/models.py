@@ -444,7 +444,7 @@ class DeathLog(models.Model):
     revived = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        if not self.pk:
+        if not self.species_name:
             from pokemon_api.models import Pokemon
             self.species_name = Pokemon.objects.get(dex_number=self.dex_number).name
         super().save(*args, **kwargs)
