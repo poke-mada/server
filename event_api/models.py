@@ -429,9 +429,6 @@ class DeathLog(models.Model):
     mote = models.CharField(max_length=100)
     revived = models.BooleanField(default=False)
 
-    class Meta:
-        unique_together = ("profile", "species_name")
-
 
 class MastersSegment(models.Model):
     end_date = models.DateTimeField()

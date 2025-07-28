@@ -524,7 +524,7 @@ def box_saver(boxes, trainer: Trainer):
                                                      revived=False).first()
                 if not last_death:
                     species_name = Pokemon.objects.filter(dex_number=dex_number).first().name
-                    DeathLog.objects.create(dex_number=dex_number, profile=trainer.get_trainer_profile(), species_name=species_name)
+                    DeathLog.objects.create(dex_number=dex_number, profile=trainer.get_trainer_profile(), species_name=species_name, mote=pokemon['mote'])
 
             if pokemon_serializer.is_valid(raise_exception=True):
                 pokemon = pokemon_serializer.save()
