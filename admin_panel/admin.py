@@ -93,7 +93,7 @@ class MastersSegmentSettingsAdmin(NestedStackedInline):
     min_num = 0
     # max_num = 0 TODO: comentado hasta que el tramo se actualice solo
     extra = 0
-    readonly_fields = ('is_current', 'community_pokemon_sprite', 'segment')
+    readonly_fields = ('is_current', 'community_pokemon_sprite', 'segment', 'community_skip_used_in')
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)

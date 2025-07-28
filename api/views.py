@@ -79,27 +79,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['post'], detail=False)
     def register_death(self, request, *args, **kwargs):
-        from websocket.sockets import OverlayConsumer
-        user: User = request.user
-        profile = user.masters_profile
-        trainer = Trainer.get_from_user(user)
-        pid = request.data.get('pid')
-        mote = request.data.get('mote')
-        dex_number = request.data.get('species')
-        species = Pokemon.objects.filter(dex_number=dex_number).first().name
-        _, is_created = DeathLog.objects.get_or_create(profile=profile, trainer=trainer, pid=pid, mote=mote, species_name=species)
-
-        if is_created:
-            current_segment: MastersSegmentSettings = profile.current_segment_settings
-            current_segment.death_count += 1
-            current_segment.save()
-
-            profile.death_count += 1
-            profile.save()
-
-        OverlayConsumer.send_overlay_data(profile.streamer_name)
-        serializer = self.get_serializer(trainer)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
     def get_rewards(self, request, *args, **kwargs):
@@ -109,10 +89,21 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @action(methods=['post'], detail=False)
+    def use_community_skip(self, request):
+        route = request.data.get('route')
+        profile = request.user.masters_profile
+        current_segment: MastersSegmentSettings = profile.current_segment_settings
+        if not current_segment.available_community_skip:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        current_segment.available_community_skip = False
+        current_segment.community_skip_used_in = route
+        current_segment.save()
+        return Response(data='todo bn', status=status.HTTP_200_OK)
+
     @action(methods=['post'],
             detail=False,
-            url_path='claim_reward/(?P<reward_id>[0-9a-fA-F-]{36})',
-            permission_classes=[IsTrainer])
+            url_path='claim_reward/(?P<reward_id>[0-9a-fA-F-]{36})')
     def claim_reward(self, request, *args, **kwargs):
         user: User = request.user
         reward_id = kwargs.pop('reward_id')
@@ -439,20 +430,20 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         fixed_user = current_user
 
         if current_user.masters_profile.profile_type == MastersProfile.COACH:
-            return Response(data=dict(detail='coach_cant_use'), status=status.HTTP_400_BAD_REQUEST)
+            return Response(data=dict(detail='El coach no puede usar comodines'), status=status.HTTP_400_BAD_REQUEST)
 
         quantity = int(request.data.get('quantity', 1))
-        can_use = wildcard.can_use(fixed_user, quantity)
+        can_use = wildcard.can_use(fixed_user, quantity, **request.data)
         if can_use is True:
             result = wildcard.use(fixed_user, quantity, **request.data)
             if result is True:
                 return Response(data=dict(detail='card_used'), status=status.HTTP_200_OK)
-            elif result is False:
-                return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            elif isinstance(result, int) and result is not False:
+                return Response(data=dict(detail='contact_paramada', error_id=f'{result}'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             return Response(result, status=status.HTTP_200_OK)
         if can_use is not False:
             return Response(data=dict(detail=can_use), status=status.HTTP_400_BAD_REQUEST)
-        return Response(data=dict(detail='no_card_available'), status=status.HTTP_400_BAD_REQUEST)
+        return Response(data=dict(detail='No dispones de este comodin'), status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['POST'], detail=True)
     def buy_card(self, request, *args, **kwargs):
@@ -462,13 +453,13 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         current_user = request.user
         fixed_user = current_user
         if current_user.masters_profile.profile_type == MastersProfile.COACH:
-            return Response(data=dict(detail='coach_cant_buy'), status=status.HTTP_400_BAD_REQUEST)
+            return Response(data=dict(detail='El coach no puede comprar comodines'), status=status.HTTP_400_BAD_REQUEST)
 
         if wildcard.can_buy(fixed_user, quantity, True):
             if wildcard.buy(fixed_user, quantity, True):
                 return Response(data=dict(detail='card_bought'), status=status.HTTP_200_OK)
             return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        return Response(data=dict(detail='no_enough_money'), status=status.HTTP_400_BAD_REQUEST)
+        return Response(data=dict(detail='No tienes dinero'), status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['GET'], detail=False)
     def list_strong_items(self, request, *args, **kwargs):
@@ -526,7 +517,15 @@ def box_saver(boxes, trainer: Trainer):
         for slot in slots:
             box_slot, _ = TrainerBoxSlot.objects.get_or_create(box=box, slot=slot['slot'])
             pokemon = slot['pokemon']
+            dex_number = pokemon['dex_number']
             pokemon_serializer = TrainerPokemonSerializer(data=pokemon)
+            if pokemon['is_death']:
+                last_death = DeathLog.objects.filter(dex_number=dex_number, profile=trainer.get_trainer_profile(),
+                                                     revived=False).first()
+                if not last_death:
+                    species_name = Pokemon.objects.filter(dex_number=dex_number).first().name
+                    DeathLog.objects.create(dex_number=dex_number, profile=trainer.get_trainer_profile(), species_name=species_name)
+
             if pokemon_serializer.is_valid(raise_exception=True):
                 pokemon = pokemon_serializer.save()
                 box_slot.pokemon = pokemon

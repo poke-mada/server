@@ -718,19 +718,24 @@ def data_reader(save_data):
         trainer_team.append(pokemon.to_dict())
 
     for box in total_boxes:
+        box_name_address = 0x4400 + box * 34
+        data = save_data[box_name_address:box_name_address + 28]
+        box_name = get_string(data)
+        death_box = False
+        if box in (5, 6) or box_name == 'MUERTOS':
+            death_box = True
+
         box_list = []
         for slot in range(30):
             pokemon = get_pokemon_at_box_slot(save_data, box, slot)
             if pokemon:
+                pokemon['is_death'] = death_box
                 box_list.append(dict(
                     slot=slot,
                     pokemon=pokemon
                 ))
 
         if len(box_list) > 0:
-            box_name_address = 0x4400 + box * 34
-            data = save_data[box_name_address:box_name_address + 28]
-            box_name = get_string(data)
             boxes[box] = dict(
                 name=box_name,
                 slots=box_list

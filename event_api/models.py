@@ -135,13 +135,21 @@ class Wildcard(models.Model):
         return self.is_active and (
                 (user.masters_profile.economy >= self.price * amount_to_buy) or self.always_available)
 
-    def can_use(self, user: User, amount):
+    def can_use(self, user: User, amount, **data):
         streamer = user.masters_profile
         inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
         current_segment = user.masters_profile.current_segment_settings
+
+        if self.handler_key == 'revive_pokemon':
+            dex_number = data.get('dex_number')[0]
+            last_non_revived_death = DeathLog.objects.filter(dex_number=dex_number, profile=user.masters_profile, revived=False)
+            if not last_non_revived_death:
+                return 'Este pokemon no está muerto'
+
         if self.category == Wildcard.OFFENSIVE and current_segment.karma < self.karma_consumption:
             # si es un comodin de ataque y no hay karma suficiente no puede usarse
-            return 'cant_use'
+            return 'No tienes suficiente Karma para actuar'
+
         return (inventory and inventory.quantity >= amount) or self.always_available
 
     def buy(self, user: User, amount: int, force_buy=False):
@@ -203,12 +211,12 @@ class Wildcard(models.Model):
             return result
         except Exception as e:
             import traceback
-            ErrorLog.objects.create(
+            error = ErrorLog.objects.create(
                 profile=profile,
                 details=f'{amount} wildcard(s) {self.name} tried to execute',
                 message=traceback.format_exc()
             )
-            return False
+            return error.id
 
 
 class WildcardLog(models.Model):
@@ -327,6 +335,7 @@ class MastersSegmentSettings(models.Model):
     is_current = models.BooleanField(default=True, verbose_name="Tramo Actual")
     segment = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(99)],
                                   verbose_name="Tramo")
+    community_skip_used_in = models.CharField(max_length=255, verbose_name="Skip de Comunidad en", null=True, blank=True)
     available_community_skip = models.BooleanField(default=True, verbose_name="Skip de Comunidad Disponible")
     community_pokemon_id = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(821)],
                                                verbose_name="Pokemon de comunidad", null=True, blank=True)
@@ -356,6 +365,9 @@ class MastersSegmentSettings(models.Model):
     # TODO: al final de tramo se borran escudo protector y reversa y todos los ofensivos medios y fuertes
     # TODO: escudo a seleccion, no automatico
     # TODO: 15 monedas -muertes de tramo
+
+    def __str__(self):
+        return f'Tramo {self.segment}'
 
     def save(self, *args, **kwargs):
         if not self.pk:
@@ -411,12 +423,11 @@ class GameMod(models.Model):
 
 class DeathLog(models.Model):
     profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name="deaths", null=True)
-    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="death_log")
     created_on = models.DateTimeField(auto_now_add=True)
-    died_in = models.CharField(max_length=100)
-    pid = models.CharField(max_length=100)
+    dex_number = models.IntegerField(null=True, blank=False)
     species_name = models.CharField(max_length=100)
     mote = models.CharField(max_length=100)
+    revived = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ("profile", "species_name")

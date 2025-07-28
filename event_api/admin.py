@@ -92,9 +92,10 @@ class ErrorLogAdmin(admin.ModelAdmin):
 
 @admin.register(DeathLog, site=staff_site)
 class DeathLogAdmin(admin.ModelAdmin):
-    list_display = ('profile__streamer_name', 'trainer__name', 'species_name', 'mote',)
-    search_fields = ('profile__streamer_name', 'trainer__name',)
+    list_display = ('profile__streamer_name', 'dex_number', 'species_name', 'mote', 'revived')
+    search_fields = ('profile__streamer_name',)
     list_filter = ('profile__streamer_name',)
+    readonly_fields = ('created_on', 'species_name')
 
 
 @admin.register(ProfileImposterLog, site=staff_site)
@@ -158,7 +159,7 @@ class RewardInventoryInline(NestedTabularInline):
     extra = 0
 
 
-class MastersSegmentSettingsAdmin(NestedStackedInline):
+class MastersSegmentSettingsInline(NestedStackedInline):
     model = MastersSegmentSettings
     min_num = 0
     extra = 0
@@ -168,7 +169,7 @@ class MastersSegmentSettingsAdmin(NestedStackedInline):
 class MastersProfileInline(NestedStackedInline):
     model = MastersProfile
     readonly_fields = ('last_save_download', 'economy')
-    inlines = [MastersSegmentSettingsAdmin, ProfilePlatformUrlInline, WildcardInventoryItem, RewardInventoryInline]
+    inlines = [MastersSegmentSettingsInline, ProfilePlatformUrlInline, WildcardInventoryItem, RewardInventoryInline]
 
 
 @admin.register(Newsletter, site=staff_site)

@@ -12,3 +12,4 @@ from .help_alert_handler import HelpAlertHandler
 from .timer_handler import TimerHandler
 from .strong_attack_handler import StrongAttackHandler
 from .mid_attack_handler import MidAttackHandler
+from .revive_pokemon_handler import RevivePokemonHandler
