@@ -376,7 +376,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_revivable(self, request, *args, **kwargs):
         profile = request.user.masters_profile
         banned_mons = BannedPokemon.objects.filter(profile=profile).values_list('dex_number', flat=True)
-        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), ~Q(dex_number=profile.starter_dex_number), profile=profile, revived=False)
+        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), ~Q(dex_number=profile.starter_dex_number),
+                                             profile=profile, revived=False)
         serialized = DeathLogSerializer(death_mons, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
@@ -384,9 +385,16 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_releasable(self, request, *args, **kwargs):
         profile = request.user.masters_profile
         banned_mons = BannedPokemon.objects.filter(profile=profile).values_list('dex_number', flat=True)
-        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), profile=profile, revived=False).values_list('dex_number', flat=True).values_list('dex_number', flat=True)
-        releasable_mons = TrainerPokemon.objects.filter(~Q(pokemon__dex_number__in=banned_mons), ~Q(pokemon__dex_number__in=[658, profile.starter_dex_number]), ~Q(pokemon__dex_number__in=death_mons), team__trainer=profile.trainer)
+        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), profile=profile,
+                                             revived=False).values_list('dex_number', flat=True).values_list(
+            'dex_number', flat=True)
+        boxed_mons = TrainerBox.objects.filter(trainer=profile.trainer).values_list('slots__pokemon_id', flat=True)
+        releasable_mons = TrainerPokemon.objects.filter(~Q(pokemon__dex_number__in=banned_mons),
+                                                        ~Q(pokemon__dex_number__in=[658, profile.starter_dex_number]),
+                                                        ~Q(pokemon__dex_number__in=death_mons),
+                                                        Q(team__trainer=profile.trainer) | Q(id=boxed_mons))
         serialized = ReleasableSerializer(releasable_mons, many=True)
+
         return Response(serialized.data, status=status.HTTP_200_OK)
 
 
