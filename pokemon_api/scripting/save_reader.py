@@ -374,7 +374,7 @@ class PokemonBytes:
         if self.dex_number == 0:
             return
 
-        self.pid = struct.unpack("<I", self.raw_data[0x18:0x1A])[0]
+        self.pid = struct.unpack("<I", self.raw_data[0x18:0x1C])[0]
         self.form = struct.unpack("B", self.raw_data[0x1D:0x1E])[0]
         self.held_item_num = str(struct.unpack("<H", self.raw_data[0xA:0xC])[0])
         self.ability_num = struct.unpack("B", self.raw_data[0x14:0x15])[0]  # Ability
