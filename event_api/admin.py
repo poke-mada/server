@@ -70,11 +70,17 @@ class CoinTransactionAdmin(admin.ModelAdmin):
     search_fields = ('profile__streamer_name', 'TYPE')
     list_filter = ('profile__streamer_name',)
 
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 @admin.register(WildcardLog, site=staff_site)
 class WildcardLogAdmin(admin.ModelAdmin):
     list_display = ('profile__streamer_name', 'wildcard__name', 'details',)
     search_fields = ('profile__streamer_name', 'wildcard__name')
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(ErrorLog)
