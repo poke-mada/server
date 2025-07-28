@@ -64,14 +64,13 @@ class RewardInventoryInline(NestedTabularInline):
     readonly_fields = ('exchanges',)
     model = StreamerRewardInventory
     min_num = 0
-    max_num = 0
     extra = 0
 
 
 class MastersSegmentSettingsAdmin(NestedStackedInline):
     model = MastersSegmentSettings
     min_num = 0
-    max_num = 0
+    # max_num = 0 TODO: comentado hasta que el tramo se actualice solo
     extra = 0
     readonly_fields = ('is_current', 'community_pokemon_sprite', 'segment')
 
@@ -98,7 +97,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'is_staff'
     )
 
-    list_filter = ('masters_profile__is_pro', 'is_staff', 'masters_profile__profile_type')
+    list_filter = ('masters_profile__is_pro', 'is_staff')
     inlines = [MastersProfileInline]
 
     def get_queryset(self, request):
