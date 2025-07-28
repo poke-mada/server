@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
-from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, Streamer, MastersProfile
-from rewards_api.models import RewardBundle, Reward, ItemReward, MoneyReward, WildcardReward, PokemonReward
+from event_api.models import MastersProfile
 from trainer_data.models import Trainer, TrainerPokemon
 
 
