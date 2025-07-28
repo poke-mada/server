@@ -434,16 +434,24 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
 
         quantity = int(request.data.get('quantity', 1))
         can_use = wildcard.can_use(fixed_user, quantity, **request.data)
-        if can_use is True:
-            result = wildcard.use(fixed_user, quantity, **request.data)
-            if result is True:
-                return Response(data=dict(detail='card_used'), status=status.HTTP_200_OK)
-            elif isinstance(result, int) and result is not False:
-                return Response(data=dict(detail='contact_paramada', error_id=f'{result}'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-            return Response(result, status=status.HTTP_200_OK)
-        if can_use is not False:
+        if isinstance(can_use, str):
             return Response(data=dict(detail=can_use), status=status.HTTP_400_BAD_REQUEST)
-        return Response(data=dict(detail='No dispones de este comodin'), status=status.HTTP_400_BAD_REQUEST)
+
+        if can_use is not True:
+            return Response(data=dict(detail='No dispones de este comodin'), status=status.HTTP_400_BAD_REQUEST)
+
+        result = wildcard.use(fixed_user, quantity, **request.data)
+
+        if isinstance(result, str):
+            if 'error: ' in result:
+                return Response(data=dict(detail='contact_paramada', error_id=f'{result}'),
+                                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data=dict(detail=result), status=status.HTTP_400_BAD_REQUEST)
+
+        if result:
+            return Response(data=dict(detail='card_used'), status=status.HTTP_200_OK)
+        return Response(result, status=status.HTTP_200_OK)
+
 
     @action(methods=['POST'], detail=True)
     def buy_card(self, request, *args, **kwargs):

@@ -141,9 +141,12 @@ class Wildcard(models.Model):
         current_segment = user.masters_profile.current_segment_settings
 
         if self.handler_key == 'revive_pokemon':
+            if not data.get('dex_number'):
+                return 'Necesitas seleccionar un pokemon a revivir'
             dex_number = data.get('dex_number')[0]
             if not dex_number:
                 return 'Necesitas seleccionar un pokemon a revivir'
+
             last_non_revived_death = DeathLog.objects.filter(dex_number=dex_number, profile=user.masters_profile, revived=False)
             if not last_non_revived_death:
                 return 'Este pokemon no está muerto'
@@ -200,7 +203,7 @@ class Wildcard(models.Model):
                 WildcardLog.objects.create(wildcard=self, profile=profile,
                                            details=f'{amount} carta/s {self.name} usada')
                 if result == 'cannot_attack':
-                    return False
+                    return result
             else:
                 # fallback default (log-only)
                 result = True
@@ -218,7 +221,7 @@ class Wildcard(models.Model):
                 details=f'{amount} wildcard(s) {self.name} tried to execute',
                 message=traceback.format_exc()
             )
-            return error.id
+            return f'error: {error.id}'
 
 
 class WildcardLog(models.Model):

@@ -5,10 +5,10 @@ class WildCardExecutorRegistry:
     _registry = {}
 
     @classmethod
-    def register(cls, type_name, verbose=None):
+    def register(cls, handler_key, verbose=None):
         def decorator(handler_cls):
-            cls._registry[type_name] = {
-                'verbose': verbose if verbose is not None else type_name,
+            cls._registry[handler_key] = {
+                'verbose': verbose if verbose is not None else handler_key,
                 'handler': handler_cls
             }
             return handler_cls
