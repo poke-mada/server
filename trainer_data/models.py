@@ -69,7 +69,7 @@ class TrainerPokemon(models.Model):
     ability = models.ForeignKey(PokemonAbility, on_delete=models.PROTECT, related_name='pokemons')
     mega_ability = models.ForeignKey(PokemonAbility, on_delete=models.SET_NULL, null=True, blank=True,
                                      related_name='megas')
-    pid = models.IntegerField(null=True)
+    pid = models.CharField(null=True, max_length=40)
     exp = models.IntegerField(null=True)
     nature = models.ForeignKey(PokemonNature, on_delete=models.PROTECT)
     level = models.IntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(1)])
