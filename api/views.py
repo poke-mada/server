@@ -134,14 +134,14 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             if not reward.is_active:
                 continue
 
-            if reward.reward_type == reward.MONEY:
+            if reward.type == reward.MONEY:
                 CoinTransaction.objects.create(
                     profile=user.masters_profile,
                     amount=reward.quantity,
                     TYPE=CoinTransaction.INPUT,
                     reason=f'Se obtuvo {reward.quantity} moneda/s al canjear el premio {bundle.id}'
                 )
-            elif reward.reward_type == reward.WILDCARD:
+            elif reward.type == reward.WILDCARD:
                 inventory, _ = profile.wildcard_inventory.get_or_create(
                     wildcard=reward.wildcard,
                     defaults=dict(quantity=0)

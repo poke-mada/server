@@ -221,7 +221,6 @@ class WildcardLog(models.Model):
 class StreamerWildcardInventoryItem(models.Model):
     profile = models.ForeignKey("MastersProfile", on_delete=models.CASCADE, related_name="wildcard_inventory",
                                 null=True)
-    streamer = models.ForeignKey("Streamer", on_delete=models.CASCADE, related_name='wildcard_inventory', null=True)
     wildcard = models.ForeignKey(Wildcard, on_delete=models.PROTECT)
     quantity = models.IntegerField(validators=[MinValueValidator(0)])
 

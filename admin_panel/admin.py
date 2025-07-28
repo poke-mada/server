@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 
-from admin_panel.models import InventoryGiftQuerySequence
+from admin_panel.models import InventoryGiftQuerySequence, DirectGiftQuerySequence, DirectGift
 from event_api.models import MastersProfile, MastersSegmentSettings, StreamerWildcardInventoryItem, ProfilePlatformUrl
 from rewards_api.models import StreamerRewardInventory
 
@@ -25,8 +25,29 @@ def run_sequence(modeladmin, request, queryset):
 @admin.register(InventoryGiftQuerySequence, site=staff_site)
 class GiftSequenceAdmin(admin.ModelAdmin):
     list_display = ('name', 'created', 'modified', 'run_times')
+    readonly_fields = ('created', 'modified', 'run_times')
     autocomplete_fields = ('targets',)
     actions = [run_sequence]
+
+
+class DirectGiftInline(admin.TabularInline):
+    fields = ('type', 'wildcard', 'quantity')
+    model = DirectGift
+    min_num = 1
+    extra = 0
+    autocomplete_fields = ('wildcard',)
+
+
+@admin.register(DirectGiftQuerySequence, site=staff_site)
+class GiftSequenceAdmin(admin.ModelAdmin):
+    list_display = ('name', 'created', 'modified', 'run_times')
+    readonly_fields = ('created', 'modified', 'run_times')
+    inlines = [DirectGiftInline]
+    autocomplete_fields = ('targets',)
+    actions = [run_sequence]
+
+    class Media:
+        js = ('admin/js/gift_type_switcher.js',)
 
 
 @admin.register(MastersProfile, site=staff_site)
@@ -86,7 +107,9 @@ class MastersProfileInline(NestedStackedInline):
 
 
 class UserProfileAdmin(NestedModelAdmin, UserAdmin):
-    readonly_fields = ('groups', 'user_permissions', 'is_staff', 'is_superuser', 'first_name', 'last_name', 'email', 'last_login', 'date_joined', 'username')
+    readonly_fields = (
+        'groups', 'user_permissions', 'is_staff', 'is_superuser', 'first_name', 'last_name', 'email', 'last_login',
+        'date_joined', 'username')
     list_display = (
         'username',
         'masters_profile__trainer',
