@@ -1,5 +1,6 @@
 from django.contrib import admin
-from nested_admin.nested import NestedStackedInline, NestedTabularInline
+from django.contrib.auth.admin import UserAdmin
+from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 
 from admin_panel.models import InventoryGiftQuerySequence
 from event_api.models import MastersProfile, MastersSegmentSettings, StreamerWildcardInventoryItem, ProfilePlatformUrl
