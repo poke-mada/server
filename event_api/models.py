@@ -142,6 +142,8 @@ class Wildcard(models.Model):
 
         if self.handler_key == 'revive_pokemon':
             dex_number = data.get('dex_number')[0]
+            if not dex_number:
+                return 'Necesitas seleccionar un pokemon a revivir'
             last_non_revived_death = DeathLog.objects.filter(dex_number=dex_number, profile=user.masters_profile, revived=False)
             if not last_non_revived_death:
                 return 'Este pokemon no está muerto'
