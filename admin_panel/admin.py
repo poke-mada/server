@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 
 from admin_panel.models import InventoryGiftQuerySequence
@@ -42,15 +43,19 @@ class MastersProfileAdmin(admin.ModelAdmin):
 
 
 class ProfilePlatformUrlInline(NestedTabularInline):
+    readonly_fields = ('platform', 'url')
     model = ProfilePlatformUrl
     min_num = 0
+    max_num = 0
     extra = 0
 
 
 class WildcardInventoryItem(NestedTabularInline):
+    readonly_fields = ('wildcard', 'quantity')
     fields = ('wildcard', 'quantity')
     model = StreamerWildcardInventoryItem
     min_num = 0
+    max_num = 0
     extra = 0
 
 
@@ -59,23 +64,30 @@ class RewardInventoryInline(NestedTabularInline):
     readonly_fields = ('exchanges',)
     model = StreamerRewardInventory
     min_num = 0
+    max_num = 0
     extra = 0
 
 
 class MastersSegmentSettingsAdmin(NestedStackedInline):
     model = MastersSegmentSettings
     min_num = 0
+    max_num = 0
     extra = 0
-    readonly_fields = ('is_current', 'community_pokemon_sprite')
+    readonly_fields = ('is_current', 'community_pokemon_sprite', 'segment')
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.filter(is_current=True)
 
 
 class MastersProfileInline(NestedStackedInline):
     model = MastersProfile
-    readonly_fields = ('last_save_download', 'economy')
+    readonly_fields = ('last_save_download', 'economy', 'rom_name', 'trainer',)
     inlines = [MastersSegmentSettingsAdmin, ProfilePlatformUrlInline, WildcardInventoryItem, RewardInventoryInline]
 
 
 class UserProfileAdmin(NestedModelAdmin, UserAdmin):
+    readonly_fields = ('groups', 'user_permissions', 'is_staff', 'is_superuser', 'first_name', 'last_name', 'email', 'last_login', 'date_joined', 'username')
     list_display = (
         'username',
         'masters_profile__trainer',
@@ -89,6 +101,10 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     list_filter = ('masters_profile__is_pro', 'is_staff', 'masters_profile__profile_type')
     inlines = [MastersProfileInline]
 
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.filter(is_active=True, masters_profile__profile_type=MastersProfile.TRAINER)
+
     @admin.display(description='Profile Type', ordering='masters_profile__profile_type')
     def profile_type(self, obj):
         return obj.masters_profile.get_profile_type_display()
@@ -100,3 +116,6 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     @admin.display(description='Is Pro', boolean=True, ordering='masters_profile__is_pro')
     def is_pro(self, obj):
         return obj.masters_profile.is_pro
+
+
+staff_site.register(User, UserProfileAdmin)
