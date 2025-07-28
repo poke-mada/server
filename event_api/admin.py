@@ -70,7 +70,7 @@ class CoinTransactionAdmin(admin.ModelAdmin):
     search_fields = ('profile__streamer_name', 'TYPE')
     list_filter = ('profile__streamer_name',)
 
-    def has_delete_permission(self, request, obj=None):
+    def has_add_permission(self, request, obj=None):
         return False
 
 
@@ -79,7 +79,7 @@ class WildcardLogAdmin(admin.ModelAdmin):
     list_display = ('profile__streamer_name', 'wildcard__name', 'details',)
     search_fields = ('profile__streamer_name', 'wildcard__name')
 
-    def has_delete_permission(self, request, obj=None):
+    def has_add_permission(self, request, obj=None):
         return False
 
 
