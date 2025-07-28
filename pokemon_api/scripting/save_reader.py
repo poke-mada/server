@@ -715,7 +715,9 @@ def data_reader(save_data):
     for slot in range(6):
         pokemon = PokemonBytes(get_pokemon_in_slot(save_data, slot))
         pokemon.get_atts()
-        trainer_team.append(pokemon.to_dict())
+        pokemon_data = pokemon.to_dict()
+        pokemon_data['is_death'] = pokemon
+        trainer_team.append(pokemon_data)
 
     for box in total_boxes:
         box_name_address = 0x4400 + box * 34

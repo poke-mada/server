@@ -9,6 +9,8 @@ class RevivePokemonHandler(BaseWildCardHandler):
 
     def execute(self, context):
         dex_number = context.get('dex_number')[0]
+        if not dex_number:
+            return False
 
         last_death = DeathLog.objects.filter(dex_number=dex_number, profile=self.user.masters_profile, revived=False).first()
         if not last_death:

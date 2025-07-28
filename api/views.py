@@ -483,13 +483,21 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
-def team_saver(team, trainer):
+def team_saver(team, trainer: Trainer):
     new_version = TrainerTeam.objects.filter(trainer_old=trainer).count() + 1
     team_data = dict(
         version=new_version,
         trainer_old=trainer.pk,
         team=[pokemon for pokemon in team if pokemon]
     )
+    for pokemon in team:
+        dex_number = pokemon['dex_number']
+        if pokemon and pokemon['is_death']:
+            last_death = DeathLog.objects.filter(dex_number=dex_number, profile=trainer.get_trainer_profile(),
+                                                 revived=False).first()
+            if not last_death:
+                species_name = Pokemon.objects.filter(dex_number=dex_number).first().name
+                DeathLog.objects.create(dex_number=dex_number, profile=trainer.get_trainer_profile(), species_name=species_name, mote=pokemon['mote'])
 
     new_team_serializer = TrainerTeamSerializer(data=team_data)
     if new_team_serializer.is_valid(raise_exception=True):
@@ -575,6 +583,14 @@ class FileUploadView(APIView):
             trainer.gym_badge_6 = (save_results['badge_count'] & 0b00100000) != 0
             trainer.gym_badge_7 = (save_results['badge_count'] & 0b01000000) != 0
             trainer.gym_badge_8 = (save_results['badge_count'] & 0b10000000) != 0
+            segment = 1
+            if trainer.gym_badge_3:
+                segment = 2
+            if trainer.gym_badge_6:
+                segment = 3
+            if trainer.gym_badge_7 and profile.already_won_lysson:
+                segment = 4
+            MastersSegmentSettings.objects.get_or_create(profile=profile, segment=segment)
             trainer.save()
             team_saver(save_results.get('team'), trainer)
             box_saver(save_results.get('boxes'), trainer)
