@@ -438,7 +438,7 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['GET'], detail=False)
     def simplified(self, request, *args, **kwargs):
-        serializer = SimplifiedWildcardSerializer(self.get_queryset(), many=True)
+        serializer = SimplifiedWildcardSerializer(self.get_queryset().exclude(name='Ayuda Del Coach').exclude(pk=55), many=True)
         return Response(serializer.data)
 
     @action(methods=['POST'], detail=True)
