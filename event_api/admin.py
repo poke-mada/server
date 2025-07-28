@@ -66,7 +66,7 @@ class TimerHandlerSettingsInline(admin.StackedInline):
 @admin.register(CoinTransaction, site=staff_site)
 class CoinTransactionAdmin(admin.ModelAdmin):
     list_display = ('created_on', 'profile__streamer_name', 'reason', 'amount', 'TYPE',)
-    readonly_fields = ('created_on', 'profile', 'amount', 'reason', 'type')
+    readonly_fields = ('created_on', 'profile', 'amount', 'reason', 'TYPE')
     search_fields = ('profile__streamer_name', 'TYPE')
     list_filter = ('profile__streamer_name',)
 
