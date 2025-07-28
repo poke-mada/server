@@ -392,7 +392,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         releasable_mons = TrainerPokemon.objects.filter(~Q(pokemon__dex_number__in=banned_mons),
                                                         ~Q(pokemon__dex_number__in=[658, profile.starter_dex_number]),
                                                         ~Q(pokemon__dex_number__in=death_mons),
-                                                        Q(team__trainer=profile.trainer) | Q(id=boxed_mons))
+                                                        Q(team__trainer=profile.trainer) | Q(id__in=boxed_mons))
         serialized = ReleasableSerializer(releasable_mons, many=True)
 
         return Response(serialized.data, status=status.HTTP_200_OK)
