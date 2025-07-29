@@ -405,6 +405,7 @@ class MoveViewSet(viewsets.ReadOnlyModelViewSet):
 class GameEventViewSet(viewsets.ModelViewSet):
     queryset = GameEvent.objects.all()
     serializer_class = GameEventSerializer
+    permission_classes = []
 
     @action(methods=['get'], detail=False)
     def list_available(self, request, *args, **kwargs):
