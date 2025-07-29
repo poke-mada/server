@@ -445,7 +445,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
             )
             cache.set(f'cached_event_{pk}', presigned_url, timeout=STORAGE_TIMEOUT) # Cache for 15 minutes
 
-        return HttpResponseRedirect(redirect_to=presigned_url)
+        return Response(data=presigned_url, status=status.HTTP_200_OK)
 
 
 class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
