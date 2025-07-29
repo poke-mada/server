@@ -417,8 +417,8 @@ class GameEventViewSet(viewsets.ModelViewSet):
 
     @action(methods=['get'], detail=True)
     def mod_file(self, request, pk=None, *args, **kwargs):
-        s3_path_cache = cache.get(f'cached_event_{pk}')
-        if not s3_path_cache:
+        presigned_url = cache.get(f'cached_event_{pk}')
+        if not presigned_url:
             event: GameEvent = GameEvent.objects.filter(GameEvent.get_available(), pk=pk).first()
             if not event:
                 return Response(status=status.HTTP_404_NOT_FOUND)
@@ -430,20 +430,19 @@ class GameEventViewSet(viewsets.ModelViewSet):
             ENVIRONMENT = os.getenv("DJANGO_ENV", "prod")  # "dev", "stage" o "prod"
             full_s3_path = os.path.join(ENVIRONMENT, 'dedsafio-pokemon/media', s3_key)
             s3_path_cache = full_s3_path
+            s3 = boto3.client(
+                's3',
+                region_name='us-east-1',
+                aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                config=Config(signature_version='s3v4')
+            )
+            presigned_url = s3.generate_presigned_url(
+                'get_object',
+                Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': s3_path_cache},
+                ExpiresIn=60,
+            )
             cache.set(f'cached_event_{pk}', full_s3_path, timeout=60 * 15) # Cache for 15 minutes
-
-        s3 = boto3.client(
-            's3',
-            region_name='us-east-1',
-            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-            config=Config(signature_version='s3v4')
-        )
-        presigned_url = s3.generate_presigned_url(
-            'get_object',
-            Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': s3_path_cache},
-            ExpiresIn=60,
-        )
 
         return HttpResponseRedirect(redirect_to=presigned_url)
 
