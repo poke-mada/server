@@ -435,7 +435,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
                 region_name='us-east-1',
                 aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
                 aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-                config=Config(signature_version='s3v4')
+                config=Config(signature_version='s3v4', s3={"use_accelerate_endpoint": True})
             )
             presigned_url = s3.generate_presigned_url(
                 'get_object',
