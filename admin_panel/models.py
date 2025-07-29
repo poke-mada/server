@@ -28,8 +28,8 @@ class InventoryGiftQuerySequence(models.Model):
         self.save()
 
     class Meta:
-        verbose_name = 'Envío de Preset'
-        verbose_name_plural = 'Envío de Presets'
+        verbose_name = 'Envío de Preset al Buzón'
+        verbose_name_plural = 'Envío de Presets al Buzón'
 
 
 # Create your models here.
@@ -65,8 +65,8 @@ class DirectGiftQuerySequence(models.Model):
         self.save()
 
     class Meta:
-        verbose_name = 'Envío Directo'
-        verbose_name_plural = 'Envíos Directos'
+        verbose_name = 'Correccion Directa'
+        verbose_name_plural = 'Correcciones Directas'
 
 
 # Create your models here.
