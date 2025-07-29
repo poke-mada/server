@@ -442,7 +442,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
                 Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': s3_path_cache},
                 ExpiresIn=60,
             )
-            cache.set(f'cached_event_{pk}', full_s3_path, timeout=60 * 15) # Cache for 15 minutes
+            cache.set(f'cached_event_{pk}', presigned_url, timeout=60 * 15) # Cache for 15 minutes
 
         return HttpResponseRedirect(redirect_to=presigned_url)
 
