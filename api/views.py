@@ -428,6 +428,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
             s3_key = file_field.name  # Ej: "prod/media/documentos/archivo.pdf"
             ENVIRONMENT = os.getenv("DJANGO_ENV", "prod")  # "dev", "stage" o "prod"
             full_s3_path = os.path.join(ENVIRONMENT, 'dedsafio-pokemon/media', s3_key)
+            s3_path_cache = full_s3_path
             cache.set(f'cached_event_{pk}', full_s3_path, timeout=60 * 15) # Cache for 15 minutes
 
         s3 = boto3.client(
@@ -439,7 +440,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
         )
         presigned_url = s3.generate_presigned_url(
             'get_object',
-            Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': full_s3_path},
+            Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': s3_path_cache},
             ExpiresIn=60,
         )
 
