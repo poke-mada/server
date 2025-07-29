@@ -418,6 +418,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
     @action(methods=['get'], detail=True)
     def mod_file(self, request, pk=None, *args, **kwargs):
         presigned_url = cache.get(f'cached_event_{pk}')
+        STORAGE_TIMEOUT = 60 * 15
         if not presigned_url:
             event: GameEvent = GameEvent.objects.filter(GameEvent.get_available(), pk=pk).first()
             if not event:
@@ -440,9 +441,9 @@ class GameEventViewSet(viewsets.ModelViewSet):
             presigned_url = s3.generate_presigned_url(
                 'get_object',
                 Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': s3_path_cache},
-                ExpiresIn=60,
+                ExpiresIn=STORAGE_TIMEOUT,
             )
-            cache.set(f'cached_event_{pk}', presigned_url, timeout=60 * 15) # Cache for 15 minutes
+            cache.set(f'cached_event_{pk}', presigned_url, timeout=STORAGE_TIMEOUT) # Cache for 15 minutes
 
         return HttpResponseRedirect(redirect_to=presigned_url)
 
