@@ -588,12 +588,15 @@ def box_saver(boxes, trainer: Trainer):
                     DeathLog.objects.create(dex_number=dex_number, profile=profile,
                                             species_name=species_name, mote=pokemon['mote'])
                     current_segment.death_count += 1
+                    profile.death_count += 1
 
             if pokemon_serializer.is_valid(raise_exception=True):
                 pokemon = pokemon_serializer.save()
                 box_slot.pokemon = pokemon
                 box_slot.save()
+                
         current_segment.save()
+        profile.save()
 
     return False
 
