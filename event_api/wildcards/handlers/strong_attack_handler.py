@@ -1,9 +1,8 @@
 from event_api.models import MastersProfile, MastersSegmentSettings
+from event_api.wildcards import AttackHandler
 from event_api.wildcards.handlers.settings.models import GiveMoneyHandlerSettings
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from websocket.sockets import DataConsumer
-from .alert_handler import AlertHandler
-from .. import AttackHandler
 
 
 @WildCardExecutorRegistry.register("strong_attack", verbose='Strong Attack Handler')
