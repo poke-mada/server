@@ -1,11 +1,11 @@
 from event_api.models import CoinTransaction, MastersProfile
-from .alert_handler import AlertHandler
 from event_api.wildcards.handlers.settings.models import GiveMoneyHandlerSettings
 from event_api.wildcards.registry import WildCardExecutorRegistry
+from .attack_handler import AttackHandler
 
 
 @WildCardExecutorRegistry.register("steal_money", verbose='Steal Money Handler')
-class StealMoneyHandler(AlertHandler):
+class StealMoneyHandler(AttackHandler):
     admin_inline_model = GiveMoneyHandlerSettings  # a model with extra config
 
     def execute(self, context):
