@@ -390,7 +390,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         boxed_mons = TrainerBox.objects.filter(trainer=profile.trainer).values_list('slots__pokemon__pokemon__dex_number', flat=True)
         releasable_mons = TrainerPokemon.objects.exclude(
             Q(pokemon__dex_number__in=banned_mons) | Q(pokemon__dex_number__in=[658, profile.starter_dex_number]) | Q(pokemon__dex_number__in=death_mons)
-        ).filter(Q(team__trainer=profile.trainer) | Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False, trainerboxslot__box__trainer=profile.trainer))
+        ).filter(Q(team__trainer=profile.trainer) | Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False, trainerboxslot__box__trainer=profile.trainer)).filter(is_shiny=False)
         serialized = ReleasableSerializer(releasable_mons, many=True)
 
         return Response(serialized.data, status=status.HTTP_200_OK)
