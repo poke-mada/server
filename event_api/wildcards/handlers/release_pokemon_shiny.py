@@ -5,8 +5,8 @@ from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 from pokemon_api.models import Pokemon
 
 
-@WildCardExecutorRegistry.register("release_pokemon", verbose='Venta Ilegal Handler')
-class ReleasePokemonHandler(BaseWildCardHandler):
+@WildCardExecutorRegistry.register("release_shiny", verbose='Venta Ilegal Handler')
+class ReleasePokemonShinyHandler(BaseWildCardHandler):
     admin_inline_model = GiveMoneyHandlerSettings  # a model with extra config
 
     def execute(self, context):
@@ -14,7 +14,8 @@ class ReleasePokemonHandler(BaseWildCardHandler):
         if not dex_number:
             return False
 
-        last_death = DeathLog.objects.filter(dex_number=dex_number, profile=self.user.masters_profile, revived=False).first()
+        last_death = DeathLog.objects.filter(dex_number=dex_number, profile=self.user.masters_profile,
+                                             revived=False).first()
         if last_death:
             return False
 
@@ -27,7 +28,8 @@ class ReleasePokemonHandler(BaseWildCardHandler):
             return False
 
         species_name = Pokemon.objects.filter(dex_number=dex_number).first().name
-        BannedPokemon.objects.create(dex_number=dex_number, profile=self.user.masters_profile, species_name=species_name, reason='El pokemon se liberó con Venta Ilegal')
+        BannedPokemon.objects.create(dex_number=dex_number, profile=self.user.masters_profile,
+                                     species_name=species_name, reason='El pokemon se liberó con Venta Ilegal')
 
         money_quantity = self.wildcard.give_money_settings.quantity - current_tramo.shinies_freed
         current_tramo.shinies_freed += 1
