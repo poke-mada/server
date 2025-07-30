@@ -264,56 +264,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = ListedBoxSerializer(trainer.boxes.all().order_by('box_number'), many=True, read_only=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(methods=['get'], detail=False)
-    def reload_teams(self, request, *args, **kwargs):
-        trainers = self.queryset
-        for trainer in trainers:
-            last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
-            file_obj = last_save.file.file
-            save_data = file_obj.read()
-            save_results = data_reader(save_data)
-            team_saver(save_results.get('team'), trainer)
-
-        return Response([], status=status.HTTP_200_OK)
-
-    @action(methods=['get'], detail=True)
-    def reload_team_by_trainer(self, request, *args, **kwargs):
-        trainer = self.get_object()
-        last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
-        file_obj = last_save.file.file
-        save_data = file_obj.read()
-        save_results = data_reader(save_data)
-        team_saver(save_results.get('team'), trainer)
-
-        return Response(data=dict(detail=f'Reloaded {trainer.name}\'s team'), status=status.HTTP_200_OK)
-
-    @action(methods=['get'], detail=False)
-    def reload_boxes(self, request, *args, **kwargs):
-        trainers = self.get_queryset()
-        total_trainers = trainers.count()
-        for index, trainer in enumerate(trainers):
-            print(f'{index + 1}/{total_trainers} - {trainer.name} @ {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
-            last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
-            file_obj = last_save.file.file
-            save_data = file_obj.read()
-            save_results = data_reader(save_data)
-            box_saver(save_results.get('boxes'), trainer)
-
-        return Response(data=dict(detail=f'Reloaded {total_trainers} trainer\'s boxes'), status=status.HTTP_200_OK)
-
-    @action(methods=['get'], detail=True)
-    def reload_by_trainer_boxes(self, request, *args, **kwargs):
-        trainer = self.get_object()
-        last_save: SaveFile = trainer.saves.all().order_by('created_on').last()
-        file_obj = last_save.file.file
-        save_data = file_obj.read()
-        save_results = data_reader(save_data)
-        box_saver(save_results.get('boxes'), trainer)
-
-        return Response(data=dict(
-            detail=f'Reloaded {trainer.name} boxes'
-        ), status=status.HTTP_200_OK)
-
     @action(methods=['get'], detail=True)
     def box(self, request, pk=None, *args, **kwargs):
         if pk == 'undefined' or pk == 0 or pk == '0':
@@ -329,7 +279,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def last_save(self, request, *args, **kwargs):
         trainer: Trainer = Trainer.get_from_user(request.user)
         last_save = trainer.saves.order_by('created_on').last()
-        print(trainer)
         return HttpResponse(last_save.file.read())
 
     def retrieve(self, request, pk=None, *args, **kwargs):
@@ -559,8 +508,8 @@ def team_saver(team, trainer: Trainer):
     return False
 
 
-def box_saver(boxes, trainer: Trainer):
-    profile: MastersProfile = trainer.get_trainer_profile()
+def box_saver(boxes, profile: MastersProfile):
+    trainer = profile.trainer
     current_segment = profile.current_segment_settings
     TrainerBox.objects.filter(trainer=trainer).delete()
     boxes_hash = dict()
@@ -594,7 +543,7 @@ def box_saver(boxes, trainer: Trainer):
                 pokemon = pokemon_serializer.save()
                 box_slot.pokemon = pokemon
                 box_slot.save()
-                
+
         current_segment.save()
         profile.save()
 
@@ -651,7 +600,7 @@ class FileUploadView(APIView):
                 segment = 4
             trainer.save()
             team_saver(save_results.get('team'), trainer)
-            box_saver(save_results.get('boxes'), trainer)
+            box_saver(save_results.get('boxes'), profile)
             MastersSegmentSettings.objects.get_or_create(profile=profile, segment=segment)
             OverlayConsumer.send_overlay_data(profile.streamer_name)
         else:
@@ -683,7 +632,7 @@ class FileUploadManyView(APIView):
                 file_serializer.save()
                 save_results = data_reader(save_data)
                 team_saver(save_results.get('team'), trainer)
-                box_saver(save_results.get('boxes'), trainer)
+                box_saver(save_results.get('boxes'), trainer.get_trainer_profile())
             else:
                 return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(data=dict(status='done'), status=status.HTTP_201_CREATED)
