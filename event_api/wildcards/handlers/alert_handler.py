@@ -16,6 +16,9 @@ class AlertHandler(BaseWildCardHandler):
         if target.current_segment_settings.segment > self.user.masters_profile.current_segment_settings.segment:
             return 'No puedes atacar a nadie que este en un tramo mas adelante'
 
+        if target.in_pokemon_league:
+            return 'No puedes atacar a alguien que haya empezado la liga pokemon'
+
         return True
 
     def execute(self, context):
