@@ -551,7 +551,7 @@ class GameEvent(models.Model):
     free_join = models.BooleanField(default=False)
     name = models.CharField(max_length=100, null=True, blank=False)
     description = models.TextField(null=True, blank=False, verbose_name="Descripcion")
-    requirements = models.TextField(null=True, blank=False, verbose_name="Descripcion")
+    requirements = models.TextField(null=True, blank=False, verbose_name="Requisitos")
 
     def __str__(self):
         return f'{self.game_mod.mod_name}'
