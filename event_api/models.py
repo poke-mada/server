@@ -473,7 +473,7 @@ class MastersSegmentSettings(models.Model):
         if not current_segment:
             return super().save(*args, **kwargs)
         # aqui siempre hay tramos anteriores, asi que hay que definirlos como no actuales
-        
+
         money_amount = clamp(15 - current_segment.death_count, 0, 15)
         if money_amount > 0:
             CoinTransaction.objects.create(

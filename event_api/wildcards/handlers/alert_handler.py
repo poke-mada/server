@@ -13,7 +13,7 @@ class AlertHandler(BaseWildCardHandler):
     def validate(self, context):
         target_id = context.get('target_id')
         target = MastersProfile.objects.get(pk=target_id)
-        if target.current_segment_settings.segment < self.user.masters_profile.current_segment_settings.segment:
+        if target.current_segment_settings.segment > self.user.masters_profile.current_segment_settings.segment:
             return 'No puedes atacar a nadie que este en un tramo mas adelante'
 
         return True
