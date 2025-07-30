@@ -72,17 +72,20 @@ class GameModSerializer(serializers.ModelSerializer):
 
 class GameEventSerializer(serializers.ModelSerializer):
     game_mod = GameModSerializer()
-    is_available = serializers.SerializerMethodField()
-
-    def get_is_available(self, obj):
-        return obj.is_available()
 
     class Meta:
         model = GameEvent
         fields = [
             'id',
-            'game_mod',
+            'name',
+            'available_date_from',
+            'available_date_to',
+            'description',
+            'requirements',
+            'free_join',
+            'can_join',
             'is_available',
+            'game_mod',
         ]
 
 

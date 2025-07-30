@@ -525,18 +525,50 @@ class LoaderThread(models.Model):
 
 
 class GameEvent(models.Model):
-    available_date_from = models.DateTimeField()
-    available_date_to = models.DateTimeField()
+
+    SEGMENT = 'Tramo'
+    INGAME = 'Juego'
+
+    COMBAT = 'Combate'
+    SPECIAL = 'Especial'
+    CAPTURE = 'Captura'
+
+    EVENT_TYPES = {
+        SEGMENT: 'Tramo',
+        INGAME: 'Juego'
+    }
+    EVENT_SUBTYPES = {
+        COMBAT: 'Combate',
+        SPECIAL: 'Especial',
+        CAPTURE: 'Captura'
+    }
+
+    type = models.CharField(max_length=100, choices=EVENT_TYPES.items(), default=INGAME, blank=True)
+    sub_type = models.CharField(max_length=100, choices=EVENT_SUBTYPES.items(), default=COMBAT, blank=True)
+    available_date_from = models.DateTimeField(verbose_name="Disponiible desde el")
+    available_date_to = models.DateTimeField(verbose_name="Disponible hasta el")
     force_available = models.BooleanField()
+    free_join = models.BooleanField(default=False)
+    name = models.CharField(max_length=100, null=True, blank=False)
+    description = models.TextField(null=True, blank=False, verbose_name="Descripcion")
+    requirements = models.TextField(null=True, blank=False, verbose_name="Descripcion")
 
     def __str__(self):
         return f'{self.game_mod.mod_name}'
 
+    @property
     def is_available(self):
         if self.force_available:
             return True
         now_time = datetime.now()
         return self.available_date_from <= now_time <= self.available_date_to
+
+    @property
+    def can_join(self):
+        if self.free_join:
+            return self.is_available
+        now_time = datetime.now()
+        return self.available_date_from > now_time
 
     @staticmethod
     def get_available():
