@@ -138,6 +138,7 @@ class WildcardAdmin(admin.ModelAdmin):
         'steal_money': [GiveMoneyHandlerSettingsInline],
         'release_pokemon': [GiveMoneyHandlerSettingsInline],
         'give_random_money': [GiveRandomMoneyHandlerSettingsInline],
+        'release_shiny': [GiveMoneyHandlerSettingsInline],
         'timer_handler': [TimerHandlerSettingsInline],
     }
     list_display = ('name', 'price', 'category', 'is_active')
