@@ -11,13 +11,6 @@ from asgiref.sync import async_to_sync
 class AlertHandler(BaseWildCardHandler):
 
     def validate(self, context):
-        target_id = context.get('target_id')
-        target = MastersProfile.objects.get(pk=target_id)
-        if target.current_segment_settings.segment > self.user.masters_profile.current_segment_settings.segment:
-            return 'No puedes atacar a nadie que este en un tramo mas adelante'
-
-        if target.in_pokemon_league:
-            return 'No puedes atacar a alguien que haya empezado la liga pokemon'
 
         return True
 

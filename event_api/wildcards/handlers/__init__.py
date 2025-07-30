@@ -10,8 +10,9 @@ from .give_random_money import GiveRandomMoneyHandler
 from .timer_handler import TimerHandler
 from .help_alert_handler import HelpAlertHandler
 from .alert_handler import AlertHandler
-from .steal_money import StealMoneyHandler
 from .attack_handler import AttackHandler
+
+from .steal_money import StealMoneyHandler
 from .strong_attack_handler import StrongAttackHandler
 from .mid_attack_handler import MidAttackHandler
 from .revive_pokemon_handler import RevivePokemonHandler
