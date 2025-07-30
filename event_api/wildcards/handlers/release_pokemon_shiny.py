@@ -5,7 +5,7 @@ from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 from pokemon_api.models import Pokemon
 
 
-@WildCardExecutorRegistry.register("release_shiny", verbose='Venta Ilegal Handler')
+@WildCardExecutorRegistry.register("release_shiny", verbose='Venta Ilegal de Lujo Handler')
 class ReleasePokemonShinyHandler(BaseWildCardHandler):
     admin_inline_model = GiveMoneyHandlerSettings  # a model with extra config
 
