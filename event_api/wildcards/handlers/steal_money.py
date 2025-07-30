@@ -9,7 +9,7 @@ class StealMoneyHandler(AlertHandler):
     admin_inline_model = GiveMoneyHandlerSettings  # a model with extra config
 
     def execute(self, context):
-        target_id = context.get('target_id')[0]
+        target_id = context.get('target_id')
         amount = context.get('amount')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
 

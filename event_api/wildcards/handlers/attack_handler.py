@@ -1,5 +1,3 @@
-
-from websocket.sockets import DataConsumer
 from .alert_handler import AlertHandler
 from ...models import MastersSegmentSettings
 
@@ -7,7 +5,7 @@ from ...models import MastersSegmentSettings
 class AttackHandler(AlertHandler):
 
     def validate(self, context):
-        from event_api.models import MastersProfile, Wildcard
+        from event_api.models import MastersProfile
         target_id = context.get('target_id')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
 
