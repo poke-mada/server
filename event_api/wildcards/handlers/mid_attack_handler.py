@@ -10,7 +10,7 @@ from websocket.sockets import DataConsumer
 class MidAttackHandler(AttackHandler):
     def validate(self, context):
         return True
-    
+
     def execute(self, context):
         target_id = context.get('target_id')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
