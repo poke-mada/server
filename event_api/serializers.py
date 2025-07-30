@@ -73,7 +73,7 @@ class GameModSerializer(serializers.ModelSerializer):
 
 class GameEventSerializer(serializers.ModelSerializer):
     game_mod = GameModSerializer()
-    rewards = RewardSerializer(source='reward_bundle.rewards', many=True)
+    rewards = RewardSerializer(many=True)
 
     class Meta:
         model = GameEvent

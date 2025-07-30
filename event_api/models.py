@@ -553,10 +553,16 @@ class GameEvent(models.Model):
     name = models.CharField(max_length=100, null=True, blank=False)
     description = models.TextField(null=True, blank=False, verbose_name="Descripcion")
     requirements = models.TextField(null=True, blank=False, verbose_name="Requisitos")
-    reward_bundle = models.ForeignKey(RewardBundle, on_delete=models.PROTECT, null=True)
+    reward_bundle = models.ForeignKey(RewardBundle, on_delete=models.PROTECT, null=True, verbose_name="Preset de recompensa")
+    text_reward = models.TextField(null=True, blank=True, verbose_name="Recompensa especial")
 
     def __str__(self):
         return f'{self.game_mod.mod_name}'
+
+    def rewards(self):
+        if not self.reward_bundle:
+            return []
+        return self.reward_bundle.rewards
 
     @property
     def is_available(self):
