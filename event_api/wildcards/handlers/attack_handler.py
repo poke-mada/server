@@ -1,5 +1,5 @@
-from event_api.wildcards import AlertHandler
 from websocket.sockets import DataConsumer
+from .alert_handler import AlertHandler
 
 
 class AttackHandler(AlertHandler):
@@ -9,7 +9,8 @@ class AttackHandler(AlertHandler):
         target_id = context.get('target_id')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         if target_profile.has_shield():
-            shields = target_profile.wildcard_inventory.get(wildcard=Wildcard.objects.filter(handler_key='escudo_protector').first())
+            shields = target_profile.wildcard_inventory.get(
+                wildcard=Wildcard.objects.filter(handler_key='escudo_protector').first())
             shields.quantity -= 1
             shields.save()
             data = dict(
@@ -29,6 +30,7 @@ class AttackHandler(AlertHandler):
         return super().validate(context)
 
     def execute(self, context):
+        from websocket.sockets import DataConsumer
         from event_api.models import MastersProfile, MastersSegmentSettings
         target_id = context.get('target_id')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)

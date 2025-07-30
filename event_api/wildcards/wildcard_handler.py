@@ -12,6 +12,5 @@ class BaseWildCardHandler(ABC):
     def validate(self, context):
         return True
 
-    @abstractmethod
     def execute(self, context):
-        pass
+        return True

@@ -41,13 +41,13 @@ INSTALLED_APPS = [
     'admin_panel',
     'corsheaders',
     'channels',
+    'websocket',
     'event_api',
     'pokemon_api',
     'trainer_data',
     'rewards_api',
     'market',
     'api',
-    'websocket',
     'storages'
 ]
 

@@ -1,14 +1,11 @@
 from event_api.models import MastersProfile, MastersSegmentSettings
-from event_api.wildcards import AttackHandler
-from event_api.wildcards.handlers.settings.models import GiveMoneyHandlerSettings
+from .attack_handler import AttackHandler
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from websocket.sockets import DataConsumer
 
 
 @WildCardExecutorRegistry.register("mid_attack", verbose='Mid Attack Handler')
 class MidAttackHandler(AttackHandler):
-    admin_inline_model = GiveMoneyHandlerSettings  # a model with extra config
-
     def execute(self, context):
         target_id = context.get('target_id')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)

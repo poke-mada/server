@@ -3,17 +3,13 @@ from event_api.models import MastersProfile, Newsletter
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 from channels.layers import get_channel_layer
-
 from websocket.sockets import DataConsumer
+from asgiref.sync import async_to_sync
 
 
 @WildCardExecutorRegistry.register("alert_handler", verbose='Alert Handler')
 class AlertHandler(BaseWildCardHandler):
-    def validate(self, context):
-        return
-
     def execute(self, context):
-        from asgiref.sync import async_to_sync
         channel_layer = get_channel_layer()
         target_id = context.get('target_id')
 
@@ -27,8 +23,6 @@ class AlertHandler(BaseWildCardHandler):
             ),
             target_name=target_name
         )
-
-        # TODO: FALTA AGREGAR ESCUDO PROTECTOR
 
         for chat in MastersProfile.objects.all().values_list('streamer_name', flat=True):
             # noinspection PyArgumentList
