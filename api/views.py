@@ -599,6 +599,8 @@ class FileUploadView(APIView):
             if trainer.gym_badge_7 and profile.already_won_lysson:
                 segment = 4
             trainer.save()
+            if not profile.current_segment_settings:
+                MastersSegmentSettings.objects.get_or_create(profile=profile, segment=segment)
             team_saver(save_results.get('team'), trainer)
             box_saver(save_results.get('boxes'), profile)
             MastersSegmentSettings.objects.get_or_create(profile=profile, segment=segment)
