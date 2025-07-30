@@ -1,4 +1,3 @@
-from event_api.models import MastersProfile, MastersSegmentSettings
 from event_api.wildcards import AttackHandler
 from event_api.wildcards.handlers.settings.models import GiveMoneyHandlerSettings
 from event_api.wildcards.registry import WildCardExecutorRegistry
@@ -10,6 +9,7 @@ class StrongAttackHandler(AttackHandler):
     admin_inline_model = GiveMoneyHandlerSettings  # a model with extra config
 
     def validate(self, context):
+        from event_api.models import MastersProfile, MastersSegmentSettings
         target_id = context.get('target_id')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         target_current_segment: MastersSegmentSettings = target_profile.current_segment_settings
@@ -19,6 +19,7 @@ class StrongAttackHandler(AttackHandler):
         return super().validate(context)
 
     def execute(self, context):
+        from event_api.models import MastersProfile, MastersSegmentSettings
         target_id = context.get('target_id')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         target_current_segment: MastersSegmentSettings = target_profile.current_segment_settings
