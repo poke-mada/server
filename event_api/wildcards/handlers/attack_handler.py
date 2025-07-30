@@ -1,6 +1,3 @@
-from event_api.models import MastersProfile, MastersSegmentSettings, Wildcard
-from event_api.wildcards.handlers.settings.models import GiveMoneyHandlerSettings
-from event_api.wildcards.registry import WildCardExecutorRegistry
 from websocket.sockets import DataConsumer
 from .alert_handler import AlertHandler
 
@@ -8,6 +5,7 @@ from .alert_handler import AlertHandler
 class AttackHandler(AlertHandler):
 
     def validate(self, context):
+        from event_api.models import MastersProfile, Wildcard
         target_id = context.get('target_id')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         if target_profile.has_shield():
@@ -31,6 +29,7 @@ class AttackHandler(AlertHandler):
         return super().validate(context)
 
     def execute(self, context):
+        from event_api.models import MastersProfile, MastersSegmentSettings
         target_id = context.get('target_id')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         target_current_segment: MastersSegmentSettings = target_profile.current_segment_settings
