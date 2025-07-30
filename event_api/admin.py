@@ -138,6 +138,12 @@ class WildcardStaff(admin.ModelAdmin):
     list_filter = ('category', 'is_active')
     actions = [disable_wildcards, enable_wildcards]
 
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 @admin.register(Wildcard)
 class WildcardAdmin(admin.ModelAdmin):
