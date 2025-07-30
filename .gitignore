@@ -1,5 +1,6 @@
 staticfiles
 media
+saves
 pokemada/settings.py
 pokemada/local_settings.py
 db.sqlite3
