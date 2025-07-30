@@ -1,5 +1,5 @@
+from event_api.wildcards import AlertHandler
 from websocket.sockets import DataConsumer
-from .alert_handler import AlertHandler
 
 
 class AttackHandler(AlertHandler):
