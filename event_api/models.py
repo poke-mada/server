@@ -6,6 +6,7 @@ from django.db import models
 from django.db.models import Q, Sum
 from django.utils.safestring import mark_safe
 
+from pokemon_api.models import Pokemon
 from pokemon_api.scripting.save_reader import clamp
 from trainer_data.models import Trainer, TrainerPokemon, TrainerBox
 from websocket.sockets import DataConsumer
@@ -313,12 +314,72 @@ class MastersProfile(models.Model):
     def get_last_releasable_by_dex_number(self, dex_number):
 
         banned_mons = BannedPokemon.objects.filter(profile=self).values_list('dex_number', flat=True)
-        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), profile=self,revived=False).values_list('dex_number', flat=True).values_list(
-            'dex_number', flat=True)
-        boxed_mons = TrainerBox.objects.filter(trainer=self.trainer).values_list('slots__pokemon__pokemon__dex_number', flat=True)
+        death_mons = DeathLog.objects.exclude(
+            dex_number__in=banned_mons
+        ).filter(
+            profile=self,
+            revived=False
+        ).values_list('dex_number', flat=True)
+
+        boxed_mons = TrainerBox.objects.filter(
+            trainer=self.trainer
+        ).values_list('slots__pokemon__pokemon__dex_number', flat=True)
+
         last_version = TrainerPokemon.objects.exclude(
-            Q(pokemon__dex_number__in=banned_mons) | Q(pokemon__dex_number__in=[658, self.starter_dex_number]) | Q(pokemon__dex_number__in=death_mons)
-        ).filter(Q(team__trainer=self.trainer) | Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False, trainerboxslot__box__trainer=self.trainer)).last()
+            Q(pokemon__dex_number__in=banned_mons) |
+            Q(pokemon__dex_number__in=[658, self.starter_dex_number]) |
+            Q(pokemon__dex_number__in=death_mons)
+        ).filter(
+            Q(team__trainer=self.trainer) |
+            Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False, trainerboxslot__box__trainer=self.trainer)
+        ).filter(pokemon__dex_number=dex_number).last()
+
+        return last_version
+
+    def get_last_pokemon_by_dex_number(self, dex_number):
+
+        boxed_mons = TrainerBox.objects.filter(
+            trainer=self.trainer
+        ).values_list('slots__pokemon__pokemon__dex_number', flat=True)
+
+        last_version = TrainerPokemon.objects.filter(
+            Q(team__trainer=self.trainer) |
+            Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False, trainerboxslot__box__trainer=self.trainer),
+            pokemon__dex_number=dex_number
+        ).last()
+
+        return last_version
+
+    def get_last_stealable_by_dex_number(self, profile, dex_number):
+        robbed_banned_mons = BannedPokemon.objects.filter(profile=self).values_list('dex_number', flat=True)
+        robber_banned_mons = BannedPokemon.objects.filter(profile=profile).values_list('dex_number', flat=True)
+        robber_already_captured = []
+
+        robbed_death_mons = DeathLog.objects.exclude(
+            dex_number__in=robbed_banned_mons
+        ).filter(
+            profile=self, revived=False
+        ).values_list('dex_number', flat=True)
+
+        robber_death_mons = DeathLog.objects.exclude(
+            dex_number__in=robbed_banned_mons
+        ).filter(
+            profile=self, revived=False
+        ).values_list('dex_number', flat=True)
+
+        boxed_mons = TrainerBox.objects.filter(trainer=self.trainer).values_list('slots__pokemon__pokemon__dex_number', flat=True)
+
+        last_version = TrainerPokemon.objects.exclude(
+            Q(pokemon__dex_number__in=robbed_banned_mons) |
+            Q(pokemon__dex_number__in=[658, self.starter_dex_number]) |
+            Q(pokemon__dex_number__in=robbed_death_mons) |
+            Q(pokemon__dex_number__in=robber_death_mons) |
+            Q(pokemon__dex_number__in=robber_banned_mons) |
+            Q(pokemon__dex_number__in=robber_already_captured)
+        ).filter(
+            Q(team__trainer=self.trainer) |
+            Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False, trainerboxslot__box__trainer=self.trainer)
+        ).filter(pokemon__dex_number=dex_number).last()
 
         return last_version
 
@@ -401,21 +462,54 @@ class MastersSegmentSettings(models.Model):
 
     team = models.CharField
 
-    # TODO: al final de tramo se borran escudo protector y reversa y todos los ofensivos medios y fuertes
-    # TODO: escudo a seleccion, no automatico
-    # TODO: 15 monedas -muertes de tramo
-
     def __str__(self):
         return f'Tramo {self.segment}'
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            current_segment = self.profile.segments_settings.filter(is_current=True).first()
-            if current_segment:
-                self.tournament_league = current_segment.tournament_league
+        if self.pk:
+            return super().save(*args, **kwargs)
+        # a partir de aqui solo es tramo nuevo
+        current_segment: "MastersSegmentSettings" = self.profile.segments_settings.filter(is_current=True).first()  # busca el tramo actual antes de crear el nuevo
 
-            self.profile.segments_settings.update(is_current=False)
-        super().save(*args, **kwargs)
+        money_amount = clamp(15 - current_segment.death_count, 0, 15)
+        if money_amount > 0:
+            CoinTransaction.objects.create(
+                profile=self.profile,
+                TYPE=CoinTransaction.INPUT,
+                amount=money_amount,
+                reason=f'Se han dado {money_amount} monedas por terminar el tramo con {current_segment.death_count} muertes'
+            )
+
+        self.profile.wildcard_inventory.filter(
+            wildcard__category__in=[Wildcard.PROTECT, Wildcard.OFFENSIVE]
+        ).exclude(
+            wildcard__category=Wildcard.OFFENSIVE,
+            wildcard__attack_level=Wildcard.LOW
+        ).update(quantity=0)
+
+
+        if not current_segment:
+            return super().save(*args, **kwargs)
+        # aqui siempre hay tramos anteriores, asi que hay que definirlos como no actuales
+
+        self.tournament_league = current_segment.tournament_league
+        self.profile.segments_settings.update(is_current=False)
+
+        if self.profile.get_last_pokemon_by_dex_number(self.community_pokemon_id):
+            # si el pokemon de la comunidad fue capturado, lo demas da igual
+            return super().save(*args, **kwargs)
+
+        # Busca toda la rama evolutiva y la banea
+        pokemons = Pokemon.objects.filter(dex_number=self.community_pokemon_id).surrogate()
+        for pokemon in pokemons:
+            BannedPokemon.objects.create(
+                profile=self.profile,
+                dex_number=self.community_pokemon_id,
+                species_name=pokemon.name,
+                reason=f'Pokemon de la comunidad sin capturar'
+            )
+
+        return super().save(*args, **kwargs)
 
     @property
     def community_pokemon_sprite(self):

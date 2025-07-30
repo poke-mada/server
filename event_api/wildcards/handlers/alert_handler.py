@@ -9,6 +9,15 @@ from asgiref.sync import async_to_sync
 
 @WildCardExecutorRegistry.register("alert_handler", verbose='Alert Handler')
 class AlertHandler(BaseWildCardHandler):
+
+    def validate(self, context):
+        target_id = context.get('target_id')
+        target = MastersProfile.objects.get(pk=target_id)
+        if target.current_segment_settings.segment < self.user.masters_profile.current_segment_settings.segment:
+            return 'No puedes atacar a nadie que este en un tramo mas adelante'
+
+        return True
+
     def execute(self, context):
         channel_layer = get_channel_layer()
         target_id = context.get('target_id')

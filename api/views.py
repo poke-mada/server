@@ -560,6 +560,8 @@ def team_saver(team, trainer: Trainer):
 
 
 def box_saver(boxes, trainer: Trainer):
+    profile: MastersProfile = trainer.get_trainer_profile()
+    current_segment = profile.current_segment_settings
     TrainerBox.objects.filter(trainer=trainer).delete()
     boxes_hash = dict()
     for box_num in range(7):
@@ -579,17 +581,19 @@ def box_saver(boxes, trainer: Trainer):
             dex_number = pokemon['dex_number']
             pokemon_serializer = TrainerPokemonSerializer(data=pokemon)
             if pokemon['is_death']:
-                last_death = DeathLog.objects.filter(dex_number=dex_number, profile=trainer.get_trainer_profile(),
+                last_death = DeathLog.objects.filter(dex_number=dex_number, profile=profile,
                                                      revived=False).first()
                 if not last_death:
                     species_name = Pokemon.objects.filter(dex_number=dex_number).first().name
-                    DeathLog.objects.create(dex_number=dex_number, profile=trainer.get_trainer_profile(),
+                    DeathLog.objects.create(dex_number=dex_number, profile=profile,
                                             species_name=species_name, mote=pokemon['mote'])
+                    current_segment.death_count += 1
 
             if pokemon_serializer.is_valid(raise_exception=True):
                 pokemon = pokemon_serializer.save()
                 box_slot.pokemon = pokemon
                 box_slot.save()
+        current_segment.save()
 
     return False
 
@@ -642,10 +646,10 @@ class FileUploadView(APIView):
                 segment = 3
             if trainer.gym_badge_7 and profile.already_won_lysson:
                 segment = 4
-            MastersSegmentSettings.objects.get_or_create(profile=profile, segment=segment)
             trainer.save()
             team_saver(save_results.get('team'), trainer)
             box_saver(save_results.get('boxes'), trainer)
+            MastersSegmentSettings.objects.get_or_create(profile=profile, segment=segment)
             OverlayConsumer.send_overlay_data(profile.streamer_name)
         else:
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

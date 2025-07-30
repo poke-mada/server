@@ -158,6 +158,21 @@ class Pokemon(models.Model):
     def __str__(self):
         return self.name
 
+    def surrogate(self):
+        #TODO: devuelve todo el arbol evolutivo
+        #TODO: NO APLICA EN EEVEELUTIONS
+        # para pokemon de la comunidad
+        return [self]
+
+    def surrogate_non_horizontal(self):
+        #TODO: devuelve todo el arbol evolutivo excepto evoluciones paralelas
+        #TODO: NO APLICA EN EEVEE,
+        # para capturas
+        """"
+        si hay arbol, solo se banea hasta antes del arbol
+        """
+        return [self]
+
     class Meta:
         verbose_name_plural = 'Pokemon'
         constraints = (

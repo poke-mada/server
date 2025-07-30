@@ -14,4 +14,8 @@ class StealPokemonHandler(StrongAttackHandler):
         target_id = context.get('target_id')
         dex_number = context.get('dex_number')
 
+        target_profile = MastersProfile.objects.get(id=target_id)
+        target_pokemon = target_profile.get_last_releasable_by_dex_number(dex_number)
+
+
         return super().execute(context)
