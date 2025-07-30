@@ -134,7 +134,7 @@ class ImposterLogAdmin(admin.ModelAdmin):
 class WildcardStaff(admin.ModelAdmin):
     list_display = ('name', 'price', 'special_price', 'category', 'is_active')
     search_fields = ('name', 'price', 'special_price', 'category',)
-    readonly_fields = ('name', 'description', 'sprite', 'category', 'attack_level', 'handler_key', )
+    readonly_fields = ('name', 'sprite', 'category', 'attack_level', 'handler_key', )
     list_filter = ('category', 'is_active')
     actions = [disable_wildcards, enable_wildcards]
 
