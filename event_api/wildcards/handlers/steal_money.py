@@ -14,16 +14,18 @@ class StealMoneyHandler(AlertHandler):
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
 
         money_quantity = self.wildcard.give_money_settings.quantity
+        if target_profile.economy < money_quantity:
+            money_quantity = target_profile.economy
         CoinTransaction.objects.create(
             profile=target_profile,
-            amount=money_quantity * amount,
+            amount=money_quantity,
             TYPE=CoinTransaction.OUTPUT,
             reason=f'se uso la carta {self.wildcard.name} contra ti {amount} veces'
         )
 
         CoinTransaction.objects.create(
             profile=self.user.masters_profile,
-            amount=money_quantity * amount,
+            amount=money_quantity,
             TYPE=CoinTransaction.INPUT,
             reason=f'se uso la carta {self.wildcard.name} {amount} veces'
         )
