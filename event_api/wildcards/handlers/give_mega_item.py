@@ -13,9 +13,9 @@ class GiveMegaItemHandler(BaseWildCardHandler):
         item_id = context.get('item_id')
 
         if item_id not in mega_stones:
-            raise ValueError("non_mega_item")
+            return "Esta no es una megapiedra"
 
-        return True
+        return super().validate(context)
 
     def execute(self, context):
         item_id = context.get('item_id')

@@ -12,7 +12,7 @@ class GiveStrongItemHandler(BaseWildCardHandler):
         item_id = context.get('item_id')
 
         if item_id not in available_items:
-            raise ValueError("non_strong_item")
+            raise ValueError("Este no es un objeto fuerte")
 
         return True
 

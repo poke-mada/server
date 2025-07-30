@@ -136,71 +136,26 @@ class Wildcard(models.Model):
                 (user.masters_profile.economy >= self.price * amount_to_buy) or self.always_available)
 
     def can_use(self, user: User, amount, **data):
+        from event_api.wildcards.registry import get_executor
+
         profile = user.masters_profile
         inventory: StreamerWildcardInventoryItem = profile.wildcard_inventory.filter(wildcard=self).first()
-        current_segment = user.masters_profile.current_segment_settings
 
-        if self.handler_key == 'release_pokemon':
-            dex_number = data.get('dex_number')
-            if not dex_number:
-                return 'Necesitas seleccionar un pokemon a liberar'
+        if inventory and inventory.quantity < amount and not self.always_available:
+            return False
 
-            last_non_revived_death = DeathLog.objects.filter(dex_number=dex_number, profile=user.masters_profile,
-                                                             revived=False)
-            if last_non_revived_death:
-                return 'Este pokemon está muerto'
+        handler_cls = get_executor(self.handler_key)
+        if handler_cls:
+            handler = handler_cls(self, user)
+            context = {
+                'amount': amount,
+                **data
+            }
+            validation = handler.validate(context)
+            if isinstance(validation, str):
+                return validation
 
-            banned = BannedPokemon.objects.filter(dex_number=dex_number, profile=user.masters_profile)
-
-            if banned:
-                return 'Este pokemon está baneado'
-
-            boxed_mons = TrainerBox.objects.filter(trainer=profile.trainer).values_list('slots__pokemon__pokemon__dex_number', flat=True)
-            last_pokemon_version = profile.get_last_releasable_by_dex_number(dex_number)
-
-            if last_pokemon_version.is_shiny:
-                return 'El pokemon no puede ser shiny'
-
-        if self.handler_key == 'release_shiny':
-            dex_number = data.get('dex_number')
-            if not dex_number:
-                return 'Necesitas seleccionar un pokemon a liberar'
-
-            last_non_revived_death = DeathLog.objects.filter(dex_number=dex_number, profile=user.masters_profile,
-                                                             revived=False)
-            if last_non_revived_death.exists():
-                return 'Este pokemon está muerto'
-
-            banned = BannedPokemon.objects.filter(dex_number=dex_number, profile=user.masters_profile)
-
-            if banned.exists():
-                return 'Este pokemon está baneado'
-            
-            last_pokemon_version = profile.get_last_releasable_by_dex_number(dex_number)
-
-            if not last_pokemon_version.is_shiny:
-                return 'El pokemon debe ser shiny'
-
-        if self.handler_key == 'revive_pokemon':
-            dex_number = data.get('dex_number')
-            if not dex_number:
-                return 'Necesitas seleccionar un pokemon a revivir'
-
-            last_non_revived_death = DeathLog.objects.filter(dex_number=dex_number, profile=user.masters_profile,
-                                                             revived=False)
-            if not last_non_revived_death:
-                return 'Este pokemon no está muerto'
-
-            banned = BannedPokemon.objects.filter(dex_number=dex_number, profile=user.masters_profile)
-
-            if banned:
-                return 'Este pokemon está baneado'
-
-        if self.category == Wildcard.OFFENSIVE and current_segment.karma < self.karma_consumption:
-            # si es un comodin de ataque y no hay karma suficiente no puede usarse
-            return 'No tienes suficiente Karma para actuar'
-
-        return (inventory and inventory.quantity >= amount) or self.always_available
+        return True
 
     def buy(self, user: User, amount: int, force_buy=False):
         if not self.is_active:
@@ -237,23 +192,17 @@ class Wildcard(models.Model):
             streamer = user.masters_profile
             handler_cls = get_executor(self.handler_key)
 
-            if handler_cls:
-                handler = handler_cls(self, user)
-                context = {
-                    'amount': amount,
-                    **kwargs
-                }
-                handler.validate(context)
-                result = handler.execute(context)
-                WildcardLog.objects.create(wildcard=self, profile=profile,
-                                           details=f'{amount} carta/s {self.name} usada')
-                if result == 'cannot_attack':
-                    return result
-            else:
-                # fallback default (log-only)
-                result = True
-                WildcardLog.objects.create(wildcard=self, profile=profile,
-                                           details=f'{amount} wildcard(s) {self.name} used')
+            if not handler_cls:
+                return 'El comodin no ha sido configurado'
+            handler = handler_cls(self, user)
+            context = {
+                'amount': amount,
+                **kwargs
+            }
+            result = handler.execute(context)
+            WildcardLog.objects.create(wildcard=self, profile=profile,
+                                       details=f'{amount} carta/s {self.name} usada')
+
             if not self.always_available:
                 inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
                 inventory.quantity -= amount
@@ -383,6 +332,12 @@ class MastersProfile(models.Model):
 
     def last_save_download(self):
         return mark_safe('<a href="{0}" download>Download {1} Save</a>'.format(self.last_save, self.trainer.name))
+
+    def has_wildcard(self, wildcard: "Wildcard") -> bool:
+        return self.wildcard_inventory.filter(wildcard=wildcard).exists()
+
+    def has_shield(self) -> bool:
+        return self.wildcard_inventory.filter(wildcard__handler_key='escudo_protector').exists()
 
     @property
     def economy(self):

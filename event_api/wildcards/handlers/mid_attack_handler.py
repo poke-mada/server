@@ -1,36 +1,25 @@
 from event_api.models import MastersProfile, MastersSegmentSettings
+from event_api.wildcards import AttackHandler
 from event_api.wildcards.handlers.settings.models import GiveMoneyHandlerSettings
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from websocket.sockets import DataConsumer
-from .alert_handler import AlertHandler
 
 
 @WildCardExecutorRegistry.register("mid_attack", verbose='Mid Attack Handler')
-class MidAttackHandler(AlertHandler):
+class MidAttackHandler(AttackHandler):
     admin_inline_model = GiveMoneyHandlerSettings  # a model with extra config
 
     def execute(self, context):
         target_id = context.get('target_id')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         target_current_segment: MastersSegmentSettings = target_profile.current_segment_settings
-        source_current_segment = self.user.masters_profile.current_segment_settings
 
         target_current_segment.karma += 0.5
         target_current_segment.steal_karma += 0.5
         target_current_segment.attacks_received_left -= 0.5
         target_current_segment.save()
 
-        # TODO: FALTA AGREGAR ESCUDO PROTECTOR
-
-        source_current_segment.karma -= self.wildcard.karma_consumption
-        source_current_segment.save()
-
-        DataConsumer.send_custom_data(self.user.masters_profile.streamer_name, dict(
-            type='karma',
-            data=str(source_current_segment.karma)
-        ))
-
-        DataConsumer.send_custom_data(target_profile.streamer_name, dict(
+        DataConsumer.send_custom_data(target_profile.user.username, dict(
             type='karma',
             data=str(target_current_segment.karma)
         ))

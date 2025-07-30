@@ -9,18 +9,30 @@ from pokemon_api.models import Pokemon
 class ReleasePokemonHandler(BaseWildCardHandler):
     admin_inline_model = GiveMoneyHandlerSettings  # a model with extra config
 
-    def execute(self, context):
+    def validate(self, context):
+        profile = self.user.masters_profile
         dex_number = context.get('dex_number')
         if not dex_number:
-            return False
+            return 'Necesitas seleccionar un pokemon a liberar'
 
-        last_death = DeathLog.objects.filter(dex_number=dex_number, profile=self.user.masters_profile, revived=False).first()
-        if last_death:
-            return False
+        last_non_revived_death = DeathLog.objects.filter(dex_number=dex_number, profile=profile,
+                                                         revived=False)
+        if last_non_revived_death:
+            return 'Este pokemon está muerto'
 
-        banned_mon = BannedPokemon.objects.filter(dex_number=dex_number, profile=self.user.masters_profile).first()
-        if banned_mon:
-            return False
+        banned = BannedPokemon.objects.filter(dex_number=dex_number, profile=profile)
+
+        if banned:
+            return 'Este pokemon está baneado'
+
+        last_pokemon_version = profile.get_last_releasable_by_dex_number(dex_number)
+
+        if last_pokemon_version.is_shiny:
+            return 'El pokemon no puede ser shiny'
+        return super().validate(context)
+
+    def execute(self, context):
+        dex_number = context.get('dex_number')
 
         species_name = Pokemon.objects.filter(dex_number=dex_number).first().name
         BannedPokemon.objects.create(dex_number=dex_number, profile=self.user.masters_profile, species_name=species_name, reason='El pokemon se liberó con Venta Ilegal')

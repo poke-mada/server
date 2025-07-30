@@ -12,9 +12,6 @@ from websocket.sockets import DataConsumer
 class TimerHandler(BaseWildCardHandler):
     admin_inline_model = TimerHandlerSettings  # a model with extra config
 
-    def validate(self, context):
-        return
-
     def execute(self, context):
         DataConsumer.send_custom_data(self.user.masters_profile.streamer_name, dict(
             type='start_timer_notification',

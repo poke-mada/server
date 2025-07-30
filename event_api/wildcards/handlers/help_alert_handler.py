@@ -24,7 +24,7 @@ class HelpAlertHandler(BaseWildCardHandler):
             target_name=target_name
         )
 
-        DataConsumer.send_custom_data(target_name, dict(
+        DataConsumer.send_custom_data(self.user.username, dict(
             type='help_notification',
             data=data
         ))

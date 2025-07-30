@@ -12,7 +12,7 @@ class GiveWeakItemHandler(BaseWildCardHandler):
         item_id = context.get('item_id')
 
         if item_id not in available_items:
-            raise ValueError("non_weak_item")
+            raise ValueError("ESte objeto no es debil")
 
         return True
 

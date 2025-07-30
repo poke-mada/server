@@ -10,7 +10,7 @@ class BaseWildCardHandler(ABC):
         self.user = user
 
     def validate(self, context):
-        pass
+        return True
 
     @abstractmethod
     def execute(self, context):
