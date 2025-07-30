@@ -12,6 +12,6 @@ class AttackHandler(AlertHandler):
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
 
         target_current_segment: MastersSegmentSettings = target_profile.current_segment_settings
-        if target_current_segment.attacks_received_left < self.wildcard.karma_consumption or target_current_segment.attacks_received_right <= 0:
+        if target_current_segment.attacks_received_left < self.wildcard.karma_consumption or target_current_segment.attacks_received_left <= 0:
             return 'Ya no puedes atacar a este objetivo'
         return True
