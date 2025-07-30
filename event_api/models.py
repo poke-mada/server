@@ -470,7 +470,10 @@ class MastersSegmentSettings(models.Model):
             return super().save(*args, **kwargs)
         # a partir de aqui solo es tramo nuevo
         current_segment: "MastersSegmentSettings" = self.profile.segments_settings.filter(is_current=True).first()  # busca el tramo actual antes de crear el nuevo
-
+        if not current_segment:
+            return super().save(*args, **kwargs)
+        # aqui siempre hay tramos anteriores, asi que hay que definirlos como no actuales
+        
         money_amount = clamp(15 - current_segment.death_count, 0, 15)
         if money_amount > 0:
             CoinTransaction.objects.create(
@@ -487,10 +490,6 @@ class MastersSegmentSettings(models.Model):
             wildcard__attack_level=Wildcard.LOW
         ).update(quantity=0)
 
-
-        if not current_segment:
-            return super().save(*args, **kwargs)
-        # aqui siempre hay tramos anteriores, asi que hay que definirlos como no actuales
 
         self.tournament_league = current_segment.tournament_league
         self.profile.segments_settings.update(is_current=False)
