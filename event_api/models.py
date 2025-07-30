@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -545,7 +545,7 @@ class GameEvent(models.Model):
 
     type = models.CharField(max_length=100, choices=EVENT_TYPES.items(), default=INGAME, blank=True)
     sub_type = models.CharField(max_length=100, choices=EVENT_SUBTYPES.items(), default=COMBAT, blank=True)
-    available_date_from = models.DateTimeField(verbose_name="Disponiible desde el")
+    available_date_from = models.DateTimeField(verbose_name="Disponible desde el")
     available_date_to = models.DateTimeField(verbose_name="Disponible hasta el")
     force_available = models.BooleanField()
     free_join = models.BooleanField(default=False)
@@ -560,15 +560,15 @@ class GameEvent(models.Model):
     def is_available(self):
         if self.force_available:
             return True
-        now_time = datetime.now()
-        return self.available_date_from <= now_time <= self.available_date_to
+        now_time = datetime.now(timezone.utc)
+        return self.available_date_from.astimezone(timezone.utc) <= now_time <= self.available_date_to.astimezone(timezone.utc)
 
     @property
     def can_join(self):
         if self.free_join:
             return self.is_available
-        now_time = datetime.now()
-        return self.available_date_from > now_time
+        now_time = datetime.now(timezone.utc)
+        return now_time < self.available_date_from.astimezone(timezone.utc)
 
     @staticmethod
     def get_available():
