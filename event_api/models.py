@@ -337,7 +337,7 @@ class MastersProfile(models.Model):
         return self.wildcard_inventory.filter(wildcard=wildcard).exists()
 
     def has_shield(self) -> bool:
-        return self.wildcard_inventory.filter(wildcard__handler_key='escudo_protector').exists()
+        return self.wildcard_inventory.filter(wildcard__handler_key='escudo_protector', quantity__gte=1).exists()
 
     @property
     def economy(self):
