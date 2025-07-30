@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from event_api.models import MastersProfile, MastersSegmentSettings
 from .attack_handler import AttackHandler
 from event_api.wildcards.registry import WildCardExecutorRegistry
@@ -11,9 +13,9 @@ class MidAttackHandler(AttackHandler):
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         target_current_segment: MastersSegmentSettings = target_profile.current_segment_settings
 
-        target_current_segment.karma += 0.5
-        target_current_segment.steal_karma += 0.5
-        target_current_segment.attacks_received_left -= 0.5
+        target_current_segment.karma += Decimal(0.5)
+        target_current_segment.steal_karma += Decimal(0.5)
+        target_current_segment.attacks_received_left -= Decimal(0.5)
         target_current_segment.save()
 
         DataConsumer.send_custom_data(target_profile.user.username, dict(
