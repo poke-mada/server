@@ -65,6 +65,7 @@ class TrainerPokemon(models.Model):
     form = models.CharField(max_length=50, default='0', null=True, blank=True)
     moves = models.ManyToManyField(Move, blank=True)
     types = models.ManyToManyField(Type, blank=True)
+    is_shiny = models.BooleanField(default=False)
     held_item = models.ForeignKey(Item, on_delete=models.PROTECT)
     ability = models.ForeignKey(PokemonAbility, on_delete=models.PROTECT, related_name='pokemons')
     mega_ability = models.ForeignKey(PokemonAbility, on_delete=models.SET_NULL, null=True, blank=True,

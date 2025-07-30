@@ -108,6 +108,12 @@ class PokemonBytes:
         decrypted_data = decrypt_data(encrypted_data) + bytes([1] * len_needed)
         self.raw_data = decrypted_data
 
+    def is_shiny(self, tid, sid, pid):
+        pid_high = (pid >> 16) & 0xFFFF
+        pid_low = pid & 0xFFFF
+        shiny_value = ((tid ^ sid) ^ (pid_high ^ pid_low)) >> 4
+        return shiny_value < 16
+
     def get_suffix(self):
         form = self.form
         match self.dex_number:
@@ -398,6 +404,9 @@ class PokemonBytes:
         mote = struct.unpack("HHHHHHHHHHHHH", self.raw_data[64:90])
         self.mote = clean_nick_data(mote)
         self.suffix = self.get_suffix()
+        tid = struct.unpack("<H", self.raw_data[0x0c:0x0e])[0]
+        sid = struct.unpack("<H", self.raw_data[0x0e:0x10])[0]
+        self.shiny = self.is_shiny(tid, sid, self.pid)
         print(self.mote)
 
         def moves(self):
@@ -508,6 +517,7 @@ class PokemonBytes:
             ev_speed=self.ev_speed,
             ev_spatk=self.ev_spatk,
             ev_spdef=self.ev_spdef,
+            is_shiny=self.shiny
         )
 
     def to_trained_pokemon(self):
