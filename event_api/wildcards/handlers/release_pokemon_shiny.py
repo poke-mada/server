@@ -12,26 +12,27 @@ class ReleasePokemonShinyHandler(BaseWildCardHandler):
     def execute(self, context):
         dex_number = context.get('dex_number')
         if not dex_number:
-            return False
+            return 'No se seleccionó un pokemon'
 
         last_death = DeathLog.objects.filter(dex_number=dex_number, profile=self.user.masters_profile,
                                              revived=False).first()
         if last_death:
-            return False
+            return 'Este pokemon está muerto'
 
         banned_mon = BannedPokemon.objects.filter(dex_number=dex_number, profile=self.user.masters_profile).first()
         if banned_mon:
-            return False
+            return "Este pokemon está baneado"
         current_tramo: MastersSegmentSettings = self.user.masters_profile.current_segment_settings
 
-        if current_tramo.shinies_freed <= 0:
-            return False
+        max_shinies = self.wildcard.give_money_settings.quantity
+        if current_tramo.shinies_freed >= max_shinies:
+            return "Ya no puedes liberar mas shinies"
 
         species_name = Pokemon.objects.filter(dex_number=dex_number).first().name
         BannedPokemon.objects.create(dex_number=dex_number, profile=self.user.masters_profile,
                                      species_name=species_name, reason='El pokemon se liberó con Venta Ilegal')
 
-        money_quantity = self.wildcard.give_money_settings.quantity - current_tramo.shinies_freed
+        money_quantity = max_shinies - current_tramo.shinies_freed
         current_tramo.shinies_freed += 1
         current_tramo.save()
         CoinTransaction.objects.create(
