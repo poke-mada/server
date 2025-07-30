@@ -8,6 +8,7 @@ from django.utils.safestring import mark_safe
 
 from pokemon_api.models import Pokemon
 from pokemon_api.scripting.save_reader import clamp
+from rewards_api.models import RewardBundle
 from trainer_data.models import Trainer, TrainerPokemon, TrainerBox
 from websocket.sockets import DataConsumer
 
@@ -552,6 +553,7 @@ class GameEvent(models.Model):
     name = models.CharField(max_length=100, null=True, blank=False)
     description = models.TextField(null=True, blank=False, verbose_name="Descripcion")
     requirements = models.TextField(null=True, blank=False, verbose_name="Requisitos")
+    reward_bundle = models.ForeignKey(RewardBundle, on_delete=models.PROTECT, null=True)
 
     def __str__(self):
         return f'{self.game_mod.mod_name}'

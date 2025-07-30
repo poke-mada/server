@@ -5,6 +5,7 @@ from rest_framework import serializers
 
 from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, GameEvent, GameMod, \
     MastersProfile, DeathLog
+from rewards_api.serializers import RewardSerializer
 from trainer_data.models import Trainer, TrainerPokemon
 
 
@@ -72,6 +73,7 @@ class GameModSerializer(serializers.ModelSerializer):
 
 class GameEventSerializer(serializers.ModelSerializer):
     game_mod = GameModSerializer()
+    rewards = RewardSerializer(source='reward_bundle__rewards', many=True)
 
     class Meta:
         model = GameEvent
@@ -86,6 +88,7 @@ class GameEventSerializer(serializers.ModelSerializer):
             'can_join',
             'is_available',
             'game_mod',
+            'rewards'
         ]
 
 
