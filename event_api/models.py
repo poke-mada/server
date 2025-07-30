@@ -7,7 +7,7 @@ from django.db.models import Q, Sum
 from django.utils.safestring import mark_safe
 
 from pokemon_api.scripting.save_reader import clamp
-from trainer_data.models import Trainer
+from trainer_data.models import Trainer, TrainerPokemon, TrainerBox
 from websocket.sockets import DataConsumer
 
 
@@ -136,8 +136,8 @@ class Wildcard(models.Model):
                 (user.masters_profile.economy >= self.price * amount_to_buy) or self.always_available)
 
     def can_use(self, user: User, amount, **data):
-        streamer = user.masters_profile
-        inventory: StreamerWildcardInventoryItem = streamer.wildcard_inventory.filter(wildcard=self).first()
+        profile = user.masters_profile
+        inventory: StreamerWildcardInventoryItem = profile.wildcard_inventory.filter(wildcard=self).first()
         current_segment = user.masters_profile.current_segment_settings
 
         if self.handler_key == 'release_pokemon':
@@ -154,6 +154,32 @@ class Wildcard(models.Model):
 
             if banned:
                 return 'Este pokemon está baneado'
+
+            boxed_mons = TrainerBox.objects.filter(trainer=profile.trainer).values_list('slots__pokemon__pokemon__dex_number', flat=True)
+            last_pokemon_version = profile.get_last_releasable_by_dex_number(dex_number)
+
+            if last_pokemon_version.is_shiny:
+                return 'El pokemon no puede ser shiny'
+
+        if self.handler_key == 'release_shiny':
+            dex_number = data.get('dex_number')
+            if not dex_number:
+                return 'Necesitas seleccionar un pokemon a liberar'
+
+            last_non_revived_death = DeathLog.objects.filter(dex_number=dex_number, profile=user.masters_profile,
+                                                             revived=False)
+            if last_non_revived_death.exists():
+                return 'Este pokemon está muerto'
+
+            banned = BannedPokemon.objects.filter(dex_number=dex_number, profile=user.masters_profile)
+
+            if banned.exists():
+                return 'Este pokemon está baneado'
+            
+            last_pokemon_version = profile.get_last_releasable_by_dex_number(dex_number)
+
+            if not last_pokemon_version.is_shiny:
+                return 'El pokemon debe ser shiny'
 
         if self.handler_key == 'revive_pokemon':
             dex_number = data.get('dex_number')
@@ -334,6 +360,18 @@ class MastersProfile(models.Model):
     @property
     def last_save(self):
         return self.trainer.saves.order_by('created_on').last().file.url
+
+    def get_last_releasable_by_dex_number(self, dex_number):
+
+        banned_mons = BannedPokemon.objects.filter(profile=self).values_list('dex_number', flat=True)
+        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), profile=self,revived=False).values_list('dex_number', flat=True).values_list(
+            'dex_number', flat=True)
+        boxed_mons = TrainerBox.objects.filter(trainer=self.trainer).values_list('slots__pokemon__pokemon__dex_number', flat=True)
+        last_version = TrainerPokemon.objects.exclude(
+            Q(pokemon__dex_number__in=banned_mons) | Q(pokemon__dex_number__in=[658, self.starter_dex_number]) | Q(pokemon__dex_number__in=death_mons)
+        ).filter(Q(team__trainer=self.trainer) | Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False, trainerboxslot__box__trainer=self.trainer)).last()
+
+        return last_version
 
     @property
     def wildcard_count(self):
