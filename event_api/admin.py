@@ -34,7 +34,8 @@ def duplicate_and_ban(modeladmin, request, queryset):
         log.pk = None
         log.revived = False
         log.save()
-        BannedPokemon.objects.create(profile=log.profile, species_name=log.species_name, dex_number=log.dex_number, reason=f'Se murió dos veces')
+        BannedPokemon.objects.create(profile=log.profile, species_name=log.species_name, dex_number=log.dex_number,
+                                     reason=f'Se murió dos veces')
 
 
 # admin.py
@@ -130,6 +131,15 @@ class ImposterLogAdmin(admin.ModelAdmin):
 
 
 @admin.register(Wildcard, site=staff_site)
+class WildcardStaff(admin.ModelAdmin):
+    list_display = ('name', 'price', 'category', 'is_active')
+    search_fields = ('name', 'price', 'category',)
+    readonly_fields = ('handler_key', 'name', 'description', 'sprite', 'category', 'attack_level')
+    list_filter = ('category', 'is_active')
+    actions = [disable_wildcards, enable_wildcards]
+
+
+@admin.register(Wildcard)
 class WildcardAdmin(admin.ModelAdmin):
     inlines_map = {
         'give_item': [GiveItemHandlerSettingsInline],
