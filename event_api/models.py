@@ -1,10 +1,11 @@
-from datetime import datetime, timezone
+from datetime import datetime
 
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import Q, Sum
 from django.utils.safestring import mark_safe
+from django.utils import timezone
 
 from pokemon_api.models import Pokemon
 from pokemon_api.scripting.save_reader import clamp
@@ -585,8 +586,9 @@ class GameEvent(models.Model):
 
     @staticmethod
     def get_available():
-        now_time = datetime.now()
-        return GameEvent.objects.filter()
+        #now_time = datetime.now()
+        now_time = timezone.now()
+        return GameEvent.objects.filter(Q(force_available=True) | Q(available_date_to__lte=now_time))
 
     class Meta:
         verbose_name = "Evento del Juego"
