@@ -249,7 +249,7 @@ class GameModInline(admin.StackedInline):
 
 @admin.register(GameEvent, site=staff_site)
 class GameEventAdmin(admin.ModelAdmin):
-    list_display = ('name', 'type', 'available_date_from', 'available_date_to', 'free_join')
+    list_display = ('name', 'type', 'sub_type', 'available_date_from', 'available_date_to', 'free_join')
     list_filter = ('type', 'sub_type', 'free_join')
     inlines = [GameModInline]
 
