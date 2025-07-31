@@ -132,10 +132,10 @@ class ImposterLogAdmin(admin.ModelAdmin):
 
 @admin.register(Wildcard, site=staff_site)
 class WildcardStaff(admin.ModelAdmin):
-    list_display = ('name', 'price', 'special_price', 'category', 'is_active')
+    list_display = ('name', 'price', 'special_price', 'category', 'is_active', 'is_wip')
     search_fields = ('name', 'price', 'special_price', 'category',)
-    readonly_fields = ('name', 'sprite', 'category', 'attack_level', 'handler_key', )
-    list_filter = ('category', 'is_active')
+    readonly_fields = ('name', 'sprite', 'category', 'attack_level', 'handler_key', 'is_wip')
+    list_filter = ('category', 'is_active', 'is_wip')
     actions = [disable_wildcards, enable_wildcards]
 
     def has_add_permission(self, request):
@@ -157,9 +157,9 @@ class WildcardAdmin(admin.ModelAdmin):
         'release_shiny': [GiveMoneyHandlerSettingsInline],
         'timer_handler': [TimerHandlerSettingsInline],
     }
-    list_display = ('name', 'price', 'category', 'is_active')
+    list_display = ('name', 'price', 'category', 'is_active', 'is_wip')
     search_fields = ('name', 'price', 'category',)
-    list_filter = ('category', 'is_active')
+    list_filter = ('category', 'is_active', 'is_wip')
     actions = [disable_wildcards, enable_wildcards]
 
     def get_inline_instances(self, request, obj=None):

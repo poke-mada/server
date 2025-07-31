@@ -579,6 +579,9 @@ class GameEvent(models.Model):
 
     @property
     def can_join(self):
+        if self.type == GameEvent.SEGMENT:
+            return False
+
         if self.free_join:
             return self.is_available
 

@@ -123,6 +123,8 @@ class GameEventSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
+            'type',
+            'sub_type',
             'available_date_from',
             'available_date_to',
             'description',
