@@ -587,8 +587,6 @@ class GameEvent(models.Model):
     def get_available():
         now_time = datetime.now()
         return GameEvent.objects.filter(
-            Q(force_available=True) |
-            Q(available_date_to__lte=now_time)
         )
 
     class Meta:
