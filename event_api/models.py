@@ -581,7 +581,8 @@ class GameEvent(models.Model):
     @staticmethod
     def get_available():
         now_time = datetime.now()
-        return Q(force_available=True) | Q(available_date_from__gte=now_time.astimezone(timezone.utc), available_date_to__lte=now_time.astimezone(timezone.utc))
+        as_timezone = now_time.astimezone(timezone.utc)
+        return GameEvent.objects.filter(Q(force_available=True) | Q(available_date_from__gte=as_timezone, available_date_to__lt=as_timezone))
 
     class Meta:
         verbose_name = "Evento del Juego"

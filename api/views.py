@@ -382,10 +382,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
 
     @action(methods=['get'], detail=False)
     def list_available(self, request, *args, **kwargs):
-        now_time = datetime.now()
-        query = Q(available_date_from__gte=now_time.astimezone(timezone.utc),
-                  available_date_to__lte=now_time.astimezone(timezone.utc)) | Q(force_available=True)
-        events = GameEvent.objects.filter(query)
+        events = GameEvent.get_available()
         serialized = GameEventSerializer(events, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
