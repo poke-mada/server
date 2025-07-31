@@ -574,15 +574,18 @@ class GameEvent(models.Model):
         if self.force_available:
             return True
         now_time = timezone.now()
-        return self.available_date_from.astimezone() <= now_time <= self.available_date_to.astimezone(
-            )
+        return self.available_date_from <= now_time <= self.available_date_to
 
     @property
     def can_join(self):
         if self.free_join:
             return self.is_available
-        now_time = timezone.now()
-        return now_time < self.available_date_from.astimezone()
+
+        if self.is_available:
+            now_time = timezone.now()
+            return now_time < self.available_date_from
+        
+        return False
 
     @staticmethod
     def get_available():
