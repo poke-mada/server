@@ -382,11 +382,13 @@ class GameEventViewSet(viewsets.ModelViewSet):
 
     @action(methods=['get'], detail=False)
     def list_available(self, request, *args, **kwargs):
+        from django.utils import timezone
         events = GameEvent.get_available()
         serialized = GameEventSerializer(events, many=True)
         return Response(data=dict(
             data=serialized.data,
-            time=datetime.now()
+            datetime=datetime.now(),
+            timezone=timezone.now()
         ), status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=True)
