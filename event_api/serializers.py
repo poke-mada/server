@@ -5,6 +5,8 @@ from rest_framework import serializers
 
 from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, GameEvent, GameMod, \
     MastersProfile, DeathLog
+from pokemon_api.models import Item
+from rewards_api.models import Reward
 from rewards_api.serializers import RewardSerializer
 from trainer_data.models import Trainer, TrainerPokemon
 
@@ -71,9 +73,48 @@ class GameModSerializer(serializers.ModelSerializer):
         ]
 
 
+class WildcardDisplaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Wildcard
+        fields = ('name', 'sprite')
+
+
+class ItemDisplaySerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
+    def get_name(self, obj):
+        return obj.name_localizations.get(language='es').content
+
+    class Meta:
+        model = Item
+        fields = ('name', 'index')
+
+
+class DisplayRewardSerializer(serializers.ModelSerializer):
+    wildcard = WildcardDisplaySerializer()
+    item = ItemDisplaySerializer()
+    pokemon = serializers.SerializerMethodField()
+
+    def get_pokemon(self, obj):
+        from pokemon_api.scripting.save_reader import PokemonBytes
+        pokemon = PokemonBytes(obj.pokemon_data)
+        pokemon.get_atts()
+        return pokemon.to_dict()
+
+    class Meta:
+        model = Reward
+        fields = [
+            'reward_type',
+            'quantity',
+            'wildcard',
+            'item',
+            'pokemon'
+        ]
+
+
 class GameEventSerializer(serializers.ModelSerializer):
     game_mod = GameModSerializer()
-    rewards = RewardSerializer(many=True)
+    rewards = DisplayRewardSerializer(many=True)
 
     class Meta:
         model = GameEvent
