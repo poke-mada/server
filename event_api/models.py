@@ -588,7 +588,7 @@ class GameEvent(models.Model):
     def get_available():
         #now_time = datetime.now()
         now_time = timezone.now()
-        return GameEvent.objects.filter(Q(force_available=True) | Q(available_date_to__lte=now_time))
+        return GameEvent.objects.filter()
 
     class Meta:
         verbose_name = "Evento del Juego"
