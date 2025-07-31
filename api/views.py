@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 
 import boto3
 import requests
@@ -326,7 +326,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_revivable(self, request, *args, **kwargs):
         profile = request.user.masters_profile
         banned_mons = BannedPokemon.objects.filter(profile=profile).values_list('dex_number', flat=True)
-        death_mons = DeathLog.objects.filter(profile=profile, revived=False).exclude(Q(dex_number__in=banned_mons) | Q(dex_number=profile.starter_dex_number))
+        death_mons = DeathLog.objects.filter(profile=profile, revived=False).exclude(
+            Q(dex_number__in=banned_mons) | Q(dex_number=profile.starter_dex_number))
         serialized = DeathLogSerializer(death_mons, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
@@ -334,12 +335,17 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_releasable(self, request, *args, **kwargs):
         profile = request.user.masters_profile
         banned_mons = BannedPokemon.objects.filter(profile=profile).values_list('dex_number', flat=True)
-        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), profile=profile,revived=False).values_list('dex_number', flat=True).values_list(
+        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), profile=profile,
+                                             revived=False).values_list('dex_number', flat=True).values_list(
             'dex_number', flat=True)
-        boxed_mons = TrainerBox.objects.filter(trainer=profile.trainer).values_list('slots__pokemon__pokemon__dex_number', flat=True)
+        boxed_mons = TrainerBox.objects.filter(trainer=profile.trainer).values_list(
+            'slots__pokemon__pokemon__dex_number', flat=True)
         releasable_mons = TrainerPokemon.objects.exclude(
-            Q(pokemon__dex_number__in=banned_mons) | Q(pokemon__dex_number__in=[658, profile.starter_dex_number]) | Q(pokemon__dex_number__in=death_mons)
-        ).filter(Q(team__trainer=profile.trainer) | Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False, trainerboxslot__box__trainer=profile.trainer)).filter(is_shiny=False)
+            Q(pokemon__dex_number__in=banned_mons) | Q(pokemon__dex_number__in=[658, profile.starter_dex_number]) | Q(
+                pokemon__dex_number__in=death_mons)
+        ).filter(Q(team__trainer=profile.trainer) | Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False,
+                                                      trainerboxslot__box__trainer=profile.trainer)).filter(
+            is_shiny=False)
         serialized = ReleasableSerializer(releasable_mons, many=True)
 
         return Response(serialized.data, status=status.HTTP_200_OK)
@@ -348,12 +354,17 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_shinies(self, request, *args, **kwargs):
         profile = request.user.masters_profile
         banned_mons = BannedPokemon.objects.filter(profile=profile).values_list('dex_number', flat=True)
-        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), profile=profile,revived=False).values_list('dex_number', flat=True).values_list(
+        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), profile=profile,
+                                             revived=False).values_list('dex_number', flat=True).values_list(
             'dex_number', flat=True)
-        boxed_mons = TrainerBox.objects.filter(trainer=profile.trainer).values_list('slots__pokemon__pokemon__dex_number', flat=True)
+        boxed_mons = TrainerBox.objects.filter(trainer=profile.trainer).values_list(
+            'slots__pokemon__pokemon__dex_number', flat=True)
         releasable_mons = TrainerPokemon.objects.exclude(
-            Q(pokemon__dex_number__in=banned_mons) | Q(pokemon__dex_number__in=[658, profile.starter_dex_number]) | Q(pokemon__dex_number__in=death_mons)
-        ).filter(Q(team__trainer=profile.trainer) | Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False, trainerboxslot__box__trainer=profile.trainer)).filter(is_shiny=True)
+            Q(pokemon__dex_number__in=banned_mons) | Q(pokemon__dex_number__in=[658, profile.starter_dex_number]) | Q(
+                pokemon__dex_number__in=death_mons)
+        ).filter(Q(team__trainer=profile.trainer) | Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False,
+                                                      trainerboxslot__box__trainer=profile.trainer)).filter(
+            is_shiny=True)
         serialized = ReleasableSerializer(releasable_mons, many=True)
 
         return Response(serialized.data, status=status.HTTP_200_OK)
@@ -372,7 +383,8 @@ class GameEventViewSet(viewsets.ModelViewSet):
     @action(methods=['get'], detail=False)
     def list_available(self, request, *args, **kwargs):
         now_time = datetime.now()
-        query = Q(available_date_from__gte=now_time, available_date_to__lte=now_time) | Q(force_available=True)
+        query = Q(available_date_from__gte=now_time.astimezone(timezone.utc),
+                  available_date_to__lte=now_time.astimezone(timezone.utc)) | Q(force_available=True)
         events = GameEvent.objects.filter(query)
         serialized = GameEventSerializer(events, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
@@ -405,7 +417,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
                 Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': s3_path_cache},
                 ExpiresIn=STORAGE_TIMEOUT,
             )
-            cache.set(f'cached_event_{pk}', presigned_url, timeout=STORAGE_TIMEOUT) # Cache for 15 minutes
+            cache.set(f'cached_event_{pk}', presigned_url, timeout=STORAGE_TIMEOUT)  # Cache for 15 minutes
 
         return Response(data=presigned_url, status=status.HTTP_200_OK)
 
