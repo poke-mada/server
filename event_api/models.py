@@ -103,6 +103,7 @@ class Wildcard(models.Model):
     attack_level = models.SmallIntegerField(choices=ATTACK_LEVELS, default=LOW, verbose_name="Nivel de Ataque",
                                             help_text="Nivel de Ataque solo para comodines de ATAQUE")
     is_active = models.BooleanField(default=True)
+    is_wip = models.BooleanField(default=False, verbose_name="Esta en desarrollo")
     extra_url = models.URLField(blank=True, null=True)
     always_available = models.BooleanField(default=False)  # models.py (dentro de Wildcard)
     handler_key = models.CharField(max_length=100, blank=True, null=True,

@@ -243,6 +243,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         wildcards = Wildcard.objects.filter(is_active=True)
         if current_profile.is_pro:
             wildcards = wildcards.exclude(name='Ayuda Del Coach').exclude(pk=55)
+        if not current_profile.is_tester:
+            wildcards = wildcards.exclude(is_wip=True)
 
         serializer = WildcardWithInventorySerializer(
             wildcards,
