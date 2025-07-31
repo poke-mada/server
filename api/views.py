@@ -384,14 +384,17 @@ class GameEventViewSet(viewsets.ModelViewSet):
     def list_available(self, request, *args, **kwargs):
         events = GameEvent.get_available()
         serialized = GameEventSerializer(events, many=True)
-        return Response(serialized.data, status=status.HTTP_200_OK)
+        return Response(data=dict(
+            data=serialized.data,
+            time=datetime.now()
+        ), status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=True)
     def mod_file(self, request, pk=None, *args, **kwargs):
         presigned_url = cache.get(f'cached_event_{pk}')
         STORAGE_TIMEOUT = 60 * 15
         if not presigned_url:
-            event: GameEvent = GameEvent.objects.filter(GameEvent.get_available(), pk=pk).first()
+            event: GameEvent = GameEvent.get_available().filter(pk=pk).first()
             if not event:
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
