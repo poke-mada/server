@@ -97,7 +97,7 @@ class DisplayRewardSerializer(serializers.ModelSerializer):
 
     def get_pokemon(self, obj):
         from pokemon_api.scripting.save_reader import PokemonBytes
-        pokemon = PokemonBytes(obj.pokemon_data)
+        pokemon = PokemonBytes(obj.pokemon_data.read())
         pokemon.get_atts()
         return pokemon.to_dict()
 
