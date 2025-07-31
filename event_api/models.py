@@ -562,7 +562,7 @@ class GameEvent(models.Model):
     text_reward = models.TextField(null=True, blank=True, verbose_name="Recompensa especial")
 
     def __str__(self):
-        return f'{self.game_mod.mod_name}'
+        return f'{self.name}'
 
     def rewards(self):
         if not self.reward_bundle:
