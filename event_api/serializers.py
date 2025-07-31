@@ -88,7 +88,8 @@ class GameEventSerializer(serializers.ModelSerializer):
             'can_join',
             'is_available',
             'game_mod',
-            'rewards'
+            'rewards',
+            'text_reward'
         ]
 
 
