@@ -244,7 +244,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
 class GameModInline(admin.StackedInline):
     model = GameMod
     max_num = 1
-    min_num = 1
+    min_num = 0
 
 
 @admin.register(GameEvent, site=staff_site)

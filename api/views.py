@@ -716,3 +716,20 @@ class LoadItemNamesView(APIView):
 class NewsletterViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Newsletter.objects.all().order_by('-created_on')
     serializer_class = NewsletterSerializer
+
+    def list(self, request, *args, **kwargs):
+        profile = request.user.masters_profile
+        if profile.is_pro:
+            queryset = self.get_queryset().filter(for_pros=True)
+        else:
+            queryset = self.get_queryset().filter(for_noobs=True)
+
+        queryset = self.filter_queryset(queryset)
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)

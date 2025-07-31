@@ -593,8 +593,8 @@ class GameEvent(models.Model):
         return GameEvent.objects.filter(Q(force_available=True) | Q(available_date_from__lte=now_time, available_date_to__gte=now_time)).order_by('available_date_to')
 
     class Meta:
-        verbose_name = "Evento del Juego"
-        verbose_name_plural = "Eventos del Juego"
+        verbose_name = "Evento"
+        verbose_name_plural = "Eventos"
 
 
 class GameMod(models.Model):
@@ -662,6 +662,8 @@ class ProfileImposterLog(models.Model):
 class Newsletter(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     message = models.TextField()
+    for_pros = models.BooleanField(default=False)
+    for_noobs = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Noticia"
