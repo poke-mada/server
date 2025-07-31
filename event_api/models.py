@@ -333,7 +333,8 @@ class MastersProfile(models.Model):
             Q(pokemon__dex_number__in=death_mons)
         ).filter(
             Q(team__trainer=self.trainer) |
-            Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False, trainerboxslot__box__trainer=self.trainer)
+            Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False,
+              trainerboxslot__box__trainer=self.trainer)
         ).filter(pokemon__dex_number=dex_number).last()
 
         return last_version
@@ -346,7 +347,8 @@ class MastersProfile(models.Model):
 
         last_version = TrainerPokemon.objects.filter(
             Q(team__trainer=self.trainer) |
-            Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False, trainerboxslot__box__trainer=self.trainer),
+            Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False,
+              trainerboxslot__box__trainer=self.trainer),
             pokemon__dex_number=dex_number
         ).last()
 
@@ -369,7 +371,8 @@ class MastersProfile(models.Model):
             profile=self, revived=False
         ).values_list('dex_number', flat=True)
 
-        boxed_mons = TrainerBox.objects.filter(trainer=self.trainer).values_list('slots__pokemon__pokemon__dex_number', flat=True)
+        boxed_mons = TrainerBox.objects.filter(trainer=self.trainer).values_list('slots__pokemon__pokemon__dex_number',
+                                                                                 flat=True)
 
         last_version = TrainerPokemon.objects.exclude(
             Q(pokemon__dex_number__in=robbed_banned_mons) |
@@ -380,7 +383,8 @@ class MastersProfile(models.Model):
             Q(pokemon__dex_number__in=robber_already_captured)
         ).filter(
             Q(team__trainer=self.trainer) |
-            Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False, trainerboxslot__box__trainer=self.trainer)
+            Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False,
+              trainerboxslot__box__trainer=self.trainer)
         ).filter(pokemon__dex_number=dex_number).last()
 
         return last_version
@@ -471,7 +475,8 @@ class MastersSegmentSettings(models.Model):
         if self.pk:
             return super().save(*args, **kwargs)
         # a partir de aqui solo es tramo nuevo
-        current_segment: "MastersSegmentSettings" = self.profile.segments_settings.filter(is_current=True).first()  # busca el tramo actual antes de crear el nuevo
+        current_segment: "MastersSegmentSettings" = self.profile.segments_settings.filter(
+            is_current=True).first()  # busca el tramo actual antes de crear el nuevo
         if not current_segment:
             return super().save(*args, **kwargs)
         # aqui siempre hay tramos anteriores, asi que hay que definirlos como no actuales
@@ -491,7 +496,6 @@ class MastersSegmentSettings(models.Model):
             wildcard__category=Wildcard.OFFENSIVE,
             wildcard__attack_level=Wildcard.LOW
         ).update(quantity=0)
-
 
         self.tournament_league = current_segment.tournament_league
         self.profile.segments_settings.update(is_current=False)
@@ -526,7 +530,6 @@ class LoaderThread(models.Model):
 
 
 class GameEvent(models.Model):
-
     SEGMENT = 'Tramo'
     INGAME = 'Juego'
 
@@ -553,7 +556,8 @@ class GameEvent(models.Model):
     name = models.CharField(max_length=100, null=True, blank=False)
     description = models.TextField(null=True, blank=False, verbose_name="Descripcion")
     requirements = models.TextField(null=True, blank=False, verbose_name="Requisitos")
-    reward_bundle = models.ForeignKey(RewardBundle, on_delete=models.PROTECT, null=True, blank=True, verbose_name="Preset de recompensa")
+    reward_bundle = models.ForeignKey(RewardBundle, on_delete=models.PROTECT, null=True, blank=True,
+                                      verbose_name="Preset de recompensa")
     text_reward = models.TextField(null=True, blank=True, verbose_name="Recompensa especial")
 
     def __str__(self):
@@ -569,7 +573,8 @@ class GameEvent(models.Model):
         if self.force_available:
             return True
         now_time = datetime.now(timezone.utc)
-        return self.available_date_from.astimezone(timezone.utc) <= now_time <= self.available_date_to.astimezone(timezone.utc)
+        return self.available_date_from.astimezone(timezone.utc) <= now_time <= self.available_date_to.astimezone(
+            timezone.utc)
 
     @property
     def can_join(self):
@@ -580,9 +585,11 @@ class GameEvent(models.Model):
 
     @staticmethod
     def get_available():
-        now_time = datetime.now()
-        as_timezone = now_time.astimezone(timezone.utc)
-        return GameEvent.objects.filter(Q(force_available=True) | Q(available_date_from__gte=as_timezone, available_date_to__lt=as_timezone))
+        now_time = datetime.now(timezone.utc)
+        return GameEvent.objects.filter(
+            Q(force_available=True) |
+            Q(available_date_from__gte=now_time)
+        )
 
     class Meta:
         verbose_name = "Evento del Juego"
