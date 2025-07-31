@@ -585,7 +585,7 @@ class GameEvent(models.Model):
 
     @staticmethod
     def get_available():
-        now_time = datetime.now(timezone.utc)
+        now_time = datetime.now()
         return GameEvent.objects.filter(
             Q(force_available=True) |
             Q(available_date_from__gte=now_time)
