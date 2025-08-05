@@ -225,7 +225,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'is_staff'
     )
 
-    list_filter = ('masters_profile__is_pro', 'is_staff', 'masters_profile__profile_type', 'is_tester')
+    list_filter = ('masters_profile__is_pro', 'is_staff', 'masters_profile__profile_type', 'masters_profile__is_tester')
     inlines = [MastersProfileInline]
 
     @admin.display(description='Profile Type', ordering='masters_profile__profile_type')
