@@ -120,7 +120,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'is_staff'
     )
 
-    list_filter = ('masters_profile__is_pro', 'is_staff')
+    list_filter = ('masters_profile__is_pro', 'is_staff', 'masters_profile__is_tester')
     inlines = [MastersProfileInline]
 
     def get_queryset(self, request):
