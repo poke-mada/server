@@ -55,7 +55,7 @@ class TypeAdmin(admin.ModelAdmin):
 
 @admin.register(models.PokemonNature)
 class PokemonNatureAdmin(admin.ModelAdmin):
-    readonly_fields = ('name_localizations',)
+    #readonly_fields = ('name_localizations',)
     list_display = ('name', 'localization', 'stat_up', 'stat_down')
     search_fields = ('name', 'localization')
 
@@ -71,4 +71,4 @@ class PokemonAbilityAdmin(admin.ModelAdmin):
 class PokemonAdmin(admin.ModelAdmin):
     list_display = ('dex_number', 'form', 'name')
     search_fields = ('name', 'dex_number')
-    readonly_fields = ('dex_number', 'types', 'name', 'form')
+    #readonly_fields = ('dex_number', 'types', 'name', 'form')

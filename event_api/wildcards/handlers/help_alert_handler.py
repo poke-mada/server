@@ -7,9 +7,6 @@ from websocket.sockets import DataConsumer
 
 @WildCardExecutorRegistry.register("help_alert_handler", verbose='Help Alert Handler')
 class HelpAlertHandler(BaseWildCardHandler):
-    def validate(self, context):
-        return
-
     def execute(self, context):
         target_id = context.get('target_id')
 
@@ -29,8 +26,12 @@ class HelpAlertHandler(BaseWildCardHandler):
             data=data
         ))
 
+        profile = self.user.masters_profile
         Newsletter.objects.create(
-            message=f'{self.user.masters_profile.streamer_name} ha ayudado a {target_name} usando {self.wildcard.name}'
+            message=f'{self.user.masters_profile.streamer_name} ha ayudado a {target_name} usando {self.wildcard.name}',
+            for_noobs=profile.is_pro,
+            for_pros=(not profile.is_pro),
+            for_staff=self.user.is_staff
         )
 
         return True

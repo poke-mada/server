@@ -294,6 +294,7 @@ class MastersProfile(models.Model):
     streamer_name = models.CharField(max_length=50, default="", blank=False, null=True)
     coached = models.ForeignKey("MastersProfile", on_delete=models.SET_NULL, null=True, blank=True,
                                 related_name="coaches")
+    main_coach = models.ForeignKey("MastersProfile", on_delete=models.SET_NULL, null=True, blank=True)
     starter_dex_number = models.IntegerField(null=True, blank=True)
     in_pokemon_league = models.BooleanField(default=False)
     already_won_lysson = models.BooleanField(default=False)
@@ -668,6 +669,7 @@ class Newsletter(models.Model):
     message = models.TextField()
     for_pros = models.BooleanField(default=False)
     for_noobs = models.BooleanField(default=False)
+    for_staff = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Noticia"

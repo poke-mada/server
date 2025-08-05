@@ -371,6 +371,13 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
         return Response(serialized.data, status=status.HTTP_200_OK)
 
+    @action(methods=['post'], detail=False)
+    def register_lysson(self, request, *args, **kwargs):
+        profile: MastersProfile = request.user.masters_profile
+        profile.already_won_lysson = True
+        profile.save()
+        return Response(status=status.HTTP_200_OK)
+
 
 class MoveViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Move.objects.all()

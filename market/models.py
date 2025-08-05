@@ -23,7 +23,7 @@ class BankedAsset(models.Model):
             Q(app_label='pokemon_api', model='item') |
             Q(app_label='trainer_data', model='trainerpokemon')
     )
-    user = models.ForeignKey(MastersProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name='banked_assets')
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, limit_choices_to=CONTENT_TYPES_LIMIT)
     object_id = models.PositiveIntegerField()
 
@@ -97,6 +97,7 @@ class MarketPost(models.Model, MarketTransactor):
     }
     creator = models.ForeignKey(MastersProfile, on_delete=models.CASCADE)
     status = models.SmallIntegerField(choices=STATUSES.items(), default=DRAFT)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     already_closed = models.BooleanField(default=False)
     selected_offer = models.ForeignKey("MarketPostOffer", null=True, blank=True, on_delete=models.PROTECT)

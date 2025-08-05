@@ -9,11 +9,6 @@ from asgiref.sync import async_to_sync
 
 @WildCardExecutorRegistry.register("alert_handler", verbose='Alert Handler')
 class AlertHandler(BaseWildCardHandler):
-
-    def validate(self, context):
-
-        return True
-
     def execute(self, context):
         channel_layer = get_channel_layer()
         target_id = context.get('target_id')
@@ -44,8 +39,12 @@ class AlertHandler(BaseWildCardHandler):
             data=data
         ))
 
+        profile = self.user.masters_profile
         Newsletter.objects.create(
-            message=f'<strong>{self.user.masters_profile.streamer_name}</strong> ha atacado a <strong>{target_name}</strong> usando <strong>{self.wildcard.name}</strong>'
+            message=f'<strong>{self.user.masters_profile.streamer_name}</strong> ha atacado a <strong>{target_name}</strong> usando <strong>{self.wildcard.name}</strong>',
+            for_noobs=(profile.is_pro),
+            for_pros=(not profile.is_pro),
+            for_staff=self.user.is_staff
         )
 
         return True

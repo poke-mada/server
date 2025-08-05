@@ -1,8 +1,10 @@
 import json
 import logging
+import random
 import struct
 
 from django.db.models import Q
+
 from .data import GROWTH_TABLES
 
 logger = logging.getLogger('django')
@@ -113,6 +115,42 @@ class PokemonBytes:
         pid_low = pid & 0xFFFF
         shiny_value = ((tid ^ sid) ^ (pid_high ^ pid_low)) >> 4
         return shiny_value < 16
+
+    def generate_shiny_pid(self, tid, sid):
+        """
+        Genera un PID shiny válido para un TID y SID dados,
+        cumpliendo con la condición: shiny_value < 16.
+
+        El sistema de determinación shiny en Pokémon se basa en:
+            shiny_value = ((TID ^ SID) ^ (PID_high ^ PID_low)) >> 4
+
+        Para que un Pokémon sea shiny, se requiere:
+            shiny_value < 16
+        Lo cual equivale a:
+            ((TID ^ SID) ^ (PID_high ^ PID_low)) < 256
+        """
+
+        xor_tid_sid = tid ^ sid  # Parte constante del cálculo de shiny_value
+
+        while True:
+            # Elegimos un valor shiny_value válido: de 0 a 15
+            # Lo desplazamos 4 bits a la izquierda porque en la fórmula se hace >> 4
+            shiny_xor = random.randint(0, 15) << 4  # shiny_value << 4
+
+            # Ahora forzamos que: pid_high ^ pid_low = xor_tid_sid ^ shiny_xor
+            target = xor_tid_sid ^ shiny_xor
+
+            # Escogemos un pid_low arbitrario (aleatorio)
+            pid_low = random.randint(0, 0xFFFF)
+
+            # Calculamos pid_high necesario para cumplir la condición
+            pid_high = pid_low ^ target
+
+            # Validamos que pid_high esté en el rango de 16 bits
+            if 0 <= pid_high <= 0xFFFF:
+                # Construimos el PID combinando pid_high y pid_low
+                pid = (pid_high << 16) | pid_low
+                return pid
 
     def get_suffix(self):
         form = self.form
@@ -404,9 +442,9 @@ class PokemonBytes:
         mote = struct.unpack("HHHHHHHHHHHHH", self.raw_data[64:90])
         self.mote = clean_nick_data(mote)
         self.suffix = self.get_suffix()
-        tid = struct.unpack("<H", self.raw_data[0x0c:0x0e])[0]
-        sid = struct.unpack("<H", self.raw_data[0x0e:0x10])[0]
-        self.shiny = self.is_shiny(tid, sid, self.pid)
+        self.tid = struct.unpack("<H", self.raw_data[0x0c:0x0e])[0]
+        self.sid = struct.unpack("<H", self.raw_data[0x0e:0x10])[0]
+        self.shiny = self.is_shiny(self.tid, self.sid, self.pid)
         print(self.mote)
 
         def moves(self):
@@ -517,7 +555,9 @@ class PokemonBytes:
             ev_speed=self.ev_speed,
             ev_spatk=self.ev_spatk,
             ev_spdef=self.ev_spdef,
-            is_shiny=self.shiny
+            is_shiny=self.shiny,
+            tid=self.tid,
+            sid=self.sid
         )
 
     def to_trained_pokemon(self):
