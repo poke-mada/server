@@ -34,6 +34,7 @@ class MoveLinear(admin.TabularInline):
 
 class TrainerPokemonLinear(admin.TabularInline):
     fields = (
+        'id',
         'mega_ability',
         'mote',
         'pokemon',
@@ -44,6 +45,7 @@ class TrainerPokemonLinear(admin.TabularInline):
     )
     autocomplete_fields = ('mega_ability',)
     readonly_fields = (
+        'id',
         'mote',
         'pokemon',
         'moves',
