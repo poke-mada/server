@@ -17,13 +17,14 @@ class TrainerPokemonSerializer(serializers.ModelSerializer):
     nature = serializers.IntegerField(required=False)
     types = serializers.ListField(child=serializers.DictField())
     moves = serializers.ListField()
+    enc_data = serializers.CharField(required=False)
 
     def create(self, validated_data):
         dex_number = validated_data.pop('dex_number')
         held_item = validated_data.pop('held_item')
         nature = validated_data.pop('nature')
         ability = validated_data.pop('ability')
-        enc_data = validated_data.pop('enc_data')
+        enc_data = validated_data.pop('enc_data').decode('utf-8')
 
         form = validated_data.pop('form', '0')
         types = validated_data.pop('types')
