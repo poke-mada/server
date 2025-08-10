@@ -3,7 +3,7 @@ import random
 
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.db import models
+from django.db import models, transaction
 from django.db.models import Q, Sum
 from django.utils.safestring import mark_safe
 from django.utils import timezone
@@ -129,6 +129,15 @@ class Wildcard(models.Model):
     def sprite_name(self):
         return self.sprite.name
 
+    def get_price(self, user: User):
+        profile = user.masters_profile
+        current_segment = profile.current_segment_settings
+
+        if current_segment.steal_karma == 4 and (self.name.lower() == 'robo justo' or self.id == 53):
+            return 1
+
+        return self.price
+
     def can_buy(self, user: User, amount, force_buy=False):
         inventory, _ = user.masters_profile.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
 
@@ -138,7 +147,7 @@ class Wildcard(models.Model):
         else:
             amount_to_buy = amount
         return self.is_active and (
-                (user.masters_profile.economy >= self.price * amount_to_buy) or self.always_available)
+                    (user.masters_profile.economy >= self.get_price(user) * amount_to_buy) or self.always_available)
 
     def can_use(self, user: User, amount, **data):
         from event_api.wildcards.registry import get_executor
@@ -180,7 +189,7 @@ class Wildcard(models.Model):
 
         CoinTransaction.objects.create(
             profile=user.masters_profile,
-            amount=self.price * amount_to_buy,
+            amount=self.get_price(user) * amount_to_buy,
             TYPE=CoinTransaction.OUTPUT,
             reason=f'se compró la carta {self.name}'
         )
@@ -398,7 +407,7 @@ class MastersProfile(models.Model):
         return 0
 
     @property
-    def current_segment_settings(self):
+    def current_segment_settings(self) -> "MastersSegmentSettings":
         return self.segments_settings.filter(is_current=True).first()
 
     def last_save_download(self):
@@ -409,6 +418,9 @@ class MastersProfile(models.Model):
 
     def has_shield(self) -> bool:
         return self.wildcard_inventory.filter(wildcard__handler_key='escudo_protector', quantity__gte=1).exists()
+
+    def has_reverse(self) -> bool:
+        return self.wildcard_inventory.filter(wildcard__handler_key='reverse_handler', quantity__gte=1).exists()
 
     @property
     def economy(self):
@@ -469,6 +481,8 @@ class MastersSegmentSettings(models.Model):
                                       verbose_name="Conteo de muertes")
     tournament_league = models.CharField(max_length=1, choices=LEAGUES.items(), default='-', verbose_name="Liga",
                                          help_text="Liga a la que se llegó en este tramo")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Creacion", null=True)
+    finished_at = models.DateTimeField(null=True, verbose_name="Fecha de Finalizacion de tramo", blank=True)
 
     team = models.CharField
 
@@ -484,6 +498,9 @@ class MastersSegmentSettings(models.Model):
         if not current_segment:
             return super().save(*args, **kwargs)
         # aqui siempre hay tramos anteriores, asi que hay que definirlos como no actuales
+
+        current_segment.finished_at = timezone.now()
+        current_segment.save()
 
         money_amount = clamp(15 - current_segment.death_count, 0, 15)
         if money_amount > 0:
@@ -596,7 +613,9 @@ class GameEvent(models.Model):
     @staticmethod
     def get_available():
         now_time = timezone.now()
-        return GameEvent.objects.filter(Q(force_available=True) | Q(available_date_from__lte=now_time, available_date_to__gte=now_time)).order_by('available_date_to')
+        return GameEvent.objects.filter(
+            Q(force_available=True) | Q(available_date_from__lte=now_time, available_date_to__gte=now_time)).order_by(
+            'available_date_to')
 
     class Meta:
         verbose_name = "Evento"
@@ -642,7 +661,8 @@ class MastersSegment(models.Model):
 
 class Imposter(models.Model):
     message = models.CharField(max_length=100, unique=True, help_text="texto en MINUSCULAS para encontrar al impostor")
-    coin_reward = models.IntegerField(default=1, help_text='Maxima cantidad de monedas a obtener (SIN CONTAR A LOS PRIMEROS 10)')
+    coin_reward = models.IntegerField(default=1,
+                                      help_text='Maxima cantidad de monedas a obtener (SIN CONTAR A LOS PRIMEROS 10)')
 
     class Meta:
         verbose_name = "Impostor"
@@ -655,6 +675,7 @@ class ProfileImposterLog(models.Model):
     registered_amount = models.IntegerField(default=0, null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
 
+    @transaction.atomic
     def save(self, *args, **kwargs):
         if not self.pk:
             min_value = 1

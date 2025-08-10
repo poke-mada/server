@@ -18,3 +18,5 @@ from .mid_attack_handler import MidAttackHandler
 from .revive_pokemon_handler import RevivePokemonHandler
 from .release_pokemon import ReleasePokemonHandler
 from .release_pokemon_shiny import ReleasePokemonShinyHandler
+from .steal_pokemon import StealPokemonHandler
+from .karma_steal_pokemon import KarmaStealPokemonHandler

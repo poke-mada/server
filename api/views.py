@@ -236,14 +236,20 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['get'], detail=False)
     def wildcards_with_inventory(self, request, *args, **kwargs):
         current_profile: MastersProfile = request.user.masters_profile
+        current_segment = current_profile.current_segment_settings
         trainer_user = request.user
         if current_profile.profile_type == MastersProfile.COACH:
             trainer_user = current_profile.coached.user
         wildcards = Wildcard.objects.filter(is_active=True)
+
         if current_profile.is_pro:
-            wildcards = wildcards.exclude(name='Ayuda Del Coach').exclude(pk=55)
+            wildcards = wildcards.exclude(__iexact='ayuda del coach').exclude(pk=55)
+
         if not current_profile.is_tester:
             wildcards = wildcards.exclude(is_wip=True)
+
+        if current_segment.steal_karma < 3:
+            wildcards = wildcards.exclude(name__iexact='robo justo').exclude(pk=53)
 
         serializer = WildcardWithInventorySerializer(
             wildcards,
