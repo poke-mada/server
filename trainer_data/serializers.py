@@ -9,6 +9,14 @@ from pokemon_api.serializers import PokemonSerializer, TypeSerializer, MoveSeria
 from trainer_data.models import Trainer, TrainerBox, TrainerPokemon, TrainerTeam, TrainerBoxSlot
 
 
+class BytesField(serializers.Field):
+    def to_representation(self, value):
+        return list(value)  # lista de enteros en vez de string
+
+    def to_internal_value(self, data):
+        return bytes(data)  # reconstruir desde lista
+
+
 class TrainerPokemonSerializer(serializers.ModelSerializer):
     pokemon = PokemonSerializer(required=False)
     dex_number = serializers.IntegerField(required=False)
@@ -17,7 +25,7 @@ class TrainerPokemonSerializer(serializers.ModelSerializer):
     nature = serializers.IntegerField(required=False)
     types = serializers.ListField(child=serializers.DictField())
     moves = serializers.ListField()
-    enc_data = serializers.CharField(required=False)
+    enc_data = BytesField(required=False)
 
     def create(self, validated_data):
         dex_number = validated_data.pop('dex_number')
