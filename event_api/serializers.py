@@ -157,6 +157,7 @@ class SelectProfileSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
+    web_picture = serializers.ImageField(use_url=True, allow_null=True)
 
     def get_name(self, obj: MastersProfile):
         try:

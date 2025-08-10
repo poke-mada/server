@@ -1,4 +1,5 @@
 from datetime import datetime
+import random
 
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -298,7 +299,7 @@ class MastersProfile(models.Model):
     starter_dex_number = models.IntegerField(null=True, blank=True)
     in_pokemon_league = models.BooleanField(default=False)
     already_won_lysson = models.BooleanField(default=False)
-    web_picture = models.ImageField(upload_to='profiles/web/', null=True, blank=False)
+    web_picture = models.ImageField(upload_to='profiles/web/', null=True, blank=True)
     trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="users", null=True, blank=True)
     profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER)
     death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0)
@@ -641,7 +642,7 @@ class MastersSegment(models.Model):
 
 class Imposter(models.Model):
     message = models.CharField(max_length=100, unique=True, help_text="texto en MINUSCULAS para encontrar al impostor")
-    coin_reward = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(99)])
+    coin_reward = models.IntegerField(default=1, help_text='Maxima cantidad de monedas a obtener (SIN CONTAR A LOS PRIMEROS 10)')
 
     class Meta:
         verbose_name = "Impostor"
@@ -651,13 +652,24 @@ class Imposter(models.Model):
 class ProfileImposterLog(models.Model):
     profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name="imposters")
     imposter = models.ForeignKey(Imposter, on_delete=models.SET_NULL, null=True)
+    registered_amount = models.IntegerField(default=0, null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         if not self.pk:
+            min_value = 1
+            max_value = self.imposter.coin_reward
+            first_10 = ProfileImposterLog.objects.filter(imposter=self.imposter).count() < 10
+
+            if first_10:
+                min_value = 2
+                max_value += 1
+
+            rand_amount = random.randint(min_value, max_value)
+            self.registered_amount = rand_amount
             CoinTransaction.objects.create(
                 profile=self.profile,
-                amount=self.imposter.coin_reward,
+                amount=rand_amount,
                 reason=f'encontrado {self.imposter.message}',
                 TYPE=CoinTransaction.INPUT
             )

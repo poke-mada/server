@@ -1,5 +1,5 @@
 import os
-from datetime import datetime, timezone
+from datetime import datetime
 
 import boto3
 import requests
@@ -9,18 +9,17 @@ from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.core.handlers.base import logger
 from django.db.models import Q
-from django.http import HttpResponse, FileResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from rest_framework import viewsets, status
-from rest_framework.decorators import action, permission_classes
+from rest_framework.decorators import action
 from rest_framework.parsers import FileUploadParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.permissions import IsTrainer, IsRoot
-from event_api.models import SaveFile, Wildcard, CoinTransaction, \
-    GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter, Newsletter, MastersSegment, \
-    MastersSegmentSettings, BannedPokemon
+from event_api.models import Wildcard, CoinTransaction, \
+    GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter, Newsletter, MastersSegmentSettings, BannedPokemon
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer, SelectProfileSerializer, ProfileSerializer, \
     SelectMastersProfileSerializer, DeathLogSerializer, ReleasableSerializer
@@ -299,12 +298,14 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         user: User = request.user
         localization = request.query_params.get('localization', '*')
         trainer = Trainer.get_from_user(user)
+        if not trainer.current_team:
+            return Response([], status=status.HTTP_200_OK)
+
         match localization:
             case 'en':
                 serialized = EnROTrainerPokemonSerializer(trainer.current_team.team, many=True)
             case _:
                 serialized = ROTrainerPokemonSerializer(trainer.current_team.team, many=True)
-
         return Response(serialized.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
