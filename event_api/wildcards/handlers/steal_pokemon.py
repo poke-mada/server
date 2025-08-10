@@ -14,10 +14,18 @@ from .strong_attack_handler import StrongAttackHandler
 class StealPokemonHandler(StrongAttackHandler):
 
     def validate(self, context):
+        target_id = context.get('target_id')
         dex_number = context.get('dex_number')
+        target_profile = MastersProfile.objects.get(id=target_id)
 
         if not dex_number:
             return 'Necesitas ingresar un pokemon a robar'
+
+        if dex_number == target_profile.starter_dex_number:
+            return 'No puedes robar al elegido de alguien mas'
+
+        if dex_number == 731:
+            return 'Greninja es inmune a los ataques!'
 
         return super().validate(context)
 
@@ -36,13 +44,13 @@ class StealPokemonHandler(StrongAttackHandler):
             )
             return f'error: {error.id}'
 
-        reward = RewardBundle.objects.create(
+        bundle = RewardBundle.objects.create(
             name='Steal Pokemon'
         )
 
         new_premio = Reward.objects.create(
             reward_type=Reward.POKEMON,
-            reward=reward
+            bundle=bundle
         )
 
         buffer = BytesIO()
@@ -57,7 +65,7 @@ class StealPokemonHandler(StrongAttackHandler):
 
         StreamerRewardInventory.objects.create(
             profile=self.user.masters_profile,
-            reward=reward
+            reward=bundle
         )
 
         return super().execute(context)
