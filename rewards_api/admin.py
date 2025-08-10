@@ -27,5 +27,6 @@ class RewardInline(admin.TabularInline):
 
 @admin.register(RewardBundle, site=staff_site)
 class RewardBundleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
+    list_display = ('id', 'name', 'user_created', 'is_active')
+    list_filter = ('user_created', 'is_active')
     inlines = (RewardInline,)

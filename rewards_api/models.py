@@ -12,6 +12,7 @@ class RewardBundle(models.Model):
     name = models.CharField(max_length=50, null=True)
     description = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
+    user_created = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -68,7 +69,6 @@ class StreamerRewardInventory(models.Model):
     reward = models.ForeignKey(RewardBundle, on_delete=models.SET_NULL, null=True, related_name='owners')
     exchanges = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     is_available = models.BooleanField(default=True)
-    user_created = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ['reward', 'profile']
