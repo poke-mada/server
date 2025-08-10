@@ -659,7 +659,15 @@ class ProfileImposterLog(models.Model):
         if not self.pk:
             min_value = 1
             max_value = self.imposter.coin_reward
-            first_10 = ProfileImposterLog.objects.filter(imposter=self.imposter).count() < 10
+            same_cateogry_profiles = MastersProfile.objects.filter(
+                is_pro=self.profile.is_pro,
+                is_tester=self.profile.is_tester
+            ).values_list("id", flat=True)
+
+            first_10 = ProfileImposterLog.objects.filter(
+                imposter=self.imposter,
+                profile_id__in=same_cateogry_profiles
+            ).count() < 10
 
             if first_10:
                 min_value = 2
