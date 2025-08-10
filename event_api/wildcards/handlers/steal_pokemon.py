@@ -24,7 +24,7 @@ class StealPokemonHandler(StrongAttackHandler):
         if dex_number == target_profile.starter_dex_number:
             return 'No puedes robar al elegido de alguien mas'
 
-        if dex_number == 731:
+        if dex_number == 658:
             return 'Greninja es inmune a los ataques!'
 
         return super().validate(context)
