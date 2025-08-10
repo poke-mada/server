@@ -102,12 +102,12 @@ class PokemonBytes:
         self.warning = False
         if encrypted_data[0] != 0:
             self.warning = True
-
         len_needed = 0
         if len(encrypted_data) < 260:
             encrypted_data_len = len(encrypted_data)
             len_needed = 260 - encrypted_data_len
         decrypted_data = decrypt_data(encrypted_data) + bytes([1] * len_needed)
+        self.encrypted_data = encrypted_data + bytes([1] * len_needed)
         self.raw_data = decrypted_data
 
     def is_shiny(self, tid, sid, pid):
@@ -558,7 +558,7 @@ class PokemonBytes:
             is_shiny=self.shiny,
             tid=self.tid,
             sid=self.sid,
-            enc_data=self.raw_data
+            enc_data=self.encrypted_data
         )
 
     def to_trained_pokemon(self):
