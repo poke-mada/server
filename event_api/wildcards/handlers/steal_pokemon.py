@@ -7,6 +7,7 @@ from event_api.models import CoinTransaction, MastersProfile, ErrorLog
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from rewards_api.models import Reward, RewardBundle, StreamerRewardInventory
 from trainer_data.models import TrainerPokemon
+from websocket.sockets import DataConsumer
 from .strong_attack_handler import StrongAttackHandler
 
 
@@ -63,5 +64,10 @@ class StealPokemonHandler(StrongAttackHandler):
             profile=self.user.masters_profile,
             reward=bundle
         )
+
+        DataConsumer.send_custom_data(self.user.username, dict(
+            type='notification',
+            data='Te ha llegado un paquete al buzón!'
+        ))
 
         return super().execute(context)

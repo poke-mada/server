@@ -1,6 +1,8 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 
+from websocket.sockets import DataConsumer
+
 
 # Create your models here.
 class InventoryGiftQuerySequence(models.Model):
@@ -21,6 +23,11 @@ class InventoryGiftQuerySequence(models.Model):
                     exchanges=0,
                     is_available=True
                 ))
+
+            DataConsumer.send_custom_data(target.user.username, dict(
+                type='notification',
+                data='Te ha llegado un paquete al buzón!'
+            ))
             if not inventory.is_available:
                 inventory.is_available = True
             inventory.save()
