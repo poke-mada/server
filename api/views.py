@@ -243,7 +243,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         wildcards = Wildcard.objects.filter(is_active=True)
 
         if current_profile.is_pro:
-            wildcards = wildcards.exclude(__iexact='ayuda del coach').exclude(pk=55)
+            wildcards = wildcards.exclude(name__iexact='ayuda del coach').exclude(pk=55)
 
         if not current_profile.is_tester:
             wildcards = wildcards.exclude(is_wip=True)
