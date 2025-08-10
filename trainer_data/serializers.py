@@ -24,7 +24,7 @@ class TrainerPokemonSerializer(serializers.ModelSerializer):
         held_item = validated_data.pop('held_item')
         nature = validated_data.pop('nature')
         ability = validated_data.pop('ability')
-        enc_data = validated_data.pop('enc_data').encode('utf-8')
+        enc_data = validated_data.pop('enc_data')
 
         form = validated_data.pop('form', '0')
         types = validated_data.pop('types')

@@ -558,7 +558,7 @@ class PokemonBytes:
             is_shiny=self.shiny,
             tid=self.tid,
             sid=self.sid,
-            enc_data=self.encrypted_data.decode('utf-8')
+            enc_data=self.encrypted_data
         )
 
     def to_trained_pokemon(self):
