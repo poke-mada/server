@@ -557,7 +557,8 @@ class PokemonBytes:
             ev_spdef=self.ev_spdef,
             is_shiny=self.shiny,
             tid=self.tid,
-            sid=self.sid
+            sid=self.sid,
+            enc_data=self.raw_data
         )
 
     def to_trained_pokemon(self):

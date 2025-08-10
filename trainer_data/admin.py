@@ -67,7 +67,7 @@ class TrainerAdmin(admin.ModelAdmin):
 
 @admin.register(TrainerPokemon)
 class TrainerPokemonAdmin(admin.ModelAdmin):
-    readonly_fields = ('moves', 'types', 'suffix')
+    readonly_fields = ('moves', 'types', 'suffix', 'enc_data')
     list_display = ('id', 'pokemon__dex_number', 'team__trainer_old__name', 'pokemon', 'mote', 'level')
     search_fields = ('pokemon__dex_number', 'pokemon__name', 'mote')
     inlines = [MoveLinear]
