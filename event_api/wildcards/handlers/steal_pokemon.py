@@ -49,7 +49,7 @@ class StealPokemonHandler(StrongAttackHandler):
             return f'error: {error.id}'
 
         bundle = RewardBundle.objects.create(
-            name='Steal Pokemon',
+            name=f'Pokemon {target_pokemon.mote} Robado a {target_profile.streamer_name}',
             user_created=True
         )
 
