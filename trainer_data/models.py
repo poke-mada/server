@@ -97,7 +97,7 @@ class TrainerPokemon(models.Model):
     iv_special_defense = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
 
     def __str__(self):
-        return self.mote
+        return f"{self.id}: {self.mote}"
 
 
 class TrainerTeam(models.Model):
