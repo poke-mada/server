@@ -49,7 +49,8 @@ class StealPokemonHandler(StrongAttackHandler):
             return f'error: {error.id}'
 
         bundle = RewardBundle.objects.create(
-            name='Steal Pokemon'
+            name='Steal Pokemon',
+            user_created=True
         )
 
         new_premio = Reward.objects.create(
@@ -65,8 +66,7 @@ class StealPokemonHandler(StrongAttackHandler):
 
         StreamerRewardInventory.objects.create(
             profile=self.user.masters_profile,
-            reward=bundle,
-            user_created=True
+            reward=bundle
         )
 
         DataConsumer.send_custom_data(self.user.username, dict(
