@@ -1,3 +1,6 @@
+from io import BytesIO
+
+from django.core.files import File
 from rest_framework import serializers
 
 from event_api.models import Newsletter
@@ -20,6 +23,7 @@ class TrainerPokemonSerializer(serializers.ModelSerializer):
         held_item = validated_data.pop('held_item')
         nature = validated_data.pop('nature')
         ability = validated_data.pop('ability')
+        enc_data = validated_data.pop('enc_data')
 
         form = validated_data.pop('form', '0')
         types = validated_data.pop('types')
@@ -49,6 +53,16 @@ class TrainerPokemonSerializer(serializers.ModelSerializer):
         validated_data['held_item'] = held_item_obj
         validated_data['ability'] = ability_obj
         pokemon = TrainerPokemon.objects.create(**validated_data)
+
+        buffer = BytesIO()
+        buffer.write(enc_data)
+        buffer.seek(0)  # muy importante para que lea desde el inicio
+
+        pokemon.enc_data.save(
+            f"{pokemon.mote}.ek6",
+            File(buffer),
+            save=True
+        )
 
         pokemon.moves.set(in_moves)
         pokemon.types.set(in_types)

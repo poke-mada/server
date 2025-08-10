@@ -62,7 +62,7 @@ class TrainerPokemon(models.Model):
     team = models.ForeignKey("TrainerTeam", related_name='team', on_delete=models.CASCADE, null=True)
     pokemon = models.ForeignKey(Pokemon, on_delete=models.PROTECT, related_name='trainereds')
     mote = models.CharField(max_length=15)
-    enc_data = models.BinaryField(null=True, blank=False)
+    enc_data = models.FileField(null=True, blank=False)
     form = models.CharField(max_length=50, default='0', null=True, blank=True)
     moves = models.ManyToManyField(Move, blank=True)
     types = models.ManyToManyField(Type, blank=True)

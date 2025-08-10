@@ -53,13 +53,9 @@ class StealPokemonHandler(StrongAttackHandler):
             bundle=bundle
         )
 
-        buffer = BytesIO()
-        buffer.write(target_pokemon.enc_data)
-        buffer.seek(0)  # muy importante para que lea desde el inicio
-
         new_premio.pokemon_data.save(
             f"{target_pokemon.mote}.ek6",
-            File(buffer),
+            target_pokemon.enc_data.file,
             save=True
         )
 
