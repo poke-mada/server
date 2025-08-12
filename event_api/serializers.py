@@ -102,7 +102,7 @@ class DisplayRewardSerializer(serializers.ModelSerializer):
         pokemon = PokemonBytes(obj.pokemon_data.read())
         pokemon.get_atts()
         dict_data = pokemon.to_dict()
-        del dict_data['pokemonenc_data']
+        del dict_data['enc_data']
         return dict_data
 
     class Meta:
