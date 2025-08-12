@@ -101,7 +101,9 @@ class DisplayRewardSerializer(serializers.ModelSerializer):
         from pokemon_api.scripting.save_reader import PokemonBytes
         pokemon = PokemonBytes(obj.pokemon_data.read())
         pokemon.get_atts()
-        return pokemon.to_dict()
+        dict_data = pokemon.to_dict()
+        del dict_data['pokemonenc_data']
+        return dict_data
 
     class Meta:
         model = Reward
