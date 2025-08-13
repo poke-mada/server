@@ -21,16 +21,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = False
 # SECURITY WARNING: don't run with debug turned on in production!
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'https://pokemon.para-mada.com',
+    'https://www.pokemon.para-mada.com',
+    "https://admin.pokemon.para-mada.com",
+    "https://staff.pokemon.para-mada.com",
+]
+
 CORS_ORIGIN_ALLOW_ALL = True
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'https://pokemon.para-mada.com']
+CSRF_TRUSTED_ORIGINS = [
+    'https://pokemon.para-mada.com',
+    'https://www.pokemon.para-mada.com',
+    "https://admin.pokemon.para-mada.com",
+    "https://staff.pokemon.para-mada.com",
+]
+
+SESSION_COOKIE_DOMAIN = ".dedsafio-pokemon.com"
+CSRF_COOKIE_DOMAIN = ".dedsafio-pokemon.com"
 
 # Application definition
 
 INSTALLED_APPS = [
     "daphne",
-    'django.contrib.admin',
     'nested_admin',
+    "pokemada.admin_site.CustomAdminConfig",
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

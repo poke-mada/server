@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.static import serve
@@ -7,7 +6,6 @@ from admin_panel.admin import staff_site
 from api.data_loader_view import LoadJsonDataView
 from api.views import FileUploadView, FileUploadManyView, LoadItemNamesView
 from pokemada.views import overlay, showdown
-from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),

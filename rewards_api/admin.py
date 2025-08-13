@@ -27,6 +27,28 @@ class RewardInline(admin.TabularInline):
 
 @admin.register(RewardBundle, site=staff_site)
 class RewardBundleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'user_created', 'is_active')
-    list_filter = ('user_created', 'is_active')
+    list_display = ('id', 'name', 'is_active')
+    list_filter = ('is_active',)
+    fields = (
+        'name',
+        'is_active',
+        'description',
+        'sender',
+        'type',
+    )
     inlines = (RewardInline,)
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.filter(user_created=False)
+
+
+@admin.register(RewardBundle)
+class RewardBundleAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'user_created', 'is_active')
+    list_filter = ('is_active', 'user_created')
+    inlines = (RewardInline,)
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.filter(user_created=False)

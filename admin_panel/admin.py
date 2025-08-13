@@ -12,6 +12,12 @@ from rewards_api.models import StreamerRewardInventory
 class StaffAdminArea(admin.AdminSite):
     site_header = 'Super User Administration'
 
+    def has_permission(self, request):
+        user: User = request.user
+        # Ejemplo: permitir acceso si tiene un permiso concreto
+        return request.user.is_superuser or (
+                    request.user.is_active and user.groups.filter(name='Site Administrator').exists())
+
 
 staff_site = StaffAdminArea(name='StaffAdmin')
 

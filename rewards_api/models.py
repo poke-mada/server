@@ -8,11 +8,23 @@ from trainer_data.models import TrainerPokemon
 
 
 class RewardBundle(models.Model):
+    REWARD_BUNDLE = 0
+    ROULETTE_BUNDLE = 1
+    WILDCARD_BUNDLE = 2
+
+    BUNDLE_TYPES = {
+        REWARD_BUNDLE: 'Premio',
+        ROULETTE_BUNDLE: 'Ruleta',
+        WILDCARD_BUNDLE: 'Comodin'
+    }
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=50, null=True)
     description = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     user_created = models.BooleanField(default=False)
+    sender = models.CharField(max_length=50, null=True, default='Evento')
+    type = models.SmallIntegerField(choices=BUNDLE_TYPES.items(), default=REWARD_BUNDLE)
 
     def __str__(self):
         return self.name
