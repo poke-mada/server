@@ -24,6 +24,8 @@ DEBUG = False
 ALLOWED_HOSTS = [
     'https://pokemon.para-mada.com',
     'https://www.pokemon.para-mada.com',
+    'pokemon.para-mada.com',
+    'www.pokemon.para-mada.com',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
