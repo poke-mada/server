@@ -24,24 +24,13 @@ DEBUG = False
 ALLOWED_HOSTS = [
     'https://pokemon.para-mada.com',
     'https://www.pokemon.para-mada.com',
-    "https://admin.pokemon.para-mada.com",
-    "https://staff.pokemon.para-mada.com",
-    'pokemon.para-mada.com',
-    'www.pokemon.para-mada.com',
-    "admin.pokemon.para-mada.com",
-    "staff.pokemon.para-mada.com",
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
 CSRF_TRUSTED_ORIGINS = [
     'https://pokemon.para-mada.com',
     'https://www.pokemon.para-mada.com',
-    "https://admin.pokemon.para-mada.com",
-    "https://staff.pokemon.para-mada.com",
 ]
-
-SESSION_COOKIE_DOMAIN = ".dedsafio-pokemon.com"
-CSRF_COOKIE_DOMAIN = ".dedsafio-pokemon.com"
 
 # Application definition
 
