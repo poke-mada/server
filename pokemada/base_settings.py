@@ -38,6 +38,10 @@ CSRF_TRUSTED_ORIGINS = [
     'https://www.pokemon.para-mada.com',
     "https://admin.pokemon.para-mada.com",
     "https://staff.pokemon.para-mada.com",
+    'pokemon.para-mada.com',
+    'www.pokemon.para-mada.com',
+    "admin.pokemon.para-mada.com",
+    "staff.pokemon.para-mada.com",
 ]
 
 SESSION_COOKIE_DOMAIN = ".dedsafio-pokemon.com"
