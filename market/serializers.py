@@ -65,13 +65,35 @@ class BankedAssetSimpleSerializer(serializers.ModelSerializer):
 
 
 class MarketSlotListSerializer(serializers.ModelSerializer):
-    banked_asset = BankedAssetSimpleSerializer(read_only=True)
+    name = serializers.SerializerMethodField()
+    mote_or_quantity = serializers.SerializerMethodField()
+
+    def get_mote_or_quantity(self, obj: MarketSlot):
+        if obj.item_type == MarketSlot.MONEY:
+            return obj.quantity
+
+        if obj.item_type == MarketSlot.ITEM:
+            return obj.quantity
+
+        if obj.item_type == MarketSlot.POKEMON:
+            return obj.banked_asset.object.mote
+
+    def get_name(self, obj: MarketSlot):
+        if obj.item_type == MarketSlot.MONEY:
+            return "Deditas"
+
+        if obj.item_type == MarketSlot.ITEM:
+            return obj.banked_asset.object.name
+
+        if obj.item_type == MarketSlot.POKEMON:
+            return obj.banked_asset.object.pokemon.name
+
+        return obj
 
     class Meta:
         model = MarketSlot
         fields = [
-            'quantity',
-            'banked_asset'
+            'name',
         ]
 
 
@@ -89,7 +111,8 @@ class MarketSlotCreatePostSerializer(serializers.ModelSerializer):
 
 
 class MarketPostSimpleSerializer(serializers.ModelSerializer):
-    items = MarketSlotListSerializer(many=True)
+    creator = serializers.CharField(source='creator.streamer_name', read_only=True)
+    items = MarketSlotListSerializer(many=True, read_only=True)
     status_display = serializers.CharField(source='get_status_display', read_only=True)
 
     class Meta:
