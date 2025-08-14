@@ -1,3 +1,8 @@
+import os
+import boto3
+from botocore.config import Config
+from django.conf import settings
+from django.core.cache import cache
 from django.db import transaction
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
@@ -96,9 +101,36 @@ class MarketSlotListSerializer(serializers.ModelSerializer):
             return "./assets/coin.png"
 
         if obj.item_type == MarketSlot.ITEM:
-            item_name = obj.banked_asset.object.name
-            snake_item_name = item_name.lower().replace(" ", "-")
-            return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/{snake_item_name}.png'
+            item: Item = obj.banked_asset.object
+            if item.custom_sprite:
+                presigned_url = cache.get(f'cached_item_url_{item.id}')
+                STORAGE_TIMEOUT = 60 * 15
+                if not presigned_url:
+                    documento = item.custom_sprite
+
+                    file_field = documento.file
+                    s3_key = file_field.name  # Ej: "documentos/archivo.pdf"
+                    ENVIRONMENT = os.getenv("DJANGO_ENV", "prod")  # "dev", "stage" o "prod"
+                    full_s3_path = os.path.join(ENVIRONMENT, 'dedsafio-pokemon/media', s3_key)
+                    s3_path_cache = full_s3_path
+                    s3 = boto3.client(
+                        's3',
+                        region_name='us-east-1',
+                        aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                        aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                        config=Config(signature_version='s3v4', s3={"use_accelerate_endpoint": True})
+                    )
+                    presigned_url = s3.generate_presigned_url(
+                        'get_object',
+                        Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': s3_path_cache},
+                        ExpiresIn=STORAGE_TIMEOUT,
+                    )
+                item_sprite_url = presigned_url
+            else:
+                item_name = item.name
+                snake_item_name = item_name.lower().replace(" ", "-")
+                item_sprite_url = f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/{snake_item_name}.png'
+            return item_sprite_url
 
         if obj.item_type == MarketSlot.POKEMON:
             return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{obj.banked_asset.object.pokemon.index}.png'

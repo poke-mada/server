@@ -36,6 +36,7 @@ class Item(models.Model):
     name = models.CharField(max_length=50)
     api_loaded = models.BooleanField(default=False)
     item_bag = models.CharField(max_length=100, null=True, blank=True, choices=ITEM_BAGS)
+    custom_sprite = models.ImageField(upload_to='sprites/', null=True, blank=True)
 
     def __str__(self):
         return self.name
