@@ -1,5 +1,8 @@
+from django.db import transaction
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 
+from event_api.models import MastersProfile
 from pokemon_api.models import Item
 from trainer_data.models import TrainerPokemon
 from .models import BankedAsset, MarketPost, MarketSlot, MarketPostOffer
@@ -62,11 +65,24 @@ class BankedAssetSimpleSerializer(serializers.ModelSerializer):
 
 
 class MarketSlotListSerializer(serializers.ModelSerializer):
-    banked_asset = BankedAssetSimpleSerializer()
+    banked_asset = BankedAssetSimpleSerializer(read_only=True)
 
     class Meta:
         model = MarketSlot
         fields = [
+            'quantity',
+            'banked_asset'
+        ]
+
+
+class MarketSlotCreatePostSerializer(serializers.ModelSerializer):
+    item_type = serializers.IntegerField(required=False, allow_null=True)
+    banked_asset = serializers.IntegerField(required=False, allow_null=True)
+
+    class Meta:
+        model = MarketSlot
+        fields = [
+            'item_type',
             'quantity',
             'banked_asset'
         ]
@@ -94,6 +110,7 @@ class MarketOfferSerializer(serializers.ModelSerializer):
     class Meta:
         model = MarketPostOffer
         fields = [
+            'id',
             'creator',
             'status',
             'status_display',
@@ -104,16 +121,148 @@ class MarketOfferSerializer(serializers.ModelSerializer):
 
 class MarketPostSerializer(serializers.ModelSerializer):
     items = MarketSlotListSerializer(many=True)
-    offers = MarketOfferSerializer(many=True)
+    offers = MarketOfferSerializer(many=True, read_only=True)
     status_display = serializers.CharField(source='get_status_display', read_only=True)
 
     class Meta:
         model = MarketPost
         fields = [
+            'id',
             'creator',
             'status',
             'status_display',
             'already_closed',
             'items',
             'offers'
+        ]
+
+
+class MarketPostCreateSerializer(serializers.ModelSerializer):
+    items = MarketSlotCreatePostSerializer(many=True)
+
+    class Meta:
+        model = MarketPost
+        fields = [
+            'creator',
+            'items',
+        ]
+
+    def validate(self, data):
+        owner: MastersProfile = data['creator']
+        for item in data['items']:
+            quantity = item['quantity']
+            asset_id = item.get('banked_asset', False)
+            asset: BankedAsset = BankedAsset.objects.filter(id=asset_id).first()
+            item_type = 0 if not asset else 1 if asset.content_type.model == 'item' else 3
+            match item_type:
+                case MarketSlot.ITEM:
+                    if not owner.has_item(asset, quantity):
+                        raise ValidationError(
+                            'No dispones de suficientes unidades de este objeto, o se encuentra bloqueado por otra oferta')
+                case MarketSlot.POKEMON:
+                    if not owner.has_item(asset, quantity):
+                        raise ValidationError('Los Pokemon solo se pueden cambiar 1 a la vez')
+                case MarketSlot.MONEY:
+                    if not owner.economy >= quantity:
+                        raise ValidationError('No tienes tanto dinero')
+
+        return super().validate(data)
+
+    @transaction.atomic
+    def create(self, validated_data):
+        items = validated_data.pop('items')
+
+        post = MarketPost.objects.create(**validated_data)
+        for item in items:
+            asset_id = item.pop('banked_asset', None)
+            if asset_id and item.get('item_type', 7) != MarketSlot.MONEY:
+                asset: BankedAsset = BankedAsset.objects.filter(id=asset_id).first()
+
+                MarketSlot.objects.create(
+                    banked_asset=asset,
+                    quantity=item['quantity'],
+                    item_type=1 if asset.content_type.model == 'item' else 2,
+                    post=post
+                )
+            elif item.get('item_type', 7) == MarketSlot.MONEY:
+                MarketSlot.objects.create(
+                    **item,
+                    post=post
+                )
+
+        return post
+
+
+class MarketPostOfferCreateSerializer(serializers.ModelSerializer):
+    items = MarketSlotCreatePostSerializer(many=True)
+
+    class Meta:
+        model = MarketPostOffer
+        fields = [
+            'post',
+            'creator',
+            'items',
+        ]
+
+    def validate(self, data):
+        owner: MastersProfile = data['creator']
+        for item in data['items']:
+            quantity = item['quantity']
+            asset_id = item.get('banked_asset', False)
+            asset: BankedAsset = BankedAsset.objects.filter(id=asset_id).first()
+            item_type = 0 if not asset else 1 if asset.content_type.model == 'item' else 3
+            print(item_type)
+            match item_type:
+                case MarketSlot.ITEM:
+                    if not owner.has_item(asset, quantity):
+                        raise ValidationError(
+                            'No dispones de suficientes unidades de este objeto, o se encuentra bloqueado por otra oferta')
+                case MarketSlot.POKEMON:
+                    if not owner.has_item(asset, quantity):
+                        raise ValidationError('Los Pokemon solo se pueden cambiar 1 a la vez')
+                case MarketSlot.MONEY:
+                    if not owner.economy >= quantity:
+                        raise ValidationError('No tienes tanto dinero')
+
+        return super().validate(data)
+
+    @transaction.atomic
+    def create(self, validated_data):
+        items = validated_data.pop('items')
+
+        offer = MarketPostOffer.objects.create(**validated_data)
+        for item in items:
+            asset_id = item.pop('banked_asset', None)
+            if asset_id and item.get('item_type', 7) != MarketSlot.MONEY:
+                asset: BankedAsset = BankedAsset.objects.filter(id=asset_id).first()
+
+                MarketSlot.objects.create(
+                    banked_asset=asset,
+                    quantity=item['quantity'],
+                    item_type=1 if asset.content_type.model == 'item' else 2,
+                    offer=offer
+                )
+            elif item.get('item_type', 7) == MarketSlot.MONEY:
+                MarketSlot.objects.create(
+                    **item,
+                    offer=offer
+                )
+
+        return offer
+
+
+class MarketPostOfferSerializer(serializers.ModelSerializer):
+    items = MarketSlotListSerializer(many=True)
+    status_display = serializers.CharField(source='get_status_display', read_only=True)
+
+    class Meta:
+        model = MarketPostOffer
+        fields = [
+            'id',
+            'post',
+            'creator',
+            'status',
+            'status_display',
+            'already_closed',
+            'items'
         ]

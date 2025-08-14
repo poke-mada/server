@@ -147,7 +147,7 @@ class Wildcard(models.Model):
         else:
             amount_to_buy = amount
         return self.is_active and (
-                    (user.masters_profile.economy >= self.get_price(user) * amount_to_buy) or self.always_available)
+                (user.masters_profile.economy >= self.get_price(user) * amount_to_buy) or self.always_available)
 
     def can_use(self, user: User, amount, **data):
         from event_api.wildcards.registry import get_executor
@@ -321,7 +321,7 @@ class MastersProfile(models.Model):
     showdown_token = models.CharField(max_length=260, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.trainer.name if self.trainer else '-'} | {self.get_profile_type_display()}"
+        return self.streamer_name or f"U:{self.user.username}"
 
     @property
     def last_save(self):
@@ -440,6 +440,17 @@ class MastersProfile(models.Model):
             return inputs - outputs
 
         return None
+
+    def has_item(self, banked_asset, quantity):
+        agg_total_quantity = self.banked_assets.filter(
+            content_type=banked_asset.content_type,
+            object_id=banked_asset.object_id,
+            trade_locked=False
+        ).aggregate(Sum('quantity'))['quantity__sum'] or 0
+        if banked_asset.content_type.model == 'trainerpokemon':
+            if quantity > 1:
+                return False
+        return agg_total_quantity >= quantity
 
 
 class MastersSegmentSettings(models.Model):

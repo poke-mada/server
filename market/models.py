@@ -55,7 +55,7 @@ class BankedAsset(models.Model):
 class MarketTransactor(object):
     __slots__ = ['creator', 'items']
 
-    def perform_transaction(self, target: MastersProfile, force_transaction=False):
+    def perform_transaction(self, target: MastersProfile, force_transaction=False, transaction_id=None, post_id=None):
         vendor = self.creator
         items = self.items.all()
         for item in items:
@@ -63,12 +63,14 @@ class MarketTransactor(object):
                 CoinTransaction.objects.create(
                     profile=vendor,
                     TYPE=CoinTransaction.OUTPUT,
-                    amount=item.quantity
+                    amount=item.quantity,
+                    reason=f'Transaccion de Mercado #{transaction_id} para publicacion #{post_id}'
                 )
                 CoinTransaction.objects.create(
                     profile=target,
                     TYPE=CoinTransaction.INPUT,
-                    amount=item.quantity
+                    amount=item.quantity,
+                    reason=f'Transaccion de Mercado #{transaction_id} para publicacion #{post_id}'
                 )
                 continue
 
@@ -103,7 +105,7 @@ class MarketPost(models.Model, MarketTransactor):
     selected_offer = models.ForeignKey("MarketPostOffer", null=True, blank=True, on_delete=models.PROTECT)
 
     def __str__(self):
-        return f'POST {self.id}|{self.creator} - {self.get_status_display()}'
+        return f'POST {self.id}|{self.creator}'
 
 
 class MarketPostOffer(models.Model, MarketTransactor):
@@ -124,7 +126,7 @@ class MarketPostOffer(models.Model, MarketTransactor):
     already_closed = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'OFFER {self.creator} > {self.post}'
+        return f'OFFER {self.id}|{self.creator} > {self.post}'
 
 
 class MarketSlot(models.Model):
@@ -141,8 +143,8 @@ class MarketSlot(models.Model):
     banked_asset = models.ForeignKey(BankedAsset, on_delete=models.PROTECT, related_name='marketed', null=True,
                                      blank=True, limit_choices_to=Q(quantity__gt=0))
     quantity = models.PositiveIntegerField(default=1)
-    post = models.ForeignKey(MarketPost, on_delete=models.PROTECT, related_name='items', null=True, blank=True)
-    offer = models.ForeignKey(MarketPostOffer, on_delete=models.PROTECT, related_name='items', null=True, blank=True)
+    post = models.ForeignKey(MarketPost, on_delete=models.CASCADE, related_name='items', null=True, blank=True)
+    offer = models.ForeignKey(MarketPostOffer, on_delete=models.CASCADE, related_name='items', null=True, blank=True)
 
     def clean(self):
         if self.offer is not None and self.post is not None:
@@ -168,8 +170,8 @@ class MarketTransaction(models.Model):
             return
 
         with transaction.atomic():
-            post.perform_transaction(offer.creator, force_transaction)
-            offer.perform_transaction(post.creator, force_transaction)
+            post.perform_transaction(offer.creator, force_transaction, self.id, offer.id)
+            offer.perform_transaction(post.creator, force_transaction, self.id, offer.id)
 
         offer.already_closed = True
         offer.status = MarketPost.CLOSED

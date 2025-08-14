@@ -8,7 +8,7 @@ from market.models import MarketPost, MarketSlot, BankedAsset, MarketPostOffer, 
 
 @admin.action(description="Perform Transactions")
 def perform_transactions(modeladmin, request, queryset):
-    for obj in queryset:
+    for obj in queryset:  # type: MarketTransaction
         obj.perform_transaction(force_transaction=True)
 
 
