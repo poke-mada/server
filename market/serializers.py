@@ -67,6 +67,7 @@ class BankedAssetSimpleSerializer(serializers.ModelSerializer):
 class MarketSlotListSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
     mote_or_quantity = serializers.SerializerMethodField()
+    sprite = serializers.SerializerMethodField()
 
     def get_mote_or_quantity(self, obj: MarketSlot):
         if obj.item_type == MarketSlot.MONEY:
@@ -90,9 +91,24 @@ class MarketSlotListSerializer(serializers.ModelSerializer):
 
         return obj
 
+    def get_sprite(self, obj: MarketSlot):
+        if obj.item_type == MarketSlot.MONEY:
+            return "./assets/coin.png"
+
+        if obj.item_type == MarketSlot.ITEM:
+            item_name = obj.banked_asset.object.name
+            snake_item_name = item_name.lower().replace(" ", "-")
+            return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/{snake_item_name}.png'
+
+        if obj.item_type == MarketSlot.POKEMON:
+            return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{obj.banked_asset.object.pokemon.index}.png'
+
+        return obj
+
     class Meta:
         model = MarketSlot
         fields = [
+            'sprite',
             'name',
             'mote_or_quantity'
         ]
