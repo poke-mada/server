@@ -20,7 +20,7 @@ class MarketViewSet(viewsets.ModelViewSet):
         serializer = MarketPostSimpleSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(methods=['get'], detail=True)
+    @action(methods=['get'], detail=False)
     def list_mine(self, request, *args, **kwargs):
         queryset = MarketPost.objects.filter(status=MarketPost.OPEN, creator=request.user.masters_profile).order_by('-created_at')
         serializer = MarketPostSimpleSerializer(queryset, many=True)
