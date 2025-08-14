@@ -94,6 +94,7 @@ class MarketSlotListSerializer(serializers.ModelSerializer):
         model = MarketSlot
         fields = [
             'name',
+            'mote_or_quantity'
         ]
 
 
