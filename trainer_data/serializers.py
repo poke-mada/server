@@ -68,7 +68,7 @@ class TrainerPokemonSerializer(serializers.ModelSerializer):
         buffer.seek(0)  # muy importante para que lea desde el inicio
 
         pokemon.enc_data.save(
-            f"{pokemon.mote}.ek6",
+            f"pokemon/{pokemon.mote}.ek6",
             File(buffer),
             save=True
         )

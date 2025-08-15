@@ -59,7 +59,7 @@ class StealPokemonHandler(StrongAttackHandler):
         )
 
         new_premio.pokemon_data.save(
-            f"{target_pokemon.mote}.ek6",
+            f"pokemon/{target_pokemon.mote}.ek6",
             target_pokemon.enc_data.file,
             save=True
         )
