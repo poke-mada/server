@@ -16,7 +16,7 @@ class StaffAdminArea(admin.AdminSite):
         user: User = request.user
         # Ejemplo: permitir acceso si tiene un permiso concreto
         return request.user.is_superuser or (
-                    request.user.is_active and user.groups.filter(name='Site Administrator').exists())
+                request.user.is_active and user.groups.filter(name='Site Administrator').exists())
 
 
 staff_site = StaffAdminArea(name='StaffAdmin')
@@ -119,7 +119,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     list_display = (
         'username',
         'masters_profile__streamer_name',
-        'masters_profile__league',
+        'league',
         'profile_type',
         'is_tester',
         'is_pro',
@@ -137,6 +137,11 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     @admin.display(description='Profile Type', ordering='masters_profile__profile_type')
     def profile_type(self, obj):
         return obj.masters_profile.get_profile_type_display()
+
+    @admin.display(description='Profile Type', ordering='masters_profile__current_segment_settings__profile_type')
+    def league(self, obj):
+        profile: MastersProfile = obj.masters_profile
+        return profile.current_segment_settings.tournament_league
 
     @admin.display(description='Is Tester', boolean=True, ordering='masters_profile__is_tester')
     def is_tester(self, obj):
