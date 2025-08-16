@@ -134,11 +134,11 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         queryset = super().get_queryset(request)
         return queryset.filter(is_active=True, masters_profile__profile_type=MastersProfile.TRAINER)
 
-    @admin.display(description='Profile Type', ordering='masters_profile__profile_type')
+    @admin.display(description='Tipo de Perfil', ordering='masters_profile__profile_type')
     def profile_type(self, obj):
         return obj.masters_profile.get_profile_type_display()
 
-    @admin.display(description='Profile Type', ordering='masters_profile__current_segment_settings__profile_type')
+    @admin.display(description='Liga Actual', ordering='masters_profile__current_segment_settings__profile_type')
     def league(self, obj):
         profile: MastersProfile = obj.masters_profile
         if not profile.current_segment_settings:
@@ -151,7 +151,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     def is_tester(self, obj):
         return obj.masters_profile.is_tester
 
-    @admin.display(description='Is Pro', boolean=True, ordering='masters_profile__is_pro')
+    @admin.display(description='Es Pro?', boolean=True, ordering='masters_profile__is_pro')
     def is_pro(self, obj):
         return obj.masters_profile.is_pro
 
