@@ -141,6 +141,10 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     @admin.display(description='Profile Type', ordering='masters_profile__current_segment_settings__profile_type')
     def league(self, obj):
         profile: MastersProfile = obj.masters_profile
+        if not profile.current_segment_settings:
+            if profile.profile_type != MastersProfile.TRAINER:
+                return 'no current segment'
+            return '-'
         return profile.current_segment_settings.tournament_league
 
     @admin.display(description='Is Tester', boolean=True, ordering='masters_profile__is_tester')
