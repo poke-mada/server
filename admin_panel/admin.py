@@ -147,7 +147,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
             return '-'
         return profile.current_segment_settings.tournament_league
 
-    @admin.display(description='Is Tester', boolean=True, ordering='masters_profile__is_tester')
+    @admin.display(description='Es Tester', boolean=True, ordering='masters_profile__is_tester')
     def is_tester(self, obj):
         return obj.masters_profile.is_tester
 
