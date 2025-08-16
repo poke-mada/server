@@ -118,7 +118,8 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'date_joined', 'username')
     list_display = (
         'username',
-        'masters_profile__trainer',
+        'masters_profile__streamer_name',
+        'masters_profile__league',
         'profile_type',
         'is_tester',
         'is_pro',
