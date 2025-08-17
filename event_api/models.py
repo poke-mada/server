@@ -1,7 +1,11 @@
 from datetime import datetime
 import random
 
+import boto3
+from botocore.config import Config
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models, transaction
 from django.db.models import Q, Sum
@@ -325,7 +329,7 @@ class MastersProfile(models.Model):
 
     @property
     def last_save(self):
-        return self.trainer.saves.order_by('created_on').last().file.url
+        return self.trainer.saves.order_by('created_on').last().file
 
     def get_last_releasable_by_dex_number(self, dex_number):
 
@@ -412,7 +416,28 @@ class MastersProfile(models.Model):
         return self.segments_settings.filter(is_current=True).first()
 
     def last_save_download(self):
-        return mark_safe('<a href="{0}" download>Download {1} Save</a>'.format(self.last_save, self.trainer.name))
+        presigned_url = cache.get(f'cached_save_for_profile_{self.pk}')
+        if not presigned_url:
+            import os
+            STORAGE_TIMEOUT = 60 * 15
+            file_field = self.last_save
+            s3_key = file_field.name  # Ej: "prod/media/documentos/archivo.pdf"
+            ENVIRONMENT = os.getenv("DJANGO_ENV", "prod")  # "dev", "stage" o "prod"
+            full_s3_path = os.path.join(ENVIRONMENT, 'dedsafio-pokemon/media', s3_key)
+            s3 = boto3.client(
+                's3',
+                region_name='us-east-1',
+                aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                config=Config(signature_version='s3v4', s3={"use_accelerate_endpoint": True})
+            )
+            presigned_url = s3.generate_presigned_url(
+                    'get_object',
+                    Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': full_s3_path},
+                    ExpiresIn=STORAGE_TIMEOUT,
+            )
+            cache.set(f'cached_save_for_profile_{self.pk}', presigned_url, timeout=STORAGE_TIMEOUT)  # Cache for 15 minutes
+        return mark_safe('<a href="{0}" download>Download {1} Save</a>'.format(presigned_url, self.trainer.name))
 
     def has_wildcard(self, wildcard: "Wildcard") -> bool:
         return self.wildcard_inventory.filter(wildcard=wildcard).exists()
