@@ -275,10 +275,16 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def box(self, request, pk=None, *args, **kwargs):
         if pk == 'undefined' or pk == 0 or pk == '0':
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        trainer = Trainer.objects.get(id=pk)
         box_id = request.query_params.get('box', 0)
+        cached_box = cache.get(f'trainer_{pk}_box_{box_id}')
+
+        if cached_box:
+            return Response(cached_box, status=status.HTTP_200_OK)
+
+        trainer = Trainer.objects.get(id=pk)
         box = trainer.boxes.filter(box_number=box_id).last()
         box_serializer = TrainerBoxSerializer(box, read_only=True)
+        cache.get(f'trainer_{pk}_box_{box_id}', box_serializer.data)
 
         return Response(box_serializer.data, status=status.HTTP_200_OK)
 
@@ -540,6 +546,7 @@ def box_saver(boxes, profile: MastersProfile):
     boxes_hash = dict()
     for box_num in range(7):
         boxes_hash[box_num] = TrainerBox.objects.create(box_number=box_num, trainer=trainer)
+        cache.get(f'trainer_{trainer.pk}_box_{box_num}').clear()
 
     for box_num, data in boxes.items():
         if not data:
