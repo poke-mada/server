@@ -20,12 +20,14 @@ def overlay(request, streamer_name):
 
     if profile.is_pro:
         return render(request, 'pro_overlay.html', {
-            'streamer_name': profile.streamer_name
+            'streamer_name': profile.streamer_name,
+            'socket_name': profile.user.username
         })
 
     return render(request, 'coach_overlay.html', {
         'coach_name': coach_name,
-        'streamer_name': profile.streamer_name
+        'streamer_name': profile.streamer_name,
+        'socket_name': profile.user.username
     })
 
 
@@ -45,10 +47,12 @@ def showdown(request, streamer_name):
 
     if profile.is_pro:
         return render(request, 'pro_showdown_overlay.html', {
-            'streamer_name': profile.streamer_name
+            'streamer_name': profile.streamer_name,
+            'socket_name': profile.user.username
         })
 
     return render(request, 'coach_showdown_overlay.html', {
         'coach_name': coach_name,
-        'streamer_name': profile.streamer_name
+        'streamer_name': profile.streamer_name,
+        'socket_name': profile.user.username
     })
