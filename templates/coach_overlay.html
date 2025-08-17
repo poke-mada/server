@@ -257,9 +257,9 @@
     <script type="application/javascript">
         let server_socket;
         if (window.location.host.startsWith('localhost')) {
-            server_socket = new WebSocket(`ws://${window.location.host}/ws/overlay/{{ socket_name }}`);
+            server_socket = new WebSocket(`ws://${window.location.host}/ws/overlay/{{ streamer_name }}`);
         } else {
-            server_socket = new WebSocket(`wss://${window.location.host}/ws/overlay/{{ socket_name }}`);
+            server_socket = new WebSocket(`wss://${window.location.host}/ws/overlay/{{ streamer_name }}`);
         }
 
         server_socket.onopen = (ws) => {
