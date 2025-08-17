@@ -305,24 +305,24 @@ class MastersProfile(models.Model):
     }
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="masters_profile")
-    streamer_name = models.CharField(max_length=50, default="", blank=False, null=True)
+    streamer_name = models.CharField(max_length=50, default="", blank=False, null=True, verbose_name="Nombre de Streamer")
     coached = models.ForeignKey("MastersProfile", on_delete=models.SET_NULL, null=True, blank=True,
-                                related_name="coaches")
-    main_coach = models.ForeignKey("MastersProfile", on_delete=models.SET_NULL, null=True, blank=True)
-    starter_dex_number = models.IntegerField(null=True, blank=True)
-    in_pokemon_league = models.BooleanField(default=False)
-    already_won_lysson = models.BooleanField(default=False)
-    web_picture = models.ImageField(upload_to='profiles/web/', null=True, blank=True)
-    trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="users", null=True, blank=True)
-    profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER)
-    death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0)
-    rom_name = models.CharField(max_length=50, default="Pokémon X")
-    is_pro = models.BooleanField(default=False)
-    tournament_league = models.CharField(max_length=1, choices=LEAGUES.items(), default='-')
+                                related_name="coaches", verbose_name='Ahijado')
+    main_coach = models.ForeignKey("MastersProfile", on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Coach principal')
+    starter_dex_number = models.IntegerField(null=True, blank=True, verbose_name="Pokémon \"El Elegido\"")
+    in_pokemon_league = models.BooleanField(default=False, verbose_name="Dentro de la liga")
+    already_won_lysson = models.BooleanField(default=False, verbose_name="Le ganó a Lysson")
+    web_picture = models.ImageField(upload_to='profiles/web/', null=True, blank=True, verbose_name="Foto Perfil")
+    trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="users", null=True, blank=True, verbose_name="Entrenador")
+    profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER, verbose_name="Tipo de Perfil")
+    death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0, verbose_name="Conteo de muertes totales")
+    rom_name = models.CharField(max_length=50, default="Pokémon X", verbose_name="Nombre de Rom")
+    is_pro = models.BooleanField(default=False, verbose_name="Es pro?")
+    tournament_league = models.CharField(max_length=1, choices=LEAGUES.items(), default='-', verbose_name="Liga")
     save_path = models.CharField(max_length=260, null=True, blank=True,
                                  default=r'%APPDATA%\Lime3DS\sdmc\Nintendo 3DS\00000000000000000000000000000000\00000000000000000000000000000000\title\00040000\00055d00\data\00000001')
-    is_tester = models.BooleanField(default=False)
-    showdown_token = models.CharField(max_length=260, null=True, blank=True)
+    is_tester = models.BooleanField(default=False, verbose_name="Es Tester?")
+    showdown_token = models.CharField(max_length=260, null=True, blank=True, verbose_name="Token para showdown")
 
     def __str__(self):
         return self.streamer_name or f"U:{self.user.username}"
