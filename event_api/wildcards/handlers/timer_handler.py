@@ -13,7 +13,7 @@ class TimerHandler(BaseWildCardHandler):
     admin_inline_model = TimerHandlerSettings  # a model with extra config
 
     def execute(self, context):
-        DataConsumer.send_custom_data(self.user.masters_profile.streamer_name, dict(
+        DataConsumer.send_custom_data(self.user.username, dict(
             type='start_timer_notification',
             data=self.wildcard.timer_settings.time
         ))
