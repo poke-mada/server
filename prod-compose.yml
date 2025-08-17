@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+  app:
+    build:
+      context: .
+      dockerfile: ./compose/local/Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000 --verbosity 3
+    environment:
+      - DJANGO_ENV=dev
+      - DJANGO_SETTINGS_MODULE=pokemada.settings
+    volumes:
+      - .:/app
+  daphne:
+    build:
+      context: .
+      dockerfile: ./compose/local/Dockerfile
+    command: daphne -b 0.0.0.0 -p 8000 pokemada.asgi:application
+    volumes:
+      - .:/app
+    expose:
+      - '8001'
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+    links:
+      - redis
