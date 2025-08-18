@@ -167,6 +167,7 @@ class MarketPostSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = MarketPost
         fields = [
+            'id',
             'creator',
             'status',
             'status_display',
