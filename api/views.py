@@ -284,7 +284,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         trainer = Trainer.objects.get(id=pk)
         box = trainer.boxes.filter(box_number=box_id).last()
         box_serializer = TrainerBoxSerializer(box, read_only=True)
-        cache.set(f'trainer_{pk}_box_{box_id}', box_serializer.data)
+        cache.set(f'trainer_{pk}_box_{box_id}', box_serializer.data, timeout=60 * 60 * 12)
 
         return Response(box_serializer.data, status=status.HTTP_200_OK)
 
