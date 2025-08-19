@@ -50,7 +50,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def register_deaths(self, request, *args, **kwargs):
         deaths = request.data.get('deaths', 0)
         current_profile: MastersProfile = request.user.masters_profile
-        current_profile.death_count =
+        # current_profile.death_count =
         return Response(True, status=status.HTTP_200_OK)
 
     def _get_queryset(self):
