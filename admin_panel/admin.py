@@ -150,6 +150,10 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     def is_tester(self, obj):
         return obj.masters_profile.is_tester
 
+    @admin.display(description='Falta Foto', boolean=True)
+    def has_pfp(self, obj):
+        return obj.masters_profile.web_picture is None
+
     @admin.display(description='Es Pro?', boolean=True, ordering='masters_profile__is_pro')
     def is_pro(self, obj):
         return obj.masters_profile.is_pro
