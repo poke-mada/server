@@ -8,10 +8,11 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.core.handlers.base import logger
-from django.db.models import Q
+from django.db.models import Q, Sum
 from django.http import HttpResponse
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
+from rest_framework.generics import get_object_or_404
 from rest_framework.parsers import FileUploadParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -459,6 +460,13 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
             wildcards = wildcards.exclude(name='Ayuda Del Coach').exclude(pk=55)
         serializer = SimplifiedWildcardSerializer(wildcards, many=True)
         return Response(serializer.data)
+
+    @action(methods=['GET'], detail=True)
+    def has_card(self, request, pk=None, *args, **kwargs):
+        current_profile: MastersProfile = request.user.masters_profile
+        wildcard = get_object_or_404(Wildcard, pk=pk, is_active=True)
+        has_ = current_profile.has_wildcard(wildcard)
+        return Response(has_, status=status.HTTP_200_OK)
 
     @action(methods=['POST'], detail=True)
     def use_card(self, request, *args, **kwargs):

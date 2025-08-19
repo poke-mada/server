@@ -440,7 +440,7 @@ class MastersProfile(models.Model):
         return mark_safe('<a href="{0}" download>Download {1} Save</a>'.format(presigned_url, self.trainer.name))
 
     def has_wildcard(self, wildcard: "Wildcard") -> bool:
-        return self.wildcard_inventory.filter(wildcard=wildcard).exists()
+        return self.wildcard_inventory.filter(wildcard=wildcard, quantity__gte=1).exists()
 
     def has_shield(self) -> bool:
         return self.wildcard_inventory.filter(wildcard__handler_key='escudo_protector', quantity__gte=1).exists()
