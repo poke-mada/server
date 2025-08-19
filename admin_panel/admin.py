@@ -70,9 +70,8 @@ class MastersProfileAdmin(admin.ModelAdmin):
 
 
 class ProfilePlatformUrlInline(NestedTabularInline):
-    readonly_fields = ('platform', 'url')
     model = ProfilePlatformUrl
-    min_num = 0
+    min_num = 1
     max_num = 0
     extra = 0
 
@@ -114,7 +113,7 @@ class MastersProfileInline(NestedStackedInline):
 
 class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     readonly_fields = (
-        'groups', 'user_permissions', 'is_staff', 'is_superuser', 'first_name', 'last_name', 'email', 'last_login',
+        'user_permissions', 'is_staff', 'is_superuser', 'first_name', 'last_name', 'email', 'last_login',
         'date_joined')
     list_display = (
         'username',
