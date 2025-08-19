@@ -251,11 +251,15 @@ class TrainerBoxSlotSerializer(serializers.ModelSerializer):
 class TrainerBoxSerializer(serializers.ModelSerializer):
     owner = serializers.SerializerMethodField()
     owner_profile = serializers.SerializerMethodField()
+    stealable = serializers.SerializerMethodField()
     box_identifier = serializers.SerializerMethodField()
     slots = TrainerBoxSlotSerializer(many=True, read_only=True)
 
     def get_owner(self, obj):
         return obj.trainer.id
+
+    def get_stealable(self, obj):
+        return obj.trainer.get_trainer_profile().current_segment_settings.karma > 0
 
     def get_owner_profile(self, obj):
         return obj.trainer.get_trainer_profile().id
