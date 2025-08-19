@@ -41,6 +41,11 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = TrainerSerializer
     permission_classes = [IsTrainer]
 
+    @action(detail=False, methods=['get'])
+    def showdown_key(self, request, *args, **kwargs):
+        current_profile: MastersProfile = request.user.masters_profile
+        return Response(current_profile.showdown_token.token, status=status.HTTP_200_OK)
+
     def _get_queryset(self):
         user: User = self.request.user
         filters = Q()

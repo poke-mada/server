@@ -155,10 +155,11 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     def is_pro(self, obj):
         return obj.masters_profile.is_pro
 
+
 @admin.register(ShowdownToken, site=staff_site)
 class ShowdownTokenAdmin(admin.ModelAdmin):
     list_display = ('username',)
-
+    fields = ('username', 'token')
 
 
 staff_site.register(User, UserProfileAdmin)
