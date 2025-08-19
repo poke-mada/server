@@ -271,7 +271,7 @@ class TrainerBoxSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TrainerBox
-        fields = ['owner', 'owner_profile', 'box_number', 'box_identifier', 'name', 'slots']
+        fields = ['owner', 'owner_profile', 'box_number', 'box_identifier', 'name', 'slots', 'stealable']
 
 
 class ListedBoxSerializer(serializers.ModelSerializer):
