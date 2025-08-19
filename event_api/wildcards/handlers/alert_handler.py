@@ -30,13 +30,13 @@ class AlertHandler(BaseWildCardHandler):
             profile_type=MastersProfile.TRAINER
         ).values_list('streamer_name', flat=True):
             # noinspection PyArgumentList
-            async_to_sync(channel_layer.group_send)(
-                f'chat_{chat}',
-                {
-                    'type': 'chat.message',
-                    'message': json.dumps(data)
-                }
-            )
+            try:
+                async_to_sync(channel_layer.group_send)(
+                    f'chat_{chat}',
+                    dict(type='chat.message', message=json.dumps(data))
+                )
+            except:
+                continue
 
         DataConsumer.send_custom_data(profile.user.username, dict(
             type='attack_notification',
