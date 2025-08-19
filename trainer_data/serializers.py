@@ -254,7 +254,7 @@ class TrainerBoxSerializer(serializers.ModelSerializer):
     slots = TrainerBoxSlotSerializer(many=True, read_only=True)
 
     def get_owner(self, obj):
-        return obj.trainer.get_trainer_profile().id
+        return obj.trainer.id
 
     def get_box_identifier(self, obj):
         if obj.name:
