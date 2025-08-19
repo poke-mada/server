@@ -140,6 +140,9 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         if 'muertos' in obj.trainerboxslot_set.first().box.name.lower():  # TODO: HAY QUE RECHAZAR ARBOL EVOLUTIVO
             return False
 
+        if obj.trainerboxslot_set.first().box.box_number in [5,6]:  # TODO: HAY QUE RECHAZAR ARBOL EVOLUTIVO
+            return False
+
         return True
 
     def get_held_item_name(self, obj: TrainerPokemon):
