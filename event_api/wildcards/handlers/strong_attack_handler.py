@@ -82,4 +82,9 @@ class StrongAttackHandler(AttackHandler):
             data=str(target_current_segment.karma)
         ))
 
+        DataConsumer.send_custom_data(target_profile.user.username, dict(
+            type='exp',
+            data=str(target_current_segment.attacks_received_left)
+        ))
+
         return super().execute(context)

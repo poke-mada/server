@@ -180,6 +180,19 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
         return Response(user.masters_profile.current_segment_settings.karma, status=status.HTTP_200_OK)
 
+    @action(methods=['get'], detail=False)
+    def get_exp(self, request, *args, **kwargs):
+        user: User = request.user
+        current_profile: MastersProfile = user.masters_profile
+
+        if not current_profile:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        if current_profile.profile_type == MastersProfile.COACH:
+            return Response(current_profile.coached.current_segment_settings.attacks_received_left, status=status.HTTP_200_OK)
+
+        return Response(user.masters_profile.current_segment_settings.attacks_received_left, status=status.HTTP_200_OK)
+
     @action(methods=['post'], detail=False)
     def register_imposter(self, request, *args, **kwargs):
         message = request.data.get('message')
