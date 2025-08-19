@@ -116,7 +116,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'date_joined')
     list_display = (
         'username',
-        'masters_profile__streamer_name',
+        'streamer_name',
         'league',
         'is_pro',
         'is_active',
@@ -130,8 +130,8 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         queryset = super().get_queryset(request)
         return queryset.filter(is_active=True, masters_profile__profile_type=MastersProfile.TRAINER)
 
-    @admin.display(description='Tipo de Perfil', ordering='masters_profile__profile_type')
-    def profile_type(self, obj):
+    @admin.display(description='Nombre', ordering='masters_profile__streamer_name')
+    def streamer_name(self, obj):
         return obj.masters_profile.get_profile_type_display()
 
     @admin.display(description='Liga Actual', ordering='masters_profile__current_segment_settings__profile_type')
