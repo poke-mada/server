@@ -117,6 +117,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     list_display = (
         'username',
         'streamer_name',
+        'current_segment',
         'league',
         'is_pro',
         'is_active',
@@ -133,6 +134,10 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     @admin.display(description='Nombre', ordering='masters_profile__streamer_name')
     def streamer_name(self, obj):
         return obj.masters_profile.streamer_name
+
+    @admin.display(description='Tramo Actual', ordering='masters_profile__current_segment_settings__segment')
+    def current_segment(self, obj):
+        return obj.masters_profile.current_segment_settings.segment
 
     @admin.display(description='Liga Actual', ordering='masters_profile__current_segment_settings__profile_type')
     def league(self, obj):
