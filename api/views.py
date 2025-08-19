@@ -47,6 +47,12 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         current_profile: MastersProfile = request.user.masters_profile
         return Response(current_profile.showdown_token.token, status=status.HTTP_200_OK)
 
+    def register_deaths(self, request, *args, **kwargs):
+        deaths = request.data.get('deaths', 0)
+        current_profile: MastersProfile = request.user.masters_profile
+        current_profile.death_count =
+        return Response(True, status=status.HTTP_200_OK)
+
     def _get_queryset(self):
         user: User = self.request.user
         filters = Q()
