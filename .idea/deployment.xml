@@ -3,6 +3,13 @@
   <component name="PublishConfigData" serverName="pokemada droplet" remoteFilesAllowedToDisappearOnAutoupload="false" confirmBeforeUploading="false">
     <option name="confirmBeforeUploading" value="false" />
     <serverData>
+      <paths name="dedsafio privada">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="pokemada droplet">
         <serverdata>
           <mappings>

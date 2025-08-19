@@ -13,6 +13,10 @@ services:
     environment:
       - DJANGO_ENV=dev
       - DJANGO_SETTINGS_MODULE=pokemada.settings
+    expose:
+      - '8000'
+    ports:
+      - "8000:8000"
     volumes:
       - .:/app
   daphne:
