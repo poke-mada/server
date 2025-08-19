@@ -132,7 +132,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
 
     @admin.display(description='Nombre', ordering='masters_profile__streamer_name')
     def streamer_name(self, obj):
-        return obj.masters_profile.get_profile_type_display()
+        return obj.masters_profile.streamer_name
 
     @admin.display(description='Liga Actual', ordering='masters_profile__current_segment_settings__profile_type')
     def league(self, obj):
