@@ -156,7 +156,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
 
     @admin.display(description='Tiene Foto', boolean=True)
     def has_pfp(self, obj):
-        if obj.masters_profile.web_picture.file:
+        if obj.masters_profile.web_picture:
             return True
         return False
 
