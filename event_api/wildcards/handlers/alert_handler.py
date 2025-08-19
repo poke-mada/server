@@ -24,7 +24,11 @@ class AlertHandler(BaseWildCardHandler):
             target_name=target_name
         )
 
-        for chat in MastersProfile.objects.all().values_list('streamer_name', flat=True):
+        for chat in MastersProfile.objects.filter(
+            is_pro=profile.is_pro,
+            is_tester=profile.is_tester,
+            profile_type=MastersProfile.TRAINER
+        ).values_list('streamer_name', flat=True):
             # noinspection PyArgumentList
             async_to_sync(channel_layer.group_send)(
                 f'chat_{chat}',

@@ -322,7 +322,7 @@ class MastersProfile(models.Model):
     save_path = models.CharField(max_length=260, null=True, blank=True,
                                  default=r'%APPDATA%\Lime3DS\sdmc\Nintendo 3DS\00000000000000000000000000000000\00000000000000000000000000000000\title\00040000\00055d00\data\00000001')
     is_tester = models.BooleanField(default=False, verbose_name="Es Tester?")
-    showdown_token = models.CharField(max_length=260, null=True, blank=True, verbose_name="Token para showdown")
+    showdown_token = models.OneToOneField("admin_panel.ShowdownToken", null=True, blank=True, verbose_name="Token para showdown", on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.streamer_name or f"U:{self.user.username}"

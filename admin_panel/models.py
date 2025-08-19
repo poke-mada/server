@@ -39,6 +39,12 @@ class InventoryGiftQuerySequence(models.Model):
         verbose_name_plural = 'Envío de Presets al Buzón'
 
 
+class ShowdownToken(models.Model):
+    username = models.CharField(max_length=50)
+    password = models.CharField(max_length=50)
+    token = models.CharField(max_length=200)
+
+
 # Create your models here.
 class DirectGiftQuerySequence(models.Model):
     WILDCARD = 1
@@ -62,9 +68,11 @@ class DirectGiftQuerySequence(models.Model):
                         reason=f'Se entregaron {gift.quantity} usando DGL: {self.name}'
                     )
                 elif gift.type == DirectGiftQuerySequence.WILDCARD:
-                    item, is_created = StreamerWildcardInventoryItem.objects.get_or_create(profile=target, wildcard=gift.wildcard, defaults=dict(
-                        quantity=gift.quantity
-                    ))
+                    item, is_created = StreamerWildcardInventoryItem.objects.get_or_create(profile=target,
+                                                                                           wildcard=gift.wildcard,
+                                                                                           defaults=dict(
+                                                                                               quantity=gift.quantity
+                                                                                           ))
                     if not is_created:
                         item.quantity += gift.quantity
                         item.save()

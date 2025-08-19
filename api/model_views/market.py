@@ -3,6 +3,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from event_api.models import MastersProfile
 from market.models import MarketPost, MarketTransaction, MarketPostOffer
 from market.serializers import MarketPostSerializer, MarketPostSimpleSerializer, MarketPostCreateSerializer, \
     MarketPostOfferCreateSerializer, MarketPostOfferSerializer
@@ -16,7 +17,13 @@ class MarketViewSet(viewsets.ModelViewSet):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def list(self, request, *args, **kwargs):
-        queryset = MarketPost.objects.exclude(creator=request.user.masters_profile).order_by('-created_at')
+        current_profile = request.user.masters_profile
+        queryset = MarketPost.objects.filter(
+            creator__is_pro=current_profile.is_pro,
+            creator__is_tester=current_profile.is_tester,
+            creator__profile_type=MastersProfile.TRAINER
+        ).exclude(creator=current_profile).order_by('-created_at')
+
         serializer = MarketPostSimpleSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
