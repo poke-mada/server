@@ -440,6 +440,9 @@ class MastersProfile(models.Model):
         return mark_safe('<a href="{0}" download>Download {1} Save</a>'.format(presigned_url, self.trainer.name))
 
     def has_wildcard(self, wildcard: "Wildcard") -> bool:
+        if wildcard.pk == 53 and self.current_segment_settings.steal_karma < 3:
+            return False
+
         return self.wildcard_inventory.filter(wildcard=wildcard, quantity__gte=1).exists()
 
     def has_shield(self) -> bool:
