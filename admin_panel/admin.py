@@ -137,6 +137,8 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
 
     @admin.display(description='Tramo Actual', ordering='masters_profile__current_segment_settings__segment')
     def current_segment(self, obj):
+        if not obj.masters_profile.current_segment_settings:
+            return '-'
         return obj.masters_profile.current_segment_settings.segment
 
     @admin.display(description='Liga Actual', ordering='masters_profile__current_segment_settings__profile_type')
