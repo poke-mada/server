@@ -126,7 +126,6 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     stealable = serializers.SerializerMethodField()
 
     def get_stealable(self, obj: TrainerPokemon):
-        request = self.context.get('request')
 
         profile: MastersProfile = obj.get_owner().get_trainer_profile()
         if not DeathLog.objects.filter(profile=profile, dex_number=obj.pokemon.dex_number, revived=False).exists():
@@ -138,7 +137,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         if obj.pokemon.dex_number == profile.starter_dex_number:  # TODO: HAY QUE RECHAZAR ARBOL EVOLUTIVO
             return False
 
-        return request.user.id
+        return True
 
     def get_held_item_name(self, obj: TrainerPokemon):
         name_localization: ContextLocalization = obj.held_item.name_localizations.filter(
