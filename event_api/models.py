@@ -332,7 +332,6 @@ class MastersProfile(models.Model):
         return self.trainer.saves.order_by('created_on').last().file
 
     def get_last_releasable_by_dex_number(self, dex_number):
-
         banned_mons = BannedPokemon.objects.filter(profile=self).values_list('dex_number', flat=True)
         death_mons = DeathLog.objects.exclude(
             dex_number__in=banned_mons
