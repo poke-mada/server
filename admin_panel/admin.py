@@ -72,8 +72,7 @@ class MastersProfileAdmin(admin.ModelAdmin):
 class ProfilePlatformUrlInline(NestedTabularInline):
     model = ProfilePlatformUrl
     min_num = 1
-    max_num = 0
-    extra = 0
+    extra = 1
 
 
 class WildcardInventoryItem(NestedTabularInline):
@@ -123,7 +122,8 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'is_tester',
         'is_pro',
         'is_active',
-        'is_staff'
+        'is_staff',
+        'has_pfp'
     )
 
     list_filter = ('masters_profile__is_pro', 'is_staff', 'masters_profile__is_tester')
