@@ -250,11 +250,15 @@ class TrainerBoxSlotSerializer(serializers.ModelSerializer):
 
 class TrainerBoxSerializer(serializers.ModelSerializer):
     owner = serializers.SerializerMethodField()
+    owner_profile = serializers.SerializerMethodField()
     box_identifier = serializers.SerializerMethodField()
     slots = TrainerBoxSlotSerializer(many=True, read_only=True)
 
     def get_owner(self, obj):
         return obj.trainer.id
+
+    def get_owner_profile(self, obj):
+        return obj.trainer.get_trainer_profile().id
 
     def get_box_identifier(self, obj):
         if obj.name:
@@ -263,7 +267,7 @@ class TrainerBoxSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TrainerBox
-        fields = ['owner', 'box_number', 'box_identifier', 'name', 'slots']
+        fields = ['owner', 'owner_profile', 'box_number', 'box_identifier', 'name', 'slots']
 
 
 class ListedBoxSerializer(serializers.ModelSerializer):
