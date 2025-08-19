@@ -118,11 +118,8 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'username',
         'masters_profile__streamer_name',
         'league',
-        'profile_type',
-        'is_tester',
         'is_pro',
         'is_active',
-        'is_staff',
         'has_pfp'
     )
 
