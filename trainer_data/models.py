@@ -96,6 +96,9 @@ class TrainerPokemon(models.Model):
     iv_special_attack = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     iv_special_defense = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
 
+    def get_owner(self):
+        return self.team.trainer if self.team else self.trainerboxslot_set.filter(box__trainer__isnull=False).first().box.trainer
+
     def __str__(self):
         return f"{self.id}: {self.mote}"
 

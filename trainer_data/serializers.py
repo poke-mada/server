@@ -3,7 +3,7 @@ from io import BytesIO
 from django.core.files import File
 from rest_framework import serializers
 
-from event_api.models import Newsletter
+from event_api.models import Newsletter, DeathLog, MastersProfile
 from pokemon_api.models import Type, Pokemon, Item, Move, PokemonNature, PokemonAbility, ContextLocalization
 from pokemon_api.serializers import PokemonSerializer, TypeSerializer, MoveSerializer, PokemonNatureSerializer
 from trainer_data.models import Trainer, TrainerBox, TrainerPokemon, TrainerTeam, TrainerBoxSlot
@@ -123,6 +123,22 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     sprite_url = serializers.SerializerMethodField()
     moves = MoveSerializer(many=True)
     types = TypeSerializer(many=True)
+    stealable = serializers.SerializerMethodField()
+
+    def get_stealable(self, obj: TrainerPokemon):
+        request = self.context.get('request')
+
+        profile: MastersProfile = obj.get_owner().get_trainer_profile()
+        if not DeathLog.objects.filter(profile=profile, dex_number=obj.pokemon.dex_number, revived=False).exists():
+            return False
+
+        if obj.pokemon.dex_number == 658:
+            return False
+
+        if obj.pokemon.dex_number == profile.starter_dex_number:  # TODO: HAY QUE RECHAZAR ARBOL EVOLUTIVO
+            return False
+
+        return request.user.id
 
     def get_held_item_name(self, obj: TrainerPokemon):
         name_localization: ContextLocalization = obj.held_item.name_localizations.filter(
