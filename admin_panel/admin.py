@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 
-from admin_panel.models import InventoryGiftQuerySequence, DirectGiftQuerySequence, DirectGift
+from admin_panel.models import InventoryGiftQuerySequence, DirectGiftQuerySequence, DirectGift, ShowdownToken
 from event_api.models import MastersProfile, MastersSegmentSettings, StreamerWildcardInventoryItem, ProfilePlatformUrl
 from rewards_api.models import StreamerRewardInventory
 
@@ -154,6 +154,11 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     @admin.display(description='Es Pro?', boolean=True, ordering='masters_profile__is_pro')
     def is_pro(self, obj):
         return obj.masters_profile.is_pro
+
+@admin.register(ShowdownToken, site=staff_site)
+class ShowdownTokenAdmin(admin.ModelAdmin):
+    list_display = ('username',)
+
 
 
 staff_site.register(User, UserProfileAdmin)
