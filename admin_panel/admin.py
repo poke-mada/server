@@ -115,7 +115,7 @@ class MastersProfileInline(NestedStackedInline):
 class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     readonly_fields = (
         'groups', 'user_permissions', 'is_staff', 'is_superuser', 'first_name', 'last_name', 'email', 'last_login',
-        'date_joined', 'username')
+        'date_joined')
     list_display = (
         'username',
         'masters_profile__streamer_name',
