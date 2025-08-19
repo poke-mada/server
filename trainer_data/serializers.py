@@ -128,7 +128,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     def get_stealable(self, obj: TrainerPokemon):
 
         profile: MastersProfile = obj.get_owner().get_trainer_profile()
-        if not DeathLog.objects.filter(profile=profile, dex_number=obj.pokemon.dex_number, revived=False).exists():
+        if DeathLog.objects.filter(profile=profile, dex_number=obj.pokemon.dex_number, revived=False).exists():
             return False
 
         if obj.pokemon.dex_number == 658:
