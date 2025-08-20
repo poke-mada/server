@@ -16,16 +16,16 @@ def overlay(request, streamer_name):
     coach: MastersProfile = profile.coaches.filter(user__is_active=True).first()
     coach_name = 'Sin coach'
     if coach:
-        coach_name = coach.streamer_name
+        coach_name = coach.user.username
 
     if profile.is_pro:
         return render(request, 'pro_overlay.html', {
-            'streamer_name': profile.streamer_name
+            'streamer_name': profile.user.username
         })
 
     return render(request, 'coach_overlay.html', {
         'coach_name': coach_name,
-        'streamer_name': profile.streamer_name
+        'streamer_name': profile.user.username
     })
 
 
@@ -41,14 +41,14 @@ def showdown(request, streamer_name):
     coach: MastersProfile = profile.coaches.filter(user__is_active=True).first()
     coach_name = 'Sin coach'
     if coach:
-        coach_name = coach.streamer_name
+        coach_name = coach.user.username
 
     if profile.is_pro:
         return render(request, 'pro_showdown_overlay.html', {
-            'streamer_name': profile.streamer_name
+            'streamer_name': profile.user.username
         })
 
     return render(request, 'coach_showdown_overlay.html', {
         'coach_name': coach_name,
-        'streamer_name': profile.streamer_name
+        'streamer_name': profile.user.username
     })
