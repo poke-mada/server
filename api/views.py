@@ -66,7 +66,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         user: User = request.user
         trainer = Trainer.get_from_user(user)
         if not trainer:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_200_OK)
 
         serializer = self.get_serializer(trainer)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -195,7 +195,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         if current_profile.profile_type == MastersProfile.COACH:
-            return Response(current_profile.coached.current_segment_settings.attacks_received_left, status=status.HTTP_200_OK)
+            return Response(current_profile.coached.current_segment_settings.attacks_received_left,
+                            status=status.HTTP_200_OK)
 
         return Response(user.masters_profile.current_segment_settings.attacks_received_left, status=status.HTTP_200_OK)
 
@@ -335,6 +336,10 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         user: User = request.user
         localization = request.query_params.get('localization', '*')
         trainer = Trainer.get_from_user(user)
+
+        if not trainer:
+            return Response([], status=status.HTTP_200_OK)
+
         if not trainer.current_team:
             return Response([], status=status.HTTP_200_OK)
 
