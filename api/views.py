@@ -299,7 +299,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['get'], detail=True)
     def box(self, request, pk=None, *args, **kwargs):
-        if pk == 'undefined' or pk == 0 or pk == '0':
+        if pk == 'undefined' or pk == 0 or pk == '0' or pk == 'NaN':
             return Response(status=status.HTTP_400_BAD_REQUEST)
         box_id = request.query_params.get('box', 0)
         cached_box = cache.get(f'trainer_{pk}_box_{box_id}')
