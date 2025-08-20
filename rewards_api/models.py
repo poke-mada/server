@@ -84,3 +84,47 @@ class StreamerRewardInventory(models.Model):
 
     class Meta:
         unique_together = ['reward', 'profile']
+
+
+class Roulette(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=500)
+    description = models.CharField(max_length=500, null=True, blank=True)
+    file = models.FileField(upload_to='ruletas/', null=True, blank=True)
+    recreate_at_save = models.BooleanField(default=False, verbose_name="Recrear al guardar")
+
+    def save(self, *args, **kwargs):
+        if self.recreate_at_save:
+            super().save(*args, **kwargs)
+            from event_api.models import Wildcard
+            lines = self.file.readlines()
+            for line in lines[1:]:
+                clean_line: str = line.strip().decode()
+                splitted = clean_line.split(' (x')
+                wildcard_name = splitted[0]
+                try:
+                    quantity = splitted[1]
+                except:
+                    quantity = '1'
+                quantity = int(quantity.replace(')', ''))
+                RoulettePrice.objects.create(
+                    name=clean_line,
+                    wildcard=Wildcard.objects.get(name__iexact=wildcard_name.lower()),
+                    quantity=quantity,
+                    roulette=self
+                )
+                print(wildcard_name, quantity)
+            self.recreate_at_save = False
+        return super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Ruleta"
+        verbose_name_plural = "Ruletas"
+
+
+class RoulettePrice(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=500)
+    roulette = models.ForeignKey(Roulette, related_name='prices', on_delete=models.CASCADE)
+    wildcard = models.ForeignKey("event_api.Wildcard", on_delete=models.PROTECT, verbose_name='Comodin')
+    quantity = models.IntegerField(default=0, validators=[MinValueValidator(0)], verbose_name='Cantidad')
