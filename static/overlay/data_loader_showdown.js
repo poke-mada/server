@@ -24,7 +24,7 @@ function doUpdateData(data) {
             let moteSpan = pkmnDiv.children[1];
             let x = pokemon.mote.length;
             let fontSize = getSize(x);
-            let margins = (31 - fontSize)/2;
+            let margins = (24 - fontSize)/2;
             moteSpan.setAttribute('style', `font-size: ${fontSize}px; margin-top: ${margins}px`)
             moteSpan.innerText = pokemon.mote;
         } else {
