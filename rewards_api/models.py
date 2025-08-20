@@ -109,11 +109,10 @@ class Roulette(models.Model):
                 quantity = int(quantity.replace(')', ''))
                 RoulettePrice.objects.create(
                     name=clean_line,
-                    wildcard=Wildcard.objects.get(name__iexact=wildcard_name.lower()),
+                    wildcard=Wildcard.objects.filter(name__iexact=wildcard_name.lower()).first(),
                     quantity=quantity,
                     roulette=self
                 )
-                print(wildcard_name, quantity)
             self.recreate_at_save = False
         return super().save(*args, **kwargs)
 
