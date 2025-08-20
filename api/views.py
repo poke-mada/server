@@ -675,7 +675,7 @@ class FileUploadView(APIView):
             team_saver(save_results.get('team'), trainer)
             box_saver(save_results.get('boxes'), profile)
             MastersSegmentSettings.objects.get_or_create(profile=profile, segment=segment)
-            OverlayConsumer.send_overlay_data(profile.streamer_name)
+            OverlayConsumer.send_overlay_data(profile.user.username)
         else:
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(file_serializer.data, status=status.HTTP_201_CREATED)
