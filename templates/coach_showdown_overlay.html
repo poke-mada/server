@@ -56,107 +56,50 @@
             z-index: 90;
         }
 
-        .pokemon-container1 .pkm-sprite {
-            top: 811px;
-        }
-
-        .pokemon-container2 .pkm-sprite {
-            top: 857px;
-        }
-
-        .pokemon-container1 .pkm-mote {
-            top: 1009px;
-        }
-
-        .pokemon-container2 .pkm-mote {
-            top: 814px;
-        }
-
         .pkm-sprite {
+            left: 11px;
             position: fixed;
-            max-width: 204px;
-            max-height: 179px;
-            min-width: 204px;
-            min-height: 179px;
-        }
-
-        #pokemon1 .pkm-sprite{
-            left: 26px;
-        }
-
-        #pokemon2 .pkm-sprite{
-            left: 238px;
-        }
-
-        #pokemon3 .pkm-sprite{
-            left: 450px;
-        }
-
-        #pokemon4 .pkm-sprite{
-            left: 662px;
-        }
-
-        #pokemon5 .pkm-sprite{
-            left: 873px;
-        }
-
-        #pokemon6 .pkm-sprite{
-            left: 1084px;
+            max-width: 139px;
+            max-height: 128px;
+            min-width: 139px;
+            min-height: 128px;
         }
 
         .pkm-mote {
+            left: 18px;
             font-family: 'pokemon-font', serif;
             color: white;
             font-size: 16px;
             position: fixed;
             text-align: center;
-            max-width: 158px;
-            min-width: 158px;
-            max-height: 31px;
-            min-height: 31px;
+            max-width: 123px;
+            min-width: 123px;
+            max-height: 24px;
+            min-height: 24px;
         }
 
-        #pokemon1 .pkm-mote {
-            left: 53px;
+        #pokemon1 .pkm-sprite {
+            top: 22px;
         }
 
-        #pokemon2 .pkm-mote {
-            left: 265px;
+        #pokemon2 .pkm-sprite {
+            top: 194px;
         }
 
-        #pokemon3 .pkm-mote {
-            left: 479px;
+        #pokemon3 .pkm-sprite {
+            top: 372px;
         }
 
-        #pokemon4 .pkm-mote {
-            left: 689px;
+        #pokemon4 .pkm-sprite {
+            top: 545px;
         }
 
-        #pokemon5 .pkm-mote {
-            left: 901px;
+        #pokemon5 .pkm-sprite {
+            top: 717px;
         }
 
-        #pokemon6 .pkm-mote {
-            left: 1112px;
-        }
-
-        #coach-name, #trainer-name {
-            font-family: 'streamer-font', "Segoe UI Semibold", serif;
-            color: black;
-            font-size: 30px;
-            position: absolute;
-        }
-
-        #coach-name {
-            left: 1660px;
-            top: 539px;
-            color: #F80091;
-        }
-
-        #trainer-name {
-            left: 1655px;
-            top: 268px;
-            color: #0100FF;
+        #pokemon6 .pkm-sprite {
+            top: 889px;
         }
 
         #alert-overlay {
@@ -203,15 +146,6 @@
 </head>
 
 <body>
-    <img alt="" src="{% static 'overlay/coach/medallas/fondo.png' %}" class="badges-back">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym1.png' %}" id="gym1" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym2.png' %}" id="gym2" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym3.png' %}" id="gym3" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym4.png' %}" id="gym4" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym5.png' %}" id="gym5" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym6.png' %}" id="gym6" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym7.png' %}" id="gym7" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/coach/medallas/gym8.png' %}" id="gym8" class="badge bg-disabled">
 
     <div class="team-container">
         <div id="pokemon1" class="pokemon-container1 d-none">
@@ -240,9 +174,6 @@
         </div>
     </div>
     <span id="death-count"></span>
-
-    <span id="trainer-name">{{ streamer_name }}</span>
-    <span id="coach-name">{{ coach_name }}</span>
 
     <div id="alert-overlay" class="d-none">
         <div class="description">
