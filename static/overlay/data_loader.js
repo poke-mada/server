@@ -8,14 +8,38 @@ function doUpdateData(data) {
     const gym7 = document.getElementById('gym7');
     const gym8 = document.getElementById('gym8');
 
-    gym1.classList.remove('bg-disabled')
-    gym2.classList.remove('bg-disabled')
-    gym3.classList.remove('bg-disabled')
-    gym4.classList.remove('bg-disabled')
-    gym5.classList.remove('bg-disabled')
-    gym6.classList.remove('bg-disabled')
-    gym7.classList.remove('bg-disabled')
-    gym8.classList.remove('bg-disabled')
+    if (gym1) {
+        gym1.classList.remove('bg-disabled')
+    }
+
+    if (gym2) {
+        gym2.classList.remove('bg-disabled')
+    }
+
+    if (gym3) {
+        gym3.classList.remove('bg-disabled')
+    }
+
+    if (gym4) {
+        gym4.classList.remove('bg-disabled')
+    }
+
+    if (gym5) {
+        gym5.classList.remove('bg-disabled')
+    }
+
+    if (gym6) {
+        gym6.classList.remove('bg-disabled')
+    }
+
+    if (gym7) {
+        gym7.classList.remove('bg-disabled')
+    }
+
+    if (gym8) {
+        gym8.classList.remove('bg-disabled')
+    }
+
 
     if (!data.gym1) {
         gym1.classList.add('bg-disabled')
