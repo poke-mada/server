@@ -240,6 +240,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             'web_picture',
             'death_count',
             'is_coach',
+            'is_admin',
             'is_trainer',
             'is_tester',
             'coached_id',
