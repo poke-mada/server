@@ -446,6 +446,14 @@ class MastersProfile(models.Model):
 
         return self.wildcard_inventory.filter(wildcard=wildcard, quantity__gte=1).exists()
 
+    def consume_wildcard(self, wildcard: "Wildcard", quantity: int = 1) -> bool:
+        if wildcard.pk == 53 and self.current_segment_settings.steal_karma < 3:
+            return False
+        inventory: StreamerWildcardInventoryItem = self.wildcard_inventory.filter(wildcard=wildcard, quantity__gte=1).first()
+        inventory.quantity = quantity
+        inventory.save()
+        return True
+
     def has_shield(self) -> bool:
         return self.wildcard_inventory.filter(wildcard__handler_key='escudo_protector', quantity__gte=1).exists()
 

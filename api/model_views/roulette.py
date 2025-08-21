@@ -1,3 +1,4 @@
+from django.db.models.functions import Random
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -15,7 +16,12 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['post'], detail=True)
     def roll(self, request, pk=None, *args, **kwargs):
         profile: MastersProfile = request.user.masters_profile
+        roulette = self.get_object()
+        if not profile.has_wildcard(roulette.wildcard):
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        queryset = profile.banked_assets.all()
-        serialized = BankedAssetSimpleSerializer(queryset, many=True)
-        return Response(serialized.data, status=status.HTTP_200_OK)
+        profile.consume_wildcard(roulette.wildcard)
+
+        price = roulette.prices.all().order_by(Random()).first()
+        serializer = RoulettePrizeSerializer(price)
+        return Response(serializer.data, status=status.HTTP_200_OK)
