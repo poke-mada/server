@@ -1,6 +1,7 @@
+from django.db.models import Count
 from rest_framework import serializers
 
-from rewards_api.models import RewardBundle, Reward
+from rewards_api.models import RewardBundle, Reward, Roulette, RoulettePrice
 
 
 class ByteArrayFileField(serializers.FileField):
@@ -86,4 +87,38 @@ class StreamerRewardSerializer(serializers.ModelSerializer):
             'name',
             'description',
             'rewards'
+        ]
+
+
+class RoulettePrizeSerializer(serializers.ModelSerializer):
+    image = serializers.CharField(source='wildcard.sprite', read_only=True)
+
+    class Meta:
+        model = RoulettePrice
+        fields = [
+            'id',
+            'name',
+            'image'
+        ]
+
+
+class RouletteSimpleSerializer(serializers.ModelSerializer):
+    price_probability = serializers.SerializerMethodField()
+
+    def get_price_probability(self, obj):
+        total_prices = obj.prices.count()
+        if total_prices == 0:
+            return None
+
+        probs = obj.prices.values('name').annotate(probability=Count('name') * (100 / total_prices))
+
+        return probs
+
+    class Meta:
+        model = Roulette
+        fields = [
+            'id',
+            'name',
+            'description',
+            'prize_probability'
         ]

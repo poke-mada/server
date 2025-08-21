@@ -128,3 +128,7 @@ class RoulettePrice(models.Model):
     roulette = models.ForeignKey(Roulette, related_name='prices', on_delete=models.CASCADE)
     wildcard = models.ForeignKey("event_api.Wildcard", on_delete=models.PROTECT, verbose_name='Comodin', null=True, blank=True)
     quantity = models.IntegerField(default=0, validators=[MinValueValidator(0)], verbose_name='Cantidad')
+
+    class Meta:
+        verbose_name = "Premio de Ruleta"
+        verbose_name_plural = "Premios de Ruleta"

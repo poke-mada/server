@@ -3,13 +3,14 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from event_api.models import MastersProfile
-from market.models import MarketPost, BankedAsset
 from market.serializers import BankedAssetSimpleSerializer
+from rewards_api.models import Roulette
+from rewards_api.serializers import RouletteSimpleSerializer
 
 
-class BankViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = BankedAsset.objects.all()
-    serializer_class = BankedAssetSimpleSerializer
+class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Roulette.objects.all()
+    serializer_class = RouletteSimpleSerializer
 
     @action(methods=['post'], detail=True)
     def roll(self, request, pk=None, *args, **kwargs):
