@@ -96,7 +96,7 @@ class StreamerRewardSerializer(serializers.ModelSerializer):
 
 
 class RoulettePrizeSerializer(serializers.ModelSerializer):
-    image = serializers.CharField(source='wildcard.sprite', read_only=True)
+    image = serializers.ImageField(source='wildcard.sprite', read_only=True, use_url=True)
 
     class Meta:
         model = RoulettePrice
