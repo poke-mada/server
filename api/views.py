@@ -188,7 +188,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             current_profile: MastersProfile = current_profile.coached
 
         if not current_profile.current_segment_settings:
-            return Response(0, status=status.HTTP_200_OK)
+            return Response(1, status=status.HTTP_200_OK)
 
         return Response(user.masters_profile.current_segment_settings.karma, status=status.HTTP_200_OK)
 
@@ -204,7 +204,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             current_profile: MastersProfile = current_profile.coached
 
         if not current_profile.current_segment_settings:
-            return Response(0, status=status.HTTP_200_OK)
+            return Response(4, status=status.HTTP_200_OK)
 
         return Response(user.masters_profile.current_segment_settings.attacks_received_left, status=status.HTTP_200_OK)
 
@@ -282,7 +282,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         if not current_profile.is_tester:
             wildcards = wildcards.exclude(is_wip=True)
 
-        if current_segment.steal_karma < 3:
+        if current_segment and current_segment.steal_karma < 3:
             wildcards = wildcards.exclude(name__iexact='robo justo').exclude(pk=53)
 
         serializer = WildcardWithInventorySerializer(
