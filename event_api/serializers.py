@@ -228,7 +228,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         return obj.profile_type == MastersProfile.TRAINER
 
     def get_trainer_id(self, obj: MastersProfile):
-        return Trainer.get_from_user(obj.user).id
+        trainer = Trainer.get_from_user(obj.user)
+        if trainer:
+            return trainer.id
+        return None
 
     class Meta:
         model = MastersProfile
