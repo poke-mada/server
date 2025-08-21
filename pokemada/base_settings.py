@@ -26,7 +26,8 @@ ALLOWED_HOSTS = [
     'https://www.pokemon.para-mada.com',
     'pokemon.para-mada.com',
     'www.pokemon.para-mada.com',
-    '158.69.213.101'
+    '158.69.213.101',
+    'localhost'
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
