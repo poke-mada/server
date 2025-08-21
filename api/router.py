@@ -3,6 +3,7 @@ from rest_framework import routers
 
 from api.model_views.bank import BankViewSet
 from api.model_views.market import MarketViewSet
+from api.model_views.roulette import RouletteViewSet
 from api.views import TrainerViewSet, MoveViewSet, WildcardViewSet, GameEventViewSet, NewsletterViewSet
 
 router = routers.DefaultRouter()
@@ -13,6 +14,7 @@ router.register(r'events', GameEventViewSet)
 router.register(r'newsletter', NewsletterViewSet)
 router.register(r'market', MarketViewSet)
 router.register(r'bank', BankViewSet)
+router.register(r'roulette', RouletteViewSet)
 
 
 urlpatterns = [
