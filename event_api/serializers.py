@@ -207,6 +207,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     web_picture = serializers.ImageField(use_url=True, allow_null=True)
     is_coach = serializers.SerializerMethodField()
     is_trainer = serializers.SerializerMethodField()
+    is_admin = serializers.SerializerMethodField()
     coached_id = serializers.IntegerField()
     coached_name = serializers.CharField(source='coached.streamer_name', read_only=True)
     trainer_id = serializers.SerializerMethodField()
@@ -219,6 +220,9 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def get_is_coach(self, obj: MastersProfile):
         return obj.profile_type == MastersProfile.COACH
+
+    def get_is_admin(self, obj: MastersProfile):
+        return obj.profile_type == MastersProfile.ADMIN
 
     def get_is_trainer(self, obj: MastersProfile):
         return obj.profile_type == MastersProfile.TRAINER
