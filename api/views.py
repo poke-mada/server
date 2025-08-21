@@ -789,13 +789,13 @@ class NewsletterViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = NewsletterSerializer
 
     def list(self, request, *args, **kwargs):
-        profile = request.user.masters_profile
+        profile: MastersProfile = request.user.masters_profile
         if profile.is_pro:
             queryset = self.get_queryset().filter(for_pros=True)
         else:
             queryset = self.get_queryset().filter(for_noobs=True)
 
-        queryset = self.filter_queryset(queryset)
+        queryset = queryset.filter(for_testers=profile.is_tester)
 
         page = self.paginate_queryset(queryset)
         if page is not None:
