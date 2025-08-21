@@ -223,3 +223,33 @@ class ReleasableSerializer(serializers.ModelSerializer):
             'value',
             'title'
         ]
+
+
+class MastersProfileSimpleSerializer(serializers.ModelSerializer):
+    is_coach = serializers.SerializerMethodField()
+    is_trainer = serializers.SerializerMethodField()
+    is_tester = serializers.BooleanField(source='is_tester')
+    is_pro = serializers.BooleanField(source='is_pro')
+    coached_id = serializers.IntegerField(source='coached_id')
+    coached_name = serializers.CharField(source='coached.streamer_name', read_only=True)
+    trainer_id = serializers.SerializerMethodField()
+
+    def get_is_coach(self, obj: MastersProfile):
+        return obj.profile_type == MastersProfile.COACH
+
+    def get_is_trainer(self, obj: MastersProfile):
+        return obj.profile_type == MastersProfile.TRAINER
+
+    def get_trainer_id(self, obj: MastersProfile):
+        return Trainer.get_from_user(obj.user).id
+
+    class Meta:
+        model = MastersProfile
+        fields = [
+            'is_coach',
+            'is_trainer',
+            'is_tester',
+            'coached_id',
+            'coached_name',
+            'trainer_id'
+        ]

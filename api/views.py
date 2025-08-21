@@ -23,7 +23,7 @@ from event_api.models import Wildcard, CoinTransaction, \
     GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter, Newsletter, MastersSegmentSettings, BannedPokemon
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer, SelectProfileSerializer, ProfileSerializer, \
-    SelectMastersProfileSerializer, DeathLogSerializer, ReleasableSerializer
+    SelectMastersProfileSerializer, DeathLogSerializer, ReleasableSerializer, MastersProfileSimpleSerializer
 from pokemon_api.models import Move, Pokemon, Item, ItemNameLocalization
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer, ItemSelectSerializer
@@ -47,11 +47,18 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         current_profile: MastersProfile = request.user.masters_profile
         return Response(current_profile.showdown_token.token, status=status.HTTP_200_OK)
 
+    @action(detail=False, methods=['post'])
     def register_deaths(self, request, *args, **kwargs):
         deaths = request.data.get('deaths', 0)
         current_profile: MastersProfile = request.user.masters_profile
         # current_profile.death_count =
         return Response(True, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['get'])
+    def get_profile(self, request, *args, **kwargs):
+        current_profile: MastersProfile = request.user.masters_profile
+        serializer = MastersProfileSimpleSerializer(current_profile)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def _get_queryset(self):
         user: User = self.request.user
