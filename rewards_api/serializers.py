@@ -110,8 +110,6 @@ class RoulettePrizeSerializer(serializers.ModelSerializer):
 class RouletteSimpleSerializer(serializers.ModelSerializer):
     prize_probability = serializers.SerializerMethodField()
     total_prizes = serializers.SerializerMethodField()
-    banner_logo = serializers.SerializerMethodField()
-    banner_image = serializers.SerializerMethodField()
 
     def get_banner_logo(self, obj: Roulette):
         import os
