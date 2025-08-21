@@ -111,64 +111,6 @@ class RouletteSimpleSerializer(serializers.ModelSerializer):
     prize_probability = serializers.SerializerMethodField()
     total_prizes = serializers.SerializerMethodField()
 
-    def get_banner_logo(self, obj: Roulette):
-        import os
-        presigned_url = cache.get(f'cached_banner_logo_{obj.id}')
-        STORAGE_TIMEOUT = 60 * 15
-        if not presigned_url:
-            documento = obj.banner_logo
-            presigned_url = None
-            if documento:
-                file_field = documento.file
-                s3_key = file_field.name  # Ej: "prod/media/documentos/archivo.pdf"
-                ENVIRONMENT = os.getenv("DJANGO_ENV", "prod")  # "dev", "stage" o "prod"
-                full_s3_path = os.path.join(ENVIRONMENT, 'dedsafio-pokemon/media', s3_key)
-                s3_path_cache = full_s3_path
-                s3 = boto3.client(
-                    's3',
-                    region_name='us-east-1',
-                    aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-                    aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-                    config=Config(signature_version='s3v4', s3={"use_accelerate_endpoint": True})
-                )
-                presigned_url = s3.generate_presigned_url(
-                    'get_object',
-                    Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': s3_path_cache},
-                    ExpiresIn=STORAGE_TIMEOUT,
-                )
-                cache.set(f'cached_banner_logo_{obj.id}', presigned_url, timeout=STORAGE_TIMEOUT)  # Cache for 15 minutes
-
-        return presigned_url
-
-    def get_banner_image(self, obj: Roulette):
-        import os
-        presigned_url = cache.get(f'cached_banner_img_{obj.id}')
-        STORAGE_TIMEOUT = 60 * 15
-        if not presigned_url:
-            documento = obj.banner_image
-            presigned_url = None
-            if documento:
-                file_field = documento.file
-                s3_key = file_field.name  # Ej: "prod/media/documentos/archivo.pdf"
-                ENVIRONMENT = os.getenv("DJANGO_ENV", "prod")  # "dev", "stage" o "prod"
-                full_s3_path = os.path.join(ENVIRONMENT, 'dedsafio-pokemon/media', s3_key)
-                s3_path_cache = full_s3_path
-                s3 = boto3.client(
-                    's3',
-                    region_name='us-east-1',
-                    aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-                    aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-                    config=Config(signature_version='s3v4', s3={"use_accelerate_endpoint": True})
-                )
-                presigned_url = s3.generate_presigned_url(
-                    'get_object',
-                    Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': s3_path_cache},
-                    ExpiresIn=STORAGE_TIMEOUT,
-                )
-                cache.set(f'cached_banner_img_{obj.id}', presigned_url, timeout=STORAGE_TIMEOUT)  # Cache for 15 minutes
-
-        return presigned_url
-
     def get_total_prizes(self, obj):
         total_prices = obj.prices.count()
         return total_prices
