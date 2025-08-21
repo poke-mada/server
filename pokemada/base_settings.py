@@ -21,14 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = False
 # SECURITY WARNING: don't run with debug turned on in production!
-ALLOWED_HOSTS = [
-    'https://pokemon.para-mada.com',
-    'https://www.pokemon.para-mada.com',
-    'pokemon.para-mada.com',
-    'www.pokemon.para-mada.com',
-    '158.69.213.101',
-    'localhost'
-]
+ALLOWED_HOSTS = ['*']
 
 CORS_ORIGIN_ALLOW_ALL = True
 CSRF_TRUSTED_ORIGINS = [
