@@ -104,6 +104,11 @@ class RoulettePrizeSerializer(serializers.ModelSerializer):
 
 class RouletteSimpleSerializer(serializers.ModelSerializer):
     prize_probability = serializers.SerializerMethodField()
+    total_prizes = serializers.SerializerMethodField()
+
+    def get_total_prizes(self, obj):
+        total_prices = obj.prices.count()
+        return total_prices
 
     def get_prize_probability(self, obj):
         total_prices = obj.prices.count()
@@ -120,5 +125,6 @@ class RouletteSimpleSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'description',
-            'prize_probability'
+            'prize_probability',
+            'total_prizes'
         ]
