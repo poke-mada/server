@@ -157,29 +157,6 @@ class SelectProfileSerializer(serializers.ModelSerializer):
         ]
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    name = serializers.SerializerMethodField()
-    web_picture = serializers.ImageField(use_url=True, allow_null=True)
-
-    def get_name(self, obj: MastersProfile):
-        try:
-            return obj.streamer_name
-        except TypeError:
-            return None
-
-    class Meta:
-        model = MastersProfile
-        fields = [
-            'id',
-            'name',
-            'save_path',
-            'tournament_league',
-            'is_pro',
-            'web_picture',
-            'death_count'
-        ]
-
-
 class SelectMastersProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = MastersProfile
@@ -225,14 +202,21 @@ class ReleasableSerializer(serializers.ModelSerializer):
         ]
 
 
-class MastersProfileSimpleSerializer(serializers.ModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+    web_picture = serializers.ImageField(use_url=True, allow_null=True)
     is_coach = serializers.SerializerMethodField()
     is_trainer = serializers.SerializerMethodField()
     is_tester = serializers.BooleanField(source='is_tester')
-    is_pro = serializers.BooleanField(source='is_pro')
     coached_id = serializers.IntegerField(source='coached_id')
     coached_name = serializers.CharField(source='coached.streamer_name', read_only=True)
     trainer_id = serializers.SerializerMethodField()
+
+    def get_name(self, obj: MastersProfile):
+        try:
+            return obj.streamer_name
+        except TypeError:
+            return None
 
     def get_is_coach(self, obj: MastersProfile):
         return obj.profile_type == MastersProfile.COACH
@@ -246,6 +230,13 @@ class MastersProfileSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = MastersProfile
         fields = [
+            'id',
+            'name',
+            'save_path',
+            'tournament_league',
+            'is_pro',
+            'web_picture',
+            'death_count',
             'is_coach',
             'is_trainer',
             'is_tester',
