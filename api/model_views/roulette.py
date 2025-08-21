@@ -4,9 +4,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from event_api.models import MastersProfile
-from market.serializers import BankedAssetSimpleSerializer
 from rewards_api.models import Roulette
-from rewards_api.serializers import RouletteSimpleSerializer
+from rewards_api.serializers import RouletteSimpleSerializer, RoulettePrizeSerializer
 
 
 class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
