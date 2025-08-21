@@ -175,7 +175,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         if not current_profile.current_segment_settings:
             return Response(0, status=status.HTTP_200_OK)
 
-        return Response(user.masters_profile.economy, status=status.HTTP_200_OK)
+        return Response(user.masters_profile.economy or 0, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
     def get_karma(self, request, *args, **kwargs):

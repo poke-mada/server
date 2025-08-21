@@ -316,6 +316,7 @@ class MastersProfile(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="users", null=True, blank=True, verbose_name="Entrenador")
     profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER, verbose_name="Tipo de Perfil")
     death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0, verbose_name="Conteo de muertes totales")
+    death_count_display = models.IntegerField(validators=[MinValueValidator(0)], default=0, verbose_name="Conteo de muertes totales para overlay")
     rom_name = models.CharField(max_length=50, default="Pokémon X", verbose_name="Nombre de Rom")
     is_pro = models.BooleanField(default=False, verbose_name="Es pro?")
     tournament_league = models.CharField(max_length=1, choices=LEAGUES.items(), default='-', verbose_name="Liga")
