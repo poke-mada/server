@@ -92,6 +92,8 @@ class Roulette(models.Model):
     description = models.CharField(max_length=500, null=True, blank=True)
     file = models.FileField(upload_to='ruletas/', null=True, blank=True)
     recreate_at_save = models.BooleanField(default=False, verbose_name="Recrear al guardar")
+    banner_image = models.ImageField(upload_to='banners/', null=True, blank=False, help_text="Imagen grande del Banner")
+    banner_logo = models.ImageField(upload_to='banners/', null=True, blank=False, help_text="Logo chico del banner")
 
     def save(self, *args, **kwargs):
         if self.recreate_at_save:
