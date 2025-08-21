@@ -791,7 +791,7 @@ class NewsletterViewSet(viewsets.ReadOnlyModelViewSet):
     def list(self, request, *args, **kwargs):
         profile: MastersProfile = request.user.masters_profile
         if profile.profile_type == MastersProfile.ADMIN:
-            queryset = self.get_queryset()
+            queryset = self.get_queryset(for_staff=True)
         else:
             if profile.is_pro:
                 queryset = self.get_queryset().filter(for_pros=True, for_staff=False)
