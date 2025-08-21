@@ -1,4 +1,5 @@
 from django.db.models import Count
+from django.db.models.functions import Round
 from rest_framework import serializers
 
 from rewards_api.models import RewardBundle, Reward, Roulette, RoulettePrice
@@ -115,7 +116,7 @@ class RouletteSimpleSerializer(serializers.ModelSerializer):
         if total_prices == 0:
             return None
 
-        probs = obj.prices.values('name').annotate(probability=Count('name') * (100 / total_prices))
+        probs = obj.prices.values('name').annotate(probability=Round(Count('name') * (100 / total_prices), 2))
 
         return probs
 
