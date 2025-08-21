@@ -207,7 +207,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     web_picture = serializers.ImageField(use_url=True, allow_null=True)
     is_coach = serializers.SerializerMethodField()
     is_trainer = serializers.SerializerMethodField()
-    is_tester = serializers.BooleanField(source='is_tester')
     coached_id = serializers.IntegerField(source='coached_id')
     coached_name = serializers.CharField(source='coached.streamer_name', read_only=True)
     trainer_id = serializers.SerializerMethodField()
