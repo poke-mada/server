@@ -169,7 +169,10 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         if current_profile.profile_type == MastersProfile.COACH:
-            return Response(current_profile.coached.economy, status=status.HTTP_200_OK)
+            current_profile: MastersProfile = current_profile.coached
+
+        if not current_profile.current_segment_settings:
+            return Response(0, status=status.HTTP_200_OK)
 
         return Response(user.masters_profile.economy, status=status.HTTP_200_OK)
 
@@ -182,7 +185,10 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         if current_profile.profile_type == MastersProfile.COACH:
-            return Response(current_profile.coached.current_segment_settings.karma, status=status.HTTP_200_OK)
+            current_profile: MastersProfile = current_profile.coached
+
+        if not current_profile.current_segment_settings:
+            return Response(0, status=status.HTTP_200_OK)
 
         return Response(user.masters_profile.current_segment_settings.karma, status=status.HTTP_200_OK)
 
@@ -195,8 +201,10 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         if current_profile.profile_type == MastersProfile.COACH:
-            return Response(current_profile.coached.current_segment_settings.attacks_received_left,
-                            status=status.HTTP_200_OK)
+            current_profile: MastersProfile = current_profile.coached
+
+        if not current_profile.current_segment_settings:
+            return Response(0, status=status.HTTP_200_OK)
 
         return Response(user.masters_profile.current_segment_settings.attacks_received_left, status=status.HTTP_200_OK)
 
