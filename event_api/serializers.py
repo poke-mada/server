@@ -231,7 +231,6 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
-            'save_path',
             'tournament_league',
             'is_pro',
             'web_picture',
