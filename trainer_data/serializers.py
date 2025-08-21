@@ -313,4 +313,7 @@ class ListedBoxSerializer(serializers.ModelSerializer):
 class NewsletterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Newsletter
-        fields = '__all__'
+        fields = [
+            'created_on',
+            'message',
+        ]
