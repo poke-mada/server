@@ -450,7 +450,7 @@ class MastersProfile(models.Model):
         if wildcard.pk == 53 and self.current_segment_settings.steal_karma < 3:
             return False
         inventory: StreamerWildcardInventoryItem = self.wildcard_inventory.filter(wildcard=wildcard, quantity__gte=1).first()
-        inventory.quantity = quantity
+        inventory.quantity -= quantity
         inventory.save()
         return True
 
