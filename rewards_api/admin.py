@@ -62,6 +62,7 @@ class RoulettePriceInline(admin.TabularInline):
 class RouletteAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'has_file')
     inlines = (RoulettePriceInline,)
+    autocomplete_fields = ('wildcard',)
 
     @admin.display(description='Tiene Archivo', boolean=True)
     def has_file(self, obj: Roulette):
