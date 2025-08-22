@@ -122,6 +122,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'is_pro',
         'is_coach',
         'is_active',
+        'has_coach',
         'has_pfp'
     )
 
@@ -162,6 +163,12 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     @admin.display(description='Tiene Foto', boolean=True)
     def has_pfp(self, obj):
         if obj.masters_profile.web_picture:
+            return True
+        return False
+
+    @admin.display(description='Tiene Coach', boolean=True)
+    def has_coach(self, obj):
+        if obj.masters_profile.main_coach:
             return True
         return False
 
