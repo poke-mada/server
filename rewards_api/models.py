@@ -1,6 +1,6 @@
 import uuid
 
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 from pokemon_api.models import Item, Pokemon
@@ -95,6 +95,8 @@ class Roulette(models.Model):
     wildcard = models.ForeignKey("event_api.Wildcard", on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Comodin Asignada", help_text="Comodin usado para validar tiradas")
     banner_image = models.ImageField(upload_to='banners/', null=True, blank=False, help_text="Imagen grande del Banner")
     banner_logo = models.ImageField(upload_to='banners/', null=True, blank=False, help_text="Logo chico del banner")
+    order = models.IntegerField(verbose_name='Orden vertical', default=0)
+    segment = models.IntegerField(verbose_name="Tramo Para Aparecer", validators=[MinValueValidator(1), MaxValueValidator(8)], default=1)
 
     def save(self, *args, **kwargs):
         if self.recreate_at_save:
