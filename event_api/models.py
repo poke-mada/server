@@ -764,3 +764,10 @@ class Newsletter(models.Model):
     class Meta:
         verbose_name = "Noticia"
         verbose_name_plural = "Tablon de Noticias"
+
+
+class StealLog(models.Model):
+    created_on = models.DateTimeField(auto_now_add=True)
+    source = models.CharField(max_length=50)
+    target = models.CharField(max_length=50)
+    pokemon = models.CharField(max_length=50)

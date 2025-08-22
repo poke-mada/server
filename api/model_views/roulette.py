@@ -4,7 +4,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from event_api.models import MastersProfile
-from rewards_api.models import Roulette, RewardBundle, Reward, RoulettePrice, StreamerRewardInventory
+from rewards_api.models import Roulette, RewardBundle, Reward, RoulettePrice, StreamerRewardInventory, \
+    RouletteRollHistory
 from rewards_api.serializers import RouletteSimpleSerializer, RoulettePrizeSerializer, RouletteSerializer
 from websocket.sockets import DataConsumer
 
@@ -36,6 +37,12 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
         bundle = RewardBundle.objects.create(
             name=f'Comodin Ganado por {roulette.name}',
             user_created=True
+        )
+
+        RouletteRollHistory.objects.create(
+            profile=profile,
+            roulette=roulette,
+            message=f'{profile.streamer_name} tiró {roulette.name} y ganó {price.name}'
         )
 
         Reward.objects.create(

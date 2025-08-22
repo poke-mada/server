@@ -137,3 +137,10 @@ class RoulettePrice(models.Model):
     class Meta:
         verbose_name = "Premio de Ruleta"
         verbose_name_plural = "Premios de Ruleta"
+
+
+class RouletteRollHistory(models.Model):
+    profile = models.ForeignKey("event_api.MastersProfile", on_delete=models.CASCADE, related_name='roulette_hiistory', verbose_name="perfil")
+    roulette = models.ForeignKey(Roulette, related_name='history', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Ruleta')
+    message = models.CharField(max_length=500, verbose_name='Mensaje de Display')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de Tirada')

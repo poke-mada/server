@@ -3,7 +3,7 @@ from io import BytesIO
 from django.core.files import File
 from django.db import transaction
 
-from event_api.models import CoinTransaction, MastersProfile, ErrorLog
+from event_api.models import CoinTransaction, MastersProfile, ErrorLog, StealLog
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from rewards_api.models import Reward, RewardBundle, StreamerRewardInventory
 from trainer_data.models import TrainerPokemon
@@ -47,6 +47,12 @@ class StealPokemonHandler(StrongAttackHandler):
                 message=f"No se encontro el pokemon para el dex_num {dex_number} en el perfil de {target_id}: {target_profile.streamer_name}"
             )
             return f'error: {error.id}'
+
+        StealLog.objects.create(
+            source=self.user.masters_profile.streamer_name,
+            target=target_profile.streamer_name,
+            pokemon=f'{target_pokemon.pokemon.name}: {target_pokemon.mote}'
+        )
 
         bundle = RewardBundle.objects.create(
             name=f'Pokemon {target_pokemon.mote} Robado a {target_profile.streamer_name}',
