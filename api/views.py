@@ -153,8 +153,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
                 inventory.save()
 
         reward_inventory.exchanges += 1
-        if not user.is_superuser:
-            reward_inventory.is_available = False
+        reward_inventory.is_available = False
         reward_inventory.save()
 
         serializer = StreamerRewardSerializer(reward_inventory.reward)
