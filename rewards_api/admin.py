@@ -5,7 +5,7 @@ from django.forms.models import BaseInlineFormSet
 from nested_admin.nested import NestedModelAdmin
 
 from admin_panel.admin import staff_site
-from rewards_api.models import RewardBundle, Reward, RoulettePrice, Roulette
+from rewards_api.models import RewardBundle, Reward, RoulettePrice, Roulette, RouletteRollHistory
 
 ITEM = 0
 WILDCARD = 1
@@ -69,3 +69,29 @@ class RouletteAdmin(admin.ModelAdmin):
         if obj.file:
             return True
         return False
+
+
+@admin.register(RouletteRollHistory, site=staff_site)
+class RouletteRollHistoryAdminStaff(admin.ModelAdmin):
+    list_display = (
+        'profile',
+        'roulette',
+        'message',
+        'created_at',
+    )
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(RouletteRollHistory)
+class RouletteRollHistoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'profile',
+        'roulette',
+        'message',
+        'created_at',
+    )
