@@ -107,7 +107,7 @@ class MastersSegmentSettingsAdmin(NestedStackedInline):
 class MastersProfileInline(NestedStackedInline):
     model = MastersProfile
     readonly_fields = ('last_save_download', 'economy', 'rom_name', 'trainer',)
-    inlines = [MastersSegmentSettingsAdmin, ProfilePlatformUrlInline, WildcardInventoryItem, RewardInventoryInline]
+    inlines = [MastersSegmentSettingsAdmin, ProfilePlatformUrlInline]
 
 
 class UserProfileAdmin(NestedModelAdmin, UserAdmin):
