@@ -120,11 +120,12 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'current_segment',
         'league',
         'is_pro',
+        'is_coach',
         'is_active',
         'has_pfp'
     )
 
-    list_filter = ('masters_profile__is_pro', 'is_staff', 'masters_profile__is_tester')
+    list_filter = ('masters_profile__is_pro', 'is_staff', 'masters_profile__is_tester', 'masters_profile__profile_type')
     inlines = [MastersProfileInline]
 
     def get_queryset(self, request):
@@ -153,6 +154,10 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     @admin.display(description='Es Tester', boolean=True, ordering='masters_profile__is_tester')
     def is_tester(self, obj):
         return obj.masters_profile.is_tester
+
+    @admin.display(description='Es Coach', boolean=True)
+    def is_coach(self, obj):
+        return obj.masters_profile.profile_type == MastersProfile.COACH
 
     @admin.display(description='Tiene Foto', boolean=True)
     def has_pfp(self, obj):
