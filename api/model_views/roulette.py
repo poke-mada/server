@@ -9,8 +9,18 @@ from rewards_api.serializers import RouletteSimpleSerializer, RoulettePrizeSeria
 
 
 class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Roulette.objects.all()
+    queryset = Roulette.objects.all().order_by('order')
     serializer_class = RouletteSimpleSerializer
+
+    def get_queryset(self):
+        request = self.request
+        profile: MastersProfile = request.user.masters_profile
+        current_segment = profile.current_segment_settings
+        if not current_segment:
+            queryset = super().get_queryset().filter(segment=1)
+        else:
+            queryset = super().get_queryset().filter(segment=current_segment.segment)
+        return queryset
 
     @action(methods=['post'], detail=True)
     def roll(self, request, pk=None, *args, **kwargs):
