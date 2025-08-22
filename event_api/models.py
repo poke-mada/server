@@ -138,7 +138,7 @@ class Wildcard(models.Model):
         current_segment = profile.current_segment_settings
 
         if current_segment.steal_karma == 4 and (self.name.lower() == 'robo justo' or self.id == 53):
-            return 1
+            return 0
 
         return self.price
 
