@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from event_api.models import MastersProfile
 from rewards_api.models import Roulette, RewardBundle, Reward, RoulettePrice, StreamerRewardInventory
 from rewards_api.serializers import RouletteSimpleSerializer, RoulettePrizeSerializer, RouletteSerializer
+from websocket.sockets import DataConsumer
 
 
 class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
@@ -48,6 +49,11 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
             profile=profile,
             reward=bundle
         )
+
+        DataConsumer.send_custom_data(request.user.username, dict(
+            type='notification',
+            data='Te ha llegado un paquete al buzón!'
+        ))
 
         serializer = RoulettePrizeSerializer(price)
         return Response(serializer.data, status=status.HTTP_200_OK)
