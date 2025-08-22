@@ -60,7 +60,7 @@ class RoulettePriceInline(admin.TabularInline):
 
 @admin.register(Roulette, site=staff_site)
 class RouletteAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'has_file')
+    list_display = ('id', 'name', 'segment', 'order', 'has_file')
     inlines = (RoulettePriceInline,)
     autocomplete_fields = ('wildcard',)
 
