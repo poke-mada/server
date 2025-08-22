@@ -23,7 +23,7 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
         return queryset
 
     @action(methods=['post'], detail=True)
-    def roll(self, request, pk=None, *args, **kwargs):
+    def roll(self, request, *args, **kwargs):
         profile: MastersProfile = request.user.masters_profile
         roulette = self.get_object()
         if not profile.has_wildcard(roulette.wildcard):
@@ -35,9 +35,7 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = RoulettePrizeSerializer(price)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(methods=['get'], detail=True)
-    def retrieve(self, request, pk=None, *args, **kwargs):
+    def retrieve(self, request, *args, **kwargs):
         roulette = self.get_object()
-
         serializer = RouletteSerializer(roulette)
         return Response(serializer.data, status=status.HTTP_200_OK)
