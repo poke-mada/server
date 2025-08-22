@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from event_api.models import MastersProfile
-from rewards_api.models import Roulette
+from rewards_api.models import Roulette, RewardBundle, Reward, RoulettePrice, StreamerRewardInventory
 from rewards_api.serializers import RouletteSimpleSerializer, RoulettePrizeSerializer, RouletteSerializer
 
 
@@ -31,7 +31,24 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
 
         profile.consume_wildcard(roulette.wildcard)
 
-        price = roulette.prices.all().order_by(Random()).first()
+        price: RoulettePrice = roulette.prices.all().order_by(Random()).first()
+        bundle = RewardBundle.objects.create(
+            name=f'Comodin {price.name} Ganado por {roulette.name}',
+            user_created=True
+        )
+
+        Reward.objects.create(
+            reward_type=Reward.WILDCARD,
+            bundle=bundle,
+            wildcard=price.wildcard,
+            quantity=price.quantity
+        )
+
+        StreamerRewardInventory.objects.create(
+            profile=profile,
+            reward=bundle
+        )
+
         serializer = RoulettePrizeSerializer(price)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
