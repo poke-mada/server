@@ -136,3 +136,19 @@ class RouletteSimpleSerializer(serializers.ModelSerializer):
             'banner_logo',
             'banner_image'
         ]
+
+
+class RouletteSerializer(serializers.ModelSerializer):
+    prices = RoulettePrizeSerializer(many=True, read_only=True)
+    total_prizes = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Roulette
+        fields = [
+            'id',
+            'name',
+            'description',
+            'prices',
+            'banner_logo',
+            'banner_image'
+        ]

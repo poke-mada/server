@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 from event_api.models import MastersProfile
 from rewards_api.models import Roulette
-from rewards_api.serializers import RouletteSimpleSerializer, RoulettePrizeSerializer
+from rewards_api.serializers import RouletteSimpleSerializer, RoulettePrizeSerializer, RouletteSerializer
 
 
 class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
@@ -33,4 +33,11 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
 
         price = roulette.prices.all().order_by(Random()).first()
         serializer = RoulettePrizeSerializer(price)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=True)
+    def retrieve(self, request, pk=None, *args, **kwargs):
+        roulette = self.get_object()
+
+        serializer = RouletteSerializer(roulette)
         return Response(serializer.data, status=status.HTTP_200_OK)
