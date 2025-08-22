@@ -19,7 +19,7 @@ class RewardBundle(models.Model):
     }
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    name = models.CharField(max_length=50, null=True)
+    name = models.CharField(max_length=100, null=True)
     description = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     user_created = models.BooleanField(default=False)

@@ -33,7 +33,7 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
 
         price: RoulettePrice = roulette.prices.all().order_by(Random()).first()
         bundle = RewardBundle.objects.create(
-            name=f'Comodin {price.name} Ganado por {roulette.name}',
+            name=f'Comodin Ganado por {roulette.name}',
             user_created=True
         )
 
