@@ -140,7 +140,6 @@ class RouletteSimpleSerializer(serializers.ModelSerializer):
 
 class RouletteSerializer(serializers.ModelSerializer):
     prices = RoulettePrizeSerializer(many=True, read_only=True)
-    total_prizes = serializers.SerializerMethodField()
 
     class Meta:
         model = Roulette
