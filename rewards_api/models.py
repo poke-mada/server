@@ -144,3 +144,7 @@ class RouletteRollHistory(models.Model):
     roulette = models.ForeignKey(Roulette, related_name='history', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Ruleta')
     message = models.CharField(max_length=500, verbose_name='Mensaje de Display')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de Tirada')
+
+    class Meta:
+        verbose_name = "Hitoria de Ruleta"
+        verbose_name_plural = "Historial de tiradas de Ruleta"
