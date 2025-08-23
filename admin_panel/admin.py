@@ -144,22 +144,18 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
             return '-'
         return obj.masters_profile.current_segment_settings.segment
 
-    @admin.display(description='Liga Actual', ordering='masters_profile__current_segment_settings__profile_type')
+    @admin.display(description='Liga Actual', ordering='masters_profile__current_segment_settings__tournament_league')
     def league(self, obj):
         profile: MastersProfile = obj.masters_profile
         if not profile.current_segment_settings:
             if profile.profile_type != MastersProfile.TRAINER:
-                return 'Es coach o Administrador'
+                return 'Es coach'
             return '-'
         return profile.current_segment_settings.tournament_league
 
     @admin.display(description='Es Tester', boolean=True, ordering='masters_profile__is_tester')
     def is_tester(self, obj):
         return obj.masters_profile.is_tester
-
-    @admin.display(description='Es Coach', boolean=True)
-    def is_coach(self, obj):
-        return obj.masters_profile.profile_type == MastersProfile.COACH
 
     @admin.display(description='Tiene Foto', boolean=True)
     def has_pfp(self, obj):
