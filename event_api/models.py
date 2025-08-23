@@ -620,7 +620,7 @@ class MastersSegmentSettings(models.Model):
             pokemons = communiity_pokemon.surrogate()
         else:
             pokemons = []
-            
+
         for pokemon in pokemons:
             BannedPokemon.objects.create(
                 profile=self.profile,

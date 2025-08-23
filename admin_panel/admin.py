@@ -123,7 +123,8 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'is_coach',
         'is_active',
         'has_coach',
-        'has_pfp'
+        'has_pfp',
+        'has_token'
     )
 
     list_filter = ('masters_profile__is_pro', 'is_staff', 'masters_profile__is_tester', 'masters_profile__profile_type')
@@ -175,6 +176,10 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     @admin.display(description='Es Pro?', boolean=True, ordering='masters_profile__is_pro')
     def is_pro(self, obj):
         return obj.masters_profile.is_pro
+
+    @admin.display(description='Tiene Token SD', boolean=True)
+    def has_token(self, obj: User):
+        return bool(obj.masters_profile.showdown_token)
 
 
 @admin.register(ShowdownToken, site=staff_site)

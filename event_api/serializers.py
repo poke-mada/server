@@ -35,6 +35,10 @@ class WildcardWithInventorySerializer(serializers.ModelSerializer):
     quality_display = serializers.CharField(source='get_category_display')
     inventory = serializers.SerializerMethodField()
     sprite_name = serializers.CharField()
+    price = serializers.SerializerMethodField()
+
+    def get_price(self, obj: Wildcard):
+        return obj.get_price(self.user)
 
     def __init__(self, *args, **kwargs):
         self.user: User = kwargs.pop('user')
