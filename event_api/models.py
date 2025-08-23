@@ -449,8 +449,9 @@ class MastersProfile(models.Model):
         return self.wildcard_inventory.filter(wildcard=wildcard, quantity__gte=1).exists()
 
     def consume_wildcard(self, wildcard: "Wildcard", quantity: int = 1) -> bool:
-        if wildcard.pk == 53 and self.current_segment_settings.steal_karma < 3:
-            return False
+        if self.current_segment_settings:
+            if wildcard.pk == 53 and self.current_segment_settings.steal_karma < 3:
+                return False
         inventory: StreamerWildcardInventoryItem = self.wildcard_inventory.filter(wildcard=wildcard, quantity__gte=1).first()
         inventory.quantity -= quantity
         inventory.save()
