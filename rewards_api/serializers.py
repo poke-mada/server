@@ -2,7 +2,7 @@ import boto3
 from botocore.config import Config
 from django.conf import settings
 from django.core.cache import cache
-from django.db.models import Count
+from django.db.models import Count, Sum
 from django.db.models.functions import Round
 from rest_framework import serializers
 
@@ -110,10 +110,18 @@ class RoulettePrizeSerializer(serializers.ModelSerializer):
 class RouletteSimpleSerializer(serializers.ModelSerializer):
     prize_probability = serializers.SerializerMethodField()
     total_prizes = serializers.SerializerMethodField()
+    wishes = serializers.SerializerMethodField()
 
     def get_total_prizes(self, obj):
         total_prices = obj.prices.count()
         return total_prices
+
+    def get_wishes(self, obj: Roulette):
+        from event_api.models import MastersProfile
+        profile: MastersProfile = self.user.masters_profile
+        qs = profile.wildcard_inventory.filter(wildcard=obj.wildcard).annotate(total_wildcards=Sum('quantity'))
+
+        return qs['total_wildcards']
 
     def get_prize_probability(self, obj):
         total_prices = obj.prices.count()
@@ -125,6 +133,10 @@ class RouletteSimpleSerializer(serializers.ModelSerializer):
 
         return probs
 
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+
     class Meta:
         model = Roulette
         fields = [
@@ -134,7 +146,8 @@ class RouletteSimpleSerializer(serializers.ModelSerializer):
             'prize_probability',
             'total_prizes',
             'banner_logo',
-            'banner_image'
+            'banner_image',
+            'wishes'
         ]
 
 
