@@ -6,7 +6,7 @@ from django.db.models import Count, Sum
 from django.db.models.functions import Round
 from rest_framework import serializers
 
-from rewards_api.models import RewardBundle, Reward, Roulette, RoulettePrice
+from rewards_api.models import RewardBundle, Reward, Roulette, RoulettePrice, RouletteRollHistory
 
 
 class ByteArrayFileField(serializers.FileField):
@@ -107,6 +107,15 @@ class RoulettePrizeSerializer(serializers.ModelSerializer):
         ]
 
 
+class RouletteHistorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = RouletteRollHistory
+        fields = [
+            'message'
+        ]
+
+
 class RouletteSimpleSerializer(serializers.ModelSerializer):
     prize_probability = serializers.SerializerMethodField()
     total_prizes = serializers.SerializerMethodField()
@@ -135,7 +144,7 @@ class RouletteSimpleSerializer(serializers.ModelSerializer):
 
     def get_history(self, obj):
         profile = self.user.masters_profile
-        return profile.roulette_hiistory.filter(roulette=obj).values_list('message', flat=True)
+        return RouletteHistorySerializer(profile.roulette_hiistory.filter(roulette=obj), many=True).data
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
