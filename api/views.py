@@ -427,8 +427,10 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['post'], detail=False)
     def register_lysson(self, request, *args, **kwargs):
         profile: MastersProfile = request.user.masters_profile
-        profile.already_won_lysson = True
-        profile.save()
+        if not profile.already_won_lysson:
+            profile.already_won_lysson = True
+            profile.save()
+            profile.give_wildcard(Wildcard.objects.get(pk=92), notification='Felicidades por ganarle a Lysson!')
         return Response(status=status.HTTP_200_OK)
 
 
@@ -662,14 +664,23 @@ class FileUploadView(APIView):
         if file_serializer.is_valid():
             file_serializer.save()
             save_results = data_reader(save_data)
-            trainer.gym_badge_1 = (save_results['badge_count'] & 0b00000001) != 0
-            trainer.gym_badge_2 = (save_results['badge_count'] & 0b00000010) != 0
-            trainer.gym_badge_3 = (save_results['badge_count'] & 0b00000100) != 0
-            trainer.gym_badge_4 = (save_results['badge_count'] & 0b00001000) != 0
-            trainer.gym_badge_5 = (save_results['badge_count'] & 0b00010000) != 0
-            trainer.gym_badge_6 = (save_results['badge_count'] & 0b00100000) != 0
-            trainer.gym_badge_7 = (save_results['badge_count'] & 0b01000000) != 0
-            trainer.gym_badge_8 = (save_results['badge_count'] & 0b10000000) != 0
+            trainer.update_gym_badge(1, (save_results['badge_count'] & 0b00000001) != 0)
+
+            if trainer.update_gym_badge(2, (save_results['badge_count'] & 0b00000010) != 0):
+                profile.give_wildcard(Wildcard.objects.get(id=85), notification='Has Ganado el 2do Gimnasio!')
+            if trainer.update_gym_badge(3, (save_results['badge_count'] & 0b00000100) != 0):
+                profile.give_wildcard(Wildcard.objects.get(id=86), notification='Has Ganado el 3er Gimnasio!')
+            if trainer.update_gym_badge(4, (save_results['badge_count'] & 0b00001000) != 0):
+                profile.give_wildcard(Wildcard.objects.get(id=87), notification='Has Ganado el 4to Gimnasio!')
+            if trainer.update_gym_badge(5, (save_results['badge_count'] & 0b00010000) != 0):
+                profile.give_wildcard(Wildcard.objects.get(id=88), notification='Has Ganado el 5to Gimnasio!')
+            if trainer.update_gym_badge(6, (save_results['badge_count'] & 0b00100000) != 0):
+                profile.give_wildcard(Wildcard.objects.get(id=89), notification='Has Ganado el 6to Gimnasio!')
+            if trainer.update_gym_badge(7, (save_results['badge_count'] & 0b01000000) != 0):
+                profile.give_wildcard(Wildcard.objects.get(id=90), notification='Has Ganado el 7mo Gimnasio!')
+            if trainer.update_gym_badge(8, (save_results['badge_count'] & 0b10000000) != 0):
+                profile.give_wildcard(Wildcard.objects.get(id=91), notification='Has Ganado el 8vo Gimnasio!')
+
             segment = 1
             if trainer.gym_badge_3:
                 segment = 2

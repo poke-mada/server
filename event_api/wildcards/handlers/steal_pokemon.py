@@ -39,7 +39,7 @@ class StealPokemonHandler(StrongAttackHandler):
         dex_number = context.get('dex_number')
 
         target_profile = MastersProfile.objects.get(id=target_id)
-        target_pokemon: TrainerPokemon = target_profile.get_last_releasable_by_dex_number(dex_number)
+        target_pokemon: TrainerPokemon = target_profile.get_last_releasable_by_dex_number(dex_number, self.user.masters_profile)
 
         if not target_pokemon:
             error = ErrorLog.objects.create(

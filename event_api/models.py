@@ -14,7 +14,7 @@ from django.utils import timezone
 
 from pokemon_api.models import Pokemon
 from pokemon_api.scripting.save_reader import clamp
-from rewards_api.models import RewardBundle
+from rewards_api.models import RewardBundle, StreamerRewardInventory, Reward
 from trainer_data.models import Trainer, TrainerPokemon, TrainerBox
 from websocket.sockets import DataConsumer
 
@@ -305,19 +305,25 @@ class MastersProfile(models.Model):
     }
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="masters_profile")
-    streamer_name = models.CharField(max_length=50, default="", blank=False, null=True, verbose_name="Nombre de Streamer")
+    streamer_name = models.CharField(max_length=50, default="", blank=False, null=True,
+                                     verbose_name="Nombre de Streamer")
     coached = models.ForeignKey("MastersProfile", on_delete=models.SET_NULL, null=True, blank=True,
                                 related_name="coaches", verbose_name='Ahijado')
-    main_coach = models.ForeignKey("MastersProfile", on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Coach principal')
+    main_coach = models.ForeignKey("MastersProfile", on_delete=models.SET_NULL, null=True, blank=True,
+                                   verbose_name='Coach principal')
     starter_dex_number = models.IntegerField(null=True, blank=True, verbose_name="Pokémon \"El Elegido\"")
     in_pokemon_league = models.BooleanField(default=False, verbose_name="Dentro de la liga")
     already_won_lysson = models.BooleanField(default=False, verbose_name="Le ganó a Lysson")
     description = models.TextField(null=True, blank=True, verbose_name="Descripción")
     web_picture = models.ImageField(upload_to='profiles/web/', null=True, blank=True, verbose_name="Foto Perfil")
-    trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="users", null=True, blank=True, verbose_name="Entrenador")
-    profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER, verbose_name="Tipo de Perfil")
-    death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0, verbose_name="Conteo de muertes totales")
-    death_count_display = models.IntegerField(validators=[MinValueValidator(0)], default=0, verbose_name="Conteo de muertes totales para overlay")
+    trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="users", null=True, blank=True,
+                                verbose_name="Entrenador")
+    profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER,
+                                            verbose_name="Tipo de Perfil")
+    death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0,
+                                      verbose_name="Conteo de muertes totales")
+    death_count_display = models.IntegerField(validators=[MinValueValidator(0)], default=0,
+                                              verbose_name="Conteo de muertes totales para overlay")
     rom_name = models.CharField(max_length=50, default="Pokémon X", verbose_name="Nombre de Rom")
     is_pro = models.BooleanField(default=False, verbose_name="Es pro?")
     tournament_league = models.CharField(max_length=1, choices=LEAGUES.items(), default='-', verbose_name="Liga")
@@ -325,7 +331,8 @@ class MastersProfile(models.Model):
                                  default=r'%APPDATA%\Lime3DS\sdmc\Nintendo 3DS\00000000000000000000000000000000\00000000000000000000000000000000\title\00040000\00055d00\data\00000001')
     is_tester = models.BooleanField(default=False, verbose_name="Es Tester?")
     has_animated_overlay = models.BooleanField(default=False, verbose_name='Overlay Animado')
-    showdown_token = models.OneToOneField("admin_panel.ShowdownToken", null=True, blank=True, verbose_name="Token para showdown", on_delete=models.SET_NULL)
+    showdown_token = models.OneToOneField("admin_panel.ShowdownToken", null=True, blank=True,
+                                          verbose_name="Token para showdown", on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.streamer_name or f"U:{self.user.username}"
@@ -334,8 +341,12 @@ class MastersProfile(models.Model):
     def last_save(self):
         return self.trainer.saves.order_by('created_on').last().file
 
-    def get_last_releasable_by_dex_number(self, dex_number):
-        banned_mons = BannedPokemon.objects.filter(profile=self).values_list('dex_number', flat=True)
+    def get_last_releasable_by_dex_number(self, dex_number, source_stealer: "MastersProfile" = None):
+        if source_stealer:
+            banned_mons = BannedPokemon.objects.filter(profile=source_stealer).values_list('dex_number', flat=True)
+        else:
+            banned_mons = BannedPokemon.objects.filter(profile=self).values_list('dex_number', flat=True)
+
         death_mons = DeathLog.objects.exclude(
             dex_number__in=banned_mons
         ).filter(
@@ -358,6 +369,25 @@ class MastersProfile(models.Model):
         ).filter(pokemon__dex_number=dex_number).last()
 
         return last_version
+
+    def give_wildcard(self, wildcard: Wildcard, quantity: int = 1, notification: str = "Te ha llegado un comodín!"):
+
+        bundle = RewardBundle.objects.create(
+            name=notification,
+            user_created=True
+        )
+
+        Reward.objects.create(
+            reward_type=Reward.WILDCARD,
+            bundle=bundle,
+            quantity=quantity,
+            wildcard=wildcard
+        )
+
+        StreamerRewardInventory.objects.create(
+            profile=self.user.masters_profile,
+            reward=bundle
+        )
 
     def get_last_pokemon_by_dex_number(self, dex_number):
 
@@ -434,11 +464,12 @@ class MastersProfile(models.Model):
                 config=Config(signature_version='s3v4', s3={"use_accelerate_endpoint": True})
             )
             presigned_url = s3.generate_presigned_url(
-                    'get_object',
-                    Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': full_s3_path},
-                    ExpiresIn=STORAGE_TIMEOUT,
+                'get_object',
+                Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': full_s3_path},
+                ExpiresIn=STORAGE_TIMEOUT,
             )
-            cache.set(f'cached_save_for_profile_{self.pk}', presigned_url, timeout=STORAGE_TIMEOUT)  # Cache for 15 minutes
+            cache.set(f'cached_save_for_profile_{self.pk}', presigned_url,
+                      timeout=STORAGE_TIMEOUT)  # Cache for 15 minutes
         return mark_safe('<a href="{0}" download>Download {1} Save</a>'.format(presigned_url, self.trainer.name))
 
     def has_wildcard(self, wildcard: "Wildcard") -> bool:
@@ -452,7 +483,8 @@ class MastersProfile(models.Model):
         if self.current_segment_settings:
             if wildcard.pk == 53 and self.current_segment_settings.steal_karma < 3:
                 return False
-        inventory: StreamerWildcardInventoryItem = self.wildcard_inventory.filter(wildcard=wildcard, quantity__gte=1).first()
+        inventory: StreamerWildcardInventoryItem = self.wildcard_inventory.filter(wildcard=wildcard,
+                                                                                  quantity__gte=1).first()
         inventory.quantity -= quantity
         inventory.save()
         return True

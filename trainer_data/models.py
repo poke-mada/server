@@ -1,5 +1,5 @@
 import os
-from typing import Union
+from typing import Union, Tuple
 
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -18,6 +18,7 @@ class Trainer(models.Model):
     name = models.CharField(max_length=50, db_index=True)
     current_team = models.ForeignKey("TrainerTeam", on_delete=models.CASCADE, related_name='trainer', null=True,
                                      blank=True)
+    version = models.IntegerField(default=1)
     gym_badge_1 = models.BooleanField(default=False)
     gym_badge_2 = models.BooleanField(default=False)
     gym_badge_3 = models.BooleanField(default=False)
@@ -39,6 +40,49 @@ class Trainer(models.Model):
 
     def __str__(self):
         return f'{self.streamer_name()} - {self.name}' or self.name
+
+    """
+    receives de badge and the new value for the badge.
+    
+    returns true if the value was updated to true else returns False
+    """
+    def update_gym_badge(self, badge, new_value) -> bool:
+
+        match badge:
+            case 1:
+                if not self.gym_badge_1 and new_value:
+                    self.gym_badge_1 = True
+                    return True
+            case 2:
+                if not self.gym_badge_2 and new_value:
+                    self.gym_badge_2 = True
+                    return True
+            case 3:
+                if not self.gym_badge_3 and new_value:
+                    self.gym_badge_3 = True
+                    return True
+            case 4:
+                if not self.gym_badge_4 and new_value:
+                    self.gym_badge_4 = True
+                    return True
+            case 5:
+                if not self.gym_badge_5 and new_value:
+                    self.gym_badge_5 = True
+                    return True
+            case 6:
+                if not self.gym_badge_6 and new_value:
+                    self.gym_badge_6 = True
+                    return True
+            case 7:
+                if not self.gym_badge_7 and new_value:
+                    self.gym_badge_7 = True
+                    return True
+            case 8:
+                if not self.gym_badge_8 and new_value:
+                    self.gym_badge_8 = True
+                    return True
+
+        return False
 
     @classmethod
     def get_from_user(cls, user) -> Union["Trainer", None]:
