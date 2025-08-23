@@ -15,12 +15,5 @@
       <jdbc-url>jdbc:postgresql://pokemada-db-do-user-10343071-0.f.db.ondigitalocean.com:25060/defaultdb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="dedsafio cluster" uuid="f5a9605c-1a39-44d5-ad2f-843d4f007ca5">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://rd343061-001.ca.clouddb.ovh.net:35601/dedsafio</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
   </component>
 </project>
