@@ -120,7 +120,6 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'current_segment',
         'league',
         'is_pro',
-        'is_coach',
         'is_active',
         'has_coach',
         'has_pfp',
