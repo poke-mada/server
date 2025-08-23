@@ -595,7 +595,9 @@ def box_saver(boxes, profile: MastersProfile):
     boxes_hash = dict()
     for box_num in range(7):
         boxes_hash[box_num] = TrainerBox.objects.create(box_number=box_num, trainer=trainer)
-        cache.get(f'trainer_{trainer.pk}_box_{box_num}').clear()
+        cachebox = cache.get(f'trainer_{trainer.pk}_box_{box_num}')
+        if cachebox:
+            cachebox.clear()
 
     for box_num, data in boxes.items():
         if not data:
