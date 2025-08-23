@@ -615,7 +615,7 @@ class MastersSegmentSettings(models.Model):
             return super().save(*args, **kwargs)
 
         # Busca toda la rama evolutiva y la banea
-        pokemons = Pokemon.objects.filter(dex_number=self.community_pokemon_id).surrogate()
+        pokemons = Pokemon.objects.filter(dex_number=self.community_pokemon_id).first().surrogate()
         for pokemon in pokemons:
             BannedPokemon.objects.create(
                 profile=self.profile,
