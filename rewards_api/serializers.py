@@ -121,7 +121,7 @@ class RouletteSimpleSerializer(serializers.ModelSerializer):
         profile: MastersProfile = self.user.masters_profile
         qs = profile.wildcard_inventory.filter(wildcard=obj.wildcard).annotate(total_wildcards=Sum('quantity'))
 
-        return qs['total_wildcards']
+        return qs
 
     def get_prize_probability(self, obj):
         total_prices = obj.prices.count()
