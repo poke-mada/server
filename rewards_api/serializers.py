@@ -159,6 +159,7 @@ class RouletteSimpleSerializer(serializers.ModelSerializer):
             'prize_probability',
             'total_prizes',
             'banner_logo',
+            'active_banner_logo',
             'banner_image',
             'wishes',
             'history'
