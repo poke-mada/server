@@ -149,7 +149,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         profile: MastersProfile = obj.masters_profile
         if not profile.current_segment_settings:
             if profile.profile_type != MastersProfile.TRAINER:
-                return 'no current segment'
+                return 'Es coach o Administrador'
             return '-'
         return profile.current_segment_settings.tournament_league
 
