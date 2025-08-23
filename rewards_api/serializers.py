@@ -119,9 +119,9 @@ class RouletteSimpleSerializer(serializers.ModelSerializer):
     def get_wishes(self, obj: Roulette):
         from event_api.models import MastersProfile
         profile: MastersProfile = self.user.masters_profile
-        qs = profile.wildcard_inventory.filter(wildcard=obj.wildcard).annotate(total_wildcards=Sum('quantity'))
+        qs = profile.wildcard_inventory.filter(wildcard=obj.wildcard).aggregate(total_wildcards=Sum('quantity'))
 
-        return qs
+        return qs['total_wildcards']
 
     def get_prize_probability(self, obj):
         total_prices = obj.prices.count()
