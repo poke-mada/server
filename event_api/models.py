@@ -312,6 +312,7 @@ class MastersProfile(models.Model):
     starter_dex_number = models.IntegerField(null=True, blank=True, verbose_name="Pokémon \"El Elegido\"")
     in_pokemon_league = models.BooleanField(default=False, verbose_name="Dentro de la liga")
     already_won_lysson = models.BooleanField(default=False, verbose_name="Le ganó a Lysson")
+    description = models.TextField(null=True, blank=True, verbose_name="Descripción")
     web_picture = models.ImageField(upload_to='profiles/web/', null=True, blank=True, verbose_name="Foto Perfil")
     trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="users", null=True, blank=True, verbose_name="Entrenador")
     profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER, verbose_name="Tipo de Perfil")
