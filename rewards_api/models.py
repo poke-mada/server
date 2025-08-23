@@ -95,6 +95,7 @@ class Roulette(models.Model):
     wildcard = models.ForeignKey("event_api.Wildcard", on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Comodin Asignada", help_text="Comodin usado para validar tiradas")
     banner_image = models.ImageField(upload_to='banners/', null=True, blank=False, help_text="Imagen grande del Banner")
     banner_logo = models.ImageField(upload_to='banners/', null=True, blank=False, help_text="Logo chico del banner")
+    active_banner_logo = models.ImageField(upload_to='banners/', null=True, blank=False, help_text="Logo chico del banner activo")
     order = models.IntegerField(verbose_name='Orden vertical', default=0)
     segment = models.IntegerField(verbose_name="Tramo Para Aparecer", validators=[MinValueValidator(1), MaxValueValidator(8)], default=1)
 
