@@ -389,6 +389,11 @@ class MastersProfile(models.Model):
             reward=bundle
         )
 
+        DataConsumer.send_custom_data(self.user.username, dict(
+            type='notification',
+            data='Te ha llegado un paquete al buzón!'
+        ))
+
     def get_last_pokemon_by_dex_number(self, dex_number):
 
         boxed_mons = TrainerBox.objects.filter(
