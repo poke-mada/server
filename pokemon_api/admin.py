@@ -55,13 +55,18 @@ class TypeAdmin(admin.ModelAdmin):
 
 @admin.register(models.ItemNameLocalization)
 class NameLocalizationAdmiin(NestedModelAdmin):
-    list_display = ('content',)
+    list_display = ('language', 'content')
+    fields = ('language', 'content')
+
+
+@admin.register(models.ContextLocalization)
+class NameLocalizationAdmiin(NestedModelAdmin):
+    list_display = ('language', 'content')
     fields = ('language', 'content')
 
 
 @admin.register(models.PokemonNature)
 class PokemonNatureAdmin(admin.ModelAdmin):
-    # readonly_fields = ('name_localizations',)
     list_display = ('name', 'localization', 'stat_up', 'stat_down')
     search_fields = ('name', 'localization')
     autocomplete_fields = ('name_localizations',)
