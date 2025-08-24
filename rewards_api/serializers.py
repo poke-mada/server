@@ -138,7 +138,7 @@ class RouletteSimpleSerializer(serializers.ModelSerializer):
             return []
 
         probs = obj.prices.values('image', 'name').annotate(
-            probability=(Sum('weight') / total_prices) * 100
+            probability=Sum('weight')
         ).order_by(
             '-probability', 'name'
         )
