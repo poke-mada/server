@@ -578,6 +578,10 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
 
 def team_saver(team, trainer: Trainer):
     new_version = TrainerTeam.objects.filter(trainer_old=trainer).count() + 1
+
+    for team in TrainerTeam.objects.filter(trainer_old=trainer):
+        for pokemon in team.team.all():
+            pokemon.delete()
     team_data = dict(
         version=new_version,
         trainer=trainer.pk,
@@ -601,10 +605,6 @@ def box_saver(boxes, profile: MastersProfile):
     for box in boxes_to_delete:
         for slot in box.slots.all():
             slot.pokemon.delete()
-
-    for team in TrainerTeam.objects.filter(trainer_old=trainer):
-        for pokemon in team.team.all():
-            pokemon.delete()
 
     boxes_to_delete.delete()
 
