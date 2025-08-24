@@ -93,13 +93,16 @@ class Roulette(models.Model):
     description = models.CharField(max_length=500, null=True, blank=True)
     file = models.FileField(upload_to='ruletas/', null=True, blank=True)
     recreate_at_save = models.BooleanField(default=False, verbose_name="Recrear al guardar")
-    wildcard = models.ForeignKey("event_api.Wildcard", on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Comodin Asignada", help_text="Comodin usado para validar tiradas")
+    wildcard = models.ForeignKey("event_api.Wildcard", on_delete=models.SET_NULL, null=True, blank=True,
+                                 verbose_name="Comodin Asignada", help_text="Comodin usado para validar tiradas")
     banner_image = models.ImageField(upload_to='banners/', null=True, blank=False, help_text="Imagen grande del Banner")
     banner_logo = models.ImageField(upload_to='banners/', null=True, blank=False, help_text="Logo chico del banner")
-    active_banner_logo = models.ImageField(upload_to='banners/', null=True, blank=False, help_text="Logo chico del banner activo")
+    active_banner_logo = models.ImageField(upload_to='banners/', null=True, blank=False,
+                                           help_text="Logo chico del banner activo")
     order = models.IntegerField(verbose_name='Orden vertical', default=0)
     jackpot_name = models.CharField(max_length=200, null=True, blank=True)
-    segment = models.IntegerField(verbose_name="Tramo Para Aparecer", validators=[MinValueValidator(1), MaxValueValidator(8)], default=1)
+    segment = models.IntegerField(verbose_name="Tramo Para Aparecer",
+                                  validators=[MinValueValidator(1), MaxValueValidator(8)], default=1)
 
     def save(self, *args, **kwargs):
         if self.recreate_at_save:
@@ -140,11 +143,15 @@ class RoulettePrice(models.Model):
         verbose_name = "Premio de Ruleta"
         verbose_name_plural = "Premios de Ruleta"
 
+    def __str__(self):
+        return self.name
+
 
 class RoulettePriceWildcard(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     price = models.ForeignKey(RoulettePrice, related_name='wildcards', on_delete=models.CASCADE)
-    wildcard = models.ForeignKey("event_api.Wildcard", on_delete=models.PROTECT, verbose_name='Comodin', null=True, blank=True)
+    wildcard = models.ForeignKey("event_api.Wildcard", on_delete=models.PROTECT, verbose_name='Comodin', null=True,
+                                 blank=True)
     quantity = models.IntegerField(default=0, validators=[MinValueValidator(0)], verbose_name='Cantidad')
 
     class Meta:
@@ -153,8 +160,10 @@ class RoulettePriceWildcard(models.Model):
 
 
 class RouletteRollHistory(models.Model):
-    profile = models.ForeignKey("event_api.MastersProfile", on_delete=models.CASCADE, related_name='roulette_hiistory', verbose_name="perfil")
-    roulette = models.ForeignKey(Roulette, related_name='history', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Ruleta')
+    profile = models.ForeignKey("event_api.MastersProfile", on_delete=models.CASCADE, related_name='roulette_hiistory',
+                                verbose_name="perfil")
+    roulette = models.ForeignKey(Roulette, related_name='history', on_delete=models.SET_NULL, null=True, blank=True,
+                                 verbose_name='Ruleta')
     message = models.CharField(max_length=500, verbose_name='Mensaje de Display')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de Tirada')
 
