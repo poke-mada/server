@@ -55,8 +55,11 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         current_profile: MastersProfile = request.user.masters_profile
         current_profile.death_count_display = deaths
         current_profile.save()
+        streamer_user = request.user.username
+        if current_profile.profile_type == MastersProfile.COACH:
+            streamer_user = current_profile.coached.user.username
 
-        OverlayConsumer.send_overlay_data(request.user.username)
+        OverlayConsumer.send_overlay_data(streamer_user)
         return Response(True, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['post'])

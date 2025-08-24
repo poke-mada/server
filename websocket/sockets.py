@@ -54,7 +54,6 @@ class OverlayConsumer(AsyncWebsocketConsumer):
 
     # Receive message from room group
     async def chat_message(self, event):
-        print(event)
         message = event["message"]
 
         # Send message to WebSocket
