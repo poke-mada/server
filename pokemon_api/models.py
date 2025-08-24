@@ -141,8 +141,8 @@ class PokemonNature(models.Model):
     localization = models.CharField(max_length=2, db_index=True, default="en", null=True)
     name_localizations = models.ManyToManyField(ContextLocalization, blank=True)
 
-    stat_up = models.CharField(max_length=50, choices=STATS, validators=[])
-    stat_down = models.CharField(max_length=50, choices=STATS, validators=[])
+    stat_up = models.CharField(max_length=50, choices=STATS, validators=[], null=True, blank=True)
+    stat_down = models.CharField(max_length=50, choices=STATS, validators=[], null=True, blank=True)
 
     def __str__(self):
         return self.name
