@@ -139,7 +139,7 @@ class Wildcard(models.Model):
         if (self.name.lower() == 'robo justo' or self.id == 53):
             if current_segment and current_segment.steal_karma == 4:
                 return 0
-            return 9999
+            return self.price
 
         return self.price
 
