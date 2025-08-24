@@ -56,12 +56,14 @@ class TypeAdmin(admin.ModelAdmin):
 @admin.register(models.ItemNameLocalization)
 class NameLocalizationAdmiin(NestedModelAdmin):
     list_display = ('language', 'content')
+    search_fields = ('content', 'language')
     fields = ('language', 'content')
 
 
 @admin.register(models.ContextLocalization)
-class NameLocalizationAdmiin(NestedModelAdmin):
+class NameLocalizationAdmin(NestedModelAdmin):
     list_display = ('language', 'content')
+    search_fields = ('content', 'language')
     fields = ('language', 'content')
 
 
