@@ -189,11 +189,8 @@ class DeathLogSerializer(serializers.ModelSerializer):
 
 
 class ReleasableSerializer(serializers.ModelSerializer):
-    value = serializers.SerializerMethodField()
+    value = serializers.IntegerField(source='pokemon.dex_number', read_only=True)
     title = serializers.SerializerMethodField()
-
-    def get_value(self, obj: TrainerPokemon):
-        return obj.pokemon.dex_number
 
     def get_title(self, obj: TrainerPokemon):
         return f'{obj.pokemon.dex_number} - {obj.mote or obj.pokemon.name}'

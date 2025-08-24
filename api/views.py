@@ -20,7 +20,8 @@ from rest_framework.views import APIView
 
 from api.permissions import IsTrainer, IsRoot
 from event_api.models import Wildcard, CoinTransaction, \
-    GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter, Newsletter, MastersSegmentSettings, BannedPokemon
+    GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter, Newsletter, MastersSegmentSettings, \
+    BannedPokemon, ErrorLog
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer, SelectProfileSerializer, ProfileSerializer, \
     SelectMastersProfileSerializer, DeathLogSerializer, ReleasableSerializer
@@ -401,6 +402,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         ).filter(Q(team__trainer=profile.trainer) | Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False,
                                                       trainerboxslot__box__trainer=profile.trainer)).filter(
             is_shiny=False)
+        ErrorLog.objects.create(
+            message='mensaje de debug'
+        )
         serialized = ReleasableSerializer(releasable_mons, many=True)
 
         return Response(serialized.data, status=status.HTTP_200_OK)
