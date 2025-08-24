@@ -158,8 +158,8 @@ class RoulettePriceWildcard(models.Model):
     quantity = models.IntegerField(default=0, validators=[MinValueValidator(0)], verbose_name='Cantidad')
 
     class Meta:
-        verbose_name = "Premio de Ruleta"
-        verbose_name_plural = "Premios de Ruleta"
+        verbose_name = "Comodin de Premio"
+        verbose_name_plural = "Comodines de Premios"
 
 
 class RouletteRollHistory(models.Model):
