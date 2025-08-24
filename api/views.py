@@ -583,6 +583,10 @@ def team_saver(team, trainer: Trainer):
         for pokemon in team_to_delete.team.all():
             pokemon.delete()
 
+    for team_to_delete in TrainerTeam.objects.filter(trainer=trainer):
+        for pokemon in team_to_delete.team.all():
+            pokemon.delete()
+
     team_data = dict(
         version=new_version,
         trainer_old=trainer.pk,
