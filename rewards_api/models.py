@@ -122,7 +122,7 @@ class Roulette(models.Model):
                 for wildcard in price['wildcards']:
                     RoulettePriceWildcard.objects.create(
                         price=price_obj,
-                        wildcard=Wildcard.objects.filter(name__iexact=wildcard['name']).first(),
+                        wildcard=Wildcard.objects.filter(name__iexact=wildcard['name'].lower()).first(),
                         quantity=wildcard['quantity']
                     )
             self.recreate_at_save = False
