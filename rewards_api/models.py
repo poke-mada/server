@@ -107,7 +107,6 @@ class Roulette(models.Model):
     def save(self, *args, **kwargs):
         if self.recreate_at_save:
             from event_api.models import Wildcard
-            super().save(*args, **kwargs)
             self.prices.all().delete()
 
             data = self.file.read()
