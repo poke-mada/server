@@ -97,6 +97,7 @@ class Roulette(models.Model):
     banner_logo = models.ImageField(upload_to='banners/', null=True, blank=False, help_text="Logo chico del banner")
     active_banner_logo = models.ImageField(upload_to='banners/', null=True, blank=False, help_text="Logo chico del banner activo")
     order = models.IntegerField(verbose_name='Orden vertical', default=0)
+    jackpot_name = models.CharField(max_length=200, null=True, blank=True)
     segment = models.IntegerField(verbose_name="Tramo Para Aparecer", validators=[MinValueValidator(1), MaxValueValidator(8)], default=1)
 
     def save(self, *args, **kwargs):
@@ -134,6 +135,9 @@ class RoulettePrice(models.Model):
     roulette = models.ForeignKey(Roulette, related_name='prices', on_delete=models.CASCADE)
     wildcard = models.ForeignKey("event_api.Wildcard", on_delete=models.PROTECT, verbose_name='Comodin', null=True, blank=True)
     quantity = models.IntegerField(default=0, validators=[MinValueValidator(0)], verbose_name='Cantidad')
+
+    def is_jackpot(self):
+        return self.name == self.roulette.jackpot_name
 
     class Meta:
         verbose_name = "Premio de Ruleta"
