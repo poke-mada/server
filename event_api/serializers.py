@@ -253,3 +253,17 @@ class ProfileSerializer(serializers.ModelSerializer):
             'trainer_id',
             'coached_socket_name'
         ]
+
+
+class EditableProfileSerializer(serializers.ModelSerializer):
+    death_count = serializers.IntegerField(source='death_count_display', read_only=True)
+    community_skip = serializers.BooleanField(source='current_segment_settings.available_community_skip', read_only=True)
+    community_pokemon_id = serializers.IntegerField(source='current_segment_settings.community_pokemon_id', read_only=True)
+
+    class Meta:
+        model = MastersProfile
+        fields = [
+            'death_count',
+            'community_skip',
+            'community_pokemon_id',
+        ]

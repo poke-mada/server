@@ -1,5 +1,6 @@
 from datetime import datetime
 import random
+from typing import Union
 
 import boto3
 from botocore.config import Config
@@ -450,7 +451,7 @@ class MastersProfile(models.Model):
         return 0
 
     @property
-    def current_segment_settings(self) -> "MastersSegmentSettings":
+    def current_segment_settings(self) -> Union["MastersSegmentSettings", None]:
         if self.profile_type == MastersProfile.COACH:
             if self.coached:
                 return self.coached.segments_settings.filter(is_current=True).first()

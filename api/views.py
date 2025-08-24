@@ -24,7 +24,7 @@ from event_api.models import Wildcard, CoinTransaction, \
     BannedPokemon, ErrorLog
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer, SelectProfileSerializer, ProfileSerializer, \
-    SelectMastersProfileSerializer, DeathLogSerializer, ReleasableSerializer
+    SelectMastersProfileSerializer, DeathLogSerializer, ReleasableSerializer, EditableProfileSerializer
 from pokemon_api.models import Move, Pokemon, Item, ItemNameLocalization
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer, ItemSelectSerializer
@@ -50,10 +50,51 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(detail=False, methods=['post'])
     def register_deaths(self, request, *args, **kwargs):
+        from websocket.sockets import OverlayConsumer
         deaths = request.data.get('deaths', 0)
         current_profile: MastersProfile = request.user.masters_profile
-        # current_profile.death_count =
+        current_profile.death_count_display = deaths
+        current_profile.save()
+
+        OverlayConsumer.send_overlay_data(request.user.username)
         return Response(True, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['post'])
+    def use_segment_skip(self, request, *args, **kwargs):
+        current_profile: MastersProfile = request.user.masters_profile
+        current_segment = current_profile.current_segment_settings
+        if not current_segment:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        if current_segment.available_community_skip:
+            current_segment.available_community_skip = False
+            current_segment.save()
+
+        return Response(status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['post'])
+    def declare_community_pokemon(self, request, *args, **kwargs):
+        dex_number = int(request.data.get('dex_number', '0'))
+        current_profile: MastersProfile = request.user.masters_profile
+        current_segment = current_profile.current_segment_settings
+        if not current_segment:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        if not current_segment.community_pokemon_id:
+            current_segment.community_pokemon_id = dex_number
+            current_segment.save()
+
+        return Response(status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['get'])
+    def get_editable_profile(self, request, *args, **kwargs):
+        current_profile: MastersProfile = request.user.masters_profile
+        current_segment = current_profile.current_segment_settings
+        if not current_segment:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        serialized_profile = EditableProfileSerializer(current_profile)
+
+        return Response(serialized_profile.data, status=status.HTTP_200_OK)
 
     def _get_queryset(self):
         user: User = self.request.user
