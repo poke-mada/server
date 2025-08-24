@@ -48,7 +48,7 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
             message=f'{profile.streamer_name} tiró {roulette.name} y ganó {price.name}'
         )
 
-        for prize in price.wildcards:
+        for prize in price.wildcards.all():
             Reward.objects.create(
                 reward_type=Reward.WILDCARD,
                 bundle=bundle,
