@@ -55,7 +55,7 @@ class RoulettePriceWildcardInline(NestedTabularInline):
     )
 
 
-class RoulettePriceInline(NestedStackedInline):
+class RoulettePriceInline(NestedTabularInline):
     model = RoulettePrice
     min_num = 0
     extra = 0
