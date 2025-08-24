@@ -52,9 +52,8 @@ class RoulettePriceWildcardInline(NestedStackedInline):
     sortable_by = ('name',)
     fields = (
         'id',
-        'name',
-        'weight',
-        'is_jackpot',
+        'wildcard',
+        'quantity'
     )
 
 
