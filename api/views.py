@@ -596,11 +596,20 @@ def team_saver(team, trainer: Trainer):
 def box_saver(boxes, profile: MastersProfile):
     trainer = profile.trainer
     current_segment = profile.current_segment_settings
-    TrainerBox.objects.filter(trainer=trainer).delete()
+    boxes = TrainerBox.objects.filter(trainer=trainer)
+
+    for box in boxes:
+        for slot in box.slots.all():
+            slot.pokemon.delete()
+            pass
+        pass
+    
+    TrainerPokemon.objects.filter(team__trainer=trainer)
+
+    boxes.delete()
     boxes_hash = dict()
     for box_num in range(7):
         boxes_hash[box_num] = TrainerBox.objects.create(box_number=box_num, trainer=trainer)
-        TrainerPokemon.objects.filter(trainer=trainer)
         cachebox = cache.get(f'trainer_{trainer.pk}_box_{box_num}')
         if cachebox:
             cachebox.clear()
