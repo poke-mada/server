@@ -403,8 +403,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
                                                       trainerboxslot__box__trainer=profile.trainer)).filter(
             is_shiny=False)
         ErrorLog.objects.create(
-            message='mensaje de debug'
+            message=f'mensaje de debug conteo: {releasable_mons.count()}'
         )
+
         serialized = ReleasableSerializer(releasable_mons, many=True)
 
         return Response(serialized.data, status=status.HTTP_200_OK)
