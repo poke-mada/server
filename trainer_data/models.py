@@ -152,7 +152,7 @@ class TrainerTeam(models.Model):
     trainer_old = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name='old_teams', null=True, blank=True)
 
     def __str__(self):
-        return f'{self.trainer_old.name}\'s team #{self.version}'
+        return f'{self.trainer_old.name if self.trainer_old else ''}\'s team #{self.version}'
 
     def pokemon_team(self):
         motes = self.team.values_list('mote')
