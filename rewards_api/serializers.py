@@ -133,11 +133,11 @@ class RouletteSimpleSerializer(serializers.ModelSerializer):
         return qs['total_wildcards'] or 0
 
     def get_prize_probability(self, obj):
-        total_prices = obj.prices.count()
+        total_prices = obj.prices.aggregate(total_prizes=Sum('weight'))['total_prizes']
         if total_prices == 0:
             return None
 
-        probs = obj.prices.values('image', 'name').annotate(probability=Round(Count('name') * (100 / total_prices), 2)).order_by(
+        probs = obj.prices.values('image', 'name').annotate(probability=Round(Sum('weight') * (100 / total_prices), 2)).order_by(
             '-probability', 'name')
 
         return probs
