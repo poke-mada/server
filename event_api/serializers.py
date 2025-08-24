@@ -265,5 +265,5 @@ class EditableProfileSerializer(serializers.ModelSerializer):
         fields = [
             'death_count',
             'community_skip',
-            'community_pokemon_id',
+            'community_pokemon',
         ]
