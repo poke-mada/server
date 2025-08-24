@@ -116,10 +116,12 @@ class Roulette(models.Model):
             json_data = json.loads(data)
             self.name = json_data['name']
             for price in json_data['prices']:
+                wildcard_f_obj = Wildcard.objects.filter(name__iexact=price['wildcards'][0]['name'].lower()).first()
                 price_obj = RoulettePrice.objects.create(
                     name=price['name'],
                     is_jackpot=price.get('is_jackpot', False),
                     roulette=self,
+                    image=wildcard_f_obj.sprite,
                     weight=price.get('weight')
                 )
                 for wildcard in price['wildcards']:
@@ -176,6 +178,7 @@ class RoulettePrice(models.Model):
     name = models.CharField(max_length=500)
     roulette = models.ForeignKey(Roulette, related_name='prices', on_delete=models.CASCADE)
     is_jackpot = models.BooleanField(default=False)
+    image = models.ImageField(upload_to='roulette/images/', blank=True, null=True)
     weight = models.IntegerField(default=0)
 
     class Meta:

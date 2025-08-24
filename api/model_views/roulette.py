@@ -35,7 +35,7 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
             return Response('No Tienes comodines para esta tirada', status=status.HTTP_400_BAD_REQUEST)
         profile.consume_wildcard(roulette.wildcard)
 
-        price: RoulettePrice = roulette.prices.all().order_by(Random()).first()
+        price: RoulettePrice = roulette.spin()
 
         bundle = RewardBundle.objects.create(
             name=f'Comodin Ganado por {roulette.name}',
