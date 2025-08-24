@@ -211,6 +211,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     is_admin = serializers.SerializerMethodField()
     coached_id = serializers.IntegerField()
     coached_name = serializers.CharField(source='coached.streamer_name', read_only=True)
+    coached_socket_name = serializers.CharField(source='coached.user.username', read_only=True)
     trainer_id = serializers.SerializerMethodField()
 
     def get_name(self, obj: MastersProfile):
