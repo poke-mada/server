@@ -451,7 +451,9 @@ class MastersProfile(models.Model):
     @property
     def current_segment_settings(self) -> "MastersSegmentSettings":
         if self.profile_type == MastersProfile.COACH:
-            return self.coached.segments_settings.filter(is_current=True).first()
+            if self.coached:
+                return self.coached.segments_settings.filter(is_current=True).first()
+            return None
         return self.segments_settings.filter(is_current=True).first()
 
     def last_save_download(self):
