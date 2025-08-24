@@ -64,6 +64,7 @@ class RoulettePriceInline(NestedStackedInline):
         'name',
         'weight',
         'is_jackpot',
+        'image',
     )
     inlines = (RoulettePriceWildcardInline,)
 

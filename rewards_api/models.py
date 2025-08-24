@@ -116,7 +116,6 @@ class Roulette(models.Model):
             json_data = json.loads(data)
             self.name = json_data['name']
             for price in json_data['prices']:
-                print(price['wildcards'])
                 wildcard_f_obj = Wildcard.objects.filter(name__iexact=price['wildcards'][0]['name'].lower()).first()
                 price_obj = RoulettePrice.objects.create(
                     name=price['name'],
