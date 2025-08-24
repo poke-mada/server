@@ -97,13 +97,15 @@ class StreamerRewardSerializer(serializers.ModelSerializer):
 
 class RoulettePrizeSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(read_only=True, use_url=True)
+    jackpot = serializers.BooleanField(source='is_jackpot', read_only=True)
 
     class Meta:
         model = RoulettePrice
         fields = [
             'id',
             'name',
-            'image'
+            'image',
+            'jackpot'
         ]
 
 

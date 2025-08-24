@@ -55,7 +55,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         current_profile: MastersProfile = request.user.masters_profile
         if current_profile.profile_type == MastersProfile.COACH:
             current_profile = current_profile.coached
-            
+
         streamer_user = current_profile.user.username
         current_profile.death_count_display = deaths
         current_profile.save()
