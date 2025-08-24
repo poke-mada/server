@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.core.handlers.asgi import ASGIRequest
 from django.forms import forms
 from django.forms.models import BaseInlineFormSet
-from nested_admin.nested import NestedModelAdmin, NestedStackedInline
+from nested_admin.nested import NestedModelAdmin, NestedStackedInline, NestedTabularInline
 
 from admin_panel.admin import staff_site
 from rewards_api.models import RewardBundle, Reward, RoulettePrice, Roulette, RouletteRollHistory, RoulettePriceWildcard
@@ -43,7 +43,7 @@ class RewardBundleAdmin(admin.ModelAdmin):
         return queryset.filter(user_created=False)
 
 
-class RoulettePriceWildcardInline(NestedStackedInline):
+class RoulettePriceWildcardInline(NestedTabularInline):
     model = RoulettePriceWildcard
     min_num = 1
     max_num = 2

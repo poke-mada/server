@@ -162,6 +162,8 @@ class RoulettePriceWildcard(models.Model):
         verbose_name_plural = "Comodines de Premios"
 
 
+
+
 class RouletteRollHistory(models.Model):
     profile = models.ForeignKey("event_api.MastersProfile", on_delete=models.CASCADE, related_name='roulette_hiistory',
                                 verbose_name="perfil")
