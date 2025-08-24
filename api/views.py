@@ -580,7 +580,7 @@ def team_saver(team, trainer: Trainer):
     new_version = TrainerTeam.objects.filter(trainer_old=trainer).count() + 1
     team_data = dict(
         version=new_version,
-        trainer_old=trainer.pk,
+        trainer=trainer.pk,
         team=[pokemon for pokemon in team if pokemon]
     )
 
