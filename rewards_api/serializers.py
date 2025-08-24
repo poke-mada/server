@@ -123,8 +123,8 @@ class RouletteSimpleSerializer(serializers.ModelSerializer):
     history = serializers.SerializerMethodField()
 
     def get_total_prizes(self, obj):
-        total_prices = obj.prices.count()
-        return total_prices
+        total_prices = obj.prices.aggregate(total_prizes=Sum('weight'))['total_prizes']
+        return total_prices or 0
 
     def get_wishes(self, obj: Roulette):
         profile = self.user.masters_profile
@@ -133,12 +133,12 @@ class RouletteSimpleSerializer(serializers.ModelSerializer):
         return qs['total_wildcards'] or 0
 
     def get_prize_probability(self, obj: Roulette):
-        total_prices = obj.prices.aggregate(total_prizes=Sum('weight'))['total_prizes']
+        total_prices = obj.prices.aggregate(total_prizes=Sum('weight'))['total_prizes'] or 0
         if total_prices == 0:
             return []
 
         probs = obj.prices.values('image', 'name').annotate(
-            probability=total_prices
+            probability=Sum('weight')
         ).order_by(
             '-probability', 'name'
         )
