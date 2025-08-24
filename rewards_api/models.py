@@ -116,7 +116,8 @@ class Roulette(models.Model):
                 price_obj = RoulettePrice.objects.create(
                     name=price['name'],
                     is_jackpot=price.get('is_jackpot', False),
-                    roulette=self
+                    roulette=self,
+                    weight=price.get('weight')
                 )
                 for wildcard in price['wildcards']:
                     RoulettePriceWildcard.objects.create(
@@ -160,8 +161,6 @@ class RoulettePriceWildcard(models.Model):
     class Meta:
         verbose_name = "Comodin de Premio"
         verbose_name_plural = "Comodines de Premios"
-
-
 
 
 class RouletteRollHistory(models.Model):
