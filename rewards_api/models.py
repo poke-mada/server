@@ -131,6 +131,9 @@ class Roulette(models.Model):
         verbose_name = "Ruleta"
         verbose_name_plural = "Ruletas"
 
+    def __str__(self):
+        return self.name
+
 
 class RoulettePrice(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
