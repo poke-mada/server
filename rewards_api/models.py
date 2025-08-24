@@ -108,7 +108,10 @@ class Roulette(models.Model):
         if self.recreate_at_save:
             from event_api.models import Wildcard
             super().save(*args, **kwargs)
-            self.prices.all().delete()
+            for price in self.prices.all():
+                price.wildcards.delete()
+            self.prices.delete()
+            
             data = self.file.read()
             json_data = json.loads(data)
             self.name = json_data['name']
@@ -121,8 +124,6 @@ class Roulette(models.Model):
                 )
                 for wildcard in price['wildcards']:
                     wildcard_obj = Wildcard.objects.filter(name__iexact=wildcard['name'].lower()).first()
-                    if not wildcard_obj:
-                        raise wildcard
                     RoulettePriceWildcard.objects.create(
                         price=price_obj,
                         wildcard=wildcard_obj,
