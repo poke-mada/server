@@ -605,12 +605,10 @@ def box_saver(boxes, profile: MastersProfile):
     for team in TrainerTeam.objects.filter(trainer=trainer):
         for pokemon in team.team.all():
             pokemon.delete()
-    TrainerTeam.objects.filter(trainer=trainer).delete()
 
     for team in TrainerTeam.objects.filter(trainer_old=trainer):
         for pokemon in team.team.all():
             pokemon.delete()
-    TrainerTeam.objects.filter(trainer_old=trainer).delete()
 
     boxes_hash = dict()
     for box_num in range(7):
