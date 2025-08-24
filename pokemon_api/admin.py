@@ -53,6 +53,11 @@ class TypeAdmin(admin.ModelAdmin):
     search_fields = ('index', 'name', 'localization')
 
 
+@admin.register(models.ItemNameLocalization)
+class NameLocalizationAdmiin(NestedModelAdmin):
+    list_display = ('language', 'content')
+    fields = ('language', 'content')
+
 @admin.register(models.PokemonNature)
 class PokemonNatureAdmin(admin.ModelAdmin):
     #readonly_fields = ('name_localizations',)
