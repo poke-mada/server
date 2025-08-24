@@ -135,10 +135,9 @@ class GameDataConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data=None, **kwargs):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
-        print(message)
 
         await self.channel_layer.group_send(
-            self.room_group_name, {"type": "chat.message", "message": message}
+            self.room_group_name, {"type": "chat.message", "message": text_data_json}
         )
 
     # Receive message from room group
