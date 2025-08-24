@@ -48,10 +48,8 @@ class RoulettePriceWildcardInline(NestedTabularInline):
     min_num = 1
     max_num = 2
     extra = 0
-    readonly_fields = ('id',)
     sortable_by = ('name',)
     fields = (
-        'id',
         'wildcard',
         'quantity'
     )
@@ -63,7 +61,6 @@ class RoulettePriceInline(NestedStackedInline):
     extra = 0
     readonly_fields = ('id',)
     fields = (
-        'id',
         'name',
         'weight',
         'is_jackpot',
