@@ -121,8 +121,10 @@ class Roulette(models.Model):
                     name=price['name'],
                     is_jackpot=price.get('is_jackpot', False),
                     roulette=self,
-                    image=wildcard_f_obj.sprite,
                     weight=price.get('weight')
+                )
+                price_obj.image.save(
+                    wildcard_f_obj.sprite.file.name, wildcard_f_obj.sprite.read()
                 )
                 for wildcard in price['wildcards']:
                     wildcard_obj = Wildcard.objects.filter(name__iexact=wildcard['name'].lower()).first()
