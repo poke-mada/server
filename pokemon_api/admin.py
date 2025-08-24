@@ -58,6 +58,7 @@ class PokemonNatureAdmin(admin.ModelAdmin):
     #readonly_fields = ('name_localizations',)
     list_display = ('name', 'localization', 'stat_up', 'stat_down')
     search_fields = ('name', 'localization')
+    autocomplete_fields = ('name_localizations',)
 
 
 @admin.register(models.PokemonAbility)
