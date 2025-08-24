@@ -136,9 +136,10 @@ class Wildcard(models.Model):
     def get_price(self, user: User):
         profile = user.masters_profile
         current_segment = profile.current_segment_settings
-
-        if current_segment.steal_karma == 4 and (self.name.lower() == 'robo justo' or self.id == 53):
-            return 0
+        if (self.name.lower() == 'robo justo' or self.id == 53):
+            if current_segment and current_segment.steal_karma == 4:
+                return 0
+            return 9999
 
         return self.price
 
