@@ -24,7 +24,6 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
             queryset = super().get_queryset().filter(segment=current_segment.segment)
         return queryset
 
-
     def get_serializer(self, *args, **kwargs):
         return super().get_serializer(user=self.request.user, *args, **kwargs)
 

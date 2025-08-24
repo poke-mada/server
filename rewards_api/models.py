@@ -1,3 +1,4 @@
+import json
 import uuid
 
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -105,22 +106,21 @@ class Roulette(models.Model):
             from event_api.models import Wildcard
             super().save(*args, **kwargs)
             self.prices.all().delete()
-            lines = self.file.readlines()
-            for line in lines[1:]:
-                clean_line: str = line.strip().decode()
-                splitted = clean_line.split(' (x')
-                wildcard_name = splitted[0]
-                try:
-                    quantity = splitted[1]
-                except:
-                    quantity = '1'
-                quantity = int(quantity.replace(')', ''))
-                RoulettePrice.objects.create(
-                    name=clean_line,
-                    wildcard=Wildcard.objects.filter(name__iexact=wildcard_name.lower()).first(),
-                    quantity=quantity,
+            data = self.file.read()
+            json_data = json.loads(data)
+            self.name = json_data['name']
+            for price in json_data['prices']:
+                price_obj = RoulettePrice.objects.create(
+                    name=price['name'],
+                    is_jackpot=price.get('is_jackpot', False),
                     roulette=self
                 )
+                for wildcard in price['wildcards']:
+                    RoulettePriceWildcard.objects.create(
+                        price=price_obj,
+                        wildcard=Wildcard.objects.filter(name__iexact=wildcard['name']).first(),
+                        quantity=wildcard['quantity']
+                    )
             self.recreate_at_save = False
         return super().save(*args, **kwargs)
 
@@ -133,11 +133,19 @@ class RoulettePrice(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=500)
     roulette = models.ForeignKey(Roulette, related_name='prices', on_delete=models.CASCADE)
+    is_jackpot = models.BooleanField(default=False)
+    weight = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Premio de Ruleta"
+        verbose_name_plural = "Premios de Ruleta"
+
+
+class RoulettePriceWildcard(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    price = models.ForeignKey(RoulettePrice, related_name='wildcards', on_delete=models.CASCADE)
     wildcard = models.ForeignKey("event_api.Wildcard", on_delete=models.PROTECT, verbose_name='Comodin', null=True, blank=True)
     quantity = models.IntegerField(default=0, validators=[MinValueValidator(0)], verbose_name='Cantidad')
-
-    def is_jackpot(self):
-        return self.name == self.roulette.jackpot_name
 
     class Meta:
         verbose_name = "Premio de Ruleta"

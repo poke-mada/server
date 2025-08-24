@@ -2,10 +2,10 @@ from django.contrib import admin
 from django.core.handlers.asgi import ASGIRequest
 from django.forms import forms
 from django.forms.models import BaseInlineFormSet
-from nested_admin.nested import NestedModelAdmin
+from nested_admin.nested import NestedModelAdmin, NestedStackedInline
 
 from admin_panel.admin import staff_site
-from rewards_api.models import RewardBundle, Reward, RoulettePrice, Roulette, RouletteRollHistory
+from rewards_api.models import RewardBundle, Reward, RoulettePrice, Roulette, RouletteRollHistory, RoulettePriceWildcard
 
 ITEM = 0
 WILDCARD = 1
@@ -43,23 +43,36 @@ class RewardBundleAdmin(admin.ModelAdmin):
         return queryset.filter(user_created=False)
 
 
-class RoulettePriceInline(admin.TabularInline):
+class RoulettePriceWildcardInline(NestedStackedInline):
+    model = RoulettePriceWildcard
+    min_num = 1
+    max_num = 2
+    extra = 0
+    readonly_fields = ('id',)
+    sortable_by = ('name',)
+    fields = (
+        'id',
+        'name',
+        'weight',
+        'is_jackpot',
+    )
+
+
+class RoulettePriceInline(NestedStackedInline):
     model = RoulettePrice
     min_num = 0
     extra = 0
     readonly_fields = ('id',)
-    sortable_by = ('name',)
-    autocomplete_fields = ('wildcard',)
     fields = (
         'id',
         'name',
-        'wildcard',
-        'quantity'
+        'weight',
+        'is_jackpot',
     )
 
 
 @admin.register(Roulette, site=staff_site)
-class RouletteAdmin(admin.ModelAdmin):
+class RouletteAdmin(NestedModelAdmin):
     list_display = ('id', 'name', 'segment', 'order', 'has_file')
     inlines = (RoulettePriceInline,)
     autocomplete_fields = ('wildcard',)
