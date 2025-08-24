@@ -69,7 +69,7 @@ class NameLocalizationAdmin(NestedModelAdmin):
 
 @admin.register(models.PokemonNature)
 class PokemonNatureAdmin(admin.ModelAdmin):
-    list_display = ('name', 'localization', 'stat_up', 'stat_down')
+    list_display = ('index', 'name', 'localization', 'stat_up', 'stat_down')
     search_fields = ('name', 'localization')
     autocomplete_fields = ('name_localizations',)
 
