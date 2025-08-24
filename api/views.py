@@ -602,7 +602,7 @@ def box_saver(boxes, profile: MastersProfile):
         for slot in box.slots.all():
             slot.pokemon.delete()
 
-    TrainerPokemon.objects.filter(team__trainer=trainer)
+    TrainerPokemon.objects.filter(team__trainer_old=trainer)
     boxes_to_delete.delete()
     
     boxes_hash = dict()
