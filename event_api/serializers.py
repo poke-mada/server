@@ -250,5 +250,6 @@ class ProfileSerializer(serializers.ModelSerializer):
             'is_tester',
             'coached_id',
             'coached_name',
-            'trainer_id'
+            'trainer_id',
+            'coached_socket_name'
         ]
