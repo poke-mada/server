@@ -69,6 +69,7 @@ class RoulettePriceInline(NestedStackedInline):
         'weight',
         'is_jackpot',
     )
+    inlines = (RoulettePriceWildcardInline,)
 
 
 @admin.register(Roulette, site=staff_site)
