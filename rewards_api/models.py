@@ -110,8 +110,8 @@ class Roulette(models.Model):
             super().save(*args, **kwargs)
             for price in self.prices.all():
                 price.wildcards.delete()
-            self.prices.delete()
-            
+            self.prices.all().delete()
+
             data = self.file.read()
             json_data = json.loads(data)
             self.name = json_data['name']
