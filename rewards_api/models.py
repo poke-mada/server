@@ -3,6 +3,7 @@ import uuid
 
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.db.models import Sum, Window, F
 
 from pokemon_api.models import Item, Pokemon
 from trainer_data.models import TrainerPokemon
@@ -100,7 +101,6 @@ class Roulette(models.Model):
     active_banner_logo = models.ImageField(upload_to='banners/', null=True, blank=False,
                                            help_text="Logo chico del banner activo")
     order = models.IntegerField(verbose_name='Orden vertical', default=0)
-    jackpot_name = models.CharField(max_length=200, null=True, blank=True)
     segment = models.IntegerField(verbose_name="Tramo Para Aparecer",
                                   validators=[MinValueValidator(1), MaxValueValidator(8)], default=1)
 
@@ -131,6 +131,37 @@ class Roulette(models.Model):
                     )
             self.recreate_at_save = False
         return super().save(*args, **kwargs)
+
+    def spin(self):
+        """
+        Selecciona un premio con 1 ida a la DB usando window functions.
+        PostgreSQL requerido.
+        """
+        qs = self.prices.filter(weight__gt=0)
+
+        # Si no hay filas con peso, falla antes:
+        if not qs.exists():
+            raise ValueError("La ruleta no tiene premios con weight > 0")
+
+        # 1) Obtener el total de pesos (agregación pequeña)
+        total = qs.aggregate(total=Sum('weight'))['total']
+        if total is None or total <= 0:
+            raise ValueError("La ruleta no tiene pesos positivos")
+
+        # 2) Generar r en Python (también podrías usar funciones SQL si quisieras)
+        import random
+        r = random.uniform(0, total)
+
+        # 3) Anotar el acumulado (orden estable: por id, o por created_at si tienes)
+        annotated = qs.annotate(
+            cum_weight=Window(
+                expression=Sum('weight'),
+                order_by=F('id').asc(),  # elige un orden estable
+            )
+        ).filter(cum_weight__gte=r).order_by('cum_weight')
+
+        # 4) Tomar el primero
+        return annotated.first()
 
     class Meta:
         verbose_name = "Ruleta"

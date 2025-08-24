@@ -33,10 +33,10 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
         roulette = self.get_object()
         if not profile.has_wildcard(roulette.wildcard):
             return Response('No Tienes comodines para esta tirada', status=status.HTTP_400_BAD_REQUEST)
-
         profile.consume_wildcard(roulette.wildcard)
 
         price: RoulettePrice = roulette.prices.all().order_by(Random()).first()
+
         bundle = RewardBundle.objects.create(
             name=f'Comodin Ganado por {roulette.name}',
             user_created=True
@@ -48,12 +48,13 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
             message=f'{profile.streamer_name} tiró {roulette.name} y ganó {price.name}'
         )
 
-        Reward.objects.create(
-            reward_type=Reward.WILDCARD,
-            bundle=bundle,
-            wildcard=price.wildcard,
-            quantity=price.quantity
-        )
+        for prize in price.wildcards:
+            Reward.objects.create(
+                reward_type=Reward.WILDCARD,
+                bundle=bundle,
+                wildcard=prize.wildcard,
+                quantity=prize.quantity
+            )
 
         StreamerRewardInventory.objects.create(
             profile=profile,
@@ -72,3 +73,5 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
         roulette = self.get_object()
         serializer = RouletteSerializer(roulette)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
