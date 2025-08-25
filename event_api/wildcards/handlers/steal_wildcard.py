@@ -15,6 +15,11 @@ class StealWildcardHandler(AttackHandler):
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         source_profilie: MastersProfile = self.user.masters_profile
         wildcard_to_steal: StreamerWildcardInventoryItem = target_profile.wildcard_inventory.filter(quantity__gte=1).order_by(Random()).first()
+        if not wildcard_to_steal:
+            ProfileNotification.objects.create(
+                profile=target_profile,
+                message=f'No has podido robar nada a <strong>{target_profile.streamer_name}</strong>'
+            )
 
         target_profile.consume_wildcard(wildcard_to_steal.wildcard, 1)
         source_profilie.give_wildcard(wildcard_to_steal.wildcard, 1)
