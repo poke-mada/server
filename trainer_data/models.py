@@ -104,6 +104,7 @@ class Trainer(models.Model):
 
 class TrainerPokemon(models.Model):
     team = models.ForeignKey("TrainerTeam", related_name='team', on_delete=models.CASCADE, null=True)
+    trainer = models.ForeignKey("Trainer", related_name='mons', on_delete=models.CASCADE, null=True)
     pokemon = models.ForeignKey(Pokemon, on_delete=models.PROTECT, related_name='trainereds')
     mote = models.CharField(max_length=15)
     enc_data = models.FileField(null=True, blank=False)

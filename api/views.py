@@ -637,7 +637,7 @@ def team_saver(team, trainer: Trainer):
     team_data = dict(
         version=new_version,
         trainer_old=trainer.pk,
-        team=[pokemon for pokemon in team if pokemon]
+        team=[{**pokemon, 'trainer': trainer.pk} for pokemon in team if pokemon]
     )
 
     new_team_serializer = TrainerTeamSerializer(data=team_data)
@@ -678,6 +678,7 @@ def box_saver(boxes, profile: MastersProfile):
         for slot in slots:
             box_slot, _ = TrainerBoxSlot.objects.get_or_create(box=box, slot=slot['slot'])
             pokemon = slot['pokemon']
+            pokemon['trainer'] = trainer.pk
             dex_number = pokemon['dex_number']
             pokemon_serializer = TrainerPokemonSerializer(data=pokemon)
             if pokemon['is_death']:
