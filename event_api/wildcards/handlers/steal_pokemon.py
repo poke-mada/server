@@ -2,7 +2,7 @@ from django.db import transaction
 
 from django.db import transaction
 
-from event_api.models import MastersProfile, ErrorLog, StealLog, Evolution
+from event_api.models import MastersProfile, ErrorLog, StealLog, Evolution, ProfileNotification
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from rewards_api.models import Reward, RewardBundle, StreamerRewardInventory
 from trainer_data.models import TrainerPokemon
@@ -79,4 +79,14 @@ class StealPokemonHandler(StrongAttackHandler):
             data='Te ha llegado un paquete al buzón!'
         ))
 
-        return super().execute(context)
+        ProfileNotification.objects.create(
+            profile=self.user.masters_profile,
+            message='Te ha llegado un paquete al buzón!'
+        )
+
+        ProfileNotification.objects.create(
+            profile=target_profile,
+            message=f'<strong>{self.user.masters_profile.streamer_name}</strong> te ha robado a <strong>{target_pokemon.mote}</strong>'
+        )
+
+        return super().execute(context, avoid_notification=True)

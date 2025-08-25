@@ -58,7 +58,7 @@ class StrongAttackHandler(AttackHandler):
 
         return super().validate(context)
 
-    def execute(self, context):
+    def execute(self, context, avoid_notification=False):
         target_id = context.get('target_id')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         target_current_segment = target_profile.current_segment_settings
@@ -87,4 +87,4 @@ class StrongAttackHandler(AttackHandler):
             data=str(target_current_segment.attacks_received_left)
         ))
 
-        return super().execute(context)
+        return super().execute(context, avoid_notification=avoid_notification)

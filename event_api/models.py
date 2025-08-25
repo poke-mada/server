@@ -396,6 +396,11 @@ class MastersProfile(models.Model):
             data='Te ha llegado un paquete al buzón!'
         ))
 
+        ProfileNotification.objects.create(
+            profile=self.user.masters_profile,
+            message='Te ha llegado un paquete al buzón!'
+        )
+
     def get_last_pokemon_by_dex_number(self, dex_number):
 
         boxed_mons = TrainerBox.objects.filter(
@@ -842,3 +847,9 @@ class Evolution(models.Model):
     def search_evolution_chain(dex_number: int):
         evolution = Evolution.objects.get(dex_number=dex_number)
         return evolution.surrogate()
+
+
+class ProfileNotification(models.Model):
+    profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name='notifications')
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

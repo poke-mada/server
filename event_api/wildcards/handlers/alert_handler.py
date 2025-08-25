@@ -1,5 +1,5 @@
 import json
-from event_api.models import MastersProfile, Newsletter
+from event_api.models import MastersProfile, Newsletter, ProfileNotification
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 from channels.layers import get_channel_layer
@@ -9,7 +9,7 @@ from asgiref.sync import async_to_sync
 
 @WildCardExecutorRegistry.register("alert_handler", verbose='Alert Handler')
 class AlertHandler(BaseWildCardHandler):
-    def execute(self, context):
+    def execute(self, context, avoid_notification=False):
         channel_layer = get_channel_layer()
         target_id = context.get('target_id')
 
@@ -25,9 +25,9 @@ class AlertHandler(BaseWildCardHandler):
         )
 
         for chat in MastersProfile.objects.filter(
-            is_pro=profile.is_pro,
-            is_tester=profile.is_tester,
-            profile_type=MastersProfile.TRAINER
+                is_pro=profile.is_pro,
+                is_tester=profile.is_tester,
+                profile_type=MastersProfile.TRAINER
         ).values_list('streamer_name', flat=True):
             # noinspection PyArgumentList
             try:
@@ -50,5 +50,10 @@ class AlertHandler(BaseWildCardHandler):
             for_pros=(not profile.is_pro),
             for_staff=self.user.is_staff
         )
+        if not avoid_notification:
+            ProfileNotification.objects.create(
+                profile=profile,
+                message=f'<strong>{self.user.masters_profile.streamer_name}</strong> te ha atacado usando <strong>{self.wildcard.name}</strong>'
+            )
 
         return True
