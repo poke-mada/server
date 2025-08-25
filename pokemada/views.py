@@ -13,7 +13,10 @@ def overlay(request, streamer_name):
     if not profile:
         raise Http404("Profile not found")
 
-    coach: MastersProfile = profile.coaches.filter(user__is_active=True).first()
+    if profile.profile_type == MastersProfile.COACH:
+        profile = profile.coached
+
+    coach: MastersProfile = profile.main_coach
     coach_name = 'Sin coach'
     if coach:
         coach_name = coach.user.username
