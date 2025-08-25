@@ -74,6 +74,17 @@ class OverlayConsumer(AsyncWebsocketConsumer):
             {"type": "chat.message", "message": new_message}
         )
 
+    @classmethod
+    def send_timer_data(cls, streamer_name, data):
+        from asgiref.sync import async_to_sync
+        from channels.layers import get_channel_layer
+        channel_layer = get_channel_layer()
+        new_message = json.dumps(dict(context='timer_data', **data))
+        async_to_sync(channel_layer.group_send)(
+            f'chat_{streamer_name}',
+            {"type": "chat.message", "message": new_message}
+        )
+
 
 class DataConsumer(AsyncWebsocketConsumer):
 

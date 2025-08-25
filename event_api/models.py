@@ -628,7 +628,6 @@ class MastersSegmentSettings(models.Model):
         else:
             pokemons = []
 
-
         if not TrainerPokemon.objects.filter(trainer=self.profile.trainer, pokemon__in=pokemons).exists():
             for pokemon in pokemons:
                 BannedPokemon.objects.create(

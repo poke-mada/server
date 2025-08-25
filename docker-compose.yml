@@ -39,6 +39,8 @@ services:
       - '8001'
     environment:
       - REDIS_HOST=redis
+      - DJANGO_ENV=dev
+      - DJANGO_SETTINGS_MODULE=pokemada.local_settings
     depends_on:
       - redis
     links:

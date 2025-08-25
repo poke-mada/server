@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'overlay/styles.css' %}">
     <style>
         body {
-            {#background-image: url("{% static 'overlay/coach/overlay.png' %}");#}
+            background-image: url("{% static 'overlay/coach/overlay.png' %}");
         }
 
         @font-face {
@@ -199,6 +199,14 @@
             text-align: center;
         }
 
+        #timer_light_1, #timer_light_2{
+            position: absolute;
+            top: 32px;
+            left: 1242px;
+            max-height: 43px;
+            max-width: 43px;
+        }
+
     </style>
 </head>
 
@@ -212,6 +220,9 @@
     <img alt="" src="{% static 'overlay/coach/medallas/gym6.png' %}" id="gym6" class="badge bg-disabled">
     <img alt="" src="{% static 'overlay/coach/medallas/gym7.png' %}" id="gym7" class="badge bg-disabled">
     <img alt="" src="{% static 'overlay/coach/medallas/gym8.png' %}" id="gym8" class="badge bg-disabled">
+
+    <img src="{% static 'overlay/Boton_verde.png' %}" alt="" id="timer_light_1" class="d-none">
+    <img src="{% static 'overlay/Boton_rojo.png' %}" alt="" id="timer_light_2" class="d-none">
 
     <div class="team-container">
         <div id="pokemon1" class="pokemon-container1 d-none">
@@ -240,9 +251,6 @@
         </div>
     </div>
     <span id="death-count"></span>
-
-{#    <span id="trainer-name">{{ streamer_name }}</span>#}
-{#    <span id="coach-name">{{ coach_name }}</span>#}
 
     <div id="alert-overlay" class="d-none">
         <div class="description">
@@ -276,6 +284,17 @@
                 doUpdateData(data);
                 const deathCount = document.getElementById('death-count');
                 deathCount.innerText = `x${data.death_count}`;
+            } else if(data.context === 'timer_data') {
+                const timer_light_1 = document.getElementById('timer_light_1');
+                const timer_light_2 = document.getElementById('timer_light_2');
+                timer_light_1.className = ''
+                setTimeout(() => {
+                    timer_light_1.className = 'd-none'
+                    timer_light_2.className = ''
+                    setTimeout(() => {
+                        timer_light_2.className = 'd-none'
+                    }, 3000)
+                }, data.data * 1000)
             } else {
                 doUpdateOverlayData(data)
             }

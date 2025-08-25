@@ -5,7 +5,7 @@ from event_api.wildcards.registry import WildCardExecutorRegistry
 from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 from channels.layers import get_channel_layer
 
-from websocket.sockets import DataConsumer
+from websocket.sockets import DataConsumer, OverlayConsumer
 
 
 @WildCardExecutorRegistry.register("timer_handler", verbose='Timer Handler')
@@ -14,6 +14,10 @@ class TimerHandler(BaseWildCardHandler):
 
     def execute(self, context):
         DataConsumer.send_custom_data(self.user.username, dict(
+            type='start_timer_notification',
+            data=self.wildcard.timer_settings.time
+        ))
+        OverlayConsumer.send_timer_data(self.user.username, dict(
             type='start_timer_notification',
             data=self.wildcard.timer_settings.time
         ))
