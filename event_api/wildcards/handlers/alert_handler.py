@@ -46,8 +46,8 @@ class AlertHandler(BaseWildCardHandler):
         profile = self.user.masters_profile
         Newsletter.objects.create(
             message=f'<strong>{self.user.masters_profile.streamer_name}</strong> ha atacado a <strong>{target_name}</strong> usando <strong>{self.wildcard.name}</strong>',
-            for_noobs=(profile.is_pro),
-            for_pros=(not profile.is_pro),
+            for_noobs=(not profile.is_pro),
+            for_pros=(profile.is_pro),
             for_staff=self.user.is_staff
         )
         if not avoid_notification:
