@@ -21,7 +21,12 @@ class StealPokemonHandler(StrongAttackHandler):
         if not dex_number:
             return 'Necesitas ingresar un pokemon a robar'
 
-        if dex_number in Evolution.search_evolution_chain(target_profile.starter_dex_number):
+        try:
+            evolutions = Evolution.search_evolution_chain(target_profile.starter_dex_number)
+        except:
+            evolutions = []
+
+        if dex_number in evolutions:
             return 'No puedes robar al elegido de alguien mas'
 
         if dex_number == 658:
