@@ -149,7 +149,7 @@ class Wildcard(models.Model):
         inventory, _ = profile.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
 
         if profile.current_segment_settings.cure_lady_left <= 0 and (self.id == 9 or self.name.lower() == 'dama de la cura'):
-            return False
+            return 'No puedes comprar mas damas de la cura'
 
         already_in_possession = inventory.quantity
         if not force_buy:
