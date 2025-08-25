@@ -168,7 +168,7 @@ class Pokemon(models.Model):
         # para pokemon de la comunidad
         dex_numbers = Evolution.search_evolution_chain(self.dex_number)
 
-        return Pokemon.objects.filter(pk__in=dex_numbers)
+        return Pokemon.objects.filter(dex_number__in=dex_numbers)
 
     class Meta:
         verbose_name_plural = 'Pokemon'
