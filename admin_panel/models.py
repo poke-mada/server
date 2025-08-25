@@ -1,6 +1,7 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 
+from event_api.models import MastersProfile
 from websocket.sockets import DataConsumer
 
 
@@ -57,28 +58,49 @@ class DirectGiftQuerySequence(models.Model):
     run_times = models.IntegerField(default=0)
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
-    targets = models.ManyToManyField('event_api.MastersProfile')
+    targets = models.ManyToManyField('event_api.MastersProfile', null=True, blank=True)
+    give_all = models.BooleanField(default=False)
 
     def run(self):
         from event_api.models import CoinTransaction, StreamerWildcardInventoryItem
-        for target in self.targets.all():
-            for gift in self.gifts.all():
-                if gift.type == DirectGiftQuerySequence.MONEY:
-                    CoinTransaction.objects.create(
-                        profile=target,
-                        amount=abs(gift.quantity),
-                        TYPE=CoinTransaction.OUTPUT if gift.quantity < 0 else CoinTransaction.INPUT,
-                        reason=f'Se entregaron {gift.quantity} usando DGL: {self.name}'
-                    )
-                elif gift.type == DirectGiftQuerySequence.WILDCARD:
-                    item, is_created = StreamerWildcardInventoryItem.objects.get_or_create(profile=target,
-                                                                                           wildcard=gift.wildcard,
-                                                                                           defaults=dict(
-                                                                                               quantity=gift.quantity
-                                                                                           ))
-                    if not is_created:
-                        item.quantity += gift.quantity
-                        item.save()
+        if self.give_all:
+            for target in MastersProfile.objects.all():
+                for gift in self.gifts.all():
+                    if gift.type == DirectGiftQuerySequence.MONEY:
+                        CoinTransaction.objects.create(
+                            profile=target,
+                            amount=abs(gift.quantity),
+                            TYPE=CoinTransaction.OUTPUT if gift.quantity < 0 else CoinTransaction.INPUT,
+                            reason=f'Se entregaron {gift.quantity} usando DGL: {self.name}'
+                        )
+                    elif gift.type == DirectGiftQuerySequence.WILDCARD:
+                        item, is_created = StreamerWildcardInventoryItem.objects.get_or_create(profile=target,
+                                                                                               wildcard=gift.wildcard,
+                                                                                               defaults=dict(
+                                                                                                   quantity=gift.quantity
+                                                                                               ))
+                        if not is_created:
+                            item.quantity += gift.quantity
+                            item.save()
+        else:
+            for target in self.targets.all():
+                for gift in self.gifts.all():
+                    if gift.type == DirectGiftQuerySequence.MONEY:
+                        CoinTransaction.objects.create(
+                            profile=target,
+                            amount=abs(gift.quantity),
+                            TYPE=CoinTransaction.OUTPUT if gift.quantity < 0 else CoinTransaction.INPUT,
+                            reason=f'Se entregaron {gift.quantity} usando DGL: {self.name}'
+                        )
+                    elif gift.type == DirectGiftQuerySequence.WILDCARD:
+                        item, is_created = StreamerWildcardInventoryItem.objects.get_or_create(profile=target,
+                                                                                               wildcard=gift.wildcard,
+                                                                                               defaults=dict(
+                                                                                                   quantity=gift.quantity
+                                                                                               ))
+                        if not is_created:
+                            item.quantity += gift.quantity
+                            item.save()
         self.run_times += 1
         self.save()
 

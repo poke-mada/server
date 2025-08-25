@@ -281,7 +281,10 @@ class TrainerBoxSerializer(serializers.ModelSerializer):
         return obj.trainer.id
 
     def get_stealable(self, obj):
-        return obj.trainer.get_trainer_profile().current_segment_settings.attacks_received_left > 0
+        cs = obj.trainer.get_trainer_profile().current_segment_settings
+        if not cs:
+            return False
+        return cs.attacks_received_left > 0
 
     def get_owner_profile(self, obj):
         return obj.trainer.get_trainer_profile().id

@@ -148,7 +148,8 @@ class Wildcard(models.Model):
         profile = user.masters_profile
         inventory, _ = profile.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
 
-        if profile.current_segment_settings.cure_lady_left <= 0 and (self.id == 9 or self.name.lower() == 'dama de la cura'):
+        if profile.current_segment_settings.cure_lady_left <= 0 and (
+                self.id == 9 or self.name.lower() == 'dama de la cura'):
             return 'No puedes comprar mas damas de la cura'
 
         already_in_possession = inventory.quantity
@@ -845,7 +846,8 @@ class Evolution(models.Model):
         return Pokemon.objects.get(dex_number=self.dex_number)
 
     def surrogate(self):
-        evolution_chain = Evolution.objects.filter(root_evolution=self.root_evolution).values_list('dex_number', flat=True)
+        evolution_chain = Evolution.objects.filter(root_evolution=self.root_evolution).values_list('dex_number',
+                                                                                                   flat=True)
 
         return evolution_chain
 
@@ -859,3 +861,14 @@ class ProfileNotification(models.Model):
     profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name='notifications')
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Sanction(models.Model):
+    profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name='sanctions')
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    money_substracted = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name_plural = 'Sanciones'
+        verbose_name = 'Sancion'
