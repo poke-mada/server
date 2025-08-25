@@ -881,6 +881,9 @@ class NewsletterViewSet(viewsets.ReadOnlyModelViewSet):
             else:
                 queryset = self.get_queryset().filter(for_noobs=True, for_staff=False)
 
+            if profile.is_tester:
+                queryset = queryset.filter(for_tester=True)
+
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = self.get_serializer(page, many=True)

@@ -31,7 +31,8 @@ class HelpAlertHandler(BaseWildCardHandler):
             message=f'{self.user.masters_profile.streamer_name} ha ayudado a {target_name} usando {self.wildcard.name}',
             for_noobs=profile.is_pro,
             for_pros=(not profile.is_pro),
-            for_staff=self.user.is_staff
+            for_staff=self.user.is_staff,
+            for_tester=profile.is_tester
         )
 
         return True
