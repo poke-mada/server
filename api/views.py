@@ -637,7 +637,7 @@ def team_saver(team, trainer: Trainer):
     team_data = dict(
         version=new_version,
         trainer_old=trainer.pk,
-        team=[{**pokemon, 'trainer': trainer.id} for pokemon in team if pokemon]
+        team=[{**pokemon} for pokemon in team if pokemon]
     )
 
     new_team_serializer = TrainerTeamSerializer(data=team_data)
