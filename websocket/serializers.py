@@ -33,7 +33,7 @@ class OverlaySerializer(serializers.ModelSerializer):
 
     def get_death_count(self, obj: Trainer):
         profile: MastersProfile = obj.get_trainer_profile()
-        return profile.death_count_display
+        return profile.death_count_display or 0
 
     class Meta:
         fields = [
