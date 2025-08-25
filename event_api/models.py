@@ -567,13 +567,13 @@ class MastersSegmentSettings(models.Model):
     community_pokemon_id = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(821)],
                                                verbose_name="Pokemon de comunidad", null=True, blank=True)
 
-    karma = models.DecimalField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=1, decimal_places=1,
+    karma = models.DecimalField(validators=[MinValueValidator(0), ], default=1, decimal_places=1,
                                 verbose_name="Karma", help_text="Capacidad de usar comodines de ataque fuerte",
                                 max_digits=3)
     steal_karma = models.DecimalField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0,
                                       decimal_places=1, verbose_name="Karma de Robo Justo",
                                       help_text="Al juntar 3, se desbloquea \"Robo justo\"", max_digits=3)
-    attacks_received_left = models.DecimalField(validators=[MinValueValidator(0), MaxValueValidator(4)],
+    attacks_received_left = models.DecimalField(validators=[MinValueValidator(0)],
                                                 decimal_places=1, verbose_name="Experiencia", default=4,
                                                 help_text="Ataques que puede recibir en el tramo", max_digits=3)
     shinies_freed = models.IntegerField(validators=[MinValueValidator(0)],
