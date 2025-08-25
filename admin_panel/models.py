@@ -1,7 +1,5 @@
-from django.core.validators import MinValueValidator
 from django.db import models
 
-from event_api.models import MastersProfile
 from websocket.sockets import DataConsumer
 
 
@@ -14,24 +12,44 @@ class InventoryGiftQuerySequence(models.Model):
     description = models.TextField(null=True, blank=True)
     inventory_bundle = models.ForeignKey('rewards_api.RewardBundle', on_delete=models.CASCADE)
     targets = models.ManyToManyField('event_api.MastersProfile')
+    give_all = models.BooleanField(default=False)
 
     def run(self):
+        from event_api.models import MastersProfile
         from rewards_api.models import StreamerRewardInventory
-        for target in self.targets.all():
-            inventory, is_created = StreamerRewardInventory.objects.get_or_create(
-                reward_id=self.inventory_bundle_id,
-                profile=target, defaults=dict(
-                    exchanges=0,
-                    is_available=True
-                ))
+        if self.give_all:
+            for target in MastersProfile.objects.all():
+                inventory, is_created = StreamerRewardInventory.objects.get_or_create(
+                    reward_id=self.inventory_bundle_id,
+                    profile=target, defaults=dict(
+                        exchanges=0,
+                        is_available=True
+                    ))
 
-            DataConsumer.send_custom_data(target.user.username, dict(
-                type='notification',
-                data='Te ha llegado un paquete al buzón!'
-            ))
-            if not inventory.is_available:
-                inventory.is_available = True
-            inventory.save()
+                DataConsumer.send_custom_data(target.user.username, dict(
+                    type='notification',
+                    data='Te ha llegado un paquete al buzón!'
+                ))
+                if not inventory.is_available:
+                    inventory.is_available = True
+                inventory.save()
+        else:
+            for target in self.targets.all():
+                inventory, is_created = StreamerRewardInventory.objects.get_or_create(
+                    reward_id=self.inventory_bundle_id,
+                    profile=target, defaults=dict(
+                        exchanges=0,
+                        is_available=True
+                    ))
+
+                DataConsumer.send_custom_data(target.user.username, dict(
+                    type='notification',
+                    data='Te ha llegado un paquete al buzón!'
+                ))
+                if not inventory.is_available:
+                    inventory.is_available = True
+                inventory.save()
+
         self.run_times += 1
         self.save()
 
@@ -62,6 +80,7 @@ class DirectGiftQuerySequence(models.Model):
     give_all = models.BooleanField(default=False)
 
     def run(self):
+        from event_api.models import MastersProfile
         from event_api.models import CoinTransaction, StreamerWildcardInventoryItem
         if self.give_all:
             for target in MastersProfile.objects.all():
