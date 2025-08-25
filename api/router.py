@@ -2,7 +2,8 @@ from django.urls import path, include
 from rest_framework import routers
 
 from api.model_views.bank import BankViewSet
-from api.model_views.market import MarketViewSet, ProfileNotificationViewSet
+from api.model_views.market import MarketViewSet
+from api.model_views.notifications import ProfileNotificationViewSet
 from api.model_views.roulette import RouletteViewSet
 from api.views import TrainerViewSet, MoveViewSet, WildcardViewSet, GameEventViewSet, NewsletterViewSet
 
