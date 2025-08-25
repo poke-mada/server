@@ -825,7 +825,7 @@ class StealLog(models.Model):
 
 
 class Evolution(models.Model):
-    dex_number = models.IntegerField(db_index=True, unique=True, primary_key=True)
+    dex_number = models.IntegerField(db_index=True)
     root_evolution = models.IntegerField(db_index=True)
 
     def get_pokemon(self):
@@ -835,3 +835,8 @@ class Evolution(models.Model):
         evolution_chain = Evolution.objects.filter(root_evolution=self.root_evolution).values_list('dex_number', flat=True)
 
         return evolution_chain
+
+    @staticmethod
+    def search_evolution_chain(dex_number: int):
+        evolution = Evolution.objects.get(dex_number=dex_number)
+        return evolution.surrogate()

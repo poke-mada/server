@@ -7,7 +7,7 @@ from nested_admin.nested import NestedStackedInline, NestedTabularInline, Nested
 from admin_panel.admin import staff_site
 from event_api.models import CoinTransaction, Wildcard, StreamerWildcardInventoryItem, \
     WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings, DeathLog, ProfileImposterLog, \
-    Imposter, ProfilePlatformUrl, Newsletter, BannedPokemon
+    Imposter, ProfilePlatformUrl, Newsletter, BannedPokemon, Evolution
 from event_api.wildcards import WildCardExecutorRegistry
 from event_api.wildcards.handlers.settings.models import GiveItemHandlerSettings, GiveMoneyHandlerSettings, \
     GiveGameMoneyHandlerSettings, GiveRandomMoneyHandlerSettings, TimerHandlerSettings
@@ -249,9 +249,24 @@ class GameModInline(admin.StackedInline):
 
 @admin.register(GameEvent, site=staff_site)
 class GameEventAdmin(admin.ModelAdmin):
-    list_display = ('name', 'type', 'sub_type', 'available_date_from', 'available_date_to', 'free_join', 'force_available')
+    list_display = (
+    'name', 'type', 'sub_type', 'available_date_from', 'available_date_to', 'free_join', 'force_available')
     list_filter = ('type', 'sub_type', 'free_join')
     inlines = [GameModInline]
+
+
+@admin.register(Evolution)
+class EvolutionAdmin(admin.ModelAdmin):
+    list_display = ('dex_number', 'root_evolution')
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request):
+        return False
 
 
 admin.site.register(User, UserProfileAdmin)

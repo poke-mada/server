@@ -160,19 +160,15 @@ class Pokemon(models.Model):
         return self.name
 
     def surrogate(self):
+        from event_api.models import Evolution
+        if self.dex_number == 133:
+            return [self]
         #TODO: devuelve todo el arbol evolutivo
         #TODO: NO APLICA EN EEVEELUTIONS
         # para pokemon de la comunidad
-        return [self]
+        dex_numbers = Evolution.search_evolution_chain(self.dex_number)
 
-    def surrogate_non_horizontal(self):
-        #TODO: devuelve todo el arbol evolutivo excepto evoluciones paralelas
-        #TODO: NO APLICA EN EEVEE,
-        # para capturas
-        """"
-        si hay arbol, solo se banea hasta antes del arbol
-        """
-        return [self]
+        return Pokemon.objects.filter(pk__in=dex_numbers)
 
     class Meta:
         verbose_name_plural = 'Pokemon'

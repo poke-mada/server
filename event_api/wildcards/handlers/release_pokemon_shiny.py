@@ -38,9 +38,17 @@ class ReleasePokemonShinyHandler(BaseWildCardHandler):
         current_tramo: MastersSegmentSettings = self.user.masters_profile.current_segment_settings
 
         max_shinies = self.wildcard.give_money_settings.quantity
-        species_name = Pokemon.objects.filter(dex_number=dex_number).first().name
-        BannedPokemon.objects.create(dex_number=dex_number, profile=self.user.masters_profile,
-                                     species_name=species_name, reason='El pokemon se liberó con Venta Ilegal')
+
+        released_pokemon = Pokemon.objects.filter(dex_number=dex_number).first()
+        species_name = released_pokemon.name
+        banned_forms = released_pokemon.surrogate()
+        for pokemon in banned_forms:
+            BannedPokemon.objects.create(
+                dex_number=pokemon.dex_number,
+                profile=self.user.masters_profile,
+                species_name=pokemon.name,
+                reason='El pokemon se liberó con Venta Ilegal de Lujo'
+            )
 
         money_quantity = max_shinies - current_tramo.shinies_freed
         current_tramo.shinies_freed += 1

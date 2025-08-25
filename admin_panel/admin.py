@@ -3,7 +3,8 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 
-from admin_panel.models import InventoryGiftQuerySequence, DirectGiftQuerySequence, DirectGift, ShowdownToken
+from admin_panel.models import InventoryGiftQuerySequence, DirectGiftQuerySequence, DirectGift, ShowdownToken, \
+    BanPokemonSequence
 from event_api.models import MastersProfile, MastersSegmentSettings, StreamerWildcardInventoryItem, ProfilePlatformUrl
 from rewards_api.models import StreamerRewardInventory
 
@@ -181,6 +182,11 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
 class ShowdownTokenAdmin(admin.ModelAdmin):
     list_display = ('username',)
     fields = ('username', 'token')
+
+
+@admin.register(BanPokemonSequence, site=staff_site)
+class BanPokemonSequenceAdmin(admin.ModelAdmin):
+    list_display = ('profile', 'dex_number', 'reason',)
 
 
 staff_site.register(User, UserProfileAdmin)

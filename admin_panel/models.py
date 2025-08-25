@@ -105,3 +105,25 @@ class DirectGift(models.Model):
 
     def __str__(self):
         return f'{self.pk} - {self.get_type_display()}'
+
+
+class BanPokemonSequence(models.Model):
+    profile = models.ForeignKey("event_api.MastersProfile", on_delete=models.CASCADE)
+    dex_number = models.IntegerField()
+    reason = models.TextField(blank=True)
+    run_on_save = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if self.run_on_save:
+            from pokemon_api.models import Pokemon
+            from event_api.models import BannedPokemon
+            banned_mon = Pokemon.objects.filter(dex_number=self.dex_number).first()
+            banned_forms = banned_mon.surrogate()
+            for pokemon in banned_forms:
+                BannedPokemon.objects.create(
+                    dex_number=pokemon.dex_number,
+                    profile=self.profile,
+                    species_name=pokemon.name,
+                    reason=self.reason
+                )
+        return super(BanPokemonSequence, self).save(*args, **kwargs)
