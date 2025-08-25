@@ -145,7 +145,11 @@ class Wildcard(models.Model):
         return self.price
 
     def can_buy(self, user: User, amount, force_buy=False):
-        inventory, _ = user.masters_profile.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
+        profile = user.masters_profile
+        inventory, _ = profile.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
+
+        if profile.current_segment_settings.cure_lady_left < 0 and (self.id == 9 or self.name.lower() == 'dama de la cura'):
+            return False
 
         already_in_possession = inventory.quantity
         if not force_buy:
@@ -153,7 +157,7 @@ class Wildcard(models.Model):
         else:
             amount_to_buy = amount
         return self.is_active and (
-                (user.masters_profile.economy >= self.get_price(user) * amount_to_buy) or self.always_available)
+                (profile.economy >= self.get_price(user) * amount_to_buy) or self.always_available)
 
     def can_use(self, user: User, amount, **data):
         from event_api.wildcards.registry import get_executor
