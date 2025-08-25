@@ -116,6 +116,12 @@ class BannedPokemonAdmin(admin.ModelAdmin):
     list_filter = ('profile__streamer_name',)
     readonly_fields = ('species_name',)
 
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
 
 @admin.register(ProfileImposterLog, site=staff_site)
 class ProfileImposterLogAdmin(admin.ModelAdmin):
@@ -250,7 +256,7 @@ class GameModInline(admin.StackedInline):
 @admin.register(GameEvent, site=staff_site)
 class GameEventAdmin(admin.ModelAdmin):
     list_display = (
-    'name', 'type', 'sub_type', 'available_date_from', 'available_date_to', 'free_join', 'force_available')
+        'name', 'type', 'sub_type', 'available_date_from', 'available_date_to', 'free_join', 'force_available')
     list_filter = ('type', 'sub_type', 'free_join')
     inlines = [GameModInline]
 
