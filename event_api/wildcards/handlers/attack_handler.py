@@ -11,8 +11,8 @@ class AttackHandler(AlertHandler):
 
         target_current_segment: MastersSegmentSettings = target_profile.current_segment_settings
 
-        if target_profile.current_segment_settings.segment > self.user.masters_profile.current_segment_settings.segment:
-            return 'No puedes atacar a nadie que este en un tramo mas adelante'
+        if target_profile.current_segment_settings.segment != self.user.masters_profile.current_segment_settings.segment:
+            return 'No puedes atacar a nadie que no este en tu mismo tramo'
 
         if target_current_segment.attacks_received_left < self.wildcard.karma_consumption or target_current_segment.attacks_received_left <= 0:
             return 'Ya no puedes atacar a este objetivo'
