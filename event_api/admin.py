@@ -7,7 +7,7 @@ from nested_admin.nested import NestedStackedInline, NestedTabularInline, Nested
 from admin_panel.admin import staff_site
 from event_api.models import CoinTransaction, Wildcard, StreamerWildcardInventoryItem, \
     WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings, DeathLog, ProfileImposterLog, \
-    Imposter, ProfilePlatformUrl, Newsletter, BannedPokemon, Evolution
+    Imposter, ProfilePlatformUrl, Newsletter, BannedPokemon, Evolution, ProfileNotification
 from event_api.wildcards import WildCardExecutorRegistry
 from event_api.wildcards.handlers.settings.models import GiveItemHandlerSettings, GiveMoneyHandlerSettings, \
     GiveGameMoneyHandlerSettings, GiveRandomMoneyHandlerSettings, TimerHandlerSettings
@@ -265,13 +265,27 @@ class GameEventAdmin(admin.ModelAdmin):
 class EvolutionAdmin(admin.ModelAdmin):
     list_display = ('dex_number', 'root_evolution')
 
-    def has_add_permission(self, request):
+    def has_add_permission(self, *args, **kwargs):
         return False
 
-    def has_change_permission(self, request):
+    def has_change_permission(self, *args, **kwargs):
         return False
 
-    def has_delete_permission(self, request):
+    def has_delete_permission(self, *args, **kwargs):
+        return False
+
+
+@admin.register(ProfileNotification)
+class EvolutionAdmin(admin.ModelAdmin):
+    list_display = ('profile', 'created_at', 'message')
+
+    def has_add_permission(self, *args, **kwargs):
+        return False
+
+    def has_change_permission(self, *args, **kwargs):
+        return False
+
+    def has_delete_permission(self, *args, **kwargs):
         return False
 
 
