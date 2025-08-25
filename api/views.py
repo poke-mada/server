@@ -623,7 +623,8 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
-def team_saver(team, trainer: Trainer):
+def team_saver(team, profile: MastersProfile):
+    trainer = profile.trainer
     new_version = TrainerTeam.objects.filter(trainer_old=trainer).count() + 1
 
     for team_to_delete in TrainerTeam.objects.filter(trainer_old=trainer):
@@ -633,6 +634,7 @@ def team_saver(team, trainer: Trainer):
     for team_to_delete in TrainerTeam.objects.filter(trainer=trainer):
         for pokemon in team_to_delete.team.all():
             pokemon.delete()
+
     trainer_id = trainer.id
     team_data = dict(
         version=new_version,
@@ -762,7 +764,7 @@ class FileUploadView(APIView):
             trainer.save()
             if not profile.current_segment_settings:
                 MastersSegmentSettings.objects.get_or_create(profile=profile, segment=segment)
-            team_saver(save_results.get('team'), trainer)
+            team_saver(save_results.get('team'), profile)
             box_saver(save_results.get('boxes'), profile)
             MastersSegmentSettings.objects.get_or_create(profile=profile, segment=segment)
             OverlayConsumer.send_overlay_data(profile.user.username)
@@ -794,7 +796,7 @@ class FileUploadManyView(APIView):
             if file_serializer.is_valid():
                 file_serializer.save()
                 save_results = data_reader(save_data)
-                team_saver(save_results.get('team'), trainer)
+                team_saver(save_results.get('team'), trainer.get_trainer_profile())
                 box_saver(save_results.get('boxes'), trainer.get_trainer_profile())
             else:
                 return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

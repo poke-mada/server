@@ -23,6 +23,7 @@ class TrainerPokemonSerializer(serializers.ModelSerializer):
     held_item = serializers.IntegerField(required=False)
     ability = serializers.IntegerField(required=False)
     nature = serializers.IntegerField(required=False)
+    trainer = serializers.IntegerField(required=True)
     types = serializers.ListField(child=serializers.DictField())
     moves = serializers.ListField()
     enc_data = BytesField(required=False)
@@ -33,6 +34,7 @@ class TrainerPokemonSerializer(serializers.ModelSerializer):
         nature = validated_data.pop('nature')
         ability = validated_data.pop('ability')
         enc_data = validated_data.pop('enc_data')
+        trainer = validated_data.pop('trainer')
 
         form = validated_data.pop('form', '0')
         types = validated_data.pop('types')
@@ -57,7 +59,9 @@ class TrainerPokemonSerializer(serializers.ModelSerializer):
             move_object = Move.objects.get(index=move_)
             in_moves.append(move_object)
 
+        trainer_obj = Trainer.objects.filter(pk=trainer).first()
         validated_data['pokemon'] = pokemon_obj
+        validated_data['trainer'] = trainer_obj
         validated_data['nature'] = nature_obj
         validated_data['held_item'] = held_item_obj
         validated_data['ability'] = ability_obj
