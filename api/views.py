@@ -633,11 +633,11 @@ def team_saver(team, trainer: Trainer):
     for team_to_delete in TrainerTeam.objects.filter(trainer=trainer):
         for pokemon in team_to_delete.team.all():
             pokemon.delete()
-
+    trainer_id = trainer.id
     team_data = dict(
         version=new_version,
         trainer_old=trainer.pk,
-        team=[{**pokemon} for pokemon in team if pokemon]
+        team=[dict(trainer=trainer_id, **pokemon) for pokemon in team if pokemon]
     )
 
     new_team_serializer = TrainerTeamSerializer(data=team_data)
