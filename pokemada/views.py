@@ -7,8 +7,7 @@ from event_api.models import MastersProfile
 def overlay(request, streamer_name):
     profile: MastersProfile = MastersProfile.objects.filter(
         user__username__iexact=streamer_name,
-        user__masters_profile__profile_type=MastersProfile.TRAINER
-    ).first()
+    ).exclude(user__masters_profile__profile_type=MastersProfile.ADMIN).first()
 
     if not profile:
         raise Http404("Profile not found")
