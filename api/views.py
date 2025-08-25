@@ -598,10 +598,14 @@ class WildcardViewSet(viewsets.ReadOnlyModelViewSet):
         if current_user.masters_profile.profile_type == MastersProfile.COACH:
             return Response(data=dict(detail='El coach no puede comprar comodines'), status=status.HTTP_400_BAD_REQUEST)
 
-        if wildcard.can_buy(fixed_user, quantity, True):
+        can_buy = wildcard.can_buy(fixed_user, quantity, True)
+        if can_buy is True:
             if wildcard.buy(fixed_user, quantity, True):
                 return Response(data=dict(detail='card_bought'), status=status.HTTP_200_OK)
             return Response(data=dict(detail='contact_paramada'), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        elif can_buy is not False:
+            return Response(data=dict(detail=can_buy), status=status.HTTP_400_BAD_REQUEST)
+
         return Response(data=dict(detail='No tienes dinero'), status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['GET'], detail=False)
