@@ -821,10 +821,28 @@ class ProfileImposterLog(models.Model):
 class Newsletter(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     message = models.TextField()
-    for_pros = models.BooleanField(default=False)
-    for_noobs = models.BooleanField(default=False)
-    for_staff = models.BooleanField(default=False)
-    for_tester = models.BooleanField(default=False)
+    for_pros = models.BooleanField(default=False, verbose_name='Incluye Pros')
+    for_noobs = models.BooleanField(default=False, verbose_name="Incluye Noobs")
+    for_staff = models.BooleanField(default=False, verbose_name='Solo Para Staff')
+    for_tester = models.BooleanField(default=False, verbose_name="Solo Para Testers")
+    send_notification = models.BooleanField(default=False, verbose_name='Enviar Notificacion')
+    
+    
+    def save(self, *args, **kwargs):
+        queryset = MastersProfile.objects.all()
+        if self.for_noobs and not self.for_pros:
+            queryset = queryset.filter(is_pro=False)
+        elif self.for_pros and not self.for_noobs:
+            queryset = queryset.filter(is_pro=True)
+
+        for profile in queryset:
+            DataConsumer.send_custom_data(profile.user.username, dict(
+                type='notification',
+                data='Te ha llegado un paquete al buzón!'
+            ))
+            
+        return super().save(*args, **kwargs)
+    
 
     class Meta:
         verbose_name = "Noticia"
