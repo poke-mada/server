@@ -18,7 +18,7 @@ class StealWildcardHandler(AttackHandler):
         if not wildcard_to_steal:
             ProfileNotification.objects.create(
                 profile=target_profile,
-                message=f'No has podido robar nada a <strong>{target_profile.streamer_name}</strong>'
+                message=f'No has podido robar ningún comodín a <strong>{target_profile.streamer_name}</strong>'
             )
 
         target_profile.consume_wildcard(wildcard_to_steal.wildcard, 1)
