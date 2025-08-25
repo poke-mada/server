@@ -46,6 +46,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(detail=False, methods=['get'])
     def showdown_key(self, request, *args, **kwargs):
         current_profile: MastersProfile = request.user.masters_profile
+        if not current_profile.showdown_token:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        
         return Response(current_profile.showdown_token.token, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['post'])
@@ -665,7 +668,7 @@ def box_saver(boxes, profile: MastersProfile):
     boxes_hash = dict()
     for box_num in range(7):
         boxes_hash[box_num] = TrainerBox.objects.create(box_number=box_num, trainer=trainer)
-        cachebox = cache.delete(f'trainer_{trainer.pk}_box_{box_num}')
+        cache.delete(f'trainer_{trainer.pk}_box_{box_num}')
 
     for box_num, data in boxes.items():
         if not data:
