@@ -569,13 +569,13 @@ class MastersSegmentSettings(models.Model):
 
     karma = models.DecimalField(validators=[MinValueValidator(0), ], default=1, decimal_places=1,
                                 verbose_name="Karma", help_text="Capacidad de usar comodines de ataque fuerte",
-                                max_digits=3)
+                                max_digits=9)
     steal_karma = models.DecimalField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0,
                                       decimal_places=1, verbose_name="Karma de Robo Justo",
                                       help_text="Al juntar 3, se desbloquea \"Robo justo\"", max_digits=3)
     attacks_received_left = models.DecimalField(validators=[MinValueValidator(0)],
                                                 decimal_places=1, verbose_name="Experiencia", default=4,
-                                                help_text="Ataques que puede recibir en el tramo", max_digits=3)
+                                                help_text="Ataques que puede recibir en el tramo", max_digits=9)
     shinies_freed = models.IntegerField(validators=[MinValueValidator(0)],
                                         help_text="Cuantos shinies ha liberado en el tramo", default=0,
                                         verbose_name="Shinies liberados")
