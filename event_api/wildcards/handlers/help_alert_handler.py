@@ -21,23 +21,23 @@ class HelpAlertHandler(BaseWildCardHandler):
             target_name=target_name
         )
 
-        DataConsumer.send_custom_data(self.user.username, dict(
+        DataConsumer.send_custom_data(profile.user.username, dict(
             type='help_notification',
             data=data
         ))
 
-        profile = self.user.masters_profile
+        source_profile = self.user.masters_profile
         Newsletter.objects.create(
             message=f'{self.user.masters_profile.streamer_name} ha ayudado a {target_name} usando {self.wildcard.name}',
-            for_noobs=profile.is_pro,
-            for_pros=(not profile.is_pro),
+            for_noobs=source_profile.is_pro,
+            for_pros=(not source_profile.is_pro),
             for_staff=self.user.is_staff,
-            for_tester=profile.is_tester
+            for_tester=source_profile.is_tester
         )
 
         ProfileNotification.objects.create(
             profile=profile,
             message=f'<strong>{self.user.masters_profile.streamer_name}</strong> te ha ayudando con <strong>{self.wildcard.name}</strong>'
         )
-        
+
         return True
