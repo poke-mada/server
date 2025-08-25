@@ -1,4 +1,4 @@
-from event_api.models import MastersProfile, Newsletter
+from event_api.models import MastersProfile, Newsletter, ProfileNotification
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from event_api.wildcards.wildcard_handler import BaseWildCardHandler
 
@@ -35,4 +35,9 @@ class HelpAlertHandler(BaseWildCardHandler):
             for_tester=profile.is_tester
         )
 
+        ProfileNotification.objects.create(
+            profile=profile,
+            message=f'<strong>{self.user.masters_profile.streamer_name}</strong> te ha ayudando con <strong>{self.wildcard.name}</strong>'
+        )
+        
         return True
