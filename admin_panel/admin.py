@@ -187,6 +187,7 @@ class ShowdownTokenAdmin(admin.ModelAdmin):
 @admin.register(BanPokemonSequence, site=staff_site)
 class BanPokemonSequenceAdmin(admin.ModelAdmin):
     list_display = ('profile', 'dex_number', 'reason',)
+    autocomplete_fields = ('profile',)
 
 
 staff_site.register(User, UserProfileAdmin)
