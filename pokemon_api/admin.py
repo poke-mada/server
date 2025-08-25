@@ -76,7 +76,7 @@ class PokemonNatureAdmin(admin.ModelAdmin):
 
 @admin.register(models.PokemonAbility)
 class PokemonAbilityAdmin(admin.ModelAdmin):
-    readonly_fields = ('name_localizations', 'flavor_text_localizations')
+    readonly_fields = ('flavor_text_localizations',)
     list_display = ('index', 'name', 'localization')
     search_fields = ('index', 'name', 'localization')
     autocomplete_fields = ('name_localizations',)
