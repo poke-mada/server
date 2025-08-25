@@ -148,7 +148,7 @@ class Wildcard(models.Model):
         profile = user.masters_profile
         inventory, _ = profile.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
 
-        if profile.current_segment_settings.cure_lady_left <= 0 and (
+        if not profile.current_segment_settings or profile.current_segment_settings.cure_lady_left <= 0 and (
                 self.id == 9 or self.name.lower() == 'dama de la cura'):
             return 'No puedes comprar mas damas de la cura'
 
