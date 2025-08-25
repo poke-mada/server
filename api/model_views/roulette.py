@@ -39,7 +39,8 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
 
         bundle = RewardBundle.objects.create(
             name=f'Comodin Ganado por {roulette.name}',
-            user_created=True
+            user_created=True,
+            sender='Ruleta'
         )
 
         RouletteRollHistory.objects.create(

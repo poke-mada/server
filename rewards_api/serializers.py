@@ -78,7 +78,8 @@ class StreamerRewardSimpleSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'description',
-            'rewards'
+            'rewards',
+            'sender'
         ]
 
 
