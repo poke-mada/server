@@ -79,7 +79,8 @@ class StreamerRewardSimpleSerializer(serializers.ModelSerializer):
             'name',
             'description',
             'rewards',
-            'sender'
+            'sender',
+            'type'
         ]
 
 
