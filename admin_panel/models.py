@@ -11,7 +11,7 @@ class InventoryGiftQuerySequence(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     inventory_bundle = models.ForeignKey('rewards_api.RewardBundle', on_delete=models.CASCADE)
-    targets = models.ManyToManyField('event_api.MastersProfile')
+    targets = models.ManyToManyField('event_api.MastersProfile', null=True, blank=True)
     give_all = models.BooleanField(default=False)
 
     def run(self):
