@@ -822,3 +822,16 @@ class StealLog(models.Model):
     source = models.CharField(max_length=50)
     target = models.CharField(max_length=50)
     pokemon = models.CharField(max_length=50)
+
+
+class Evolution(models.Model):
+    dex_number = models.IntegerField(db_index=True, unique=True, primary_key=True)
+    root_evolution = models.IntegerField(db_index=True)
+
+    def get_pokemon(self):
+        return Pokemon.objects.get(dex_number=self.dex_number)
+
+    def surrogate(self):
+        evolution_chain = Evolution.objects.filter(root_evolution=self.root_evolution).values_list('dex_number', flat=True)
+
+        return evolution_chain
