@@ -314,7 +314,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         is_pro = user.masters_profile.is_pro
         profiles = MastersProfile.objects.filter(is_pro=is_pro, profile_type=MastersProfile.TRAINER,
                                                  is_tester=is_tester,
-                                                 trainer__isnull=False)
+                                                 trainer__isnull=False).exclude(id=user.masters_profile.id)
         serializer = SelectMastersProfileSerializer(profiles, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
