@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, GameEvent, GameMod, \
-    MastersProfile, DeathLog
+    MastersProfile, DeathLog, ProfileNotification
 from pokemon_api.models import Item
 from rewards_api.models import Reward
 from rewards_api.serializers import RewardSerializer
@@ -260,7 +260,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 class EditableProfileSerializer(serializers.ModelSerializer):
     death_count = serializers.IntegerField(source='death_count_display', read_only=True)
     current_segment = serializers.IntegerField(source='current_segment_settings.segment', read_only=True)
-    community_skip = serializers.BooleanField(source='current_segment_settings.available_community_skip', read_only=True)
+    community_skip = serializers.BooleanField(source='current_segment_settings.available_community_skip',
+                                              read_only=True)
     community_pokemon = serializers.IntegerField(source='current_segment_settings.community_pokemon_id', read_only=True)
 
     class Meta:
@@ -270,4 +271,12 @@ class EditableProfileSerializer(serializers.ModelSerializer):
             'community_skip',
             'community_pokemon',
             'current_segment',
+        ]
+
+
+class ProfileNotificationSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfileNotification
+        fields = [
+            'message'
         ]

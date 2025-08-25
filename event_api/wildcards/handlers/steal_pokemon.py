@@ -32,9 +32,6 @@ class StealPokemonHandler(StrongAttackHandler):
         if dex_number == 658:
             return 'Greninja es inmune a los ataques!'
 
-        # TODO falta validar que sea un pokemon robable:
-        #  no debe haber pasado por tu partida, no debes tenerlo vivo, no debe estar baneado
-
         return super().validate(context)
 
     @transaction.atomic
