@@ -1,9 +1,8 @@
-from io import BytesIO
-
-from django.core.files import File
 from django.db import transaction
 
-from event_api.models import CoinTransaction, MastersProfile, ErrorLog, StealLog
+from django.db import transaction
+
+from event_api.models import MastersProfile, ErrorLog, StealLog, Evolution
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from rewards_api.models import Reward, RewardBundle, StreamerRewardInventory
 from trainer_data.models import TrainerPokemon
@@ -22,7 +21,7 @@ class StealPokemonHandler(StrongAttackHandler):
         if not dex_number:
             return 'Necesitas ingresar un pokemon a robar'
 
-        if dex_number == target_profile.starter_dex_number:
+        if dex_number in Evolution.search_evolution_chain(target_profile.starter_dex_number):
             return 'No puedes robar al elegido de alguien mas'
 
         if dex_number == 658:
