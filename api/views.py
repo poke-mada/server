@@ -48,7 +48,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         current_profile: MastersProfile = request.user.masters_profile
         if not current_profile.showdown_token:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        
+
         return Response(current_profile.showdown_token.token, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['post'])
@@ -664,11 +664,16 @@ def box_saver(boxes, profile: MastersProfile):
             slot.pokemon.delete()
 
     boxes_to_delete.delete()
-
+    cache.delete(f'trainer_{trainer.pk}_box_0')
+    cache.delete(f'trainer_{trainer.pk}_box_1')
+    cache.delete(f'trainer_{trainer.pk}_box_2')
+    cache.delete(f'trainer_{trainer.pk}_box_3')
+    cache.delete(f'trainer_{trainer.pk}_box_4')
+    cache.delete(f'trainer_{trainer.pk}_box_5')
+    cache.delete(f'trainer_{trainer.pk}_box_6')
     boxes_hash = dict()
     for box_num in range(7):
         boxes_hash[box_num] = TrainerBox.objects.create(box_number=box_num, trainer=trainer)
-        cache.delete(f'trainer_{trainer.pk}_box_{box_num}')
 
     for box_num, data in boxes.items():
         if not data:
