@@ -197,6 +197,11 @@ class Wildcard(models.Model):
         if amount_to_buy == 0:
             return True
 
+        if self.id == 9 or self.name.lower() == 'dama de la cura':
+            css = user.masters_profile.current_segment_settings
+            css.cure_lady_left -= 1
+            css.save()
+
         CoinTransaction.objects.create(
             profile=user.masters_profile,
             amount=self.get_price(user) * amount_to_buy,
