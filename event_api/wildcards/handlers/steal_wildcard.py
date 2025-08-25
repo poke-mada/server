@@ -10,7 +10,7 @@ from .attack_handler import AttackHandler
 class StealWildcardHandler(AttackHandler):
     admin_inline_model = GiveMoneyHandlerSettings  # a model with extra config
 
-    def execute(self, context):
+    def execute(self, context, avoid_notification=False):
         target_id = context.get('target_id')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         source_profilie: MastersProfile = self.user.masters_profile
@@ -19,4 +19,4 @@ class StealWildcardHandler(AttackHandler):
         target_profile.consume_wildcard(wildcard_to_steal.wildcard, 1)
         source_profilie.give_wildcard(wildcard_to_steal.wildcard, 1)
 
-        return super().execute(context)
+        return super().execute(context, avoid_notification=avoid_notification)

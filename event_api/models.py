@@ -818,6 +818,7 @@ class Newsletter(models.Model):
     for_pros = models.BooleanField(default=False)
     for_noobs = models.BooleanField(default=False)
     for_staff = models.BooleanField(default=False)
+    for_tester = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Noticia"
