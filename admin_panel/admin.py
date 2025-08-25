@@ -147,9 +147,9 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     @admin.display(description='Liga Actual', ordering='masters_profile__current_segment_settings__tournament_league')
     def league(self, obj):
         profile: MastersProfile = obj.masters_profile
+        if profile.profile_type != MastersProfile.TRAINER:
+            return 'Es coach'
         if not profile.current_segment_settings:
-            if profile.profile_type != MastersProfile.TRAINER:
-                return 'Es coach'
             return '-'
         return profile.current_segment_settings.tournament_league
 
