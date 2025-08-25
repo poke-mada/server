@@ -188,11 +188,7 @@ class Wildcard(models.Model):
             return True
         inventory, _ = user.masters_profile.wildcard_inventory.get_or_create(wildcard=self, defaults=dict(quantity=0))
 
-        already_in_possession = inventory.quantity
-        if not force_buy:
-            amount_to_buy = clamp(amount - already_in_possession, 0)
-        else:
-            amount_to_buy = amount
+        amount_to_buy = amount
 
         if amount_to_buy == 0:
             return True
