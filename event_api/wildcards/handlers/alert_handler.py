@@ -52,7 +52,7 @@ class AlertHandler(BaseWildCardHandler):
             for_tester=user_profile.is_tester
         )
 
-        if not avoid_notification
+        if not avoid_notification:
             ProfileNotification.objects.create(
                 profile=profile,
                 message=f'<strong>{self.user.masters_profile.streamer_name}</strong> te ha atacado usando <strong>{self.wildcard.name}</strong>'
