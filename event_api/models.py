@@ -838,9 +838,9 @@ class Newsletter(models.Model):
         for profile in queryset:
             DataConsumer.send_custom_data(profile.user.username, dict(
                 type='notification',
-                data='Te ha llegado un paquete al buzón!'
+                data=self.message
             ))
-            
+
         return super().save(*args, **kwargs)
     
 
