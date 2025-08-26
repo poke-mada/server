@@ -5,7 +5,7 @@ from ...models import DeathLog, BannedPokemon
 
 
 @WildCardExecutorRegistry.register("revive_pokemon", verbose='Revive Pokemon Handler')
-class RevivePokemonHandler(BaseWildCardHandler):
+class ReviveStarterHandler(BaseWildCardHandler):
     def execute(self, context):
         last_death = DeathLog.objects.filter(dex_number=self.user.masters_profile.starter_dex_number, profile=self.user.masters_profile, revived=False).first()
         last_death.revived = True
