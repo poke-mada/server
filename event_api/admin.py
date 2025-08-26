@@ -218,6 +218,7 @@ class MastersProfileInline(NestedStackedInline):
 class NewsletterAdmin(NestedModelAdmin):
     readonly_fields = ('created_on',)
     list_display = ('created_on', 'message')
+    autocomplete_fields = ('targets',)
 
 
 class UserProfileAdmin(NestedModelAdmin, UserAdmin):
