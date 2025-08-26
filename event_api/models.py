@@ -206,6 +206,11 @@ class Wildcard(models.Model):
             reason=f'se compró la carta {self.name}'
         )
 
+        WildcardUpdateLog.objects.create(
+            profile=user.masters_profile,
+            message=f'Se ha comprado el comodin {self.name} {amount_to_buy} vez/veces'
+        )
+
         inventory.quantity += amount_to_buy
         inventory.save()
         return amount_to_buy
@@ -266,6 +271,7 @@ class StreamerWildcardInventoryItem(models.Model):
 
     def __str__(self):
         return f'x{self.quantity} {self.wildcard.name}'
+
 
 
 class ProfilePlatformUrl(models.Model):
@@ -924,3 +930,8 @@ class Sanction(models.Model):
     class Meta:
         verbose_name_plural = 'Sanciones'
         verbose_name = 'Sancion'
+
+
+class WildcardUpdateLog(models.Model):
+    profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name='wildcard_logs')
+    message = models.TextField()

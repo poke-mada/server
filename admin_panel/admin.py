@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 
 from admin_panel.models import InventoryGiftQuerySequence, DirectGiftQuerySequence, DirectGift, ShowdownToken, \
-    BanPokemonSequence
+    BanPokemonSequence, InventoryGiftQuerySequenceLog, DirectGiftQuerySequenceLog
 from event_api.models import MastersProfile, MastersSegmentSettings, StreamerWildcardInventoryItem, ProfilePlatformUrl
 from rewards_api.models import StreamerRewardInventory
 
@@ -29,6 +29,12 @@ def run_sequence(modeladmin, request, queryset):
         obj.run(request.user.masters_profile)
 
 
+class InventoryGiftQuerySequenceLogInline(NestedStackedInline):
+    model = InventoryGiftQuerySequenceLog
+    readonly_fields = ('sequence_name', 'performer', 'message')
+    fields = ('sequence_name', 'performer', 'message')
+
+
 @admin.register(InventoryGiftQuerySequence, site=staff_site)
 class GiftSequenceAdmin(admin.ModelAdmin):
     list_display = ('name', 'created', 'modified', 'run_times')
@@ -46,6 +52,12 @@ class DirectGiftInline(admin.TabularInline):
 
     class Media:
         js = ('admin/js/gift_type_switcher.js',)
+
+
+class DirectGiftQuerySequenceLogInline(NestedStackedInline):
+    model = DirectGiftQuerySequenceLog
+    readonly_fields = ('sequence_name', 'performer', 'message')
+    fields = ('sequence_name', 'performer', 'message')
 
 
 @admin.register(DirectGiftQuerySequence, site=staff_site)
@@ -132,7 +144,8 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
-        return queryset.filter(is_active=True, masters_profile__profile_type__in=[MastersProfile.TRAINER, MastersProfile.COACH])
+        return queryset.filter(is_active=True,
+                               masters_profile__profile_type__in=[MastersProfile.TRAINER, MastersProfile.COACH])
 
     @admin.display(description='Nombre', ordering='masters_profile__streamer_name')
     def streamer_name(self, obj):

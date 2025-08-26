@@ -99,10 +99,16 @@ class DirectGiftQuerySequence(models.Model):
     targets = models.ManyToManyField('event_api.MastersProfile', null=True, blank=True)
     give_all = models.BooleanField(default=False)
 
-    def run(self):
+    def run(self, performer):
         from event_api.models import MastersProfile
         from event_api.models import CoinTransaction, StreamerWildcardInventoryItem
         if self.give_all:
+            InventoryGiftQuerySequenceLog.objects.create(
+                performer=performer.streamer_name,
+                sequence=self,
+                sequence_name=self.name,
+                message='Fue ejecutado para todos los jugadores'
+            )
             for target in MastersProfile.objects.filter(profile_type=MastersProfile.TRAINER):
                 for gift in self.gifts.all():
                     if gift.type == DirectGiftQuerySequence.MONEY:
@@ -122,6 +128,12 @@ class DirectGiftQuerySequence(models.Model):
                             item.quantity += gift.quantity
                             item.save()
         else:
+            InventoryGiftQuerySequenceLog.objects.create(
+                performer=performer.streamer_name,
+                sequence=self,
+                sequence_name=self.name,
+                message=f'Fue ejecutado para el/los jugadores {','.join(self.targets.all().values_list("streamer_name", flat=True))}'
+            )
             for target in self.targets.all():
                 for gift in self.gifts.all():
                     if gift.type == DirectGiftQuerySequence.MONEY:
@@ -146,6 +158,13 @@ class DirectGiftQuerySequence(models.Model):
     class Meta:
         verbose_name = 'Correccion Directa'
         verbose_name_plural = 'Correcciones Directas'
+
+
+class DirectGiftQuerySequenceLog(models.Model):
+    sequence = models.ForeignKey(InventoryGiftQuerySequence, on_delete=models.SET_NULL, null=True)
+    sequence_name = models.CharField(max_length=200)
+    performer = models.CharField(max_length=100)
+    message = models.TextField()
 
 
 # Create your models here.
