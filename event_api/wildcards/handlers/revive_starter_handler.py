@@ -12,6 +12,9 @@ class ReviveStarterHandler(BaseWildCardHandler):
         if not self.user.masters_profile.starter_dex_number:
             return 'Necesitas decirle al staff cual es tu inicial'
 
+        if not DeathLog.objects.filter(dex_number=self.user.masters_profile.starter_dex_number, profile=self.user.masters_profile, revived=False).exists():
+            return 'El pokemon no está registrado como muerto'
+
     def execute(self, context):
         last_death = DeathLog.objects.filter(dex_number=self.user.masters_profile.starter_dex_number, profile=self.user.masters_profile, revived=False).first()
         last_death.revived = True
