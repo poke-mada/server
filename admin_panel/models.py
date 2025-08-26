@@ -171,7 +171,7 @@ class DirectGiftQuerySequence(models.Model):
 
 
 class DirectGiftQuerySequenceLog(models.Model):
-    sequence = models.ForeignKey(InventoryGiftQuerySequence, on_delete=models.SET_NULL, null=True)
+    sequence = models.ForeignKey(DirectGiftQuerySequence, on_delete=models.SET_NULL, null=True)
     sequence_name = models.CharField(max_length=200)
     performer = models.CharField(max_length=100)
     message = models.TextField()
