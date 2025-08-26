@@ -91,8 +91,8 @@ class StreamerFilter(admin.SimpleListFilter):
         return list(qs)
 
     def queryset(self, request, queryset):
-        if self.value():
-            return queryset.filter(profile_id=self.value())
+        # if self.value():
+        #     return queryset.filter(profile_id=self.value())
         return queryset
 
 
