@@ -293,8 +293,5 @@ class EvolutionAdmin(admin.ModelAdmin):
 class SanctionAdmin(admin.ModelAdmin):
     list_display = ('profile', 'created_at', 'message', 'money_substracted')
 
-    def has_add_permission(self, *args, **kwargs):
-        return False
-
 
 admin.site.register(User, UserProfileAdmin)
