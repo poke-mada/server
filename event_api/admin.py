@@ -80,6 +80,9 @@ class CoinTransactionAdmin(admin.ModelAdmin):
     search_fields = ('profile__streamer_name', 'TYPE')
     list_filter = ('profile__streamer_name',)
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(profile__profile_type=MastersProfile.TRAINER)
+
     def has_add_permission(self, request, obj=None):
         return False
 
