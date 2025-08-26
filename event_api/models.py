@@ -832,6 +832,7 @@ class Newsletter(models.Model):
     send_notification = models.BooleanField(default=False, verbose_name='Enviar Notificacion')
 
     def save(self, *args, **kwargs):
+        obje = super().save(*args, **kwargs)
         queryset = MastersProfile.objects.all()
         if self.for_noobs and not self.for_pros:
             queryset = queryset.filter(is_pro=False)
@@ -850,7 +851,7 @@ class Newsletter(models.Model):
                     data=self.message
                 ))
 
-        return super().save(*args, **kwargs)
+        return obje
 
     class Meta:
         verbose_name = "Noticia"
