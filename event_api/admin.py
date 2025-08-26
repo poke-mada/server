@@ -74,8 +74,8 @@ class TimerHandlerSettingsInline(admin.StackedInline):
 
 
 class StreamerFilter(admin.SimpleListFilter):
-    title = "Streamer (solo Trainers)"
-    parameter_name = "streamer"
+    title = "Streamer"
+    parameter_name = "profile__streamer_name"
 
     def lookups(self, request, model_admin):
         # Traer solo perfiles con profile_type=TRAINER
@@ -99,7 +99,7 @@ class StreamerFilter(admin.SimpleListFilter):
 class CoinTransactionAdmin(admin.ModelAdmin):
     list_display = ('created_on', 'profile__streamer_name', 'reason', 'amount', 'TYPE',)
     readonly_fields = ('created_on', 'profile', 'amount', 'reason', 'TYPE')
-    search_fields = ('streamer', 'TYPE')
+    search_fields = ('profile__streamer_name', 'TYPE')
     list_filter = (StreamerFilter,)
 
     def has_add_permission(self, request, obj=None):
