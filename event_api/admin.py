@@ -79,15 +79,16 @@ class StreamerFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         # Traer solo perfiles con profile_type=TRAINER
-        qs = CoinTransaction.objects.filter(
-            profile__profile_type=MastersProfile.TRAINER
-        ).select_related("profile")
+        qs = (
+            MastersProfile.objects
+            .filter(profile_type=MastersProfile.TRAINER, cointransaction__isnull=False)
+            .values_list("id", "streamer_name")
+            .distinct()
+            .order_by("streamer_name")
+        )
 
         # Devuelve lista de tuplas (valor, etiqueta)
-        return [
-            (tx.profile.id, tx.profile.streamer_name)
-            for tx in qs.distinct("profile__id", "profile__streamer_name")
-        ]
+        return list(qs)
 
     def queryset(self, request, queryset):
         if self.value():
