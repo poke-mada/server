@@ -81,7 +81,7 @@ class StreamerFilter(admin.SimpleListFilter):
         # Traer solo perfiles con profile_type=TRAINER
         qs = (
             MastersProfile.objects
-            .filter(profile_type=MastersProfile.TRAINER, cointransaction__isnull=False)
+            .filter(profile_type=MastersProfile.TRAINER, transactions__isnull=False)
             .values_list("id", "streamer_name")
             .distinct()
             .order_by("streamer_name")
@@ -91,8 +91,8 @@ class StreamerFilter(admin.SimpleListFilter):
         return list(qs)
 
     def queryset(self, request, queryset):
-        # if self.value():
-        #     return queryset.filter(profile_id=self.value())
+        if self.value():
+            return queryset.filter(profile_id=self.value())
         return queryset
 
 

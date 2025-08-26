@@ -26,7 +26,7 @@ staff_site = StaffAdminArea(name='StaffAdmin')
 @admin.action(description="Entregar Paquete")
 def run_sequence(modeladmin, request, queryset):
     for obj in queryset:
-        obj.run()
+        obj.run(request.user.masters_profile)
 
 
 @admin.register(InventoryGiftQuerySequence, site=staff_site)

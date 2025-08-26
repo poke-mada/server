@@ -14,10 +14,17 @@ class InventoryGiftQuerySequence(models.Model):
     targets = models.ManyToManyField('event_api.MastersProfile', null=True, blank=True)
     give_all = models.BooleanField(default=False)
 
-    def run(self):
+    def run(self, performer):
         from event_api.models import MastersProfile
         from rewards_api.models import StreamerRewardInventory
+
         if self.give_all:
+            InventoryGiftQuerySequenceLog.objects.create(
+                performer=performer.streamer_name,
+                sequence=self,
+                sequence_name=self.name,
+                message='Fue ejecutado para todos los jugadores'
+            )
             for target in MastersProfile.objects.filter(profile_type=MastersProfile.TRAINER):
                 inventory, is_created = StreamerRewardInventory.objects.get_or_create(
                     reward_id=self.inventory_bundle_id,
@@ -34,6 +41,12 @@ class InventoryGiftQuerySequence(models.Model):
                     inventory.is_available = True
                 inventory.save()
         else:
+            InventoryGiftQuerySequenceLog.objects.create(
+                performer=performer.streamer_name,
+                sequence=self,
+                sequence_name=self.name,
+                message=f'Fue ejecutado para el/los jugadores {','.join(self.targets.all().values_list("streamer_name", flat=True))}'
+            )
             for target in self.targets.all():
                 inventory, is_created = StreamerRewardInventory.objects.get_or_create(
                     reward_id=self.inventory_bundle_id,
@@ -56,6 +69,13 @@ class InventoryGiftQuerySequence(models.Model):
     class Meta:
         verbose_name = 'Envío de Preset al Buzón'
         verbose_name_plural = 'Envío de Presets al Buzón'
+
+
+class InventoryGiftQuerySequenceLog(models.Model):
+    sequence = models.ForeignKey(InventoryGiftQuerySequence, on_delete=models.SET_NULL, null=True)
+    sequence_name = models.CharField(max_length=200)
+    performer = models.CharField(max_length=100)
+    message = models.TextField()
 
 
 class ShowdownToken(models.Model):
