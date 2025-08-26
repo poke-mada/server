@@ -886,7 +886,23 @@ class Sanction(models.Model):
     profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name='sanctions')
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    money_substracted = models.IntegerField(default=0)
+    money_substracted = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+
+    def save(self, *args, **kwargs):
+        Newsletter.objects.create(
+            for_noobs=True,
+            for_pros=True,
+            message=self.message
+        )
+
+        CoinTransaction.objects.create(
+            profile=self.profile,
+            reason=self.message,
+            TYPE=CoinTransaction.OUTPUT,
+            amount=self.money_substracted
+        )
+
+        return super().save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = 'Sanciones'
