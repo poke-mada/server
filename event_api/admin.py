@@ -292,6 +292,7 @@ class EvolutionAdmin(admin.ModelAdmin):
 @admin.register(Sanction, site=staff_site)
 class SanctionAdmin(admin.ModelAdmin):
     list_display = ('profile', 'created_at', 'message', 'money_substracted')
+    autocomplete_fields = ('profile',)
 
 
 admin.site.register(User, UserProfileAdmin)
