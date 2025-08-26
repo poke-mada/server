@@ -81,7 +81,7 @@ class StreamerFilter(admin.SimpleListFilter):
         # Traer solo perfiles con profile_type=TRAINER
         qs = (
             MastersProfile.objects
-            .filter(profile_type=MastersProfile.TRAINER, transactions__isnull=False)
+            .filter(profile_type=MastersProfile.TRAINER, transactions__isnull=False, is_tester=False)
             .values_list("id", "streamer_name")
             .distinct()
             .order_by("streamer_name")
