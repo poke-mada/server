@@ -895,6 +895,11 @@ class Sanction(models.Model):
             message=self.message
         )
 
+        DataConsumer.send_custom_data(self.profile.user.username, dict(
+            type='notification',
+            data=self.message
+        ))
+
         CoinTransaction.objects.create(
             profile=self.profile,
             reason=self.message,
