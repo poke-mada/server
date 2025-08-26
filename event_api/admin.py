@@ -75,7 +75,7 @@ class TimerHandlerSettingsInline(admin.StackedInline):
 
 class StreamerFilter(admin.SimpleListFilter):
     title = "Streamer"
-    parameter_name = "profile__streamer_name"
+    parameter_name = "profile_id"
 
     def lookups(self, request, model_admin):
         # Traer solo perfiles con profile_type=TRAINER
