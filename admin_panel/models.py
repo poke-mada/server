@@ -18,7 +18,7 @@ class InventoryGiftQuerySequence(models.Model):
         from event_api.models import MastersProfile
         from rewards_api.models import StreamerRewardInventory
         if self.give_all:
-            for target in MastersProfile.objects.all():
+            for target in MastersProfile.objects.filter(profile_type=MastersProfile.TRAINER):
                 inventory, is_created = StreamerRewardInventory.objects.get_or_create(
                     reward_id=self.inventory_bundle_id,
                     profile=target, defaults=dict(
@@ -83,7 +83,7 @@ class DirectGiftQuerySequence(models.Model):
         from event_api.models import MastersProfile
         from event_api.models import CoinTransaction, StreamerWildcardInventoryItem
         if self.give_all:
-            for target in MastersProfile.objects.all():
+            for target in MastersProfile.objects.filter(profile_type=MastersProfile.TRAINER):
                 for gift in self.gifts.all():
                     if gift.type == DirectGiftQuerySequence.MONEY:
                         CoinTransaction.objects.create(
