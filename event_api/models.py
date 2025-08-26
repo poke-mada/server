@@ -817,6 +817,9 @@ class ProfileImposterLog(models.Model):
             )
         super().save(*args, **kwargs)
 
+    class Meta:
+        unique_together = ['profile', 'imposter']
+
 
 class Newsletter(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
@@ -826,8 +829,7 @@ class Newsletter(models.Model):
     for_staff = models.BooleanField(default=False, verbose_name='Solo Para Staff')
     for_tester = models.BooleanField(default=False, verbose_name="Solo Para Testers")
     send_notification = models.BooleanField(default=False, verbose_name='Enviar Notificacion')
-    
-    
+
     def save(self, *args, **kwargs):
         queryset = MastersProfile.objects.all()
         if self.for_noobs and not self.for_pros:
@@ -842,7 +844,6 @@ class Newsletter(models.Model):
             ))
 
         return super().save(*args, **kwargs)
-    
 
     class Meta:
         verbose_name = "Noticia"
