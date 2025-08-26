@@ -7,7 +7,7 @@ from nested_admin.nested import NestedStackedInline, NestedTabularInline, Nested
 from admin_panel.admin import staff_site
 from event_api.models import CoinTransaction, Wildcard, StreamerWildcardInventoryItem, \
     WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings, DeathLog, ProfileImposterLog, \
-    Imposter, ProfilePlatformUrl, Newsletter, BannedPokemon, Evolution, ProfileNotification, Sanction
+    Imposter, ProfilePlatformUrl, Newsletter, BannedPokemon, Evolution, ProfileNotification, Sanction, WildcardUpdateLog
 from event_api.wildcards import WildCardExecutorRegistry
 from event_api.wildcards.handlers.settings.models import GiveItemHandlerSettings, GiveMoneyHandlerSettings, \
     GiveGameMoneyHandlerSettings, GiveRandomMoneyHandlerSettings, TimerHandlerSettings
@@ -320,3 +320,9 @@ class SanctionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(User, UserProfileAdmin)
+
+
+@admin.register(WildcardUpdateLog)
+class WildcardUpdateLogAdmin(admin.ModelAdmin):
+    list_display = ('profile', 'message')
+    readonly_fields = ('profile', 'message')
