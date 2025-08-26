@@ -1,5 +1,6 @@
 from django.db import models
 
+from event_api.models import WildcardUpdateLog
 from websocket.sockets import DataConsumer
 
 
@@ -31,7 +32,8 @@ class InventoryGiftQuerySequence(models.Model):
                     profile=target, defaults=dict(
                         exchanges=0,
                         is_available=True
-                    ))
+                    )
+                )
 
                 DataConsumer.send_custom_data(target.user.username, dict(
                     type='notification',
@@ -119,6 +121,10 @@ class DirectGiftQuerySequence(models.Model):
                             reason=f'Se entregaron {gift.quantity} usando DGL: {self.name}'
                         )
                     elif gift.type == DirectGiftQuerySequence.WILDCARD:
+                        WildcardUpdateLog.objects.create(
+                            profile=target,
+                            message=f'Se ha entregad el comodin {gift.wildcard.name} {gift.quantity} vez/veces por {self.name}'
+                        )
                         item, is_created = StreamerWildcardInventoryItem.objects.get_or_create(profile=target,
                                                                                                wildcard=gift.wildcard,
                                                                                                defaults=dict(
@@ -144,6 +150,10 @@ class DirectGiftQuerySequence(models.Model):
                             reason=f'Se entregaron {gift.quantity} usando DGL: {self.name}'
                         )
                     elif gift.type == DirectGiftQuerySequence.WILDCARD:
+                        WildcardUpdateLog.objects.create(
+                            profile=target,
+                            message=f'Se ha entregad el comodin {gift.wildcard.name} {gift.quantity} vez/veces por {self.name}'
+                        )
                         item, is_created = StreamerWildcardInventoryItem.objects.get_or_create(profile=target,
                                                                                                wildcard=gift.wildcard,
                                                                                                defaults=dict(

@@ -933,5 +933,5 @@ class Sanction(models.Model):
 
 
 class WildcardUpdateLog(models.Model):
-    profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name='wildcard_logs')
+    profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name='wildcard_update_logs')
     message = models.TextField()

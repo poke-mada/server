@@ -21,7 +21,7 @@ from rest_framework.views import APIView
 from api.permissions import IsTrainer, IsRoot
 from event_api.models import Wildcard, CoinTransaction, \
     GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter, Newsletter, MastersSegmentSettings, \
-    BannedPokemon, ErrorLog
+    BannedPokemon, ErrorLog, WildcardUpdateLog
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer, SelectProfileSerializer, ProfileSerializer, \
     SelectMastersProfileSerializer, DeathLogSerializer, ReleasableSerializer, EditableProfileSerializer
@@ -200,6 +200,12 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
                     wildcard=reward.wildcard,
                     defaults=dict(quantity=0)
                 )
+
+                WildcardUpdateLog.objects.create(
+                    profile=user.masters_profile,
+                    message=f'Se ha entregad el comodin {reward.wildcard.name} {reward.quantity} vez/veces por {bundle.name}'
+                )
+
                 inventory.quantity += reward.quantity
                 inventory.save()
 
