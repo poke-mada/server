@@ -828,6 +828,7 @@ class Newsletter(models.Model):
     for_noobs = models.BooleanField(default=False, verbose_name="Incluye Noobs")
     for_staff = models.BooleanField(default=False, verbose_name='Solo Para Staff')
     for_tester = models.BooleanField(default=False, verbose_name="Solo Para Testers")
+    targets = models.ManyToManyField('event_api.MastersProfile', null=True, blank=True)
     send_notification = models.BooleanField(default=False, verbose_name='Enviar Notificacion')
 
     def save(self, *args, **kwargs):
@@ -836,12 +837,18 @@ class Newsletter(models.Model):
             queryset = queryset.filter(is_pro=False)
         elif self.for_pros and not self.for_noobs:
             queryset = queryset.filter(is_pro=True)
-
-        for profile in queryset:
-            DataConsumer.send_custom_data(profile.user.username, dict(
-                type='notification',
-                data=self.message
-            ))
+        if self.targets.count() > 0:
+            for profile in self.targets.all():
+                DataConsumer.send_custom_data(profile.user.username, dict(
+                    type='notification',
+                    data=self.message
+                ))
+        else:
+            for profile in queryset:
+                DataConsumer.send_custom_data(profile.user.username, dict(
+                    type='notification',
+                    data=self.message
+                ))
 
         return super().save(*args, **kwargs)
 
