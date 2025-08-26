@@ -73,15 +73,31 @@ class TimerHandlerSettingsInline(admin.StackedInline):
     extra = 0
 
 
+class StreamerFilter(admin.SimpleListFilter):
+    title = 'Streamer'
+    parameter_name = 'profile__streamer_name'
+
+    def lookups(self, request, model_admin):
+        # Aquí defines qué opciones mostrar
+        return MastersProfile.objects.filter(profile_type=MastersProfile.TRAINER).values_list('profile__streamer_name',
+                                                                                              'profile__streamer_name')
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(profile__streamer_name=self.value())
+        return queryset
+
+
 @admin.register(CoinTransaction, site=staff_site)
 class CoinTransactionAdmin(admin.ModelAdmin):
     list_display = ('created_on', 'profile__streamer_name', 'reason', 'amount', 'TYPE',)
     readonly_fields = ('created_on', 'profile', 'amount', 'reason', 'TYPE')
     search_fields = ('profile__streamer_name', 'TYPE')
-    list_filter = ('profile__streamer_name',)
+    list_filter = (StreamerFilter,)
 
     def get_queryset(self, request):
-        return super().get_queryset(request).filter(profile__profile_type=MastersProfile.TRAINER, profile__is_tester=False)
+        return super().get_queryset(request).filter(profile__profile_type=MastersProfile.TRAINER,
+                                                    profile__is_tester=False)
 
     def has_add_permission(self, request, obj=None):
         return False
