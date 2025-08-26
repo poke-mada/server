@@ -844,6 +844,10 @@ class Newsletter(models.Model):
                     type='notification',
                     data=self.message
                 ))
+                ProfileNotification.objects.create(
+                    profile=profile,
+                    message=self.message
+                )
         else:
             for profile in queryset:
                 DataConsumer.send_custom_data(profile.user.username, dict(
