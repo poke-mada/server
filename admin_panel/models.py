@@ -105,7 +105,7 @@ class DirectGiftQuerySequence(models.Model):
         from event_api.models import MastersProfile
         from event_api.models import CoinTransaction, StreamerWildcardInventoryItem
         if self.give_all:
-            InventoryGiftQuerySequenceLog.objects.create(
+            DirectGiftQuerySequenceLog.objects.create(
                 performer=performer.streamer_name,
                 sequence=self,
                 sequence_name=self.name,
@@ -134,7 +134,7 @@ class DirectGiftQuerySequence(models.Model):
                             item.quantity += gift.quantity
                             item.save()
         else:
-            InventoryGiftQuerySequenceLog.objects.create(
+            DirectGiftQuerySequenceLog.objects.create(
                 performer=performer.streamer_name,
                 sequence=self,
                 sequence_name=self.name,
