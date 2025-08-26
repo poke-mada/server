@@ -111,6 +111,7 @@ class CoinTransactionAdmin(admin.ModelAdmin):
 class WildcardLogAdmin(admin.ModelAdmin):
     list_display = ('profile__streamer_name', 'wildcard__name', 'details',)
     search_fields = ('profile__streamer_name', 'wildcard__name')
+    list_filter = (StreamerFilter,)
 
     def has_add_permission(self, request, obj=None):
         return False
@@ -120,14 +121,14 @@ class WildcardLogAdmin(admin.ModelAdmin):
 class ErrorLogAdmin(admin.ModelAdmin):
     list_display = ('profile__streamer_name', 'details', 'message',)
     search_fields = ('profile__streamer_name',)
-    list_filter = ('profile__streamer_name',)
+    list_filter = (StreamerFilter,)
 
 
 @admin.register(DeathLog, site=staff_site)
 class DeathLogAdmin(admin.ModelAdmin):
     list_display = ('profile__streamer_name', 'dex_number', 'species_name', 'mote', 'revived')
     search_fields = ('profile__streamer_name',)
-    list_filter = ('profile__streamer_name',)
+    list_filter = (StreamerFilter,)
     readonly_fields = ('created_on', 'species_name')
     actions = [duplicate_and_ban]
 
@@ -136,7 +137,7 @@ class DeathLogAdmin(admin.ModelAdmin):
 class BannedPokemonAdmin(admin.ModelAdmin):
     list_display = ('profile__streamer_name', 'dex_number', 'species_name', 'reason')
     search_fields = ('profile__streamer_name',)
-    list_filter = ('profile__streamer_name',)
+    list_filter = (StreamerFilter,)
     readonly_fields = ('species_name',)
 
     def has_add_permission(self, request):
@@ -150,7 +151,7 @@ class BannedPokemonAdmin(admin.ModelAdmin):
 class ProfileImposterLogAdmin(admin.ModelAdmin):
     list_display = ('profile__streamer_name', 'imposter__message',)
     search_fields = ('profile__streamer_name', 'imposter__message',)
-    list_filter = ('profile__streamer_name',)
+    list_filter = (StreamerFilter,)
 
 
 @admin.register(Imposter, site=staff_site)
