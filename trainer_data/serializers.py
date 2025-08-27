@@ -138,7 +138,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         if obj.pokemon.dex_number == 658:
             return False
 
-        if profile.starter_dex_number:
+        if profile and profile.starter_dex_number:
             if obj.pokemon.dex_number in Evolution.objects.get(dex_number=profile.starter_dex_number).surrogate():
                 return False
 
