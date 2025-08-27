@@ -15,8 +15,7 @@ class RevivePokemonHandler(BaseWildCardHandler):
         pokemon: Pokemon = Evolution.objects.filter(dex_number=dex_number).first()
         evo_tree = pokemon.surrogate()
 
-        last_non_revived_death = DeathLog.objects.filter(dex_number__in=evo_tree, profile=self.user.masters_profile, revived=False)
-        if not last_non_revived_death:
+        if not DeathLog.objects.filter(dex_number__in=evo_tree, profile=self.user.masters_profile, revived=False).exists():
             return 'Este pokemon no está muerto'
 
         if DeathLog.objects.filter(dex_number__in=evo_tree, profile=self.user.masters_profile, revived=True).exists():

@@ -3,7 +3,7 @@ from io import BytesIO
 from django.core.files import File
 from rest_framework import serializers
 
-from event_api.models import Newsletter, DeathLog, MastersProfile
+from event_api.models import Newsletter, DeathLog, MastersProfile, Evolution
 from pokemon_api.models import Type, Pokemon, Item, Move, PokemonNature, PokemonAbility, ContextLocalization
 from pokemon_api.serializers import PokemonSerializer, TypeSerializer, MoveSerializer, PokemonNatureSerializer
 from trainer_data.models import Trainer, TrainerBox, TrainerPokemon, TrainerTeam, TrainerBoxSlot
@@ -138,8 +138,9 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         if obj.pokemon.dex_number == 658:
             return False
 
-        if obj.pokemon.dex_number == profile.starter_dex_number:  # TODO: HAY QUE RECHAZAR ARBOL EVOLUTIVO
-            return False
+        if profile.starter_dex_number:
+            if obj.pokemon.dex_number in Evolution.objects.get(profile.starter_dex_number).surrogate():
+                return False
 
         if obj.trainerboxslot_set.exists():
             box = obj.trainerboxslot_set.first().box
