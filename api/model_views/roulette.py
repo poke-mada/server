@@ -31,8 +31,13 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
     def roll(self, request, *args, **kwargs):
         profile: MastersProfile = request.user.masters_profile
         roulette = self.get_object()
+
+        if profile.profile_type == MastersProfile.COACH:
+            return Response('No tienes permiso para hacer esto', status=status.HTTP_400_BAD_REQUEST)
+
         if not profile.has_wildcard(roulette.wildcard):
             return Response('No Tienes comodines para esta tirada', status=status.HTTP_400_BAD_REQUEST)
+
         profile.consume_wildcard(roulette.wildcard)
 
         price: RoulettePrice = roulette.spin()
