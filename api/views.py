@@ -181,7 +181,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         profile: MastersProfile = user.masters_profile
 
         if profile.profile_type == MastersProfile.COACH:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(data='Tu no puedes reclamar esto', status=status.HTTP_400_BAD_REQUEST)
 
         reward_inventory: StreamerRewardInventory = profile.reward_inventory.filter(reward_id=reward_id,
                                                                                     is_available=True).first()
