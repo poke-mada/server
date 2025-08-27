@@ -1,3 +1,4 @@
+from datetime import datetime
 from io import BytesIO
 
 from django.core.files import File
@@ -128,6 +129,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     moves = MoveSerializer(many=True)
     types = TypeSerializer(many=True)
     stealable = serializers.SerializerMethodField()
+    disabled = serializers.SerializerMethodField()
 
     def get_stealable(self, obj: TrainerPokemon):
 
@@ -211,6 +213,9 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     def get_sprite_url(self, obj: TrainerPokemon):
         return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{obj.pokemon.dex_number}.png'
 
+    def get_disabled(self, obj: TrainerPokemon):
+        return obj.force_disabled or obj.marked_for_market_until < datetime.now()
+
     class Meta:
         model = TrainerPokemon
         fields = [
@@ -219,7 +224,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
             'speed', 'special_attack', 'special_defense', 'held_item_flavor', 'ability_flavor', 'ev_hp',
             'ev_attack', 'ev_defense', 'ev_speed', 'ev_special_attack', 'ev_special_defense', 'iv_hp', 'iv_attack',
             'iv_defense', 'iv_speed', 'iv_special_attack', 'iv_special_defense', 'mega_ability', 'mega_ability_name',
-            'mega_ability_flavor', 'suffix', 'stealable', 'is_shiny'
+            'mega_ability_flavor', 'suffix', 'stealable', 'is_shiny', 'disabled'
         ]
 
 

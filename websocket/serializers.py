@@ -11,12 +11,12 @@ class PokemonOverlaySerializer(serializers.ModelSerializer):
         trainer: Trainer = obj.get_owner()
         profile: MastersProfile = trainer.get_trainer_profile()
         if profile.has_animated_overlay:
-            if obj.is_shiny:
-                return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown//shiny/{obj.pokemon.dex_number}.png'
+            # if obj.is_shiny:
+            #     return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown//shiny/{obj.pokemon.dex_number}.png'
             return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/{obj.pokemon.dex_number}.gif'
-        else:
-            if obj.is_shiny:
-                return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/{obj.pokemon.dex_number}.png'
+        # else:
+        #     if obj.is_shiny:
+        #         return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/{obj.pokemon.dex_number}.png'
         return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{obj.pokemon.dex_number}.png'
 
     class Meta:

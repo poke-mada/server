@@ -140,6 +140,8 @@ class TrainerPokemon(models.Model):
     iv_speed = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     iv_special_attack = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
     iv_special_defense = models.IntegerField(default=1, validators=[MinValueValidator(0)], null=True)
+    marked_for_market_until = models.DateTimeField(auto_now_add=True)
+    force_disabled = models.BooleanField(default=False)
 
     def get_owner(self):
         return self.team.trainer.first() if self.team else self.trainerboxslot_set.filter(box__trainer__isnull=False).first().box.trainer
