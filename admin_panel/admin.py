@@ -153,7 +153,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     def streamer_name(self, obj):
         return obj.masters_profile.streamer_name
 
-    @admin.display(description='Tramo Actual', ordering='masters_profile__current_segment_settings__segment')
+    @admin.display(description='Tramo Actual')
     def current_segment(self, obj):
         if not obj.masters_profile.current_segment_settings:
             return '-'
