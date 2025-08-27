@@ -12,6 +12,8 @@ class PokemonOverlaySerializer(serializers.ModelSerializer):
         profile: MastersProfile = trainer.get_trainer_profile()
         if profile.has_animated_overlay:
             return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/{obj.pokemon.dex_number}.gif'
+        if obj.is_shiny:
+            return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/{obj.pokemon.dex_number}.png'
         return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{obj.pokemon.dex_number}.png'
 
     class Meta:
