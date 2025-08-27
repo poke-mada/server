@@ -159,7 +159,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
             return '-'
         return obj.masters_profile.current_segment_settings.segment
 
-    @admin.display(description='Liga Actual', ordering='masters_profile__current_segment_settings__tournament_league')
+    @admin.display(description='Liga Actual')
     def league(self, obj):
         profile: MastersProfile = obj.masters_profile
         if profile.profile_type != MastersProfile.TRAINER:
