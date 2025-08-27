@@ -783,6 +783,9 @@ class Imposter(models.Model):
     coin_reward = models.IntegerField(default=1,
                                       help_text='Maxima cantidad de monedas a obtener (SIN CONTAR A LOS PRIMEROS 10)')
 
+    def __str__(self):
+        return self.message
+
     class Meta:
         verbose_name = "Impostor"
         verbose_name_plural = "Impostores"
