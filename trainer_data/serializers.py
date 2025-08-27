@@ -139,7 +139,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
             return False
 
         if profile.starter_dex_number:
-            if obj.pokemon.dex_number in Evolution.objects.get(profile.starter_dex_number).surrogate():
+            if obj.pokemon.dex_number in Evolution.objects.get(dex_number=profile.starter_dex_number).surrogate():
                 return False
 
         if obj.trainerboxslot_set.exists():
