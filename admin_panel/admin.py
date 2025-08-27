@@ -134,10 +134,9 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'current_segment',
         'league',
         'is_pro',
-        'is_active',
         'has_coach',
-        'has_pfp',
-        'has_token'
+        'has_token',
+        'has_starter'
     )
 
     list_filter = ('masters_profile__is_pro', 'is_staff', 'masters_profile__is_tester', 'masters_profile__profile_type')
@@ -146,7 +145,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         return queryset.filter(is_active=True,
-                               masters_profile__profile_type__in=[MastersProfile.TRAINER, MastersProfile.COACH])
+                               masters_profile__profile_type__in=[MastersProfile.TRAINER, MastersProfile.COACH], is_tester=False)
 
     @admin.display(description='Nombre', ordering='masters_profile__streamer_name')
     def streamer_name(self, obj):
@@ -167,16 +166,6 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
             return '-'
         return profile.current_segment_settings.tournament_league
 
-    @admin.display(description='Es Tester', boolean=True, ordering='masters_profile__is_tester')
-    def is_tester(self, obj):
-        return obj.masters_profile.is_tester
-
-    @admin.display(description='Tiene Foto', boolean=True)
-    def has_pfp(self, obj):
-        if obj.masters_profile.web_picture:
-            return True
-        return False
-
     @admin.display(description='Tiene Coach', boolean=True)
     def has_coach(self, obj):
         if obj.masters_profile.main_coach:
@@ -189,6 +178,10 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
 
     @admin.display(description='Tiene Token SD', boolean=True)
     def has_token(self, obj: User):
+        return bool(obj.masters_profile.showdown_token)
+
+    @admin.display(description='Tiene Starter Definido', boolean=True)
+    def has_starter(self, obj: User):
         return bool(obj.masters_profile.showdown_token)
 
 
