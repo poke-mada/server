@@ -18,11 +18,12 @@ class MarketViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         current_profile = request.user.masters_profile
-        queryset = MarketPost.objects.filter(
-            creator__is_pro=current_profile.is_pro,
-            creator__is_tester=current_profile.is_tester,
-            creator__profile_type=MastersProfile.TRAINER
-        ).exclude(creator=current_profile).order_by('-created_at')
+        # queryset = MarketPost.objects.filter(
+        #     creator__is_pro=current_profile.is_pro,
+        #     creator__is_tester=current_profile.is_tester,
+        #     creator__profile_type=MastersProfile.TRAINER
+        # ).exclude(creator=current_profile).order_by('-created_at')
+        queryset = MarketPost.objects.all()
 
         serializer = MarketPostSimpleSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
