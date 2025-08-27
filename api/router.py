@@ -5,6 +5,7 @@ from api.model_views.bank import BankViewSet
 from api.model_views.error import ErrorLogViewSet
 from api.model_views.market import MarketViewSet
 from api.model_views.notifications import ProfileNotificationViewSet
+from api.model_views.rewards import RewardsViewSet
 from api.model_views.roulette import RouletteViewSet
 from api.views import TrainerViewSet, MoveViewSet, WildcardViewSet, GameEventViewSet, NewsletterViewSet
 
@@ -19,6 +20,7 @@ router.register(r'bank', BankViewSet)
 router.register(r'roulette', RouletteViewSet)
 router.register(r'notifications', ProfileNotificationViewSet)
 router.register(r'errors', ErrorLogViewSet)
+router.register(r'rewards', RewardsViewSet)
 
 
 urlpatterns = [
