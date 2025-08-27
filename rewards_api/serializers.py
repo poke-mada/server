@@ -1,11 +1,9 @@
-import boto3
-from botocore.config import Config
-from django.conf import settings
-from django.core.cache import cache
-from django.db.models import Count, Sum
+from django.db.models import Sum
 from django.db.models.functions import Round
 from rest_framework import serializers
 
+from event_api.models import Wildcard
+from pokemon_api.models import Item
 from rewards_api.models import RewardBundle, Reward, Roulette, RoulettePrice, RouletteRollHistory
 
 
@@ -84,8 +82,51 @@ class StreamerRewardSimpleSerializer(serializers.ModelSerializer):
         ]
 
 
+class WildcardDisplaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Wildcard
+        fields = ('name', 'sprite')
+
+
+class ItemDisplaySerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
+    def get_name(self, obj):
+        return obj.name_localizations.get(language='es').content
+
+    class Meta:
+        model = Item
+        fields = ('name', 'index')
+
+
+class DisplayRewardSerializer(serializers.ModelSerializer):
+    wildcard = WildcardDisplaySerializer()
+    item = ItemDisplaySerializer()
+    pokemon = serializers.SerializerMethodField()
+
+    def get_pokemon(self, obj):
+        if not obj.pokemon_data:
+            return None
+        from pokemon_api.scripting.save_reader import PokemonBytes
+        pokemon = PokemonBytes(obj.pokemon_data.read())
+        pokemon.get_atts()
+        dict_data = pokemon.to_dict()
+        del dict_data['enc_data']
+        return dict_data
+
+    class Meta:
+        model = Reward
+        fields = [
+            'reward_type',
+            'quantity',
+            'wildcard',
+            'item',
+            'pokemon'
+        ]
+
+
 class StreamerRewardSerializer(serializers.ModelSerializer):
-    rewards = RewardSerializer(many=True, read_only=True)
+    rewards = DisplayRewardSerializer(many=True, read_only=True)
 
     class Meta:
         model = RewardBundle
@@ -112,7 +153,6 @@ class RoulettePrizeSerializer(serializers.ModelSerializer):
 
 
 class RouletteHistorySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = RouletteRollHistory
         fields = [
