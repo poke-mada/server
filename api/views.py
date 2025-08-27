@@ -177,6 +177,10 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         trainer: Trainer = Trainer.get_from_user(request.user)
         logger.debug(str(trainer))
         profile: MastersProfile = user.masters_profile
+
+        if profile.profile_type == MastersProfile.COACH:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
         reward_inventory: StreamerRewardInventory = profile.reward_inventory.filter(reward_id=reward_id,
                                                                                     is_available=True).first()
         if not reward_inventory:
@@ -334,6 +338,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         wildcards = Wildcard.objects.filter(is_active=True)
 
         if current_profile.is_pro:
+            wildcards = wildcards.exclude(name__iexact='ayuda del coach').exclude(pk=55)
             wildcards = wildcards.exclude(name__iexact='ayuda del coach').exclude(pk=55)
 
         if not current_profile.is_tester:
