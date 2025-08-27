@@ -119,7 +119,7 @@ class WildcardLogAdmin(admin.ModelAdmin):
 
 @admin.register(ErrorLog)
 class ErrorLogAdmin(admin.ModelAdmin):
-    list_display = ('profile__streamer_name', 'details', 'message',)
+    list_display = ('profile__streamer_name', 'message',)
     search_fields = ('profile__streamer_name',)
     list_filter = (StreamerFilter,)
 
