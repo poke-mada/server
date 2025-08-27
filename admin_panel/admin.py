@@ -188,9 +188,11 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
 
     @admin.display(description='Tiene Starter Definido', boolean=True)
     def has_starter(self, obj: User):
-        profile = obj.masters_profile
+        profile: MastersProfile = obj.masters_profile
         if profile.profile_type == MastersProfile.COACH:
-            profile = profile.coached
+            profile: MastersProfile = profile.coached
+        if not profile:
+            return False
         return bool(profile.starter_dex_number)
 
 
