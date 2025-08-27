@@ -4,7 +4,8 @@ from rest_framework import serializers
 
 from event_api.models import Wildcard
 from pokemon_api.models import Item
-from rewards_api.models import RewardBundle, Reward, Roulette, RoulettePrice, RouletteRollHistory
+from rewards_api.models import RewardBundle, Reward, Roulette, RoulettePrice, RouletteRollHistory, \
+    StreamerRewardInventory
 
 
 class ByteArrayFileField(serializers.FileField):
@@ -125,8 +126,24 @@ class DisplayRewardSerializer(serializers.ModelSerializer):
         ]
 
 
-class StreamerRewardSerializer(serializers.ModelSerializer):
+class RewardBundleSerializer(serializers.ModelSerializer):
     rewards = DisplayRewardSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = RewardBundle
+        fields = [
+            'name',
+            'description',
+            'is_active',
+            'user_created',
+            'sender',
+            'type',
+            'rewards'
+        ]
+
+
+class StreamerRewardSerializer(serializers.ModelSerializer):
+    rewards = RewardSerializer(many=True, read_only=True)
 
     class Meta:
         model = RewardBundle
