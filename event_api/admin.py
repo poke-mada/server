@@ -152,6 +152,7 @@ class ProfileImposterLogAdmin(admin.ModelAdmin):
     list_display = ('profile__streamer_name', 'imposter__message',)
     search_fields = ('profile__streamer_name', 'imposter__message',)
     list_filter = (StreamerFilter,)
+    autocomplete_fields = ('profile', 'imposter')
 
 
 @admin.register(Imposter, site=staff_site)
