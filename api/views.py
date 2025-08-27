@@ -148,6 +148,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['get'], detail=False)
     def get_rewards(self, request, *args, **kwargs):
         profile = request.user.masters_profile
+        if profile.profile_type == MastersProfile.COACH:
+            profile = profile.coached
         bundles = RewardBundle.objects.filter(owners__profile=profile, owners__is_available=True)
         serializer = StreamerRewardSimpleSerializer(bundles, many=True)
 
@@ -339,7 +341,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
         if current_profile.is_pro:
             wildcards = wildcards.exclude(name__iexact='ayuda del coach').exclude(pk=55)
-            wildcards = wildcards.exclude(name__iexact='ayuda del coach').exclude(pk=55)
+            wildcards = wildcards.exclude(name__iexact='gracia del emperador').exclude(pk=47)
 
         if not current_profile.is_tester:
             wildcards = wildcards.exclude(is_wip=True)
