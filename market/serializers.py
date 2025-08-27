@@ -180,6 +180,7 @@ class MarketOfferSerializer(serializers.ModelSerializer):
     items = MarketSlotListSerializer(many=True)
     status_display = serializers.CharField(source='get_status_display', read_only=True)
     creator_photo = serializers.ImageField(source='creator.web_picture', read_only=True, use_url=True)
+    creator = serializers.CharField(source='creator.streamer_name', read_only=True)
 
     class Meta:
         model = MarketPostOffer
