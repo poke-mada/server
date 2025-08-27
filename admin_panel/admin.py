@@ -128,6 +128,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
     readonly_fields = (
         'user_permissions', 'is_staff', 'is_superuser', 'first_name', 'last_name', 'email', 'last_login',
         'date_joined')
+
     list_display = (
         'username',
         'streamer_name',
@@ -139,13 +140,14 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         'has_starter'
     )
 
-    list_filter = ('masters_profile__is_pro', 'is_staff', 'masters_profile__is_tester', 'masters_profile__profile_type')
+    list_filter = ('masters_profile__is_pro', 'is_staff', 'masters_profile__profile_type')
     inlines = [MastersProfileInline]
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         return queryset.filter(is_active=True,
-                               masters_profile__profile_type__in=[MastersProfile.TRAINER, MastersProfile.COACH], is_tester=False)
+                               masters_profile__profile_type__in=[MastersProfile.TRAINER, MastersProfile.COACH],
+                               is_tester=False)
 
     @admin.display(description='Nombre', ordering='masters_profile__streamer_name')
     def streamer_name(self, obj):
@@ -165,6 +167,10 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         if not profile.current_segment_settings:
             return '-'
         return profile.current_segment_settings.tournament_league
+
+    @admin.display(description='Is Tester', boolean=True, ordering='masters_profile__is_tester')
+    def is_tester(self, obj):
+        return obj.masters_profile.is_tester
 
     @admin.display(description='Tiene Coach', boolean=True)
     def has_coach(self, obj):
