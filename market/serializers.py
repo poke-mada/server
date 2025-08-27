@@ -179,12 +179,14 @@ class MarketPostSimpleSerializer(serializers.ModelSerializer):
 class MarketOfferSerializer(serializers.ModelSerializer):
     items = MarketSlotListSerializer(many=True)
     status_display = serializers.CharField(source='get_status_display', read_only=True)
+    creator_photo = serializers.ImageField(source='creator.web_picture', read_only=True, use_url=True)
 
     class Meta:
         model = MarketPostOffer
         fields = [
             'id',
             'creator',
+            'creator_photo',
             'status',
             'status_display',
             'already_closed',
