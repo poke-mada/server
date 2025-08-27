@@ -465,9 +465,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         ).filter(Q(team__trainer=profile.trainer) | Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False,
                                                       trainerboxslot__box__trainer=profile.trainer)).filter(
             is_shiny=False)
-        ErrorLog.objects.create(
-            message=f'mensaje de debug conteo: {releasable_mons.count()}'
-        )
 
         serialized = ReleasableSerializer(releasable_mons, many=True)
 
