@@ -147,7 +147,7 @@ class UserProfileAdmin(NestedModelAdmin, UserAdmin):
         queryset = super().get_queryset(request)
         return queryset.filter(is_active=True,
                                masters_profile__profile_type__in=[MastersProfile.TRAINER, MastersProfile.COACH],
-                               is_tester=False)
+                               masters_profile__is_tester=False)
 
     @admin.display(description='Nombre', ordering='masters_profile__streamer_name')
     def streamer_name(self, obj):
