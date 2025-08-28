@@ -1,12 +1,23 @@
 from django.contrib import admin
-from pip._vendor.rich.box import Box
 
-from admin_panel.admin import staff_site
-from event_api.models import SaveFile
+from event_api.models import SaveFile, BannedPokemon
 from .models import Trainer, TrainerPokemon, TrainerBox, TrainerTeam, TrainerBoxSlot
 
 
 # Register your models here.
+
+
+def ban_full_tree(modeladmin, request, queryset):
+    for obj in queryset:  # type: TrainerPokemon
+        released_pokemon = obj.pokemon
+        banned_forms = released_pokemon.surrogate()
+        for pokemon in banned_forms:
+            BannedPokemon.objects.create(
+                dex_number=pokemon.dex_number,
+                profile=obj.trainer.get_trainer_profile(),
+                species_name=pokemon.name,
+                reason='El pokemon se liberó con Venta Ilegal'
+            )
 
 
 class TrainerTeamTab(admin.TabularInline):
@@ -72,6 +83,7 @@ class TrainerPokemonAdmin(admin.ModelAdmin):
     search_fields = ('pokemon__dex_number', 'pokemon__name', 'mote', 'trainer__name')
     list_filter = ('trainer__name',)
     inlines = [MoveLinear]
+    actions = [ban_full_tree]
 
 
 @admin.register(TrainerTeam)
