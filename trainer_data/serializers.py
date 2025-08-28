@@ -251,8 +251,8 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
 
 
 class EnROTrainerPokemonSerializer(ROTrainerPokemonSerializer):
-    moves = MoveSerializer(many=True, localization='en')
-    localization = 'en'
+    moves = MoveSerializer(many=True, localization='es')
+    localization = 'es'
 
 
 class ROTrainerTeamSerializer(serializers.ModelSerializer):
