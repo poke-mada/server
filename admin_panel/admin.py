@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+from django.db.models import Q
 from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 
 from admin_panel.models import InventoryGiftQuerySequence, DirectGiftQuerySequence, DirectGift, ShowdownToken, \
@@ -114,8 +115,7 @@ class MastersSegmentSettingsAdmin(NestedStackedInline):
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
-        current = queryset.filter(is_current=True).first()
-        return queryset.filter(Q(is_current=True) | Q(segment=current.segment -1))
+        return queryset
 
 
 class MastersProfileInline(NestedStackedInline):
