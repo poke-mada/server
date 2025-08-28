@@ -2,6 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+from django.db.models import Q
 from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 
 from admin_panel.admin import staff_site
@@ -246,7 +247,8 @@ class MastersSegmentSettingsInline(NestedStackedInline):
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
-        return queryset.filter(is_current=True)
+        current = queryset.filter(is_current=True).first()
+        return queryset.filter(Q(is_current=True) | Q(segment=current.segment - 1))
 
 
 class MastersProfileInline(NestedStackedInline):
