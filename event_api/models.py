@@ -273,7 +273,6 @@ class StreamerWildcardInventoryItem(models.Model):
         return f'x{self.quantity} {self.wildcard.name}'
 
 
-
 class ProfilePlatformUrl(models.Model):
     profile = models.ForeignKey("MastersProfile", on_delete=models.CASCADE)
     platform = models.CharField(max_length=50)

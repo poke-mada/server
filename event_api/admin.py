@@ -209,6 +209,10 @@ class ProfilePlatformUrlInline(NestedTabularInline):
     model = ProfilePlatformUrl
     min_num = 0
     extra = 0
+    readonly_fields = (
+        'platform',
+        'url'
+    )
 
 
 class WildcardInventoryItem(NestedTabularInline):
@@ -216,6 +220,10 @@ class WildcardInventoryItem(NestedTabularInline):
     model = StreamerWildcardInventoryItem
     min_num = 0
     extra = 0
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.filter(wildcard__is_active=True, quantity__gt=0)
 
 
 class RewardInventoryInline(NestedTabularInline):
@@ -231,6 +239,10 @@ class MastersSegmentSettingsInline(NestedStackedInline):
     min_num = 0
     extra = 0
     readonly_fields = ('is_current', 'community_pokemon_sprite')
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.filter(is_current=True)
 
 
 class MastersProfileInline(NestedStackedInline):

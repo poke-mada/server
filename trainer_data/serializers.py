@@ -131,6 +131,9 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     stealable = serializers.SerializerMethodField()
     #disabled = serializers.SerializerMethodField()
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
     def get_stealable(self, obj: TrainerPokemon):
 
         profile: MastersProfile = obj.get_owner().get_trainer_profile()
