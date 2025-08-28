@@ -114,7 +114,8 @@ class MastersSegmentSettingsAdmin(NestedStackedInline):
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
-        return queryset.filter(is_current=True)
+        current = queryset.filter(is_current=True).first()
+        return queryset.filter(Q(is_current=True) | Q(segment=current.segment -1))
 
 
 class MastersProfileInline(NestedStackedInline):

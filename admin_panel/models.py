@@ -210,10 +210,15 @@ class BanPokemonSequence(models.Model):
             banned_mon = Pokemon.objects.filter(dex_number=self.dex_number).first()
             banned_forms = banned_mon.surrogate()
             for pokemon in banned_forms:
-                BannedPokemon.objects.create(
+                if not BannedPokemon.objects.filter(
                     dex_number=pokemon.dex_number,
                     profile=self.profile,
-                    species_name=pokemon.name,
-                    reason=self.reason
-                )
+                    species_name=pokemon.name
+                ).exists():
+                    BannedPokemon.objects.create(
+                        dex_number=pokemon.dex_number,
+                        profile=self.profile,
+                        species_name=pokemon.name,
+                        reason=self.reason
+                    )
         return super(BanPokemonSequence, self).save(*args, **kwargs)
