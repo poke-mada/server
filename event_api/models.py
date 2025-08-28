@@ -841,12 +841,8 @@ class Newsletter(models.Model):
 
     def save(self, *args, **kwargs):
         obje = super().save(*args, **kwargs)
-        queryset = MastersProfile.objects.all()
-        if self.for_noobs and not self.for_pros:
-            queryset = queryset.filter(is_pro=False)
-        elif self.for_pros and not self.for_noobs:
-            queryset = queryset.filter(is_pro=True)
-        if self.targets.count() > 0:
+
+        if self.targets.count() > 0 and self.send_notification:
             for profile in self.targets.all():
                 DataConsumer.send_custom_data(profile.user.username, dict(
                     type='notification',
@@ -856,7 +852,13 @@ class Newsletter(models.Model):
                     profile=profile,
                     message=self.message
                 )
-        else:
+        elif self.send_notification:
+            queryset = MastersProfile.objects.all()
+            if self.for_noobs and not self.for_pros:
+                queryset = queryset.filter(is_pro=False)
+            elif self.for_pros and not self.for_noobs:
+                queryset = queryset.filter(is_pro=True)
+
             for profile in queryset:
                 DataConsumer.send_custom_data(profile.user.username, dict(
                     type='notification',

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'pokemon_api',
     'trainer_data',
     'rewards_api',
+    'new_market',
     'market',
     'api',
     'storages'

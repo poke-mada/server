@@ -2,9 +2,11 @@ from datetime import datetime
 from io import BytesIO
 
 from django.core.files import File
+from django.utils import timezone
 from rest_framework import serializers
 
 from event_api.models import Newsletter, DeathLog, MastersProfile, Evolution
+from new_market.models import MarketBlockLog
 from pokemon_api.models import Type, Pokemon, Item, Move, PokemonNature, PokemonAbility, ContextLocalization
 from pokemon_api.serializers import PokemonSerializer, TypeSerializer, MoveSerializer, PokemonNatureSerializer
 from trainer_data.models import Trainer, TrainerBox, TrainerPokemon, TrainerTeam, TrainerBoxSlot
@@ -129,7 +131,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     moves = MoveSerializer(many=True)
     types = TypeSerializer(many=True)
     stealable = serializers.SerializerMethodField()
-    #disabled = serializers.SerializerMethodField()
+    disabled = serializers.SerializerMethodField()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -137,6 +139,14 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     def get_stealable(self, obj: TrainerPokemon):
 
         profile: MastersProfile = obj.get_owner().get_trainer_profile()
+
+        if MarketBlockLog.objects.filter(
+                profile=profile,
+                dex_number=obj.pokemon.dex_number,
+                blocked_until__gt=timezone.now()
+        ).exists():
+            return False
+
         if DeathLog.objects.filter(profile=profile, dex_number=obj.pokemon.dex_number, revived=False).exists():
             return False
 
@@ -217,7 +227,16 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{obj.pokemon.dex_number}.png'
 
     def get_disabled(self, obj: TrainerPokemon):
-        return obj.force_disabled or obj.marked_for_market_until < datetime.now()
+        profile: MastersProfile = obj.get_owner().get_trainer_profile()
+
+        if MarketBlockLog.objects.filter(
+                profile=profile,
+                dex_number=obj.pokemon.dex_number,
+                blocked_until__gt=timezone.now()
+        ).exists():
+            return True
+
+        return obj.force_disabled
 
     class Meta:
         model = TrainerPokemon
@@ -227,7 +246,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
             'speed', 'special_attack', 'special_defense', 'held_item_flavor', 'ability_flavor', 'ev_hp',
             'ev_attack', 'ev_defense', 'ev_speed', 'ev_special_attack', 'ev_special_defense', 'iv_hp', 'iv_attack',
             'iv_defense', 'iv_speed', 'iv_special_attack', 'iv_special_defense', 'mega_ability', 'mega_ability_name',
-            'mega_ability_flavor', 'suffix', 'stealable', 'is_shiny'
+            'mega_ability_flavor', 'suffix', 'stealable', 'is_shiny', 'disabled', 'id',
         ]
 
 
