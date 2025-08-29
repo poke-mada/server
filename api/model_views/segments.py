@@ -25,10 +25,14 @@ class SegmentConfigurationViewSet(viewsets.ReadOnlyModelViewSet):
         current_segment = profile.current_segment_settings
         now = timezone.now()
 
+        segment = 1
+        if current_segment:
+            segment = current_segment.segment
+
         current_segment_config = SegmentConfiguration.objects.filter(
             is_tournament=False,
             ends_at__gt=now,
-            segment=current_segment.segment
+            segment=segment
         ).first()
 
         if current_segment_config:
