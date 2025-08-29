@@ -88,7 +88,8 @@ function doUpdateData(data) {
         pkmnDiv5.classList.add('d-none');
         pkmnDiv6.classList.add('d-none');
     }
-
+    data.team = data.team.concat([null,null,null,null,null,null])
+    data.team = data.team.slice(0,6)
     data.team.forEach((pokemon, index) => {
         const pkmnDiv = document.getElementById(`pokemon${index + 1}`);
         if (pokemon !== null) {
