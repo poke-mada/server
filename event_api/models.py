@@ -942,6 +942,10 @@ class WildcardUpdateLog(models.Model):
     profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name='wildcard_update_logs')
     message = models.TextField()
 
+    class Meta:
+        verbose_name_plural = 'Registros de inventario de comodines'
+        verbose_name = 'Registro de inventario de comodin'
+
 
 class SegmentConfiguration(models.Model):
     segment = models.IntegerField(default=1)
