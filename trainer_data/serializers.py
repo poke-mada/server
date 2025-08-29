@@ -5,7 +5,7 @@ from django.core.files import File
 from django.utils import timezone
 from rest_framework import serializers
 
-from event_api.models import Newsletter, DeathLog, MastersProfile, Evolution
+from event_api.models import Newsletter, DeathLog, MastersProfile, Evolution, AlreadyCapturedLog
 from new_market.models import MarketBlockLog
 from pokemon_api.models import Type, Pokemon, Item, Move, PokemonNature, PokemonAbility, ContextLocalization
 from pokemon_api.serializers import PokemonSerializer, TypeSerializer, MoveSerializer, PokemonNatureSerializer
@@ -147,7 +147,12 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         ).exists():
             return False
 
-        if DeathLog.objects.filter(profile=profile, dex_number=obj.pokemon.dex_number, revived=False).exists():
+        surrogated_mons = obj.pokemon.surrogate_dex()
+
+        if AlreadyCapturedLog.objects.filter(pid=obj.pid, profile=profile, dex_number__in=surrogated_mons).exists():
+            return False
+
+        if DeathLog.objects.filter(profile=profile, dex_number__in=surrogated_mons, revived=False).exists():
             return False
 
         if obj.pokemon.dex_number == 658:

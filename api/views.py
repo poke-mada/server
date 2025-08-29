@@ -21,7 +21,7 @@ from rest_framework.views import APIView
 from api.permissions import IsTrainer, IsRoot
 from event_api.models import Wildcard, CoinTransaction, \
     GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter, Newsletter, MastersSegmentSettings, \
-    BannedPokemon, ErrorLog, WildcardUpdateLog, Evolution
+    BannedPokemon, ErrorLog, WildcardUpdateLog, Evolution, AlreadyCapturedLog
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer, SelectProfileSerializer, ProfileSerializer, \
     SelectMastersProfileSerializer, DeathLogSerializer, ReleasableSerializer, EditableProfileSerializer
@@ -679,6 +679,21 @@ def team_saver(team, profile: MastersProfile):
         new_team_obj = new_team_serializer.save()
         trainer.current_team = new_team_obj
         trainer.save()
+
+        for pokemon in new_team_obj.team.all():  # type: TrainerPokemon
+            surrogated_mons = pokemon.pokemon.surrogate_dex()
+            for surrogated_mon in surrogated_mons:
+                if not AlreadyCapturedLog.objects.filter(
+                    pid=pokemon.pid,
+                    profile=profile,
+                    dex_number=surrogated_mon
+                ).exists():
+                    AlreadyCapturedLog.objects.create(
+                        pid=pokemon.pid,
+                        profile=profile,
+                        dex_number=surrogated_mon
+                    )
+
         return True
     return False
 

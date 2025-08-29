@@ -161,14 +161,24 @@ class Pokemon(models.Model):
 
     def surrogate(self):
         from event_api.models import Evolution
-        if self.dex_number == 133:
+        dex_numbers = Evolution.search_evolution_chain(self.dex_number)
+        if 133 in dex_numbers:
             return [self]
-        #TODO: devuelve todo el arbol evolutivo
-        #TODO: NO APLICA EN EEVEELUTIONS
-        # para pokemon de la comunidad
+
         dex_numbers = Evolution.search_evolution_chain(self.dex_number)
 
         return Pokemon.objects.filter(dex_number__in=dex_numbers)
+
+    def surrogate_dex(self):
+        from event_api.models import Evolution
+        dex_numbers = Evolution.search_evolution_chain(self.dex_number)
+
+        if 133 in dex_numbers:
+            return [self.dex_number]
+
+        dex_numbers = Evolution.search_evolution_chain(self.dex_number)
+
+        return dex_numbers
 
     class Meta:
         verbose_name_plural = 'Pokemon'

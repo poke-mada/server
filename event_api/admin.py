@@ -9,7 +9,7 @@ from admin_panel.admin import staff_site
 from event_api.models import CoinTransaction, Wildcard, StreamerWildcardInventoryItem, \
     WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings, DeathLog, ProfileImposterLog, \
     Imposter, ProfilePlatformUrl, Newsletter, BannedPokemon, Evolution, ProfileNotification, Sanction, \
-    WildcardUpdateLog, SegmentConfiguration
+    WildcardUpdateLog, SegmentConfiguration, StealLog
 from event_api.wildcards import WildCardExecutorRegistry
 from event_api.wildcards.handlers.settings.models import GiveItemHandlerSettings, GiveMoneyHandlerSettings, \
     GiveGameMoneyHandlerSettings, GiveRandomMoneyHandlerSettings, TimerHandlerSettings
@@ -373,3 +373,8 @@ class SegmentConfigurationAdmin(admin.ModelAdmin):
 @admin.register(SegmentConfiguration, site=staff_site)
 class SegmentConfigurationAdmin2(admin.ModelAdmin):
     list_display = ('segment', 'is_tournament', 'starts_at', 'ends_at')
+
+
+@admin.register(StealLog)
+class StealLogAdmin(admin.ModelAdmin):
+    list_display = ('created_on', 'source', 'target', 'pokemon', 'bundle__name')

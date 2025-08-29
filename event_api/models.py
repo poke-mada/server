@@ -365,8 +365,10 @@ class MastersProfile(models.Model):
         return self.trainer.saves.order_by('created_on').last().file
 
     def get_last_releasable_by_dex_number(self, dex_number, source_stealer: "MastersProfile" = None):
+
         if source_stealer:
-            banned_mons = BannedPokemon.objects.filter(profile=source_stealer).values_list('dex_number', flat=True)
+            banned_mons = BannedPokemon.objects.filter(Q(profile=source_stealer) | Q(profile=self)).values_list(
+                'dex_number', flat=True).distinct()
         else:
             banned_mons = BannedPokemon.objects.filter(profile=self).values_list('dex_number', flat=True)
 
@@ -624,7 +626,8 @@ class MastersSegmentSettings(models.Model):
         current_segment.save()
 
         money_amount = clamp(15 - current_segment.death_count, 0, 15)
-        current_settigns: SegmentConfiguration = SegmentConfiguration.objects.filter(segment=current_segment.segment, is_tournament=False).first()
+        current_settigns: SegmentConfiguration = SegmentConfiguration.objects.filter(segment=current_segment.segment,
+                                                                                     is_tournament=False).first()
         if money_amount > 0 and current_segment.finished_at < current_settigns.ends_at:
             CoinTransaction.objects.create(
                 profile=self.profile,
@@ -803,7 +806,8 @@ class Imposter(models.Model):
 
 
 class ProfileImposterLog(models.Model):
-    profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name="imposters", verbose_name="Jugador")
+    profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name="imposters",
+                                verbose_name="Jugador")
     imposter = models.ForeignKey(Imposter, on_delete=models.SET_NULL, null=True, verbose_name='Impostor')
     registered_amount = models.IntegerField(default=0, null=True, blank=True, verbose_name='Monedas Registradas')
     created_on = models.DateTimeField(auto_now_add=True)
@@ -890,6 +894,7 @@ class StealLog(models.Model):
     source = models.CharField(max_length=50)
     target = models.CharField(max_length=50)
     pokemon = models.CharField(max_length=50)
+    bundle = models.ForeignKey(RewardBundle, on_delete=models.PROTECT, null=True)
 
 
 class Evolution(models.Model):

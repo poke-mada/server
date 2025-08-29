@@ -2,7 +2,7 @@ from django.db import transaction
 
 from django.db import transaction
 
-from event_api.models import MastersProfile, ErrorLog, StealLog, Evolution, ProfileNotification
+from event_api.models import MastersProfile, ErrorLog, StealLog, Evolution, ProfileNotification, AlreadyCapturedLog
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from rewards_api.models import Reward, RewardBundle, StreamerRewardInventory
 from trainer_data.models import TrainerPokemon
@@ -14,9 +14,11 @@ from .strong_attack_handler import StrongAttackHandler
 class StealPokemonHandler(StrongAttackHandler):
 
     def validate(self, context):
+        source_profile = self.user.masters_profile
         target_id = context.get('target_id')
         dex_number = context.get('dex_number')
-        target_profile = MastersProfile.objects.get(id=target_id)
+        target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
+        target_pokemon = target_profile.get_last_releasable_by_dex_number(dex_number, source_profile)
 
         if not dex_number:
             return 'Necesitas ingresar un pokemon a robar'
@@ -31,6 +33,9 @@ class StealPokemonHandler(StrongAttackHandler):
 
         if dex_number == 658:
             return 'Greninja es inmune a los ataques!'
+
+        if AlreadyCapturedLog.objects.filter(pid=target_pokemon.pid, profile=source_profile, dex_number__in=evolutions).exists():
+            return 'No puedes robar un pokemon que ya tuviste!'
 
         return super().validate(context)
 
@@ -48,12 +53,6 @@ class StealPokemonHandler(StrongAttackHandler):
                 message=f"No se encontro el pokemon para el dex_num {dex_number} en el perfil de {target_id}: {target_profile.streamer_name}"
             )
             return f'error: {error.id}'
-
-        StealLog.objects.create(
-            source=self.user.masters_profile.streamer_name,
-            target=target_profile.streamer_name,
-            pokemon=f'{target_pokemon.pokemon.name}: {target_pokemon.mote}'
-        )
 
         bundle = RewardBundle.objects.create(
             name=f'Pokemon {target_pokemon.mote} Robado a {target_profile.streamer_name}',
@@ -74,6 +73,13 @@ class StealPokemonHandler(StrongAttackHandler):
         StreamerRewardInventory.objects.create(
             profile=self.user.masters_profile,
             reward=bundle
+        )
+
+        StealLog.objects.create(
+            source=self.user.masters_profile.streamer_name,
+            target=target_profile.streamer_name,
+            pokemon=f'{target_pokemon.pokemon.name}: {target_pokemon.mote}',
+            bundle=bundle
         )
 
         DataConsumer.send_custom_data(self.user.username, dict(
