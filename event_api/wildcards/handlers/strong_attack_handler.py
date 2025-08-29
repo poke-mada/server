@@ -18,8 +18,7 @@ class StrongAttackHandler(AttackHandler):
             return 'No tienes suficiente karma'
 
         if target_profile.has_shield():
-            reverses = target_profile.wildcard_inventory.get(
-                wildcard=Wildcard.objects.filter(handler_key='escudo_protector').first())
+            reverses = target_profile.wildcard_inventory.get(wildcard=Wildcard.objects.filter(handler_key='escudo_protector').first())
             reverses.quantity -= 1
             reverses.save()
             data = dict(
