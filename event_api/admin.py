@@ -354,6 +354,15 @@ class WildcardUpdateLogAdmin2(admin.ModelAdmin):
     list_display = ('profile', 'message')
     readonly_fields = ('profile', 'message')
 
+    def has_add_permission(self, *args, **kwargs):
+        return False
+
+    def has_change_permission(self, *args, **kwargs):
+        return False
+
+    def has_delete_permission(self, *args, **kwargs):
+        return False
+
 
 @admin.register(SegmentConfiguration)
 class SegmentConfigurationAdmin(admin.ModelAdmin):
