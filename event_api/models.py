@@ -793,9 +793,9 @@ class Imposter(models.Model):
 
 
 class ProfileImposterLog(models.Model):
-    profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name="imposters")
-    imposter = models.ForeignKey(Imposter, on_delete=models.SET_NULL, null=True)
-    registered_amount = models.IntegerField(default=0, null=True, blank=True)
+    profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name="imposters", verbose_name="Jugador")
+    imposter = models.ForeignKey(Imposter, on_delete=models.SET_NULL, null=True, verbose_name='Impostor')
+    registered_amount = models.IntegerField(default=0, null=True, blank=True, verbose_name='Monedas Registradas')
     created_on = models.DateTimeField(auto_now_add=True)
 
     @transaction.atomic
