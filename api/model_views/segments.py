@@ -42,12 +42,12 @@ class SegmentConfigurationViewSet(viewsets.ReadOnlyModelViewSet):
                 return Response(data=dict(segment=current_segment.segment, next_date=timezone.now().strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=False), status=status.HTTP_200_OK)
 
             if current_tournament_config.starts_at < now:
-                return Response(data=dict(segment=current_segment.segment, next_date=current_tournament_config.starts_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True), status=status.HTTP_200_OK)
+                return Response(data=dict(segment=current_segment.segment, next_date=current_tournament_config.ends_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True), status=status.HTTP_200_OK)
 
-            return Response(data=dict(segment=current_segment.segment, next_date=current_tournament_config.ends_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True), status=status.HTTP_200_OK)
+            return Response(data=dict(segment=current_segment.segment, next_date=current_tournament_config.starts_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True), status=status.HTTP_200_OK)
 
         if current_segment_config.starts_at < now:
-            return Response(data=dict(segment=current_segment.segment, next_date=current_segment_config.starts_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True), status=status.HTTP_200_OK)
+            return Response(data=dict(segment=current_segment.segment, next_date=current_segment_config.ends_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True), status=status.HTTP_200_OK)
 
-        return Response(data=dict(segment=current_segment.segment, next_date=current_segment_config.ends_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True), status=status.HTTP_200_OK)
+        return Response(data=dict(segment=current_segment.segment, next_date=current_segment_config.starts_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True), status=status.HTTP_200_OK)
 
