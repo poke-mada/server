@@ -466,10 +466,13 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         greninja_tree = Evolution.search_evolution_chain(658)
 
         releasable_mons = TrainerPokemon.objects.exclude(
-            Q(pokemon__dex_number__in=banned_mons) |
-            Q(pokemon__dex_number__in=greninja_tree) |
-            Q(pokemon__dex_number__in=death_mons) |
-            Q(pokemon__dex_number__in=starter_tree)
+            pokemon__dex_number__in=banned_mons
+        ).exclude(
+            pokemon__dex_number__in=greninja_tree
+        ).exclude(
+            pokemon__dex_number__in=death_mons
+        ).exclude(
+            pokemon__dex_number__in=starter_tree
         ).filter(
             trainer=profile.trainer,
             is_shiny=False
@@ -483,21 +486,22 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_shinies(self, request, *args, **kwargs):
         profile = request.user.masters_profile
         banned_mons = BannedPokemon.objects.filter(profile=profile).values_list('dex_number', flat=True)
-        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), profile=profile,
-                                             revived=False).values_list('dex_number', flat=True).values_list(
-            'dex_number', flat=True)
+        death_mons = DeathLog.objects.filter(profile=profile, revived=False).values_list('dex_number', flat=True)
 
         starter_tree = Evolution.search_evolution_chain(profile.starter_dex_number)
         greninja_tree = Evolution.search_evolution_chain(658)
 
         releasable_mons = TrainerPokemon.objects.exclude(
-            Q(pokemon__dex_number__in=banned_mons) |
-            Q(pokemon__dex_number__in=greninja_tree) |
-            Q(pokemon__dex_number__in=death_mons) |
-            Q(pokemon__dex_number__in=starter_tree)
+            pokemon__dex_number__in=banned_mons
+        ).exclude(
+            pokemon__dex_number__in=greninja_tree
+        ).exclude(
+            pokemon__dex_number__in=death_mons
+        ).exclude(
+            pokemon__dex_number__in=starter_tree
         ).filter(
             trainer=profile.trainer,
-            is_shiny=False
+            is_shiny=True
         )
 
         serialized = ReleasableSerializer(releasable_mons, many=True)
