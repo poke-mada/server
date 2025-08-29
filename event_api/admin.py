@@ -102,7 +102,7 @@ class StreamerFilter(admin.SimpleListFilter):
 class CoinTransactionAdmin(admin.ModelAdmin):
     list_display = ('created_on', 'profile__streamer_name', 'reason', 'amount', 'TYPE',)
     readonly_fields = ('created_on', 'profile', 'amount', 'reason', 'TYPE')
-    search_fields = ('profile__streamer_name', 'TYPE')
+    search_fields = ('profile__streamer_name', 'TYPE', 'reason')
     list_filter = (StreamerFilter,)
 
     def has_add_permission(self, request, obj=None):
