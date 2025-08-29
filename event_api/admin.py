@@ -151,7 +151,7 @@ class BannedPokemonAdmin(admin.ModelAdmin):
 
 @admin.register(ProfileImposterLog, site=staff_site)
 class ProfileImposterLogAdmin(admin.ModelAdmin):
-    list_display = ('profile', 'imposter', 'registered_amount')
+    list_display = ('profile', 'imposter', 'registered_amount', 'segment')
     search_fields = ('profile__streamer_name', 'imposter__message',)
     list_filter = (StreamerFilter,)
     autocomplete_fields = ('profile', 'imposter')
