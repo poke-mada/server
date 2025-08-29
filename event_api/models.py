@@ -772,6 +772,7 @@ class DeathLog(models.Model):
     dex_number = models.IntegerField(null=True, blank=False)
     species_name = models.CharField(max_length=100)
     mote = models.CharField(max_length=100)
+    segment = models.IntegerField(null=True, blank=False, default=1)
     revived = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):

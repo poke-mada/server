@@ -738,8 +738,13 @@ def box_saver(boxes, profile: MastersProfile):
                                                      revived=False).first()
                 if not last_death:
                     species_name = Pokemon.objects.filter(dex_number=dex_number).first().name
-                    DeathLog.objects.create(dex_number=dex_number, profile=profile,
-                                            species_name=species_name, mote=pokemon['mote'])
+                    DeathLog.objects.create(
+                        dex_number=dex_number,
+                        profile=profile,
+                        species_name=species_name,
+                        mote=pokemon['mote'],
+                        segment=current_segment.segment
+                    )
                     current_segment.death_count += 1
                     profile.death_count += 1
 
