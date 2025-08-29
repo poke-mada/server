@@ -1,7 +1,21 @@
-from django.http import Http404
+from zoneinfo import ZoneInfo
+
+from django.http import Http404, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render
+from django.views.decorators.http import require_POST
 
 from event_api.models import MastersProfile
+
+
+@require_POST
+def set_timezone(request):
+    tz = request.POST.get("tz")
+    try:
+        ZoneInfo(tz)  # valida que sea IANA
+    except Exception:
+        return HttpResponseBadRequest("Invalid timezone")
+    request.session["django_timezone"] = tz
+    return JsonResponse({"ok": True, "tz": tz})
 
 
 def overlay(request, streamer_name):

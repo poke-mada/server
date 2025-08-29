@@ -65,6 +65,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.locale.LocaleMiddleware",          # opcional, si usas i18n
+    "pokemada.middleware.UserTimezoneMiddleware",
 ]
 
 ROOT_URLCONF = 'pokemada.urls'
@@ -113,12 +115,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
+USE_TZ = True              # obliga a usar tz-aware datetimes
+TIME_ZONE = "UTC"          # todo se guarda/transforma en UTC internamente
 
 USE_I18N = True
-
-USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

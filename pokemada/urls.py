@@ -6,7 +6,7 @@ from admin_panel.admin import staff_site
 from api.data_loader_view import LoadJsonDataView
 from api.model_views.evolutions import EvolutionsUploadView
 from api.views import FileUploadView, FileUploadManyView, LoadItemNamesView
-from pokemada.views import overlay, showdown
+from pokemada.views import overlay, showdown, set_timezone
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,4 +23,5 @@ urlpatterns = [
     path('load_item_names/', LoadItemNamesView.as_view()),
     re_path(r"^static/(?P<path>.*)$", serve, {"document_root": 'statics/'}),
     path('_nested_admin/', include('nested_admin.urls')),
+    path("tz/set/", set_timezone, name="set_timezone"),
 ]

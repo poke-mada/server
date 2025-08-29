@@ -8,7 +8,8 @@ from nested_admin.nested import NestedStackedInline, NestedTabularInline, Nested
 from admin_panel.admin import staff_site
 from event_api.models import CoinTransaction, Wildcard, StreamerWildcardInventoryItem, \
     WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings, DeathLog, ProfileImposterLog, \
-    Imposter, ProfilePlatformUrl, Newsletter, BannedPokemon, Evolution, ProfileNotification, Sanction, WildcardUpdateLog
+    Imposter, ProfilePlatformUrl, Newsletter, BannedPokemon, Evolution, ProfileNotification, Sanction, \
+    WildcardUpdateLog, SegmentConfiguration
 from event_api.wildcards import WildCardExecutorRegistry
 from event_api.wildcards.handlers.settings.models import GiveItemHandlerSettings, GiveMoneyHandlerSettings, \
     GiveGameMoneyHandlerSettings, GiveRandomMoneyHandlerSettings, TimerHandlerSettings
@@ -346,3 +347,13 @@ admin.site.register(User, UserProfileAdmin)
 class WildcardUpdateLogAdmin(admin.ModelAdmin):
     list_display = ('profile', 'message')
     readonly_fields = ('profile', 'message')
+
+
+@admin.register(SegmentConfiguration)
+class SegmentConfigurationAdmin(admin.ModelAdmin):
+    list_display = ('segment', 'starts_at', 'ends_at')
+
+
+@admin.register(SegmentConfiguration, site=staff_site)
+class SegmentConfigurationAdmin2(admin.ModelAdmin):
+    list_display = ('segment', 'starts_at', 'ends_at')

@@ -614,7 +614,8 @@ class MastersSegmentSettings(models.Model):
         current_segment.save()
 
         money_amount = clamp(15 - current_segment.death_count, 0, 15)
-        if money_amount > 0:
+        current_settigns: SegmentConfiguration = SegmentConfiguration.objects.filter(segment=current_segment.segment).first()
+        if money_amount > 0 and current_segment.finished_at < current_settigns.ends_at:
             CoinTransaction.objects.create(
                 profile=self.profile,
                 TYPE=CoinTransaction.INPUT,
@@ -939,3 +940,14 @@ class Sanction(models.Model):
 class WildcardUpdateLog(models.Model):
     profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name='wildcard_update_logs')
     message = models.TextField()
+
+
+class SegmentConfiguration(models.Model):
+    segment = models.IntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    starts_at = models.DateTimeField()
+    ends_at = models.DateTimeField()
+
+    class Meta:
+        verbose_name_plural = 'Configuraciones de tramo'
+        verbose_name = 'Configuracion de tramo'
