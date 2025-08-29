@@ -21,7 +21,7 @@ from rest_framework.views import APIView
 from api.permissions import IsTrainer, IsRoot
 from event_api.models import Wildcard, CoinTransaction, \
     GameEvent, DeathLog, MastersProfile, ProfileImposterLog, Imposter, Newsletter, MastersSegmentSettings, \
-    BannedPokemon, ErrorLog, WildcardUpdateLog
+    BannedPokemon, ErrorLog, WildcardUpdateLog, Evolution
 from event_api.serializers import SaveFileSerializer, WildcardSerializer, WildcardWithInventorySerializer, \
     SimplifiedWildcardSerializer, GameEventSerializer, SelectProfileSerializer, ProfileSerializer, \
     SelectMastersProfileSerializer, DeathLogSerializer, ReleasableSerializer, EditableProfileSerializer
@@ -459,17 +459,20 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_releasable(self, request, *args, **kwargs):
         profile = request.user.masters_profile
         banned_mons = BannedPokemon.objects.filter(profile=profile).values_list('dex_number', flat=True)
-        death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), profile=profile,
-                                             revived=False).values_list('dex_number', flat=True).values_list(
-            'dex_number', flat=True)
-        boxed_mons = TrainerBox.objects.filter(trainer=profile.trainer).values_list(
-            'slots__pokemon__pokemon__dex_number', flat=True)
+        death_mons = DeathLog.objects.filter(profile=profile, revived=False).values_list('dex_number', flat=True)
+
+        starter_tree = Evolution.search_evolution_chain(profile.starter_dex_number)
+        greninja_tree = Evolution.search_evolution_chain(658)
+
         releasable_mons = TrainerPokemon.objects.exclude(
-            Q(pokemon__dex_number__in=banned_mons) | Q(pokemon__dex_number__in=[658, profile.starter_dex_number]) | Q(
-                pokemon__dex_number__in=death_mons)
-        ).filter(Q(team__trainer=profile.trainer) | Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False,
-                                                      trainerboxslot__box__trainer=profile.trainer)).filter(
-            is_shiny=False)
+            Q(pokemon__dex_number__in=banned_mons) |
+            Q(pokemon__dex_number__in=greninja_tree) |
+            Q(pokemon__dex_number__in=death_mons) |
+            Q(pokemon__dex_number__in=starter_tree)
+        ).filter(
+            trainer=profile.trainer,
+            is_shiny=False
+        )
 
         serialized = ReleasableSerializer(releasable_mons, many=True)
 
@@ -482,14 +485,20 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         death_mons = DeathLog.objects.filter(~Q(dex_number__in=banned_mons), profile=profile,
                                              revived=False).values_list('dex_number', flat=True).values_list(
             'dex_number', flat=True)
-        boxed_mons = TrainerBox.objects.filter(trainer=profile.trainer).values_list(
-            'slots__pokemon__pokemon__dex_number', flat=True)
+
+        starter_tree = Evolution.search_evolution_chain(profile.starter_dex_number)
+        greninja_tree = Evolution.search_evolution_chain(658)
+
         releasable_mons = TrainerPokemon.objects.exclude(
-            Q(pokemon__dex_number__in=banned_mons) | Q(pokemon__dex_number__in=[658, profile.starter_dex_number]) | Q(
-                pokemon__dex_number__in=death_mons)
-        ).filter(Q(team__trainer=profile.trainer) | Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False,
-                                                      trainerboxslot__box__trainer=profile.trainer)).filter(
-            is_shiny=True)
+            Q(pokemon__dex_number__in=banned_mons) |
+            Q(pokemon__dex_number__in=greninja_tree) |
+            Q(pokemon__dex_number__in=death_mons) |
+            Q(pokemon__dex_number__in=starter_tree)
+        ).filter(
+            trainer=profile.trainer,
+            is_shiny=False
+        )
+
         serialized = ReleasableSerializer(releasable_mons, many=True)
 
         return Response(serialized.data, status=status.HTTP_200_OK)

@@ -615,7 +615,7 @@ class MastersSegmentSettings(models.Model):
         current_segment.save()
 
         money_amount = clamp(15 - current_segment.death_count, 0, 15)
-        current_settigns: SegmentConfiguration = SegmentConfiguration.objects.filter(segment=current_segment.segment).first()
+        current_settigns: SegmentConfiguration = SegmentConfiguration.objects.filter(segment=current_segment.segment, is_tournament=False).first()
         if money_amount > 0 and current_segment.finished_at < current_settigns.ends_at:
             CoinTransaction.objects.create(
                 profile=self.profile,
