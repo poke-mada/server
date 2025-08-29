@@ -49,6 +49,7 @@ class CoinTransaction(models.Model):
     reason = models.TextField(blank=False, default="No reason provided")
     TYPE = models.SmallIntegerField(choices=TRANSACTION_TYPES, default=INPUT)
     created_on = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    segment = models.IntegerField(default=1)
 
     def save(self, *args, **kwargs):
         new_ = super(CoinTransaction, self).save(*args, **kwargs)
