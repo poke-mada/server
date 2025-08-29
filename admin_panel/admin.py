@@ -39,6 +39,7 @@ class InventoryGiftQuerySequenceLogInline(NestedStackedInline):
 class GiftSequenceAdmin(admin.ModelAdmin):
     list_display = ('name', 'created', 'modified', 'run_times')
     readonly_fields = ('created', 'modified', 'run_times')
+    list_filter = ('name',)
     autocomplete_fields = ('targets',)
     actions = [run_sequence]
 
