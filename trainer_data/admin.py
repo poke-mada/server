@@ -16,7 +16,7 @@ def ban_full_tree(modeladmin, request, queryset):
                 dex_number=pokemon.dex_number,
                 profile=obj.trainer.get_trainer_profile(),
                 species_name=pokemon.name,
-                reason='El pokemon se liberó con Venta Ilegal'
+                reason='El pokemon se murio 2 veces'
             )
 
 

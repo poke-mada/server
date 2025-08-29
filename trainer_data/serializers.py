@@ -149,13 +149,13 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
 
         surrogated_mons = obj.pokemon.surrogate_dex()
 
-        if AlreadyCapturedLog.objects.filter(pid=obj.pid, profile=profile, dex_number__in=surrogated_mons).exists():
-            return False
+        # if AlreadyCapturedLog.objects.filter(pid=obj.pid, profile=profile, dex_number__in=surrogated_mons).exists():
+        #     return False
 
         if DeathLog.objects.filter(profile=profile, dex_number__in=surrogated_mons, revived=False).exists():
             return False
 
-        if obj.pokemon.dex_number == 658:
+        if obj.pokemon.dex_number in Evolution.objects.get(dex_number=658).surrogate():
             return False
 
         if profile and profile.starter_dex_number:
