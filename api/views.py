@@ -425,9 +425,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
         match localization:
             case 'en':
-                serialized = EnROTrainerPokemonSerializer(trainer.current_team.team, many=True)
+                serialized = EnROTrainerPokemonSerializer(trainer.current_team.team, context=dict(request=request), many=True)
             case _:
-                serialized = ROTrainerPokemonSerializer(trainer.current_team.team, many=True)
+                serialized = ROTrainerPokemonSerializer(trainer.current_team.team, context=dict(request=request), many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
