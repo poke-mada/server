@@ -286,10 +286,11 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
         imposter = Imposter.objects.filter(message__iexact=message).first()
 
-        ProfileImposterLog.objects.get_or_create(
-            profile=current_profile,
-            imposter=imposter
-        )
+        if imposter.segment == current_profile.current_segment_settings.segment:
+            ProfileImposterLog.objects.get_or_create(
+                profile=current_profile,
+                imposter=imposter
+            )
 
         trainer = Trainer.get_from_user(user)
         serializer = self.get_serializer(trainer)

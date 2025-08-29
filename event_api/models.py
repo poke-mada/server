@@ -795,6 +795,7 @@ class MastersSegment(models.Model):
 
 class Imposter(models.Model):
     message = models.CharField(max_length=100, unique=True, help_text="texto en MINUSCULAS para encontrar al impostor")
+    segment = models.IntegerField(default=1, verbose_name="Tramo")
     coin_reward = models.IntegerField(default=1,
                                       help_text='Maxima cantidad de monedas a obtener (SIN CONTAR A LOS PRIMEROS 10)')
 
