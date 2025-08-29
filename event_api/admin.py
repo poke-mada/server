@@ -349,6 +349,12 @@ class WildcardUpdateLogAdmin(admin.ModelAdmin):
     readonly_fields = ('profile', 'message')
 
 
+@admin.register(WildcardUpdateLog, site=staff_site)
+class WildcardUpdateLogAdmin2(admin.ModelAdmin):
+    list_display = ('profile', 'message')
+    readonly_fields = ('profile', 'message')
+
+
 @admin.register(SegmentConfiguration)
 class SegmentConfigurationAdmin(admin.ModelAdmin):
     list_display = ('segment', 'is_tournament', 'starts_at', 'ends_at')
