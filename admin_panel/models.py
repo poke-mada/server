@@ -118,6 +118,7 @@ class DirectGiftQuerySequence(models.Model):
                             profile=target,
                             amount=abs(gift.quantity),
                             TYPE=CoinTransaction.OUTPUT if gift.quantity < 0 else CoinTransaction.INPUT,
+                            segment=target.current_segment_settings.segment,
                             reason=f'Se entregaron {gift.quantity} usando DGL: {self.name}'
                         )
                     elif gift.type == DirectGiftQuerySequence.WILDCARD:
@@ -147,6 +148,7 @@ class DirectGiftQuerySequence(models.Model):
                             profile=target,
                             amount=abs(gift.quantity),
                             TYPE=CoinTransaction.OUTPUT if gift.quantity < 0 else CoinTransaction.INPUT,
+                            segment=target.current_segment_settings.segment,
                             reason=f'Se entregaron {gift.quantity} usando DGL: {self.name}'
                         )
                     elif gift.type == DirectGiftQuerySequence.WILDCARD:

@@ -15,6 +15,7 @@ class GiveMoneyHandler(BaseWildCardHandler):
             profile=self.user.masters_profile,
             amount=money_quantity * amount,
             TYPE=CoinTransaction.INPUT,
+            segment=self.user.masters_profile.current_segment_settiings.segment,
             reason=f'se uso la carta {self.wildcard.name} {amount} veces'
         )
         return True

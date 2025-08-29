@@ -205,6 +205,7 @@ class Wildcard(models.Model):
             profile=user.masters_profile,
             amount=self.get_price(user) * amount_to_buy,
             TYPE=CoinTransaction.OUTPUT,
+            segment=user.masters_profile.current_segment_settings.segment,
             reason=f'se compró la carta {self.name}'
         )
 
@@ -622,6 +623,7 @@ class MastersSegmentSettings(models.Model):
                 profile=self.profile,
                 TYPE=CoinTransaction.INPUT,
                 amount=money_amount,
+                segment=self.profile.current_segment_settings.segment,
                 reason=f'Se han dado {money_amount} monedas por terminar el tramo con {current_segment.death_count} muertes'
             )
 
@@ -823,6 +825,7 @@ class ProfileImposterLog(models.Model):
             CoinTransaction.objects.create(
                 profile=self.profile,
                 amount=rand_amount,
+                segment=self.profile.current_segment_settings.segment,
                 reason=f'encontrado {self.imposter.message}',
                 TYPE=CoinTransaction.INPUT
             )
@@ -929,6 +932,7 @@ class Sanction(models.Model):
             profile=self.profile,
             reason=self.message,
             TYPE=CoinTransaction.OUTPUT,
+            segment=self.profile.current_segment_settings.segment,
             amount=self.money_substracted
         )
 

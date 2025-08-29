@@ -20,6 +20,7 @@ class StealMoneyHandler(AttackHandler):
             profile=target_profile,
             amount=money_quantity,
             TYPE=CoinTransaction.OUTPUT,
+            segment=target_profile.current_segment_settings.segment,
             reason=f'se uso la carta {self.wildcard.name} contra ti {amount} veces'
         )
 
@@ -27,6 +28,7 @@ class StealMoneyHandler(AttackHandler):
             profile=self.user.masters_profile,
             amount=money_quantity,
             TYPE=CoinTransaction.INPUT,
+            segment=self.user.masters_profile.current_segment_settings.segment,
             reason=f'se uso la carta {self.wildcard.name} {amount} veces'
         )
         return super().execute(context)

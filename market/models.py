@@ -56,33 +56,7 @@ class MarketTransactor(object):
     __slots__ = ['creator', 'items']
 
     def perform_transaction(self, target: MastersProfile, force_transaction=False, transaction_id=None, post_id=None):
-        vendor = self.creator
-        items = self.items.all()
-        for item in items:
-            if item.item_type == 0:
-                CoinTransaction.objects.create(
-                    profile=vendor,
-                    TYPE=CoinTransaction.OUTPUT,
-                    amount=item.quantity,
-                    reason=f'Transaccion de Mercado #{transaction_id} para publicacion #{post_id}'
-                )
-                CoinTransaction.objects.create(
-                    profile=target,
-                    TYPE=CoinTransaction.INPUT,
-                    amount=item.quantity,
-                    reason=f'Transaccion de Mercado #{transaction_id} para publicacion #{post_id}'
-                )
-                continue
-
-            with transaction.atomic():
-                source_asset = item.banked_asset
-                asset, _ = BankedAsset.objects.get_or_create(user=target, object_id=source_asset.object_id,
-                                                             content_type=source_asset.content_type)
-                asset.quantity += item.quantity
-                asset.save()
-
-                source_asset.quantity -= item.quantity
-                source_asset.save()
+        return
 
 
 class MarketPost(models.Model, MarketTransactor):

@@ -199,6 +199,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
                     profile=user.masters_profile,
                     amount=reward.quantity,
                     TYPE=CoinTransaction.INPUT,
+                    segment=user.masters_profile.current_segment_settings.segment,
                     reason=f'Se obtuvo {reward.quantity} moneda/s al canjear el premio {bundle.id}'
                 )
             elif reward.reward_type == reward.WILDCARD:
