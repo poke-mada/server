@@ -37,7 +37,6 @@ class SegmentConfigurationViewSet(viewsets.ReadOnlyModelViewSet):
 
             return Response(data=dict(segment=current_segment.segment, next_date=current_segment_config.starts_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True, is_before=True), status=status.HTTP_200_OK)
 
-
         current_tournament_config = SegmentConfiguration.objects.filter(
             is_tournament=True,
             ends_at__gt=now,

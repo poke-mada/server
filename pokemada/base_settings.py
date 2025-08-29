@@ -61,13 +61,13 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     "django.middleware.security.SecurityMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "django.middleware.locale.LocaleMiddleware",
+    "pokemada.middleware.UserTimezoneMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "django.middleware.locale.LocaleMiddleware",          # opcional, si usas i18n
-    "pokemada.middleware.UserTimezoneMiddleware",
 ]
 
 ROOT_URLCONF = 'pokemada.urls'
