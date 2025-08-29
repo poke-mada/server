@@ -361,7 +361,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['get'], detail=True)
     def list_boxes(self, request, pk=None, *args, **kwargs):
         clean_pk = pk
-        if pk == 'undefined' or pk == 0 or pk == '0' or pk == 'NaN':
+        if pk == 'undefined' or pk == 0 or pk == '0' or pk == 'NaN' or pk == None:
             current_profile: MastersProfile = request.user.masters_profile
             clean_pk = current_profile.trainer_id
 
@@ -406,9 +406,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         trainer = Trainer.objects.get(id=pk)
         match localization:
             case 'en':
-                serialized = EnTrainerSerializer(trainer)
+                serialized = EnTrainerSerializer(trainer, context=dict(request=request))
             case _:
-                serialized = TrainerSerializer(trainer)
+                serialized = TrainerSerializer(trainer, context=dict(request=request))
 
         return Response(serialized.data, status=status.HTTP_200_OK)
 
