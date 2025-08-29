@@ -14,6 +14,8 @@ class ProfileNotificationViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         profile: MastersProfile = request.user.masters_profile
+        if profile.profile_type == MastersProfile.COACH:
+            profile = profile.coached
         last_24_hours = (timezone.now() - timedelta(hours=24))
         queryset = self.get_queryset().filter(profile=profile, created_at__gte=last_24_hours).order_by('-created_at')
         serialized = self.serializer_class(queryset, many=True)

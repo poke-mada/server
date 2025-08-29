@@ -379,19 +379,22 @@ class MastersProfile(models.Model):
             revived=False
         ).values_list('dex_number', flat=True)
 
-        boxed_mons = TrainerBox.objects.filter(
-            trainer=self.trainer
-        ).values_list('slots__pokemon__pokemon__dex_number', flat=True)
+        starter_tree = Evolution.search_evolution_chain(self.starter_dex_number)
+        greninja_tree = Evolution.search_evolution_chain(658)
 
         last_version = TrainerPokemon.objects.exclude(
-            Q(pokemon__dex_number__in=banned_mons) |
-            Q(pokemon__dex_number__in=[658, self.starter_dex_number]) |
-            Q(pokemon__dex_number__in=death_mons)
+            pokemon__dex_number__in=banned_mons
+        ).exclude(
+            pokemon__dex_number__in=greninja_tree
+        ).exclude(
+            pokemon__dex_number__in=death_mons
+        ).exclude(
+            pokemon__dex_number__in=starter_tree
         ).filter(
-            Q(team__trainer=self.trainer) |
-            Q(pokemon__dex_number__in=boxed_mons, trainerboxslot__isnull=False,
-              trainerboxslot__box__trainer=self.trainer)
-        ).filter(pokemon__dex_number=dex_number).last()
+            trainer=self.trainer
+        ).filter(
+            pokemon__dex_number=dex_number
+        ).last()
 
         return last_version
 
