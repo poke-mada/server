@@ -945,6 +945,7 @@ class WildcardUpdateLog(models.Model):
 
 class SegmentConfiguration(models.Model):
     segment = models.IntegerField(default=1)
+    is_tournament = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     starts_at = models.DateTimeField()
     ends_at = models.DateTimeField()
