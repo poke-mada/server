@@ -353,7 +353,7 @@ class WildcardUpdateLogAdmin(admin.ModelAdmin):
 class WildcardUpdateLogAdmin2(admin.ModelAdmin):
     list_display = ('profile', 'message')
     readonly_fields = ('profile', 'message')
-    list_filter = ('profile',)
+    list_filter = (StreamerFilter,)
 
     def has_add_permission(self, *args, **kwargs):
         return False
