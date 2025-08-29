@@ -31,7 +31,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # Application definition
-
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 100
 INSTALLED_APPS = [
     "daphne",
     'nested_admin',
