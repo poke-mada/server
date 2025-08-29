@@ -31,23 +31,24 @@ class SegmentConfigurationViewSet(viewsets.ReadOnlyModelViewSet):
             segment=current_segment.segment
         ).first()
 
-        if not current_segment_config:
-            current_tournament_config = SegmentConfiguration.objects.filter(
-                is_tournament=True,
-                ends_at__gt=now,
-                segment=current_segment.segment
-            ).first()
+        if current_segment_config:
+            if current_segment_config.starts_at < now:
+                return Response(data=dict(segment=current_segment.segment, next_date=current_segment_config.ends_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True, is_before=False), status=status.HTTP_200_OK)
 
-            if not current_tournament_config:
-                return Response(data=dict(segment=current_segment.segment, next_date=timezone.now().strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=False), status=status.HTTP_200_OK)
+            return Response(data=dict(segment=current_segment.segment, next_date=current_segment_config.starts_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True, is_before=True), status=status.HTTP_200_OK)
 
-            if current_tournament_config.starts_at < now:
-                return Response(data=dict(segment=current_segment.segment, next_date=current_tournament_config.ends_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True), status=status.HTTP_200_OK)
 
-            return Response(data=dict(segment=current_segment.segment, next_date=current_tournament_config.starts_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True), status=status.HTTP_200_OK)
+        current_tournament_config = SegmentConfiguration.objects.filter(
+            is_tournament=True,
+            ends_at__gt=now,
+            segment=current_segment.segment
+        ).first()
 
-        if current_segment_config.starts_at < now:
-            return Response(data=dict(segment=current_segment.segment, next_date=current_segment_config.ends_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True), status=status.HTTP_200_OK)
+        if not current_tournament_config:
+            return Response(data=dict(segment=current_segment.segment, next_date=timezone.now().strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=False, is_before=False), status=status.HTTP_200_OK)
 
-        return Response(data=dict(segment=current_segment.segment, next_date=current_segment_config.starts_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True), status=status.HTTP_200_OK)
+        if current_tournament_config.starts_at < now:
+            return Response(data=dict(segment=current_segment.segment, next_date=current_tournament_config.ends_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True, is_before=False), status=status.HTTP_200_OK)
+
+        return Response(data=dict(segment=current_segment.segment, next_date=current_tournament_config.starts_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), is_tournament=True, is_before=True), status=status.HTTP_200_OK)
 
