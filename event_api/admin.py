@@ -398,9 +398,6 @@ class AlreadyCapturedLogAdmin(admin.ModelAdmin):
         'created_at',
     )
 
-    def has_add_permission(self, *args, **kwargs):
-        return False
-
     def has_change_permission(self, *args, **kwargs):
         return False
 
