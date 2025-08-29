@@ -776,18 +776,25 @@ class FileUploadView(APIView):
 
             if trainer.update_gym_badge(2, (save_results['badge_count'] & 0b00000010) != 0):
                 profile.give_wildcard(Wildcard.objects.get(id=85), notification='Has Ganado el 2do Gimnasio!')
+                profile.gym_2_save = trainer.saves.last()
             if trainer.update_gym_badge(3, (save_results['badge_count'] & 0b00000100) != 0):
                 profile.give_wildcard(Wildcard.objects.get(id=86), notification='Has Ganado el 3er Gimnasio!')
+                profile.gym_3_save = trainer.saves.last()
             if trainer.update_gym_badge(4, (save_results['badge_count'] & 0b00001000) != 0):
                 profile.give_wildcard(Wildcard.objects.get(id=87), notification='Has Ganado el 4to Gimnasio!')
+                profile.gym_4_save = trainer.saves.last()
             if trainer.update_gym_badge(5, (save_results['badge_count'] & 0b00010000) != 0):
                 profile.give_wildcard(Wildcard.objects.get(id=88), notification='Has Ganado el 5to Gimnasio!')
+                profile.gym_5_save = trainer.saves.last()
             if trainer.update_gym_badge(6, (save_results['badge_count'] & 0b00100000) != 0):
                 profile.give_wildcard(Wildcard.objects.get(id=89), notification='Has Ganado el 6to Gimnasio!')
+                profile.gym_6_save = trainer.saves.last()
             if trainer.update_gym_badge(7, (save_results['badge_count'] & 0b01000000) != 0):
                 profile.give_wildcard(Wildcard.objects.get(id=90), notification='Has Ganado el 7mo Gimnasio!')
+                profile.gym_7_save = trainer.saves.last()
             if trainer.update_gym_badge(8, (save_results['badge_count'] & 0b10000000) != 0):
                 profile.give_wildcard(Wildcard.objects.get(id=91), notification='Has Ganado el 8vo Gimnasio!')
+                profile.gym_8_save = trainer.saves.last()
 
             segment = 1
             if trainer.gym_badge_3:

@@ -27,6 +27,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 CSRF_TRUSTED_ORIGINS = [
     'https://pokemon.para-mada.com',
     'https://www.pokemon.para-mada.com',
+    'http://localhost'
 ]
 
 # Application definition

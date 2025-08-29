@@ -349,6 +349,13 @@ class MastersProfile(models.Model):
     has_animated_overlay = models.BooleanField(default=False, verbose_name='Overlay Animado')
     showdown_token = models.OneToOneField("admin_panel.ShowdownToken", null=True, blank=True,
                                           verbose_name="Token para showdown", on_delete=models.SET_NULL)
+    gym_2_save = models.FileField(upload_to='profile/saves/', null=True, blank=True)
+    gym_3_save = models.FileField(upload_to='profile/saves/', null=True, blank=True)
+    gym_4_save = models.FileField(upload_to='profile/saves/', null=True, blank=True)
+    gym_5_save = models.FileField(upload_to='profile/saves/', null=True, blank=True)
+    gym_6_save = models.FileField(upload_to='profile/saves/', null=True, blank=True)
+    gym_7_save = models.FileField(upload_to='profile/saves/', null=True, blank=True)
+    gym_8_save = models.FileField(upload_to='profile/saves/', null=True, blank=True)
 
     def __str__(self):
         return self.streamer_name or f"U:{self.user.username}"
