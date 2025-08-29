@@ -112,6 +112,7 @@ class Wildcard(models.Model):
     is_wip = models.BooleanField(default=False, verbose_name="Esta en desarrollo")
     extra_url = models.URLField(blank=True, null=True)
     always_available = models.BooleanField(default=False)  # models.py (dentro de Wildcard)
+    segment_available = models.IntegerField(default=0)
     handler_key = models.CharField(max_length=100, blank=True, null=True,
                                    help_text="Identificador del handler a usar (ej: 'give_item')")
 
