@@ -9,7 +9,7 @@ from admin_panel.admin import staff_site
 from event_api.models import CoinTransaction, Wildcard, StreamerWildcardInventoryItem, \
     WildcardLog, ErrorLog, GameEvent, GameMod, MastersProfile, MastersSegmentSettings, DeathLog, ProfileImposterLog, \
     Imposter, ProfilePlatformUrl, Newsletter, BannedPokemon, Evolution, ProfileNotification, Sanction, \
-    WildcardUpdateLog, SegmentConfiguration, StealLog
+    WildcardUpdateLog, SegmentConfiguration, StealLog, AlreadyCapturedLog
 from event_api.wildcards import WildCardExecutorRegistry
 from event_api.wildcards.handlers.settings.models import GiveItemHandlerSettings, GiveMoneyHandlerSettings, \
     GiveGameMoneyHandlerSettings, GiveRandomMoneyHandlerSettings, TimerHandlerSettings
@@ -378,3 +378,31 @@ class SegmentConfigurationAdmin2(admin.ModelAdmin):
 @admin.register(StealLog)
 class StealLogAdmin(admin.ModelAdmin):
     list_display = ('created_on', 'source', 'target', 'pokemon', 'bundle__name')
+
+    def has_add_permission(self, *args, **kwargs):
+        return False
+
+    def has_change_permission(self, *args, **kwargs):
+        return False
+
+    def has_delete_permission(self, *args, **kwargs):
+        return False
+
+
+@admin.register(AlreadyCapturedLog)
+class AlreadyCapturedLogAdmin(admin.ModelAdmin):
+    list_display = (
+        'profile',
+        'dex_number',
+        'pid',
+        'created_at',
+    )
+
+    def has_add_permission(self, *args, **kwargs):
+        return False
+
+    def has_change_permission(self, *args, **kwargs):
+        return False
+
+    def has_delete_permission(self, *args, **kwargs):
+        return False
