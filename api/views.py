@@ -337,7 +337,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         trainer_user = request.user
         if current_profile.profile_type == MastersProfile.COACH:
             trainer_user = current_profile.coached.user
-        wildcards = Wildcard.objects.filter(is_active=True)
+        wildcards = Wildcard.objects.filter(is_active=True, segment_available__lte=current_segment.segment)
 
         if current_profile.is_pro:
             wildcards = wildcards.exclude(name__iexact='ayuda del coach').exclude(pk=55)
