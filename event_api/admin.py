@@ -397,7 +397,6 @@ class AlreadyCapturedLogAdmin(admin.ModelAdmin):
         'pid',
         'created_at',
     )
-    autocomplete_fields = ('profile',)
 
     def has_change_permission(self, *args, **kwargs):
         return False
