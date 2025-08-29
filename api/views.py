@@ -705,7 +705,8 @@ def box_saver(boxes, profile: MastersProfile):
 
     for box in boxes_to_delete:
         for slot in box.slots.all():
-            slot.pokemon.delete()
+            if slot.pokemon:
+                slot.pokemon.delete()
 
     boxes_to_delete.delete()
     cache.delete(f'trainer_{trainer.pk}_box_0')
