@@ -351,9 +351,9 @@ class WildcardUpdateLogAdmin(admin.ModelAdmin):
 
 @admin.register(SegmentConfiguration)
 class SegmentConfigurationAdmin(admin.ModelAdmin):
-    list_display = ('segment', 'starts_at', 'ends_at')
+    list_display = ('segment', 'is_tournament', 'starts_at', 'ends_at')
 
 
 @admin.register(SegmentConfiguration, site=staff_site)
 class SegmentConfigurationAdmin2(admin.ModelAdmin):
-    list_display = ('segment', 'starts_at', 'ends_at')
+    list_display = ('segment', 'is_tournament', 'starts_at', 'ends_at')

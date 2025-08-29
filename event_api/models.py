@@ -838,7 +838,7 @@ class Newsletter(models.Model):
     for_noobs = models.BooleanField(default=False, verbose_name="Incluye Noobs")
     for_staff = models.BooleanField(default=False, verbose_name='Solo Para Staff')
     for_tester = models.BooleanField(default=False, verbose_name="Solo Para Testers")
-    targets = models.ManyToManyField('event_api.MastersProfile', null=True, blank=True)
+    targets = models.ManyToManyField('event_api.MastersProfile', blank=True)
     send_notification = models.BooleanField(default=False, verbose_name='Enviar Notificacion')
 
     def save(self, *args, **kwargs):
