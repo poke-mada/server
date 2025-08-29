@@ -2,6 +2,7 @@ from datetime import datetime
 from io import BytesIO
 
 from django.core.files import File
+from django.db.models import Q
 from django.utils import timezone
 from rest_framework import serializers
 
@@ -138,10 +139,11 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
 
     def get_stealable(self, obj: TrainerPokemon):
 
-        profile: MastersProfile = obj.get_owner().get_trainer_profile()
+        owner_profile: MastersProfile = obj.get_owner().get_trainer_profile()
+        performer_profile = self.context.get('request').user.masters_profile
 
         if MarketBlockLog.objects.filter(
-                profile=profile,
+                profile=owner_profile,
                 dex_number=obj.pokemon.dex_number,
                 blocked_until__gt=timezone.now()
         ).exists():
@@ -149,17 +151,17 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
 
         surrogated_mons = obj.pokemon.surrogate_dex()
 
-        # if AlreadyCapturedLog.objects.filter(pid=obj.pid, profile=profile, dex_number__in=surrogated_mons).exists():
-        #     return False
+        if AlreadyCapturedLog.objects.filter(pid=obj.pid, profile=performer_profile, dex_number__in=surrogated_mons).exists():
+            return False
 
-        if DeathLog.objects.filter(profile=profile, dex_number__in=surrogated_mons, revived=False).exists():
+        if DeathLog.objects.filter(Q(profile=owner_profile) | Q(profile=performer_profile), dex_number__in=surrogated_mons, revived=False).exists():
             return False
 
         if obj.pokemon.dex_number in Evolution.objects.get(dex_number=658).surrogate():
             return False
 
-        if profile and profile.starter_dex_number:
-            if obj.pokemon.dex_number in Evolution.objects.get(dex_number=profile.starter_dex_number).surrogate():
+        if owner_profile and owner_profile.starter_dex_number:
+            if obj.pokemon.dex_number in Evolution.objects.get(dex_number=owner_profile.starter_dex_number).surrogate():
                 return False
 
         if obj.trainerboxslot_set.exists():
