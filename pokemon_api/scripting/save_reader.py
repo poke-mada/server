@@ -445,7 +445,6 @@ class PokemonBytes:
         self.tid = struct.unpack("<H", self.raw_data[0x0c:0x0e])[0]
         self.sid = struct.unpack("<H", self.raw_data[0x0e:0x10])[0]
         self.shiny = self.is_shiny(self.tid, self.sid, self.pid)
-        print(self.mote)
 
         def moves(self):
             move1 = ((0x5A, 0x5C), (0x62, 0x63))

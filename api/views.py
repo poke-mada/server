@@ -848,7 +848,6 @@ class FileUploadManyView(APIView):
             file_obj.seek(0)
             trainer_name = get_trainer_name(save_data)
             trainer, is_created = Trainer.objects.get_or_create(name=trainer_name)
-            print(f'{index + 1}/{total_trainers} - {trainer_name} @ {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
 
             data = dict(
                 file=file_obj,

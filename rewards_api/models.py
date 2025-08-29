@@ -69,7 +69,6 @@ class Reward(models.Model):
             import struct
             pokemon = PokemonBytes(self.pokemon_data.read())
             self.pokemon_pid = struct.unpack("<I", pokemon.raw_data[0x18:0x1C])[0]
-            print(self.pokemon_pid)
         super().save(*args, **kwargs)
 
     class Meta:

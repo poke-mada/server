@@ -287,7 +287,6 @@ class MarketPostOfferCreateSerializer(serializers.ModelSerializer):
             asset_id = item.get('banked_asset', False)
             asset: BankedAsset = BankedAsset.objects.filter(id=asset_id).first()
             item_type = 0 if not asset else 1 if asset.content_type.model == 'item' else 3
-            print(item_type)
             match item_type:
                 case MarketSlot.ITEM:
                     if not owner.has_item(asset, quantity):

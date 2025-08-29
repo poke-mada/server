@@ -14,7 +14,6 @@ class IsTrainer(DjangoModelPermissions):
         has_coaching = user.masters_profile.profile_type == MastersProfile.COACH
         has_training = user.masters_profile.profile_type == MastersProfile.TRAINER
         has_sudo = request.user.is_superuser
-        print(has_coaching, has_training, has_sudo)
         return has_sudo or has_training or has_coaching
 
 
