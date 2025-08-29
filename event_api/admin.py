@@ -151,7 +151,7 @@ class BannedPokemonAdmin(admin.ModelAdmin):
 
 @admin.register(ProfileImposterLog, site=staff_site)
 class ProfileImposterLogAdmin(admin.ModelAdmin):
-    list_display = ('profile', 'imposter', 'registered_amount', 'segment')
+    list_display = ('profile', 'imposter', 'registered_amount', 'imposter__segment')
     search_fields = ('profile__streamer_name', 'imposter__message',)
     list_filter = (StreamerFilter,)
     autocomplete_fields = ('profile', 'imposter')
@@ -159,8 +159,8 @@ class ProfileImposterLogAdmin(admin.ModelAdmin):
 
 @admin.register(Imposter, site=staff_site)
 class ImposterLogAdmin(admin.ModelAdmin):
-    list_display = ('message', 'coin_reward')
-    search_fields = ('message', 'coin_reward',)
+    list_display = ('message', 'coin_reward', 'segment')
+    search_fields = ('message', 'coin_reward', 'segment')
 
 
 @admin.register(Wildcard, site=staff_site)
