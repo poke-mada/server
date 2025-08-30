@@ -752,7 +752,7 @@ class GameEvent(models.Model):
         now_time = timezone.now()
 
         if profile.is_tester:
-            events = GameEvent.objects.filter(Q(force_available=True) | Q(available_date_from__lte=now_time, available_date_to__gte=now_time), testers_only=True).order_by('available_date_to')
+            events = GameEvent.objects.filter(Q(force_available=True) | Q(available_date_from__lte=now_time, available_date_to__gte=now_time)).order_by('available_date_to')
         else:
             events = GameEvent.objects.filter(Q(force_available=True) | Q(available_date_from__lte=now_time, available_date_to__gte=now_time), testers_only=False).order_by('available_date_to')
         return events
