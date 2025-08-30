@@ -531,7 +531,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
 
     @action(methods=['get'], detail=False)
     def list_available(self, request, *args, **kwargs):
-        events = GameEvent.get_available()
+        events = GameEvent.get_available(request.user.masters_profile)
         serialized = GameEventSerializer(events, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
@@ -540,7 +540,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
         presigned_url = cache.get(f'cached_event_{pk}')
         STORAGE_TIMEOUT = 60 * 15
         if not presigned_url:
-            event: GameEvent = GameEvent.get_available().filter(pk=pk).first()
+            event: GameEvent = GameEvent.get_available(request.user.masters_profile).filter(pk=pk).first()
             if not event:
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
