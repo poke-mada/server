@@ -539,7 +539,6 @@ class GameEventViewSet(viewsets.ModelViewSet):
 
     @action(methods=['post'], detail=True)
     def leave(self, request, *args, **kwargs):
-        event = self.get_object()
         profile: MastersProfile = request.user.masters_profile
         profile.event_joined_id = None
         profile.save()
