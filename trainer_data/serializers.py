@@ -157,7 +157,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         if DeathLog.objects.filter(Q(profile=owner_profile) | Q(profile=performer_profile), dex_number__in=surrogated_mons, revived=False).exists():
             return False
 
-        if obj.pokemon.dex_number in Evolution.objects.get(dex_number=658).surrogate():
+        if obj.pokemon.dex_number in Evolution.objects.get(dex_number=658).surrogate() and obj.mote.lower() == 'greninja-ash':
             return False
 
         if owner_profile and owner_profile.starter_dex_number:

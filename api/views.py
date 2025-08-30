@@ -469,7 +469,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         releasable_mons = TrainerPokemon.objects.exclude(
             pokemon__dex_number__in=banned_mons
         ).exclude(
-            pokemon__dex_number__in=greninja_tree
+            pokemon__dex_number__in=greninja_tree,
+            mote__iexact='greninja-ash'
         ).exclude(
             pokemon__dex_number__in=death_mons
         ).exclude(
@@ -495,7 +496,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         releasable_mons = TrainerPokemon.objects.exclude(
             pokemon__dex_number__in=banned_mons
         ).exclude(
-            pokemon__dex_number__in=greninja_tree
+            pokemon__dex_number__in=greninja_tree,
+            mote__iexact='greninja-ash'
         ).exclude(
             pokemon__dex_number__in=death_mons
         ).exclude(

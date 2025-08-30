@@ -18,23 +18,22 @@ class StealPokemonHandler(StrongAttackHandler):
         target_id = context.get('target_id')
         dex_number = context.get('dex_number')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
-        target_pokemon = target_profile.get_last_releasable_by_dex_number(dex_number, source_profile)
+        target_pokemon: TrainerPokemon = target_profile.get_last_releasable_by_dex_number(dex_number, source_profile)
 
         if not dex_number:
             return 'Necesitas ingresar un pokemon a robar'
 
-        try:
-            evolutions = Evolution.search_evolution_chain(target_profile.starter_dex_number)
-        except:
-            evolutions = []
+        starter_tree = Evolution.search_evolution_chain(target_profile.starter_dex_number)
 
-        if dex_number in evolutions:
+        greninja_evolutions = Evolution.search_evolution_chain(658)
+
+        if dex_number in starter_tree:
             return 'No puedes robar al elegido de alguien mas'
 
-        if dex_number == 658:
+        if dex_number in greninja_evolutions and target_pokemon.mote.lower() == 'greninja-ash':
             return 'Greninja es inmune a los ataques!'
 
-        if AlreadyCapturedLog.objects.filter(pid=target_pokemon.pid, profile=source_profile, dex_number__in=evolutions).exists():
+        if AlreadyCapturedLog.objects.filter(pid=target_pokemon.pid, profile=source_profile, dex_number__in=starter_tree).exists():
             return 'No puedes robar un pokemon que ya tuviste!'
 
         return super().validate(context)
