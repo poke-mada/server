@@ -537,8 +537,18 @@ class GameEventViewSet(viewsets.ModelViewSet):
         serialized = GameEventSerializer(events, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
+    @action(methods=['post'], detail=True)
+    def leave(self, request, *args, **kwargs):
+        event = self.get_object()
+        profile: MastersProfile = request.user.masters_profile
+        profile.event_joined_id = None
+        profile.save()
+
     @action(methods=['get'], detail=True)
     def mod_file(self, request, pk=None, *args, **kwargs):
+        profile: MastersProfile = request.user.masters_profile
+        profile.event_joined_id = pk
+        profile.save()
         presigned_url = cache.get(f'cached_event_{pk}')
         STORAGE_TIMEOUT = 60 * 15
         if not presigned_url:
