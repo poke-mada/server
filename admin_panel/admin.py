@@ -40,7 +40,7 @@ class GiftSequenceAdmin(admin.ModelAdmin):
     list_display = ('name', 'created', 'modified', 'run_times')
     readonly_fields = ('created', 'modified', 'run_times')
     search_fields = ('name',)
-    autocomplete_fields = ('targets', 'inventory_bundle')
+    autocomplete_fields = ('targets',)
     actions = [run_sequence]
 
 

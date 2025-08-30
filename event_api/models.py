@@ -52,14 +52,13 @@ class CoinTransaction(models.Model):
     segment = models.IntegerField(default=1)
 
     def save(self, *args, **kwargs):
-        new_ = super(CoinTransaction, self).save(*args, **kwargs)
 
         DataConsumer.send_custom_data(self.profile.user.username, dict(
             type='coins_notification',
-            data=self.profile.economy
+            data=self.profile.economy + self.amount if self.TYPE == CoinTransaction.INPUT else -self.amount
         ))
 
-        return new_
+        return super(CoinTransaction, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Transaccion'
@@ -846,13 +845,13 @@ class ProfileImposterLog(models.Model):
 
             if first_10:
                 min_value = 2
-                max_value += 1
+                max_value = self.imposter.coin_reward + 1
 
-            rand_amount = random.randint(min_value, max_value)
-            self.registered_amount = rand_amount
+            self.registered_amount = random.randint(min_value, max_value)
+
             CoinTransaction.objects.create(
                 profile=self.profile,
-                amount=rand_amount,
+                amount=self.registered_amount,
                 segment=self.profile.current_segment_settings.segment,
                 reason=f'encontrado {self.imposter.message}',
                 TYPE=CoinTransaction.INPUT
