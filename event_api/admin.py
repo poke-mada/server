@@ -375,7 +375,7 @@ class SegmentConfigurationAdmin2(admin.ModelAdmin):
     list_display = ('segment', 'is_tournament', 'starts_at', 'ends_at')
 
 
-@admin.register(StealLog)
+@admin.register(StealLog, site=staff_site)
 class StealLogAdmin(admin.ModelAdmin):
     list_display = ('created_on', 'source', 'target', 'pokemon', 'bundle__name')
 
