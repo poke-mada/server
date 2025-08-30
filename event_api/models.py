@@ -879,7 +879,7 @@ class Newsletter(models.Model):
         if self.targets.count() > 0 and self.send_notification:
             for profile in self.targets.all():
                 DataConsumer.send_custom_data(profile.user.username, dict(
-                    type='notification',
+                    type='alert-notification',
                     data=self.message
                 ))
                 ProfileNotification.objects.create(
@@ -895,7 +895,7 @@ class Newsletter(models.Model):
 
             for profile in queryset:
                 DataConsumer.send_custom_data(profile.user.username, dict(
-                    type='notification',
+                    type='alert-notification',
                     data=self.message
                 ))
 
