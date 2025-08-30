@@ -50,6 +50,10 @@ class SimpleRewardSerializer(serializers.ModelSerializer):
 class RewardSerializer(serializers.ModelSerializer):
     pokemon_data = ByteArrayFileField()
     bag = serializers.SerializerMethodField()
+    item = serializers.SerializerMethodField()
+
+    def get_item(self, obj: Reward):
+        return obj.item.index
 
     def get_bag(self, obj: Reward):
         if not obj.item:
