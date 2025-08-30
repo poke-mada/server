@@ -709,6 +709,7 @@ class GameEvent(models.Model):
     available_date_from = models.DateTimeField(verbose_name="Disponible desde el")
     available_date_to = models.DateTimeField(verbose_name="Disponible hasta el")
     force_available = models.BooleanField()
+    testers_only = models.BooleanField(default=False)
     free_join = models.BooleanField(default=False)
     name = models.CharField(max_length=100, null=True, blank=False)
     description = models.TextField(null=True, blank=False, verbose_name="Descripcion")
@@ -747,11 +748,14 @@ class GameEvent(models.Model):
         return False
 
     @staticmethod
-    def get_available():
+    def get_available(profile: MastersProfile):
         now_time = timezone.now()
-        return GameEvent.objects.filter(
-            Q(force_available=True) | Q(available_date_from__lte=now_time, available_date_to__gte=now_time)).order_by(
-            'available_date_to')
+
+        if profile.is_tester:
+            events = GameEvent.objects.filter(Q(force_available=True) | Q(available_date_from__lte=now_time, available_date_to__gte=now_time), testers_only=True).order_by('available_date_to')
+        else:
+            events = GameEvent.objects.filter(Q(force_available=True) | Q(available_date_from__lte=now_time, available_date_to__gte=now_time), testers_only=False).order_by('available_date_to')
+        return events
 
     class Meta:
         verbose_name = "Evento"
