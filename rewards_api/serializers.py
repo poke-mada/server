@@ -53,6 +53,8 @@ class RewardSerializer(serializers.ModelSerializer):
     item = serializers.SerializerMethodField()
 
     def get_item(self, obj: Reward):
+        if not obj.item:
+            return None
         return obj.item.index
 
     def get_bag(self, obj: Reward):
