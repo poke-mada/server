@@ -542,6 +542,7 @@ class GameEventViewSet(viewsets.ModelViewSet):
         profile: MastersProfile = request.user.masters_profile
         profile.event_joined_id = None
         profile.save()
+        return Response(status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=True)
     def mod_file(self, request, pk=None, *args, **kwargs):
