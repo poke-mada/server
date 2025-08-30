@@ -361,7 +361,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     @action(methods=['get'], detail=True)
     def list_boxes(self, request, pk=None, *args, **kwargs):
         clean_pk = pk
-        if pk == 'undefined' or pk == 0 or pk == '0' or pk == 'NaN' or pk == None:
+        if pk == 'undefined' or pk == 0 or pk == '0' or pk == 'NaN' or pk is None:
             current_profile: MastersProfile = request.user.masters_profile
             clean_pk = current_profile.trainer_id
 
