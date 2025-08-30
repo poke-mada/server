@@ -917,8 +917,11 @@ class Evolution(models.Model):
 
     @staticmethod
     def search_evolution_chain(dex_number: int):
-        evolution = Evolution.objects.get(dex_number=dex_number)
-        return evolution.surrogate()
+        evolution = Evolution.objects.filter(dex_number=dex_number).first()
+        if evolution:
+            return evolution.surrogate()
+        else:
+            return [evolution]
 
 
 class ProfileNotification(models.Model):
