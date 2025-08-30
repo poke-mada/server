@@ -954,6 +954,10 @@ class Sanction(models.Model):
             for_pros=True,
             message=self.message
         )
+        ProfileNotification.objects.create(
+            profile=self.profile,
+            message=self.message
+        )
 
         DataConsumer.send_custom_data(self.profile.user.username, dict(
             type='notification',
