@@ -34,6 +34,7 @@ class RewardBundleAdmin(admin.ModelAdmin):
         'is_active',
         'description',
         'sender',
+        'user_created',
         'type',
     )
     inlines = (RewardInline,)

@@ -648,6 +648,10 @@ class MastersSegmentSettings(models.Model):
             wildcard__attack_level=Wildcard.LOW
         ).update(quantity=0)
 
+        # for reward in self.profile.reward_inventory.filter(is_available=True, reward__user_created=True):
+        #     reward.
+
+
         self.tournament_league = current_segment.tournament_league
         self.profile.segments_settings.update(is_current=False)
 
