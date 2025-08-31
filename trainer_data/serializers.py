@@ -172,9 +172,6 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
             if 'muertos' in box.name.lower():
                 return False
 
-            if box.box_number in [5, 6]:
-                return False
-
         return True
 
     def get_held_item_name(self, obj: TrainerPokemon):
