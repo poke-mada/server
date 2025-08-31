@@ -76,4 +76,10 @@ class MarketViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'])
     def create_room(self, request, *args, **kwargs):
-        MarketRoom
+        profile = request.user.masters_profile
+        room = MarketRoom.objects.create(
+            owner=profile,
+            name=f'Sala de {profile.streamer_name}'
+        )
+
+        return Response(room.id, status=status.HTTP_201_CREATED)
