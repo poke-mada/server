@@ -29,7 +29,7 @@ from event_api.serializers import SaveFileSerializer, WildcardSerializer, Wildca
 from pokemon_api.models import Move, Pokemon, Item, ItemNameLocalization
 from pokemon_api.scripting.save_reader import get_trainer_name, data_reader
 from pokemon_api.serializers import MoveSerializer, ItemSelectSerializer
-from rewards_api.models import RewardBundle, StreamerRewardInventory
+from rewards_api.models import RewardBundle, StreamerRewardInventory, Reward
 from rewards_api.serializers import StreamerRewardSerializer, StreamerRewardSimpleSerializer
 from trainer_data.models import Trainer, TrainerTeam, TrainerBox, TrainerBoxSlot, TrainerPokemon
 from trainer_data.serializers import TrainerSerializer, TrainerTeamSerializer, SelectTrainerSerializer, \
@@ -43,6 +43,34 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Trainer.objects.filter(is_active=True)
     serializer_class = TrainerSerializer
     permission_classes = [IsTrainer]
+
+    @action(detail=False, methods=['post'])
+    def activate_wipe_clause(self, request, *args, **kwargs):
+        profile: MastersProfile = request.user.masters_profile
+        if profile.wipe_clause_available:
+            profile.wipe_clause_available = False
+            profile.death_count += 6
+            profile.death_count_display += 6
+            profile.save()
+
+            bundle = RewardBundle.objects.create(
+                name=f'Clausula de wipeo para {profile.streamer_name}',
+                user_created=True
+            )
+
+            Reward.objects.create(
+                reward_type=Reward.WILDCARD,
+                bundle=bundle,
+                wildcard=Wildcard.objects.filter(Q(name__iexact='revivir pokemon') | Q(id=5)).first(),
+                quantity=6
+            )
+
+            StreamerRewardInventory.objects.create(
+                profile=profile,
+                reward=bundle
+            )
+
+        return Response(status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['get'])
     def showdown_key(self, request, *args, **kwargs):
@@ -381,7 +409,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         if box_id != 4:
             cached_box = cache.get(f'trainer_{pk}_box_{box_id}')
 
-
         if cached_box:
             return Response(cached_box, status=status.HTTP_200_OK)
 
@@ -427,9 +454,11 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
         match localization:
             case 'en':
-                serialized = EnROTrainerPokemonSerializer(trainer.current_team.team, context=dict(request=request), many=True)
+                serialized = EnROTrainerPokemonSerializer(trainer.current_team.team, context=dict(request=request),
+                                                          many=True)
             case _:
-                serialized = ROTrainerPokemonSerializer(trainer.current_team.team, context=dict(request=request), many=True)
+                serialized = ROTrainerPokemonSerializer(trainer.current_team.team, context=dict(request=request),
+                                                        many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
@@ -687,9 +716,9 @@ def team_saver(team, profile: MastersProfile):
             surrogated_mons = pokemon.pokemon.surrogate_dex()
             for surrogated_mon in surrogated_mons:
                 if not AlreadyCapturedLog.objects.filter(
-                    pid=pokemon.pid,
-                    profile=profile,
-                    dex_number=surrogated_mon
+                        pid=pokemon.pid,
+                        profile=profile,
+                        dex_number=surrogated_mon
                 ).exists():
                     AlreadyCapturedLog.objects.create(
                         pid=pokemon.pid,
