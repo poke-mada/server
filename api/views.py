@@ -35,6 +35,7 @@ from trainer_data.models import Trainer, TrainerTeam, TrainerBox, TrainerBoxSlot
 from trainer_data.serializers import TrainerSerializer, TrainerTeamSerializer, SelectTrainerSerializer, \
     TrainerBoxSerializer, TrainerPokemonSerializer, EnTrainerSerializer, ListedBoxSerializer, \
     EnROTrainerPokemonSerializer, ROTrainerPokemonSerializer, NewsletterSerializer
+from websocket.sockets import DataConsumer
 
 
 # Create your views here.
@@ -69,6 +70,11 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
                 profile=profile,
                 reward=bundle
             )
+
+            DataConsumer.send_custom_data(request.user.username, dict(
+                type='notification',
+                data='Te ha llegado un paquete al buzón!'
+            ))
 
         return Response(status=status.HTTP_200_OK)
 

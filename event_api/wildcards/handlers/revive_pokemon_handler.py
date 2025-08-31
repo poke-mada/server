@@ -12,13 +12,15 @@ class RevivePokemonHandler(BaseWildCardHandler):
         if not dex_number:
             return 'Necesitas seleccionar un pokemon a revivir'
 
+        profile = self.user.masters_profile
+
         pokemon: Pokemon = Evolution.objects.filter(dex_number=dex_number).first()
         evo_tree = pokemon.surrogate()
 
         if not DeathLog.objects.filter(dex_number__in=evo_tree, profile=self.user.masters_profile, revived=False).exists():
             return 'Este pokemon no está muerto'
 
-        if DeathLog.objects.filter(dex_number__in=evo_tree, profile=self.user.masters_profile, revived=True).exists():
+        if DeathLog.objects.filter(dex_number__in=evo_tree, profile=self.user.masters_profile, revived=True).exists() and not profile.starter_dex_number in evo_tree:
             return 'No puedes revivir dos veces un pokemon'
 
         banned = BannedPokemon.objects.filter(dex_number__in=evo_tree, profile=self.user.masters_profile)
