@@ -6,115 +6,79 @@ from websocket.sockets import DataConsumer
 
 # Create your models here.
 class InventoryGiftQuerySequence(models.Model):
+    ALL = 0
+    PROS = 1
+    NOOBS = 2
+    TARGET = 3
+
+    TARGETS = {
+        ALL: 'Todos',
+        PROS: 'Pros',
+        NOOBS: 'Noobs',
+        TARGET: 'Seleccionado'
+    }
+
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     run_times = models.IntegerField(default=0)
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     inventory_bundle = models.ForeignKey('rewards_api.RewardBundle', on_delete=models.CASCADE)
-    targets = models.ManyToManyField('event_api.MastersProfile', blank=True)
-    give_only_pros = models.BooleanField(default=False)
-    give_only_noobs = models.BooleanField(default=False)
-    give_all = models.BooleanField(default=False)
+
+    target_method = models.SmallIntegerField(choices=TARGETS, default=ALL, verbose_name='Objetivos de envío')
+    targets = models.ManyToManyField('event_api.MastersProfile', blank=True, verbose_name='Objetivos Seleccionados')
+    run_on_save = models.BooleanField(default=False, verbose_name='Ejecutar al guardar')
+
+    def save(self, *args, **kwargs):
+        obje = super().save(*args, **kwargs)
+
+        if self.run_on_save:
+            self.run(None)
+            self.run_on_save = False
+            return super().save(*args, **kwargs)
+
+        return obje
 
     def run(self, performer):
         from event_api.models import MastersProfile
         from rewards_api.models import StreamerRewardInventory
 
-        if self.give_all:
-            InventoryGiftQuerySequenceLog.objects.create(
-                performer=performer.streamer_name,
-                sequence=self,
-                sequence_name=self.name,
-                message='Fue ejecutado para todos los jugadores'
-            )
-            for target in MastersProfile.objects.filter(profile_type=MastersProfile.TRAINER):
-                inventory, is_created = StreamerRewardInventory.objects.get_or_create(
-                    reward_id=self.inventory_bundle_id,
-                    profile=target, defaults=dict(
-                        exchanges=0,
-                        is_available=True
-                    )
+        queryset = MastersProfile.objects.filter(is_tester=True)
+        if self.target_method == InventoryGiftQuerySequence.ALL:
+            queryset = MastersProfile.objects.filter(profile_type=MastersProfile.TRAINER)
+        elif self.target_method == InventoryGiftQuerySequence.PROS:
+            queryset = MastersProfile.objects.filter(profile_type=MastersProfile.TRAINER, is_pro=True)
+        elif self.target_method == InventoryGiftQuerySequence.NOOBS:
+            queryset = MastersProfile.objects.filter(profile_type=MastersProfile.TRAINER, is_pro=False)
+        elif self.target_method == InventoryGiftQuerySequence.TARGET:
+            queryset = self.targets.all()
+
+        InventoryGiftQuerySequenceLog.objects.create(
+            performer=performer.streamer_name if performer else 'run_on_save',
+            sequence=self,
+            sequence_name=self.name,
+            message='Fue ejecutado para todos los jugadores'
+        )
+
+        for target in queryset:
+            inventory, is_created = StreamerRewardInventory.objects.get_or_create(
+                reward_id=self.inventory_bundle_id,
+                profile=target, defaults=dict(
+                    exchanges=0,
+                    is_available=True
                 )
-
-                DataConsumer.send_custom_data(target.user.username, dict(
-                    type='notification',
-                    data='Te ha llegado un paquete al buzón!'
-                ))
-                if not inventory.is_available:
-                    inventory.is_available = True
-                inventory.save()
-        elif self.give_only_noobs:
-            InventoryGiftQuerySequenceLog.objects.create(
-                performer=performer.streamer_name,
-                sequence=self,
-                sequence_name=self.name,
-                message='Fue ejecutado para todos los jugadores'
             )
-            for target in MastersProfile.objects.filter(profile_type=MastersProfile.TRAINER, is_pro=False):
-                inventory, is_created = StreamerRewardInventory.objects.get_or_create(
-                    reward_id=self.inventory_bundle_id,
-                    profile=target, defaults=dict(
-                        exchanges=0,
-                        is_available=True
-                    )
-                )
 
-                DataConsumer.send_custom_data(target.user.username, dict(
-                    type='notification',
-                    data='Te ha llegado un paquete al buzón!'
-                ))
-                if not inventory.is_available:
-                    inventory.is_available = True
-                inventory.save()
-        elif self.give_only_pros:
-            InventoryGiftQuerySequenceLog.objects.create(
-                performer=performer.streamer_name,
-                sequence=self,
-                sequence_name=self.name,
-                message='Fue ejecutado para todos los jugadores'
-            )
-            for target in MastersProfile.objects.filter(profile_type=MastersProfile.TRAINER, is_pro=True):
-                inventory, is_created = StreamerRewardInventory.objects.get_or_create(
-                    reward_id=self.inventory_bundle_id,
-                    profile=target, defaults=dict(
-                        exchanges=0,
-                        is_available=True
-                    )
-                )
-
-                DataConsumer.send_custom_data(target.user.username, dict(
-                    type='notification',
-                    data='Te ha llegado un paquete al buzón!'
-                ))
-                if not inventory.is_available:
-                    inventory.is_available = True
-                inventory.save()
-        else:
-            InventoryGiftQuerySequenceLog.objects.create(
-                performer=performer.streamer_name,
-                sequence=self,
-                sequence_name=self.name,
-                message=f'Fue ejecutado para el/los jugadores {','.join(self.targets.all().values_list("streamer_name", flat=True))}'
-            )
-            for target in self.targets.all():
-                inventory, is_created = StreamerRewardInventory.objects.get_or_create(
-                    reward_id=self.inventory_bundle_id,
-                    profile=target, defaults=dict(
-                        exchanges=0,
-                        is_available=True
-                    ))
-
-                DataConsumer.send_custom_data(target.user.username, dict(
-                    type='notification',
-                    data='Te ha llegado un paquete al buzón!'
-                ))
-                if not inventory.is_available:
-                    inventory.is_available = True
-                inventory.save()
+            DataConsumer.send_custom_data(target.user.username, dict(
+                type='notification',
+                data='Te ha llegado un paquete al buzón!'
+            ))
+            if not inventory.is_available:
+                inventory.is_available = True
+            inventory.save()
 
         self.run_times += 1
-        self.save()
+        super().save()
 
     class Meta:
         verbose_name = 'Envío de Preset al Buzón'
