@@ -20,7 +20,10 @@ class RevivePokemonHandler(BaseWildCardHandler):
         if not DeathLog.objects.filter(dex_number__in=evo_tree, profile=self.user.masters_profile, revived=False).exists():
             return 'Este pokemon no está muerto'
 
-        if DeathLog.objects.filter(dex_number__in=evo_tree, profile=self.user.masters_profile, revived=True).exists() and not profile.starter_dex_number in evo_tree:
+        if profile.starter_dex_number in evo_tree:
+            return super().validate(context)
+
+        if DeathLog.objects.filter(dex_number__in=evo_tree, profile=self.user.masters_profile, revived=True).exists():
             return 'No puedes revivir dos veces un pokemon'
 
         banned = BannedPokemon.objects.filter(dex_number__in=evo_tree, profile=self.user.masters_profile)
