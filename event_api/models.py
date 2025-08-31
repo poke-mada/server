@@ -885,8 +885,6 @@ class Newsletter(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     message = models.TextField()
     target_method = models.SmallIntegerField(choices=TARGETS, default=ALL)
-    for_staff = models.BooleanField(default=False, verbose_name='Solo Para Staff')
-    for_tester = models.BooleanField(default=False, verbose_name="Solo Para Testers")
     targets = models.ManyToManyField('event_api.MastersProfile', blank=True)
     send_notification = models.BooleanField(default=False, verbose_name='Enviar Notificacion')
     run_on_save = models.BooleanField(default=False, verbose_name='Ejecutar al guardar')
