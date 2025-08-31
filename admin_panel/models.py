@@ -25,7 +25,7 @@ class InventoryGiftQuerySequence(models.Model):
     description = models.TextField(null=True, blank=True)
     inventory_bundle = models.ForeignKey('rewards_api.RewardBundle', on_delete=models.CASCADE)
 
-    target_method = models.SmallIntegerField(choices=TARGETS, default=ALL, verbose_name='Objetivos de envío')
+    target_method = models.SmallIntegerField(choices=TARGETS, default=TARGET, verbose_name='Objetivos de envío')
     targets = models.ManyToManyField('event_api.MastersProfile', blank=True, verbose_name='Objetivos Seleccionados')
     run_on_save = models.BooleanField(default=False, verbose_name='Ejecutar al guardar')
 

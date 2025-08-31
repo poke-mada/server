@@ -9,6 +9,7 @@ class MarketRoom(models.Model):
     owner = models.ForeignKey("event_api.MastersProfile", on_delete=models.SET_NULL, null=True, related_name="rooms_owned")
     created_at = models.DateTimeField(auto_now_add=True)
     second_part = models.ForeignKey("event_api.MastersProfile", on_delete=models.SET_NULL, null=True, related_name="rooms_joined")
+    is_active = models.BooleanField(default=True)
 
 
 class BankPokemon(models.Model):

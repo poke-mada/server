@@ -17,9 +17,23 @@ class BankPokemonSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class MarketRoomSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.streamer_name')
+
+    class Meta:
+        model = MarketRoom
+        fields = [
+            'id',
+            'owner',
+            'second_part',
+            'name',
+            'created_at'
+        ]
+
+
 class MarketViewSet(viewsets.ModelViewSet):
-    queryset = MarketRoom.objects.all()
-    serializer_class = BankPokemonSerializer
+    queryset = MarketRoom.objects.filter(is_active=True)
+    serializer_class = MarketRoomSerializer
 
     @action(detail=False, methods=['post'])
     def transfer_pokemon(self, request, *args, **kwargs):
@@ -77,6 +91,15 @@ class MarketViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['post'])
     def create_room(self, request, *args, **kwargs):
         profile = request.user.masters_profile
+
+        already_active_room = MarketRoom.objects.filter(
+            owner=profile,
+            is_active=True
+        ).first()
+
+        if already_active_room:
+            return Response(already_active_room.id, status=status.HTTP_200_OK)
+
         room = MarketRoom.objects.create(
             owner=profile,
             name=f'Sala de {profile.streamer_name}'
