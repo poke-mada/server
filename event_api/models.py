@@ -869,40 +869,56 @@ class ProfileImposterLog(models.Model):
 
 
 class Newsletter(models.Model):
+
+    ALL = 0
+    PROS = 1
+    NOOBS = 2
+    TARGET = 3
+
+    TARGETS = {
+        ALL: 'All',
+        PROS: 'Pros',
+        NOOBS: 'Noobs',
+        TARGET: 'Sleccionado'
+    }
+
     created_on = models.DateTimeField(auto_now_add=True)
     message = models.TextField()
-    for_pros = models.BooleanField(default=False, verbose_name='Incluye Pros')
-    for_noobs = models.BooleanField(default=False, verbose_name="Incluye Noobs")
+    target_method = models.SmallIntegerField(choices=TARGETS, default=ALL)
     for_staff = models.BooleanField(default=False, verbose_name='Solo Para Staff')
     for_tester = models.BooleanField(default=False, verbose_name="Solo Para Testers")
     targets = models.ManyToManyField('event_api.MastersProfile', blank=True)
     send_notification = models.BooleanField(default=False, verbose_name='Enviar Notificacion')
+    run_on_save = models.BooleanField(default=False, verbose_name='Ejecutar al guardar')
 
     def save(self, *args, **kwargs):
         obje = super().save(*args, **kwargs)
 
-        if self.targets.count() > 0 and self.send_notification:
-            for profile in self.targets.all():
-                DataConsumer.send_custom_data(profile.user.username, dict(
-                    type='alert-notification',
-                    data=self.message
-                ))
-                ProfileNotification.objects.create(
-                    profile=profile,
-                    message=self.message
-                )
-        elif self.send_notification:
-            queryset = MastersProfile.objects.all()
-            if self.for_noobs and not self.for_pros:
-                queryset = queryset.filter(is_pro=False)
-            elif self.for_pros and not self.for_noobs:
-                queryset = queryset.filter(is_pro=True)
+        if not self.run_on_save:
+            return obje
 
+        queryset = MastersProfile.objects.all()
+
+        if self.target_method == Newsletter.ALL:
+            queryset = MastersProfile.objects.all()
+        elif self.target_method == Newsletter.PROS:
+            queryset = MastersProfile.objects.filter(is_pro=True, is_tester=False)
+        elif self.target_method == Newsletter.NOOBS:
+            queryset = MastersProfile.objects.filter(is_pro=False, is_tester=False)
+        elif self.target_method == Newsletter.TARGET:
+            queryset = self.targets.all()
+
+        if self.send_notification:
             for profile in queryset:
                 DataConsumer.send_custom_data(profile.user.username, dict(
                     type='alert-notification',
                     data=self.message
                 ))
+                if self.target_method == Newsletter.TARGET:
+                    ProfileNotification.objects.create(
+                        profile=profile,
+                        message=self.message
+                    )
 
         return obje
 

@@ -6,7 +6,7 @@ from rest_framework import viewsets, serializers, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from new_market.models import BankPokemon, MarketBlockLog, MarketCooldownLog, BankItem
+from new_market.models import BankPokemon, MarketBlockLog, MarketCooldownLog, BankItem, MarketRoom
 from pokemon_api.models import Item
 from trainer_data.models import TrainerPokemon
 
@@ -18,7 +18,7 @@ class BankPokemonSerializer(serializers.ModelSerializer):
 
 
 class MarketViewSet(viewsets.ModelViewSet):
-    queryset = BankPokemon.objects.all()
+    queryset = MarketRoom.objects.all()
     serializer_class = BankPokemonSerializer
 
     @action(detail=False, methods=['post'])
@@ -73,3 +73,7 @@ class MarketViewSet(viewsets.ModelViewSet):
             )
 
         return Response(status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['post'])
+    def create_room(self, request, *args, **kwargs):
+        MarketRoom

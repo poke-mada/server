@@ -1,9 +1,19 @@
+import uuid
 from django.core.validators import MinValueValidator
 from django.db import models
 
 
+class MarketRoom(models.Model):
+    id = models.UUIDField(primary_key=True, verbose_name='ID', default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=100)
+    owner = models.ForeignKey("event_api.MastersProfile", on_delete=models.SET_NULL, null=True, related_name="rooms_owned")
+    created_at = models.DateTimeField(auto_now_add=True)
+    second_part = models.ForeignKey("event_api.MastersProfile", on_delete=models.SET_NULL, null=True, related_name="rooms_joined")
+
+
 class BankPokemon(models.Model):
-    owner = models.ForeignKey("event_api.MastersProfile", on_delete=models.CASCADE, null=True, related_name="banked_pokemons")
+    owner = models.ForeignKey("event_api.MastersProfile", on_delete=models.CASCADE, null=True,
+                              related_name="banked_pokemons")
     species_name = models.CharField(max_length=50)
     trainer_pokemon = models.ForeignKey('trainer_data.TrainerPokemon', on_delete=models.SET_NULL, null=True)
     enc_data = models.FileField(null=True, blank=False)
@@ -21,7 +31,8 @@ class BankPokemon(models.Model):
 
 
 class BankItem(models.Model):
-    owner = models.ForeignKey("event_api.MastersProfile", on_delete=models.CASCADE, null=True, related_name="banked_items")
+    owner = models.ForeignKey("event_api.MastersProfile", on_delete=models.CASCADE, null=True,
+                              related_name="banked_items")
     item_name = models.CharField(max_length=50)
     item = models.ForeignKey('pokemon_api.Item', on_delete=models.PROTECT, null=True)
     quantity = models.IntegerField(default=0, validators=[MinValueValidator(0)])

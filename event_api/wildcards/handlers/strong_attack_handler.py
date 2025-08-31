@@ -21,6 +21,7 @@ class StrongAttackHandler(AttackHandler):
             reverses = target_profile.wildcard_inventory.get(wildcard=Wildcard.objects.filter(handler_key='escudo_protector').first())
             reverses.quantity -= 1
             reverses.save()
+
             data = dict(
                 user_name=self.user.masters_profile.streamer_name,
                 wildcard=dict(
