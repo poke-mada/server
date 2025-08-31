@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.core.handlers.base import logger
 from django.db.models import Q, Sum
+from django.db.models.fields.files import FieldFile
 from django.http import HttpResponse
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -553,28 +554,13 @@ class GameEventViewSet(viewsets.ModelViewSet):
         STORAGE_TIMEOUT = 60 * 15
         if not presigned_url:
             event: GameEvent = GameEvent.get_available(request.user.masters_profile).filter(pk=pk).first()
+
             if not event:
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
-            documento = event.game_mod.mod_file
+            documento: FieldFile = event.game_mod.mod_file
 
-            file_field = documento.file
-            s3_key = file_field.name  # Ej: "prod/media/documentos/archivo.pdf"
-            ENVIRONMENT = os.getenv("DJANGO_ENV", "prod")  # "dev", "stage" o "prod"
-            full_s3_path = os.path.join(ENVIRONMENT, 'dedsafio-pokemon/media', s3_key)
-            s3_path_cache = full_s3_path
-            s3 = boto3.client(
-                's3',
-                region_name='us-east-1',
-                aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-                config=Config(signature_version='s3v4', s3={"use_accelerate_endpoint": True})
-            )
-            presigned_url = s3.generate_presigned_url(
-                'get_object',
-                Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': s3_path_cache},
-                ExpiresIn=STORAGE_TIMEOUT,
-            )
+            presigned_url = documento.url
             cache.set(f'cached_event_{pk}', presigned_url, timeout=STORAGE_TIMEOUT)  # Cache for 15 minutes
 
         return Response(data=presigned_url, status=status.HTTP_200_OK)
