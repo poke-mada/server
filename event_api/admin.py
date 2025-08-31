@@ -397,6 +397,8 @@ class AlreadyCapturedLogAdmin(admin.ModelAdmin):
         'pid',
         'created_at',
     )
+    search_fields = ('profile', )
+    list_filter = ('profile', )
 
     def has_change_permission(self, *args, **kwargs):
         return False
