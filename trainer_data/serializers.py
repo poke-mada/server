@@ -140,7 +140,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
     def get_stealable(self, obj: TrainerPokemon):
 
         owner_profile: MastersProfile = obj.get_owner().get_trainer_profile()
-        performer_profile = self.context.get('request').user.masters_profile
+        performer_profile: MastersProfile = self.context.get('request').user.masters_profile
 
         if MarketBlockLog.objects.filter(
                 profile=owner_profile,
@@ -158,6 +158,9 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
             return False
 
         if obj.pokemon.dex_number in Evolution.objects.get(dex_number=658).surrogate() and obj.mote.lower() == 'greninja-ash':
+            return False
+
+        if TrainerPokemon.objects.filter(trainer=performer_profile.trainer, pokemon__dex_number__in=surrogated_mons).exists():
             return False
 
         if owner_profile and owner_profile.starter_dex_number:
