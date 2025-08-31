@@ -648,8 +648,10 @@ class MastersSegmentSettings(models.Model):
             wildcard__attack_level=Wildcard.LOW
         ).update(quantity=0)
 
-        for reward in self.profile.reward_inventory.filter(is_available=True, reward__user_created=True):
-            reward.is_available = False
+        for reward in self.profile.reward_inventory.filter(is_available=True, reward__user_created=True):  # type: RewardBundle
+            if reward.rewards.filter(wildcard__category=Wildcard.OFFENSIVE).exists():
+                reward.is_available = False
+                reward.save()
 
         self.tournament_league = current_segment.tournament_league
         self.profile.segments_settings.update(is_current=False)
