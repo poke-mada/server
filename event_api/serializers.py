@@ -263,6 +263,7 @@ class EditableProfileSerializer(serializers.ModelSerializer):
     community_skip = serializers.BooleanField(source='current_segment_settings.available_community_skip',
                                               read_only=True)
     community_pokemon = serializers.IntegerField(source='current_segment_settings.community_pokemon_id', read_only=True)
+    wipe_clause = serializers.BooleanField(source='wipe_clause_available')
 
     class Meta:
         model = MastersProfile
@@ -271,6 +272,7 @@ class EditableProfileSerializer(serializers.ModelSerializer):
             'community_skip',
             'community_pokemon',
             'current_segment',
+            'wipe_clause'
         ]
 
 
