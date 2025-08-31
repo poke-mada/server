@@ -876,15 +876,15 @@ class Newsletter(models.Model):
     TARGET = 3
 
     TARGETS = {
-        ALL: 'All',
+        ALL: 'Todos',
         PROS: 'Pros',
         NOOBS: 'Noobs',
         TARGET: 'Sleccionado'
     }
 
     created_on = models.DateTimeField(auto_now_add=True)
-    message = models.TextField()
-    target_method = models.SmallIntegerField(choices=TARGETS, default=ALL)
+    message = models.TextField(verbose_name='Mensaje')
+    target_method = models.SmallIntegerField(choices=TARGETS, default=ALL, verbose_name='Objetivos de envío')
     targets = models.ManyToManyField('event_api.MastersProfile', blank=True)
     send_notification = models.BooleanField(default=False, verbose_name='Enviar Notificacion')
     run_on_save = models.BooleanField(default=False, verbose_name='Ejecutar al guardar')
@@ -918,7 +918,9 @@ class Newsletter(models.Model):
                         message=self.message
                     )
 
-        return obje
+        self.run_on_save = False
+
+        return super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Noticia"
