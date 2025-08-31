@@ -885,7 +885,7 @@ class Newsletter(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     message = models.TextField(verbose_name='Mensaje')
     target_method = models.SmallIntegerField(choices=TARGETS, default=ALL, verbose_name='Objetivos de envío')
-    targets = models.ManyToManyField('event_api.MastersProfile', blank=True)
+    targets = models.ManyToManyField('event_api.MastersProfile', blank=True, verbose_name='Objetivos Seleccionados')
     send_notification = models.BooleanField(default=False, verbose_name='Enviar Notificacion')
     run_on_save = models.BooleanField(default=False, verbose_name='Ejecutar al guardar')
 
