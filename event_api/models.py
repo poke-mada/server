@@ -333,7 +333,7 @@ class MastersProfile(models.Model):
     web_picture = models.ImageField(upload_to='profiles/web/', null=True, blank=True, verbose_name="Foto Perfil")
     trainer = models.ForeignKey(Trainer, on_delete=models.PROTECT, related_name="users", null=True, blank=True,
                                 verbose_name="Entrenador")
-    wipe_clause_available = models.BooleanField(default=False, verbose_name="Clausula de Wipeo Disponible")
+    wipe_clause_available = models.BooleanField(default=True, verbose_name="Clausula de Wipeo Disponible")
     profile_type = models.SmallIntegerField(choices=PROFILE_TYPES.items(), default=TRAINER,
                                             verbose_name="Tipo de Perfil")
     death_count = models.IntegerField(validators=[MinValueValidator(0)], default=0,
