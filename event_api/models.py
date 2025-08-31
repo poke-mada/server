@@ -879,7 +879,7 @@ class Newsletter(models.Model):
         ALL: 'Todos',
         PROS: 'Pros',
         NOOBS: 'Noobs',
-        TARGET: 'Sleccionado'
+        TARGET: 'Seleccionado'
     }
 
     created_on = models.DateTimeField(auto_now_add=True)

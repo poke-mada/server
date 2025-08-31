@@ -975,15 +975,12 @@ class NewsletterViewSet(viewsets.ReadOnlyModelViewSet):
     def list(self, request, *args, **kwargs):
         profile: MastersProfile = request.user.masters_profile
         if profile.profile_type == MastersProfile.ADMIN:
-            queryset = self.get_queryset().filter(for_staff=True)
+            queryset = self.get_queryset()
         else:
             if profile.is_pro:
-                queryset = self.get_queryset().filter(for_pros=True, for_staff=False)
+                queryset = self.get_queryset().filter(Q(target_method=Newsletter.PROS) | Q(target_method=Newsletter.ALL))
             else:
-                queryset = self.get_queryset().filter(for_noobs=True, for_staff=False)
-
-            if profile.is_tester:
-                queryset = queryset.filter(for_tester=True)
+                queryset = self.get_queryset().filter(Q(target_method=Newsletter.NOOBS) | Q(target_method=Newsletter.ALL))
 
         page = self.paginate_queryset(queryset)
         if page is not None:
