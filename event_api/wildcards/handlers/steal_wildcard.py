@@ -1,6 +1,7 @@
 from django.db.models.functions import Random
 
-from event_api.models import CoinTransaction, MastersProfile, StreamerWildcardInventoryItem, ProfileNotification
+from event_api.models import MastersProfile, StreamerWildcardInventoryItem, ProfileNotification, \
+    Wildcard
 from event_api.wildcards.handlers.settings.models import GiveMoneyHandlerSettings
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from .attack_handler import AttackHandler
@@ -14,7 +15,7 @@ class StealWildcardHandler(AttackHandler):
         target_id = context.get('target_id')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         source_profilie: MastersProfile = self.user.masters_profile
-        wildcard_to_steal: StreamerWildcardInventoryItem = target_profile.wildcard_inventory.filter(quantity__gte=1).order_by(Random()).first()
+        wildcard_to_steal: StreamerWildcardInventoryItem = target_profile.wildcard_inventory.exclude(wildcard__category=Wildcard.PROTECT).filter(quantity__gte=1).order_by(Random()).first()
         if not wildcard_to_steal:
             ProfileNotification.objects.create(
                 profile=target_profile,
