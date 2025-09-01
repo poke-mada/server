@@ -258,7 +258,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class EditableProfileSerializer(serializers.ModelSerializer):
-    death_count = serializers.IntegerField(source='death_count_display', read_only=True)
+    death_count = serializers.IntegerField(source='current_segment_settings.death_count_display', read_only=True)
     current_segment = serializers.IntegerField(source='current_segment_settings.segment', read_only=True)
     community_skip = serializers.BooleanField(source='current_segment_settings.available_community_skip',
                                               read_only=True)
