@@ -38,7 +38,8 @@ class StrongAttackHandler(AttackHandler):
 
         if target_profile.has_reverse() and not bypasses_reverse:
             reverses = target_profile.wildcard_inventory.get(
-                wildcard=Wildcard.objects.filter(handler_key='reverse_handler').first())
+                wildcard=Wildcard.objects.filter(handler_key='reverse_handler').first()
+            )
             reverses.quantity -= 1
             reverses.save()
 
