@@ -1,5 +1,6 @@
 from .dummy_handler import DummyHandler
 from .shield import ShieldHandler
+from .reverse_handler import ReverseHandler
 from .give_item import GiveItemHandler
 from .give_money import GiveMoneyHandler
 from .give_mega_item import GiveMegaItemHandler
