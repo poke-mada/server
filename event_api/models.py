@@ -971,10 +971,10 @@ class Sanction(models.Model):
 
     def save(self, *args, **kwargs):
         Newsletter.objects.create(
-            for_noobs=True,
-            for_pros=True,
-            message=self.message
+            message=self.message,
+            target_method=Newsletter.ALL,
         )
+
         ProfileNotification.objects.create(
             profile=self.profile,
             message=self.message

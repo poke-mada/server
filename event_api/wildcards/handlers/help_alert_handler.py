@@ -27,13 +27,16 @@ class HelpAlertHandler(BaseWildCardHandler):
         ))
 
         source_profile = self.user.masters_profile
-        Newsletter.objects.create(
-            message=f'{self.user.masters_profile.streamer_name} ha ayudado a {target_name} usando {self.wildcard.name}',
-            for_noobs=source_profile.is_pro,
-            for_pros=(not source_profile.is_pro),
-            for_staff=self.user.is_staff,
-            for_tester=source_profile.is_tester
-        )
+        if source_profile.is_pro:
+            Newsletter.objects.create(
+                message=f'{self.user.masters_profile.streamer_name} ha ayudado a {target_name} usando {self.wildcard.name}',
+                target_method=Newsletter.PROS,
+            )
+        elif not source_profile.is_pro:
+            Newsletter.objects.create(
+                message=f'{self.user.masters_profile.streamer_name} ha ayudado a {target_name} usando {self.wildcard.name}',
+                target_method=Newsletter.NOOBS,
+            )
 
         ProfileNotification.objects.create(
             profile=profile,
