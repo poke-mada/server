@@ -624,9 +624,11 @@ class MastersSegmentSettings(models.Model):
     def save(self, *args, **kwargs):
         if self.pk:
             return super().save(*args, **kwargs)
+
         # a partir de aqui solo es tramo nuevo
         current_segment: "MastersSegmentSettings" = self.profile.segments_settings.filter(
             is_current=True).first()  # busca el tramo actual antes de crear el nuevo
+
         if not current_segment:
             return super().save(*args, **kwargs)
         # aqui siempre hay tramos anteriores, asi que hay que definirlos como no actuales
@@ -635,8 +637,7 @@ class MastersSegmentSettings(models.Model):
         current_segment.save()
 
         money_amount = clamp(15 - current_segment.death_count, 0, 15)
-        current_settigns: SegmentConfiguration = SegmentConfiguration.objects.filter(segment=current_segment.segment,
-                                                                                     is_tournament=False).first()
+        current_settigns: SegmentConfiguration = SegmentConfiguration.objects.filter(segment=current_segment.segment, is_tournament=False).first()
         if money_amount > 0 and current_segment.finished_at < current_settigns.ends_at:
             CoinTransaction.objects.create(
                 profile=self.profile,
@@ -655,7 +656,7 @@ class MastersSegmentSettings(models.Model):
 
         for reward in self.profile.reward_inventory.filter(is_available=True,
                                                            reward__user_created=True):  # type: RewardBundle
-            if reward.rewards.filter(wildcard__category=Wildcard.OFFENSIVE).exists():
+            if reward.reward.rewards.filter(wildcard__category=Wildcard.OFFENSIVE).exists():
                 reward.is_available = False
                 reward.save()
 
