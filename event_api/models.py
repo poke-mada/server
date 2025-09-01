@@ -52,7 +52,6 @@ class CoinTransaction(models.Model):
     segment = models.IntegerField(default=1)
 
     def save(self, *args, **kwargs):
-
         DataConsumer.send_custom_data(self.profile.user.username, dict(
             type='coins_notification',
             data=self.profile.economy + self.amount if self.TYPE == CoinTransaction.INPUT else -self.amount
@@ -362,14 +361,18 @@ class MastersProfile(models.Model):
         return self.streamer_name or f"U:{self.user.username}"
 
     @property
+    def death_count_display_f(self):
+        return self.segments_settings.aggregate(total_deaths=Sum('death_count_display'))['total_deaths']
+
+    @property
     def last_save(self):
         return self.trainer.saves.order_by('created_on').last().file
 
     def get_last_releasable_by_dex_number(self, dex_number, source_stealer: "MastersProfile" = None):
-
         if source_stealer:
             banned_mons = BannedPokemon.objects.filter(Q(profile=source_stealer) | Q(profile=self)).values_list(
-                'dex_number', flat=True).distinct()
+                'dex_number', flat=True
+            ).distinct()
         else:
             banned_mons = BannedPokemon.objects.filter(profile=self).values_list('dex_number', flat=True)
 
@@ -607,6 +610,7 @@ class MastersSegmentSettings(models.Model):
                                          verbose_name="Dama de la Cura restantes")
     death_count = models.IntegerField(validators=[MinValueValidator(0)], help_text="Muertes en un tramo", default=0,
                                       verbose_name="Conteo de muertes")
+    death_count_display = models.IntegerField(validators=[MinValueValidator(0)], help_text="Muertes en el tramo del overlay", default=0)
     tournament_league = models.CharField(max_length=1, choices=LEAGUES.items(), default='-', verbose_name="Liga",
                                          help_text="Liga a la que se llegó en este tramo")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Creacion", null=True)
@@ -649,7 +653,8 @@ class MastersSegmentSettings(models.Model):
             wildcard__attack_level=Wildcard.LOW
         ).update(quantity=0)
 
-        for reward in self.profile.reward_inventory.filter(is_available=True, reward__user_created=True):  # type: RewardBundle
+        for reward in self.profile.reward_inventory.filter(is_available=True,
+                                                           reward__user_created=True):  # type: RewardBundle
             if reward.rewards.filter(wildcard__category=Wildcard.OFFENSIVE).exists():
                 reward.is_available = False
                 reward.save()
@@ -760,11 +765,13 @@ class GameEvent(models.Model):
 
         if profile.is_tester:
             events = GameEvent.objects.filter(
-                Q(force_available=True) | Q(available_date_from__lte=now_time, available_date_to__gte=now_time) | Q(id=profile.event_joined_id)
+                Q(force_available=True) | Q(available_date_from__lte=now_time, available_date_to__gte=now_time) | Q(
+                    id=profile.event_joined_id)
             ).order_by('available_date_to')
         else:
             events = GameEvent.objects.filter(
-                Q(force_available=True) | Q(available_date_from__lte=now_time, available_date_to__gte=now_time) | Q(id=profile.event_joined_id),
+                Q(force_available=True) | Q(available_date_from__lte=now_time, available_date_to__gte=now_time) | Q(
+                    id=profile.event_joined_id),
                 testers_only=False
             ).order_by('available_date_to')
 
@@ -869,7 +876,6 @@ class ProfileImposterLog(models.Model):
 
 
 class Newsletter(models.Model):
-
     ALL = 0
     PROS = 1
     NOOBS = 2

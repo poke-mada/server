@@ -38,8 +38,8 @@ class OverlaySerializer(serializers.ModelSerializer):
 
     def get_death_count(self, obj: Trainer):
         profile: MastersProfile = obj.get_trainer_profile()
-        if profile is not None:
-            return profile.death_count_display or 0
+        if profile is not None and profile.current_segment_settings:
+            return profile.current_segment_settings.death_count_display or 0
         return 0
 
     class Meta:
