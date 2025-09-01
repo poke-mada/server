@@ -655,7 +655,7 @@ class MastersSegmentSettings(models.Model):
         ).update(quantity=0)
 
         for reward in self.profile.reward_inventory.filter(is_available=True,
-                                                           reward__user_created=True):  # type: RewardBundle
+                                                           reward__user_created=True):  # type: StreamerRewardInventory
             if reward.reward.rewards.filter(wildcard__category=Wildcard.OFFENSIVE).exists():
                 reward.is_available = False
                 reward.save()
