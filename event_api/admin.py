@@ -320,8 +320,8 @@ class EvolutionAdmin(admin.ModelAdmin):
         return False
 
 
-@admin.register(ProfileNotification)
-class EvolutionAdmin(admin.ModelAdmin):
+@admin.register(ProfileNotification, site=staff_site)
+class ProfileNotificationAdmin(admin.ModelAdmin):
     list_display = ('profile', 'created_at', 'message')
 
     def has_add_permission(self, *args, **kwargs):
