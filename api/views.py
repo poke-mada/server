@@ -54,6 +54,11 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             profile.death_count_display += 6
             profile.save()
 
+            cs = profile.current_segment_settings
+
+            cs.death_count += 6
+            cs.save()
+
             bundle = RewardBundle.objects.create(
                 name=f'Clausula de wipeo para {profile.streamer_name}',
                 user_created=True
