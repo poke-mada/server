@@ -308,9 +308,9 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             current_profile: MastersProfile = current_profile.coached
 
         if not current_profile.current_segment_settings:
-            return Response(4, status=status.HTTP_200_OK)
+            return Response(0, status=status.HTTP_200_OK)
 
-        return Response(user.masters_profile.current_segment_settings.attacks_received_left, status=status.HTTP_200_OK)
+        return Response(user.masters_profile.current_segment_settings.attacks_received, status=status.HTTP_200_OK)
 
     @action(methods=['post'], detail=False)
     def register_imposter(self, request, *args, **kwargs):

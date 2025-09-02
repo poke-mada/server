@@ -114,6 +114,7 @@ class Wildcard(models.Model):
     segment_available = models.IntegerField(default=0)
     handler_key = models.CharField(max_length=100, blank=True, null=True,
                                    help_text="Identificador del handler a usar (ej: 'give_item')")
+    noob_price = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -137,8 +138,12 @@ class Wildcard(models.Model):
     def get_price(self, user: User):
         profile = user.masters_profile
         current_segment = profile.current_segment_settings
+
+        if not profile.is_pro and self.noob_price:
+            return self.noob_price
+
         if self.name.lower() == 'robo justo' or self.id == 53:
-            if current_segment and current_segment.steal_karma == 4:
+            if current_segment and current_segment.steal_karma == settings.MAX_EXPERIENCE:
                 return 0
             return self.price
 
@@ -596,12 +601,11 @@ class MastersSegmentSettings(models.Model):
     karma = models.DecimalField(validators=[MinValueValidator(0), ], default=1, decimal_places=1,
                                 verbose_name="Karma", help_text="Capacidad de usar comodines de ataque fuerte",
                                 max_digits=9)
-    steal_karma = models.DecimalField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0,
-                                      decimal_places=1, verbose_name="Karma de Robo Justo",
-                                      help_text="Al juntar 3, se desbloquea \"Robo justo\"", max_digits=3)
-    attacks_received_left = models.DecimalField(validators=[MinValueValidator(0)],
-                                                decimal_places=1, verbose_name="Experiencia", default=4,
-                                                help_text="Ataques que puede recibir en el tramo", max_digits=9)
+    steal_karma = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(settings.MAX_EXPERIENCE)],
+                                      default=0, verbose_name="Karma de Robo Justo",
+                                      help_text="Al juntar 3, se desbloquea \"Robo justo\"")
+    attacks_received = models.IntegerField(validators=[MinValueValidator(0)], default=0, verbose_name="Ataques Recibidos",
+                                           help_text="Ataques que ha recibido en el tramo")
     shinies_freed = models.IntegerField(validators=[MinValueValidator(0)],
                                         help_text="Cuantos shinies ha liberado en el tramo", default=0,
                                         verbose_name="Shinies liberados")
@@ -610,7 +614,8 @@ class MastersSegmentSettings(models.Model):
                                          verbose_name="Dama de la Cura restantes")
     death_count = models.IntegerField(validators=[MinValueValidator(0)], help_text="Muertes en un tramo", default=0,
                                       verbose_name="Conteo de muertes")
-    death_count_display = models.IntegerField(validators=[MinValueValidator(0)], help_text="Muertes en el tramo del overlay", default=0)
+    death_count_display = models.IntegerField(validators=[MinValueValidator(0)],
+                                              help_text="Muertes en el tramo del overlay", default=0)
     tournament_league = models.CharField(max_length=1, choices=LEAGUES.items(), default='-', verbose_name="Liga",
                                          help_text="Liga a la que se llegó en este tramo")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Creacion", null=True)
@@ -637,7 +642,8 @@ class MastersSegmentSettings(models.Model):
         current_segment.save()
 
         money_amount = clamp(15 - current_segment.death_count, 0, 15)
-        current_settigns: SegmentConfiguration = SegmentConfiguration.objects.filter(segment=current_segment.segment, is_tournament=False).first()
+        current_settigns: SegmentConfiguration = SegmentConfiguration.objects.filter(segment=current_segment.segment,
+                                                                                     is_tournament=False).first()
         if money_amount > 0 and current_segment.finished_at < current_settigns.ends_at:
             CoinTransaction.objects.create(
                 profile=self.profile,

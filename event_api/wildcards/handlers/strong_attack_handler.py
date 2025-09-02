@@ -65,9 +65,10 @@ class StrongAttackHandler(AttackHandler):
         target_current_segment = target_profile.current_segment_settings
         source_current_segment = self.user.masters_profile.current_segment_settings
 
-        target_current_segment.karma += self.wildcard.karma_consumption
         target_current_segment.steal_karma += self.wildcard.karma_consumption
-        target_current_segment.attacks_received_left -= self.wildcard.karma_consumption
+        target_current_segment.attacks_received += self.wildcard.karma_consumption
+
+        target_current_segment.karma += self.wildcard.karma_consumption
         target_current_segment.save()
 
         source_current_segment.karma -= self.wildcard.karma_consumption
@@ -85,7 +86,7 @@ class StrongAttackHandler(AttackHandler):
 
         DataConsumer.send_custom_data(target_profile.user.username, dict(
             type='exp',
-            data=str(target_current_segment.attacks_received_left)
+            data=str(target_current_segment.attacks_received)
         ))
 
         return super().execute(context, avoid_notification=avoid_notification)

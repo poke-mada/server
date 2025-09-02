@@ -13,8 +13,8 @@ class MidAttackHandler(AttackHandler):
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         target_current_segment: MastersSegmentSettings = target_profile.current_segment_settings
 
-        target_current_segment.steal_karma += Decimal(0.5)
-        target_current_segment.attacks_received_left -= Decimal(0.5)
+        target_current_segment.steal_karma += 1
+        target_current_segment.attacks_received += 1
         target_current_segment.save()
 
         DataConsumer.send_custom_data(target_profile.user.username, dict(

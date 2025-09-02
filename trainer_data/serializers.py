@@ -1,6 +1,7 @@
 from datetime import datetime
 from io import BytesIO
 
+from django.conf import settings
 from django.core.files import File
 from django.db.models import Q
 from django.utils import timezone
@@ -319,7 +320,7 @@ class TrainerBoxSerializer(serializers.ModelSerializer):
         cs = obj.trainer.get_trainer_profile().current_segment_settings
         if not cs:
             return False
-        return cs.attacks_received_left > 0
+        return cs.attacks_received < settings.MAX_EXPERIENCE
 
     def get_owner_profile(self, obj):
         return obj.trainer.get_trainer_profile().id

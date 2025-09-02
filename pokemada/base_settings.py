@@ -23,6 +23,8 @@ DEBUG = False
 # SECURITY WARNING: don't run with debug turned on in production!
 ALLOWED_HOSTS = ['*']
 
+MAX_EXPERIENCE = 3
+
 CORS_ORIGIN_ALLOW_ALL = True
 CSRF_TRUSTED_ORIGINS = [
     'https://pokemon.para-mada.com',
