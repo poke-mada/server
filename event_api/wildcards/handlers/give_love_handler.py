@@ -23,6 +23,7 @@ class GiveLoveHandler(HelpAlertHandler):
         Reward.objects.create(
             reward_type=Reward.ITEM,
             item=Item.objects.filter(index=24).first(),
+            quantity=2,
             bundle=bundle
         )
 
