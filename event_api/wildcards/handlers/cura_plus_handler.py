@@ -8,6 +8,9 @@ from event_api.models import MastersProfile, Wildcard, WildcardLog
 @WildCardExecutorRegistry.register("heal_plus", verbose='Cura Plus Handler')
 class HealPlusHandler(HelpAlertHandler):
 
+    def validate(self, context):
+        return True
+
     def execute(self, context):
         source_profile = self.user.masters_profile
         target_id = context.get('target_id')
