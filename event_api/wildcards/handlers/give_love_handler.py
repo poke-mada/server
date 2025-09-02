@@ -27,7 +27,7 @@ class GiveLoveHandler(HelpAlertHandler):
         )
 
         StreamerRewardInventory.objects.create(
-            profile=self.user.masters_profile,
+            profile=target_profile,
             reward=bundle
         )
 
