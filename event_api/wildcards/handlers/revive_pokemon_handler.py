@@ -12,8 +12,6 @@ class RevivePokemonHandler(BaseWildCardHandler):
         if not dex_number:
             return 'Necesitas seleccionar un pokemon a revivir'
 
-        profile = self.user.masters_profile
-
         pokemon: Pokemon = Evolution.objects.filter(dex_number=dex_number).first()
         evo_tree = pokemon.surrogate()
 
