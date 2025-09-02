@@ -67,7 +67,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             Reward.objects.create(
                 reward_type=Reward.WILDCARD,
                 bundle=bundle,
-                wildcard=Wildcard.objects.filter(Q(name__iexact='revivir pokemon') | Q(id=5)).first(),
+                wildcard=Wildcard.objects.filter(Q(name__iexact='clausula revivir') | Q(id=94)).first(),
                 quantity=6
             )
 

@@ -21,6 +21,7 @@ from .strong_attack_handler import StrongAttackHandler
 from .mid_attack_handler import MidAttackHandler
 from .revive_pokemon_handler import RevivePokemonHandler
 from .revive_starter_handler import ReviveStarterHandler
+from .special_revive_pokemon_handler import SpecialRevivePokemonHandler
 from .steal_wildcard import StealWildcardHandler
 from .release_pokemon import ReleasePokemonHandler
 from .release_pokemon_shiny import ReleasePokemonShinyHandler

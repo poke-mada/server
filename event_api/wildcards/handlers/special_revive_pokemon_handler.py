@@ -4,8 +4,8 @@ from .. import BaseWildCardHandler
 from event_api.models import DeathLog, BannedPokemon, Evolution
 
 
-@WildCardExecutorRegistry.register("revive_pokemon", verbose='Revive Pokemon Handler')
-class RevivePokemonHandler(BaseWildCardHandler):
+@WildCardExecutorRegistry.register("special_revive_pokemon", verbose='Special Revive Pokemon Handler')
+class SpecialRevivePokemonHandler(BaseWildCardHandler):
 
     def validate(self, context):
         dex_number = context.get('dex_number')
@@ -19,6 +19,9 @@ class RevivePokemonHandler(BaseWildCardHandler):
 
         if not DeathLog.objects.filter(dex_number__in=evo_tree, profile=self.user.masters_profile, revived=False).exists():
             return 'Este pokemon no está muerto'
+
+        if profile.starter_dex_number in evo_tree:
+            return super().validate(context)
 
         if DeathLog.objects.filter(dex_number__in=evo_tree, profile=self.user.masters_profile, revived=True).exists():
             return 'No puedes revivir dos veces un pokemon'
