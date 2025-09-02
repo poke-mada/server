@@ -11,6 +11,8 @@ from .give_random_money import GiveRandomMoneyHandler
 from .timer_handler import TimerHandler
 from .help_alert_handler import HelpAlertHandler
 from .alert_handler import AlertHandler
+from .cura_plus_handler import HealPlusHandler
+from .give_love_handler import GiveLoveHandler
 from .attack_handler import AttackHandler
 
 from .steal_money import StealMoneyHandler

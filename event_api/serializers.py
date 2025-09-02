@@ -46,7 +46,7 @@ class WildcardWithInventorySerializer(serializers.ModelSerializer):
 
     def get_inventory(self, obj):
         profile: MastersProfile = self.user.masters_profile
-        inventory: StreamerWildcardInventoryItem = profile.wildcard_inventory.filter(wildcard=obj).first()
+        inventory: StreamerWildcardInventoryItem = profile.wildcard_inventory.filter(wildcard=obj).order_by('-quantity').first()
         return inventory.quantity if inventory else 0
 
     class Meta:

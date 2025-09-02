@@ -388,7 +388,7 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         if not current_profile.is_tester:
             wildcards = wildcards.exclude(is_wip=True)
 
-        if current_segment and current_segment.steal_karma < 3:
+        if current_segment and current_segment.steal_karma >= settings.MAX_EXPERIENCE:
             wildcards = wildcards.exclude(name__iexact='robo justo').exclude(pk=53)
 
         serializer = WildcardWithInventorySerializer(
