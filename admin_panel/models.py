@@ -32,8 +32,6 @@ class InventoryGiftQuerySequence(models.Model):
     def save(self, *args, **kwargs):
         obje = super().save(*args, **kwargs)
 
-        self.targets.save_m2m()
-
         if self.run_on_save:
             self.run(None)
             self.run_on_save = False
