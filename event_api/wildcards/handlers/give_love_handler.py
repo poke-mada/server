@@ -17,7 +17,9 @@ class GiveLoveHandler(HelpAlertHandler):
 
         bundle = RewardBundle.objects.create(
             name=f'Ayuda enviada por {source_profile.streamer_name}',
-            user_created=True
+            user_created=True,
+            sender=source_profile.streamer_name,
+            type=RewardBundle.WILDCARD_BUNDLE
         )
 
         Reward.objects.create(
@@ -32,10 +34,6 @@ class GiveLoveHandler(HelpAlertHandler):
             reward=bundle
         )
 
-        notification = f'Regalo de {source_profile.streamer_name}'
-
-        target_profile.give_wildcard(Wildcard.objects.get(Q(id=5) | Q(name__iexact='revivir pokemon')),
-                                     notification=notification)
         WildcardLog.objects.create(
             profile=source_profile,
             wildcard=self.wildcard,
