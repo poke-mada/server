@@ -44,6 +44,21 @@ class RewardBundleAdmin(admin.ModelAdmin):
         return queryset.filter(user_created=False)
 
 
+@admin.register(RewardBundle)
+class RewardBundleAdmin2(admin.ModelAdmin):
+    list_display = ('id', 'name', 'is_active')
+    list_filter = ('is_active',)
+    fields = (
+        'name',
+        'is_active',
+        'description',
+        'sender',
+        'user_created',
+        'type',
+    )
+    inlines = (RewardInline,)
+
+
 class RoulettePriceWildcardInline(NestedTabularInline):
     model = RoulettePriceWildcard
     min_num = 1
