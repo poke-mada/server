@@ -52,12 +52,13 @@ class CoinTransaction(models.Model):
     segment = models.IntegerField(default=1)
 
     def save(self, *args, **kwargs):
+        obj = super(CoinTransaction, self).save(*args, **kwargs)
         DataConsumer.send_custom_data(self.profile.user.username, dict(
             type='coins_notification',
-            data=self.profile.economy + self.amount if self.TYPE == CoinTransaction.INPUT else -self.amount
+            data=self.profile.economy
         ))
 
-        return super(CoinTransaction, self).save(*args, **kwargs)
+        return obj
 
     class Meta:
         verbose_name = 'Transaccion'

@@ -9,6 +9,16 @@ from event_api.models import MastersProfile, Wildcard, WildcardLog
 class HealPlusHandler(HelpAlertHandler):
 
     def validate(self, context):
+        target_id = context.get('target_id', False)
+
+        if not target_id:
+            return 'Necesitas seleccionar un objetivo'
+
+        target_profile: MastersProfile = MastersProfile.objects.filter(id=target_id).first()
+
+        if not target_profile:
+            return 'Selecciona un objetivo valido'
+
         return True
 
     def execute(self, context):
