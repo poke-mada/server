@@ -254,7 +254,7 @@ class MastersSegmentSettingsInline(NestedStackedInline):
 
 class MastersProfileInline(NestedStackedInline):
     model = MastersProfile
-    readonly_fields = ('last_save_download', 'economy')
+    readonly_fields = ('last_save_download', 'economy', 'death_count_display_f')
     inlines = [MastersSegmentSettingsInline, ProfilePlatformUrlInline, WildcardInventoryItem, RewardInventoryInline]
 
 

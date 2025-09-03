@@ -122,7 +122,7 @@ class MastersSegmentSettingsAdmin(NestedStackedInline):
 
 class MastersProfileInline(NestedStackedInline):
     model = MastersProfile
-    readonly_fields = ('last_save_download', 'economy', 'rom_name', 'trainer',)
+    readonly_fields = ('last_save_download', 'economy', 'rom_name', 'trainer', 'death_count_display_f')
     autocomplete_fields = ('coached', 'main_coach')
     inlines = [MastersSegmentSettingsAdmin, ProfilePlatformUrlInline]
 
