@@ -273,10 +273,12 @@ class ExtractionPokemonProcess(models.Model):
     sequence = models.ForeignKey(ExtractPokemonDataSequence, on_delete=models.CASCADE, related_name='processes')
     target = models.ForeignKey('pokemon_api.Pokemon', on_delete=models.SET_NULL, related_name='extraction_targeted',
                                null=True, blank=False, verbose_name='Pokemon Objetivo')
+    pokemon_mote = models.CharField(max_length=26, null=True, blank=True, verbose_name='Mote Pokemon')
     enc_data = models.FileField(upload_to='extraction/pokemon/', null=True, blank=True, verbose_name='EK6 data')
 
     def run(self, trainer):
         owned_pkm = trainer.mons.filter(pokemon__in=self.target.surrogate()).first()
         if owned_pkm:
+            self.pokemon_mote = owned_pkm.mote
             self.enc_data = owned_pkm.enc_data
             self.save()
