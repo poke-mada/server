@@ -281,7 +281,7 @@ class ExtractionPokemonProcess(models.Model):
 
         if self.search_starter:
             from pokemon_api.models import Pokemon
-            self.target = Pokemon.objects.get(dex_number=profile.starter_dex_number)
+            self.target = Pokemon.objects.filter(dex_number=profile.starter_dex_number).first()
 
         owned_pkm = trainer.mons.filter(pokemon__in=self.target.surrogate()).first()
         if owned_pkm:
