@@ -225,7 +225,7 @@ class WildcardInventoryItem(NestedTabularInline):
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
-        return queryset.filter(wildcard__is_active=True, quantity__gt=0)
+        return queryset.filter(quantity__gt=0)
 
 
 class RewardInventoryInline(NestedTabularInline):
