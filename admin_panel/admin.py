@@ -213,6 +213,7 @@ class BanPokemonSequenceAdmin(admin.ModelAdmin):
 
 class ExtractionPokemonProcessInline(admin.TabularInline):
     model = ExtractionPokemonProcess
+    readonly_fields = ('pokemon_mote', 'enc_data')
     autocomplete_fields = ('target',)
     extra = 0
     min_num = 1
