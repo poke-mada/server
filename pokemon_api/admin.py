@@ -87,3 +87,18 @@ class PokemonAdmin(admin.ModelAdmin):
     list_display = ('dex_number', 'form', 'name')
     search_fields = ('name', 'dex_number')
     # readonly_fields = ('dex_number', 'types', 'name', 'form')
+
+
+@admin.register(models.Pokemon, site=staff_site)
+class PokemonAdmin2(admin.ModelAdmin):
+    list_display = ('dex_number', 'form', 'name')
+    search_fields = ('name', 'dex_number')
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False

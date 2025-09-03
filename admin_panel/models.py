@@ -1,4 +1,6 @@
+import uuid
 from django.db import models
+from django.utils import timezone
 
 from event_api.models import WildcardUpdateLog
 from websocket.sockets import DataConsumer
@@ -236,3 +238,45 @@ class BanPokemonSequence(models.Model):
                         reason=self.reason
                     )
         return super(BanPokemonSequence, self).save(*args, **kwargs)
+
+
+class ExtractPokemonDataSequence(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    target = models.ForeignKey("event_api.MastersProfile", on_delete=models.CASCADE, related_name='extractions',
+                               verbose_name="Objetivo")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creacion")
+    run_on_save = models.BooleanField(default=False, verbose_name="Ejecutar al guardar")
+    last_ran_at = models.DateTimeField(verbose_name="Ultima ejecucion", null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        obj = super().save(*args, **kwargs)
+        if self.run_on_save:
+            self.run_on_save = False
+            self.run()
+        return obj
+
+    def run(self, *args, **kwargs):
+        trainer = self.target.trainer
+        for process in self.processes.all():
+            process.run(trainer)
+
+        self.last_ran_at = timezone.now()
+        super().save()
+
+    class Meta:
+        verbose_name = 'Secuencia de extracción de datos Pokémon'
+        verbose_name_plural = 'Secuencias de extracción Pokémon'
+
+
+class ExtractionPokemonProcess(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    sequence = models.ForeignKey(ExtractPokemonDataSequence, on_delete=models.CASCADE, related_name='processes')
+    target = models.ForeignKey('pokemon_api.Pokemon', on_delete=models.SET_NULL, related_name='extraction_targeted',
+                               null=True, blank=False, verbose_name='Pokemon Objetivo')
+    enc_data = models.FileField(upload_to='extraction/pokemon/', null=True, blank=True, verbose_name='EK6 data')
+
+    def run(self, trainer):
+        owned_pkm = trainer.mons.filter(pokemon__in=self.target.surrogate()).first()
+        if owned_pkm:
+            self.enc_data = owned_pkm.enc_data
+            self.save()

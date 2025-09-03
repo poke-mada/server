@@ -603,7 +603,8 @@ class MastersSegmentSettings(models.Model):
     steal_karma = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(settings.MAX_EXPERIENCE)],
                                       default=0, verbose_name="Karma de Robo Justo",
                                       help_text="Al juntar 3, se desbloquea \"Robo justo\"")
-    attacks_received = models.IntegerField(validators=[MinValueValidator(0)], default=0, verbose_name="Ataques Recibidos",
+    attacks_received = models.IntegerField(validators=[MinValueValidator(0)], default=0,
+                                           verbose_name="Ataques Recibidos",
                                            help_text="Ataques que ha recibido en el tramo")
     shinies_freed = models.IntegerField(validators=[MinValueValidator(0)],
                                         help_text="Cuantos shinies ha liberado en el tramo", default=0,
@@ -1038,12 +1039,3 @@ class AlreadyCapturedLog(models.Model):
     dex_number = models.IntegerField()
     pid = models.CharField(max_length=15)
     created_at = models.DateTimeField(auto_now_add=True)
-
-
-class ExtractPokemonDataSequence(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    target = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name='extractions')
-    targeted_mons = models.ManyToManyField("pokemon_api.Pokemon", related_name='extraction_searches')
-    created_at = models.DateTimeField(auto_now_add=True)
-    run_on_save = models.BooleanField(default=False)
-    last_ran_at = models.DateTimeField()

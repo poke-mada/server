@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from nested_admin.nested import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 
 from admin_panel.models import InventoryGiftQuerySequence, DirectGiftQuerySequence, DirectGift, ShowdownToken, \
-    BanPokemonSequence, InventoryGiftQuerySequenceLog, DirectGiftQuerySequenceLog
+    BanPokemonSequence, InventoryGiftQuerySequenceLog, DirectGiftQuerySequenceLog, ExtractionPokemonProcess, \
+    ExtractPokemonDataSequence
 from event_api.models import MastersProfile, MastersSegmentSettings, StreamerWildcardInventoryItem, ProfilePlatformUrl
 from rewards_api.models import StreamerRewardInventory
 
@@ -208,6 +209,22 @@ class ShowdownTokenAdmin(admin.ModelAdmin):
 class BanPokemonSequenceAdmin(admin.ModelAdmin):
     list_display = ('profile', 'dex_number', 'reason',)
     autocomplete_fields = ('profile',)
+
+
+class ExtractionPokemonProcessInline(admin.TabularInline):
+    model = ExtractionPokemonProcess
+    autocomplete_fields = ('target',)
+    extra = 0
+    min_num = 1
+
+
+@admin.register(ExtractPokemonDataSequence, site=staff_site)
+class ExtractPokemonDataSequenceAdmin(admin.ModelAdmin):
+    list_display = ('target', 'created_at', 'last_ran_at')
+    list_filter = ('target',)
+    readonly_fields = ('created_at', 'last_ran_at')
+    autocomplete_fields = ('target',)
+    inlines = [ExtractionPokemonProcessInline]
 
 
 staff_site.register(User, UserProfileAdmin)
