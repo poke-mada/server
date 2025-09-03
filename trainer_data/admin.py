@@ -81,7 +81,7 @@ class TrainerPokemonAdmin(admin.ModelAdmin):
     readonly_fields = ('moves', 'types', 'suffix', 'enc_data')
     list_display = ('id', 'pokemon__dex_number', 'trainer__name', 'pokemon', 'mote', 'level')
     search_fields = ('pokemon__dex_number', 'pokemon__name', 'mote', 'trainer__name')
-    list_filter = ('trainer__name',)
+    list_filter = ('trainer__name', 'mote')
     inlines = [MoveLinear]
     actions = [ban_full_tree]
 

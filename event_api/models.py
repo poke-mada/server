@@ -1,4 +1,5 @@
 from datetime import datetime
+import uuid
 import random
 from typing import Union
 
@@ -1037,3 +1038,12 @@ class AlreadyCapturedLog(models.Model):
     dex_number = models.IntegerField()
     pid = models.CharField(max_length=15)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ExtractPokemonDataSequence(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    target = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name='extractions')
+    targeted_mons = models.ManyToManyField("pokemon_api.Pokemon", related_name='extraction_searches')
+    created_at = models.DateTimeField(auto_now_add=True)
+    run_on_save = models.BooleanField(default=False)
+    last_ran_at = models.DateTimeField()
