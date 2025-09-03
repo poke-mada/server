@@ -48,6 +48,7 @@ class RewardBundleAdmin(admin.ModelAdmin):
 class RewardBundleAdmin2(admin.ModelAdmin):
     list_display = ('id', 'name', 'is_active')
     list_filter = ('is_active',)
+    search_fields = ('name', 'id')
     fields = (
         'name',
         'is_active',
