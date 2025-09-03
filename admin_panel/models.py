@@ -256,9 +256,8 @@ class ExtractPokemonDataSequence(models.Model):
         return obj
 
     def run(self, *args, **kwargs):
-        trainer = self.target.trainer
         for process in self.processes.all():
-            process.run(trainer)
+            process.run(self.target)
 
         self.last_ran_at = timezone.now()
         super().save()
@@ -272,11 +271,18 @@ class ExtractionPokemonProcess(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     sequence = models.ForeignKey(ExtractPokemonDataSequence, on_delete=models.CASCADE, related_name='processes')
     target = models.ForeignKey('pokemon_api.Pokemon', on_delete=models.SET_NULL, related_name='extraction_targeted',
-                               null=True, blank=False, verbose_name='Pokemon Objetivo')
+                               null=True, blank=True, verbose_name='Pokemon Objetivo')
     pokemon_mote = models.CharField(max_length=26, null=True, blank=True, verbose_name='Mote Pokemon')
     enc_data = models.FileField(upload_to='extraction/pokemon/', null=True, blank=True, verbose_name='EK6 data')
+    search_starter = models.BooleanField(default=False, verbose_name='Buscar Elegido')
 
-    def run(self, trainer):
+    def run(self, profile):
+        trainer = profile.trainer
+
+        if self.search_starter:
+            from pokemon_api.models import Pokemon
+            self.target = Pokemon.objects.get(dex_number=profile.starter_dex_number)
+
         owned_pkm = trainer.mons.filter(pokemon__in=self.target.surrogate()).first()
         if owned_pkm:
             self.pokemon_mote = owned_pkm.mote
