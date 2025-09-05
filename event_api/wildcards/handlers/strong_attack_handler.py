@@ -1,7 +1,7 @@
 from .attack_handler import AttackHandler
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from websocket.sockets import DataConsumer
-from event_api.models import MastersProfile, MastersSegmentSettings
+from event_api.models import MastersProfile, MastersSegmentSettings, WildcardLog
 
 
 @WildCardExecutorRegistry.register("strong_attack", verbose='Strong Attack Handler')
@@ -18,9 +18,10 @@ class StrongAttackHandler(AttackHandler):
             return 'No tienes suficiente karma'
 
         if target_profile.has_shield():
-            reverses = target_profile.wildcard_inventory.get(wildcard=Wildcard.objects.filter(handler_key='escudo_protector').first())
-            reverses.quantity -= 1
-            reverses.save()
+            shield = Wildcard.objects.filter(handler_key='escudo_protector').first()
+            shields = target_profile.wildcard_inventory.get(wildcard=shield)
+            shields.quantity -= 1
+            shields.save()
 
             data = dict(
                 user_name=self.user.masters_profile.streamer_name,
@@ -33,12 +34,18 @@ class StrongAttackHandler(AttackHandler):
                 type='shielded_attack_notification',
                 data=data
             ))
+            WildcardLog.objects.create(
+                wildcard=self.wildcard,
+                profile=self.user.masters_profile,
+                details=f'{target_profile.streamer_name} ha bloqueado el ataque de {self.user.masters_profile.streamer_name} con escudo protector'
+            )
 
             return '¡El objetivo se ha protegido!'
 
         if target_profile.has_reverse() and not bypasses_reverse:
+            reverse = Wildcard.objects.filter(handler_key='reverse_handler').first()
             reverses = target_profile.wildcard_inventory.get(
-                wildcard=Wildcard.objects.filter(handler_key='reverse_handler').first()
+                wildcard=reverse
             )
             reverses.quantity -= 1
             reverses.save()
@@ -50,10 +57,16 @@ class StrongAttackHandler(AttackHandler):
                 ),
                 target_name=target_profile.streamer_name
             )
+
             DataConsumer.send_custom_data(target_profile.user.username, dict(
                 type='stolen_attack_notification',
                 data=data
             ))
+            WildcardLog.objects.create(
+                wildcard=self.wildcard,
+                profile=self.user.masters_profile,
+                details=f'{target_profile.streamer_name} ha robado el ataque de {self.user.masters_profile.streamer_name} con reversa'
+            )
 
             return '¡El objetivo te ha robado la carta!'
 
