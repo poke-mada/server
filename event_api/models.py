@@ -156,6 +156,10 @@ class Wildcard(models.Model):
                 self.id == 9 or self.name.lower() == 'dama de la cura'):
             return 'No puedes comprar mas damas de la cura'
 
+        if not profile.current_segment_settings or profile.current_segment_settings.justice_steal_bought and (
+                self.id == 53 or self.name.lower() == 'robo justo'):
+            return 'No puedes comprar mas Robos Justos'
+
         already_in_possession = inventory.quantity
         if not force_buy:
             amount_to_buy = clamp(amount - already_in_possession, 0)
@@ -201,6 +205,11 @@ class Wildcard(models.Model):
         if self.id == 9 or self.name.lower() == 'dama de la cura':
             css = user.masters_profile.current_segment_settings
             css.cure_lady_left -= 1
+            css.save()
+
+        if self.id == 53 or self.name.lower() == 'robo justo':
+            css = user.masters_profile.current_segment_settings
+            css.justice_steal_bought = False
             css.save()
 
         CoinTransaction.objects.create(
@@ -620,7 +629,7 @@ class MastersSegmentSettings(models.Model):
                                          help_text="Liga a la que se llegó en este tramo")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Creacion", null=True)
     finished_at = models.DateTimeField(null=True, verbose_name="Fecha de Finalizacion de tramo", blank=True)
-
+    justice_steal_bought = models.BooleanField(default=False, verbose_name="Robo justo comprado")
     team = models.CharField
 
     def __str__(self):
