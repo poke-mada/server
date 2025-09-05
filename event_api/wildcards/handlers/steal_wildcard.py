@@ -15,7 +15,10 @@ class StealWildcardHandler(AttackHandler):
         target_id = context.get('target_id')
         target_profile: MastersProfile = MastersProfile.objects.get(id=target_id)
         source_profilie: MastersProfile = self.user.masters_profile
-        wildcard_to_steal: StreamerWildcardInventoryItem = target_profile.wildcard_inventory.exclude(wildcard__category=Wildcard.PROTECT).filter(quantity__gte=1).order_by(Random()).first()
+        wildcard_to_steal: StreamerWildcardInventoryItem = (target_profile.wildcard_inventory
+                                                            .exclude(wildcard__category=Wildcard.PROTECT)
+                                                            .exclude(wildcard_id=53)
+                                                            .filter(quantity__gte=1).order_by(Random()).first())
         if not wildcard_to_steal:
             ProfileNotification.objects.create(
                 profile=target_profile,
