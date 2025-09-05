@@ -156,7 +156,7 @@ class Wildcard(models.Model):
                 self.id == 9 or self.name.lower() == 'dama de la cura'):
             return 'No puedes comprar mas damas de la cura'
 
-        if not profile.current_segment_settings or profile.current_segment_settings.justice_steal_bought and (
+        if (profile.current_segment_settings and not profile.current_segment_settings.justice_steal_bought) and (
                 self.id == 53 or self.name.lower() == 'robo justo'):
             return 'No puedes comprar mas Robos Justos'
 
