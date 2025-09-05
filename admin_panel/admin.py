@@ -42,6 +42,7 @@ class GiftSequenceAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'modified', 'run_times')
     search_fields = ('name',)
     autocomplete_fields = ('targets',)
+    inlines = [InventoryGiftQuerySequenceLogInline]
     actions = [run_sequence]
 
 
