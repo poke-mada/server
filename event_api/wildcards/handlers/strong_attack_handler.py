@@ -1,7 +1,7 @@
 from .attack_handler import AttackHandler
 from event_api.wildcards.registry import WildCardExecutorRegistry
 from websocket.sockets import DataConsumer
-from event_api.models import MastersProfile, MastersSegmentSettings, WildcardLog
+from event_api.models import MastersProfile, MastersSegmentSettings, WildcardLog, ProfileNotification
 
 
 @WildCardExecutorRegistry.register("strong_attack", verbose='Strong Attack Handler')
@@ -34,6 +34,11 @@ class StrongAttackHandler(AttackHandler):
                 type='shielded_attack_notification',
                 data=data
             ))
+
+            ProfileNotification.objects.create(
+                profile=self.user.masters_profile,
+                message=f'{target_profile.streamer_name} ha bloqueado el ataque de {self.user.masters_profile.streamer_name} con escudo protector'
+            )
             WildcardLog.objects.create(
                 wildcard=self.wildcard,
                 profile=self.user.masters_profile,
@@ -62,6 +67,11 @@ class StrongAttackHandler(AttackHandler):
                 type='stolen_attack_notification',
                 data=data
             ))
+
+            ProfileNotification.objects.create(
+                profile=self.user.masters_profile,
+                message=f'{target_profile.streamer_name} ha robado el ataque de {self.user.masters_profile.streamer_name} con reversa'
+            )
             WildcardLog.objects.create(
                 wildcard=self.wildcard,
                 profile=self.user.masters_profile,
