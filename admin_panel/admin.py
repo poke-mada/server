@@ -34,6 +34,8 @@ class InventoryGiftQuerySequenceLogInline(NestedTabularInline):
     model = InventoryGiftQuerySequenceLog
     readonly_fields = ('sequence_name', 'performer', 'message')
     fields = ('sequence_name', 'performer', 'message')
+    min_num = 0
+    extra = 0
 
 
 @admin.register(InventoryGiftQuerySequence, site=staff_site)
