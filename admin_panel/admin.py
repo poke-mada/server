@@ -37,6 +37,15 @@ class InventoryGiftQuerySequenceLogInline(NestedTabularInline):
     min_num = 0
     extra = 0
 
+    def has_add_permission(self, *args, **kwargs):
+        return False
+
+    def has_delete_permission(self, *args, **kwargs):
+        return False
+
+    def has_change_permission(self, *args, **kwargs):
+        return False
+
 
 @admin.register(InventoryGiftQuerySequence, site=staff_site)
 class GiftSequenceAdmin(admin.ModelAdmin):
