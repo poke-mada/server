@@ -30,7 +30,7 @@ def run_sequence(modeladmin, request, queryset):
         obj.run(request.user.masters_profile)
 
 
-class InventoryGiftQuerySequenceLogInline(NestedStackedInline):
+class InventoryGiftQuerySequenceLogInline(NestedTabularInline):
     model = InventoryGiftQuerySequenceLog
     readonly_fields = ('sequence_name', 'performer', 'message')
     fields = ('sequence_name', 'performer', 'message')
