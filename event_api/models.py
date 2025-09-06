@@ -653,14 +653,16 @@ class MastersSegmentSettings(models.Model):
         money_amount = clamp(15 - current_segment.death_count, 0, 15)
         current_settigns: SegmentConfiguration = SegmentConfiguration.objects.filter(segment=current_segment.segment,
                                                                                      is_tournament=False).first()
-        if money_amount > 0 and current_segment.finished_at < current_settigns.ends_at:
-            CoinTransaction.objects.create(
-                profile=self.profile,
-                TYPE=CoinTransaction.INPUT,
-                amount=money_amount,
-                segment=self.profile.current_segment_settings.segment,
-                reason=f'Se han dado {money_amount} monedas por terminar el tramo con {current_segment.death_count} muertes'
-            )
+        if current_segment.finished_at < current_settigns.ends_at:
+            money_amount = 0
+            
+        CoinTransaction.objects.create(
+            profile=self.profile,
+            TYPE=CoinTransaction.INPUT,
+            amount=money_amount,
+            segment=self.profile.current_segment_settings.segment,
+            reason=f'Se han dado {money_amount} monedas por terminar el tramo con {current_segment.death_count} muertes el {current_segment.finished_at}'
+        )
 
         self.profile.wildcard_inventory.filter(
             wildcard__category__in=[Wildcard.PROTECT, Wildcard.OFFENSIVE]
