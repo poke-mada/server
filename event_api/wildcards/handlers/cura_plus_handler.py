@@ -9,6 +9,7 @@ from event_api.models import MastersProfile, Wildcard, WildcardLog
 class HealPlusHandler(HelpAlertHandler):
 
     def validate(self, context):
+        source_profile = self.user.masters_profile
         target_id = context.get('target_id', False)
 
         if not target_id:
@@ -18,6 +19,9 @@ class HealPlusHandler(HelpAlertHandler):
 
         if not target_profile:
             return 'Selecciona un objetivo valido'
+
+        if source_profile.current_segment_settings.segment != target_profile.current_segment_settings.segment:
+            return 'No puedes ayudar a alguien de otro tramo'
 
         return True
 

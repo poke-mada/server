@@ -655,7 +655,7 @@ class MastersSegmentSettings(models.Model):
                                                                                      is_tournament=False).first()
         if current_segment.finished_at < current_settigns.ends_at:
             money_amount = 0
-            
+
         CoinTransaction.objects.create(
             profile=self.profile,
             TYPE=CoinTransaction.INPUT,
