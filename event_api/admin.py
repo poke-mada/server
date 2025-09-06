@@ -246,10 +246,10 @@ class MastersSegmentSettingsInline(NestedStackedInline):
     extra = 0
     readonly_fields = ('is_current', 'community_pokemon_sprite')
 
-    # def get_queryset(self, request):
-    #     queryset = super().get_queryset(request)
-    #     current = queryset.filter(is_current=True).first()
-    #     return queryset.filter(Q(is_current=True) | Q(segment=current.segment - 1))
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        current = queryset.filter(is_current=True).first()
+        return queryset.filter(Q(is_current=True) | Q(segment=current.segment - 1))
 
 
 class MastersProfileInline(NestedStackedInline):
