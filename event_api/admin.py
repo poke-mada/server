@@ -237,7 +237,7 @@ class RewardInventoryInline(NestedTabularInline):
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
-        return queryset # .filter(reward__user_created=False, is_available=True)
+        return queryset.filter(reward__user_created=False, is_available=True)
 
 
 class MastersSegmentSettingsInline(NestedStackedInline):
