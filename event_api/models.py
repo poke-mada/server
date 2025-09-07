@@ -172,7 +172,7 @@ class Wildcard(models.Model):
         from event_api.wildcards.registry import get_executor
 
         profile = user.masters_profile
-        inventory: StreamerWildcardInventoryItem = profile.wildcard_inventory.filter(wildcard=self).first()
+        inventory: StreamerWildcardInventoryItem = profile.wildcard_inventory.filter(wildcard=self).order_by('-quantity').first()
 
         if inventory and inventory.quantity < amount and not self.always_available:
             return False
