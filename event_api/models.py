@@ -172,7 +172,8 @@ class Wildcard(models.Model):
         from event_api.wildcards.registry import get_executor
 
         profile = user.masters_profile
-        inventory: StreamerWildcardInventoryItem = profile.wildcard_inventory.filter(wildcard=self).order_by('-quantity').first()
+        inventory: StreamerWildcardInventoryItem = profile.wildcard_inventory.filter(wildcard=self).order_by(
+            '-quantity').first()
 
         if inventory and inventory.quantity < amount and not self.always_available:
             return False
@@ -741,6 +742,7 @@ class GameEvent(models.Model):
     force_available = models.BooleanField()
     testers_only = models.BooleanField(default=False)
     free_join = models.BooleanField(default=False)
+    only_for_noobs = models.BooleanField(default=False)
     name = models.CharField(max_length=100, null=True, blank=False)
     description = models.TextField(null=True, blank=False, verbose_name="Descripcion")
     requirements = models.TextField(null=True, blank=False, verbose_name="Requisitos")
@@ -792,6 +794,9 @@ class GameEvent(models.Model):
                     id=profile.event_joined_id),
                 testers_only=False
             ).order_by('available_date_to')
+
+        if profile.is_pro:
+            events = events.filter(only_for_noobs=False)
 
         return events
 
