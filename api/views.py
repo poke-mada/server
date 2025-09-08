@@ -8,7 +8,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.core.handlers.base import logger
-from django.db.models import Q, Sum
+from django.db.models import Q, Sum, Count
 from django.db.models.fields.files import FieldFile
 from django.http import HttpResponse
 from rest_framework import viewsets, status
@@ -496,9 +496,12 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_revivable(self, request, *args, **kwargs):
         profile = request.user.masters_profile
         banned_mons = BannedPokemon.objects.filter(profile=profile).values_list('dex_number', flat=True)
-        death_mons = DeathLog.objects.filter(profile=profile, revived=False).exclude(
-            Q(dex_number__in=banned_mons) | Q(dex_number=profile.starter_dex_number))
+
+        death_mons = (DeathLog.objects.values('profile', 'dex_number', 'species_name').annotate(
+            c=Count("id")
+        ).filter(profile=profile, c=1).exclude(Q(dex_number__in=banned_mons) | Q(dex_number__in=Evolution.search_evolution_chain(profile.starter_dex_number))))
         serialized = DeathLogSerializer(death_mons, many=True)
+
         return Response(serialized.data, status=status.HTTP_200_OK)
 
     @action(methods=['get'], detail=False)
@@ -510,7 +513,10 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         starter_tree = Evolution.search_evolution_chain(profile.starter_dex_number)
         greninja_tree = Evolution.search_evolution_chain(658)
 
-        releasable_mons = TrainerPokemon.objects.exclude(
+        releasable_mons = TrainerPokemon.objects.filter(
+            trainer=profile.trainer,
+            is_shiny=False
+        ).exclude(
             pokemon__dex_number__in=banned_mons
         ).exclude(
             pokemon__dex_number__in=greninja_tree,
@@ -519,9 +525,6 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             pokemon__dex_number__in=death_mons
         ).exclude(
             pokemon__dex_number__in=starter_tree
-        ).filter(
-            trainer=profile.trainer,
-            is_shiny=False
         )
 
         serialized = ReleasableSerializer(releasable_mons, many=True)

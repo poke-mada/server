@@ -774,7 +774,7 @@ def data_reader(save_data):
         data = save_data[box_name_address:box_name_address + 28]
         box_name = get_string(data)
         death_box = False
-        if box in (5, 6) or box_name == 'MUERTOS':
+        if box in (5, 6) or box_name.lower() == 'muertos':
             death_box = True
 
         box_list = []
