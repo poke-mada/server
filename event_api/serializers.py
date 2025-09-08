@@ -45,7 +45,7 @@ class WildcardWithInventorySerializer(serializers.ModelSerializer):
         self.user: User = kwargs.pop('user')
         super().__init__(*args, **kwargs)
 
-    def get_inventory(self, obj):
+    def get_inventory(self, obj: Wildcard):
         profile: MastersProfile = self.user.masters_profile
         inventory = profile.wildcard_inventory.filter(wildcard=obj).aggregate(total_quantity=Sum('quantity'))['total_quantity']
         return inventory or 0

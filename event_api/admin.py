@@ -219,6 +219,7 @@ class ProfilePlatformUrlInline(NestedTabularInline):
 
 class WildcardInventoryItem(NestedTabularInline):
     fields = ('wildcard', 'quantity')
+    readonly_fields = ('wildcard', 'quantity')
     model = StreamerWildcardInventoryItem
     min_num = 0
     extra = 0
@@ -226,6 +227,9 @@ class WildcardInventoryItem(NestedTabularInline):
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         return queryset.filter(quantity__gt=0)
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 class RewardInventoryInline(NestedTabularInline):
