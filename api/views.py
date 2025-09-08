@@ -496,10 +496,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
     def list_revivable(self, request, *args, **kwargs):
         profile = request.user.masters_profile
         banned_mons = BannedPokemon.objects.filter(profile=profile).values_list('dex_number', flat=True)
-
-        death_mons = (DeathLog.objects.values('profile', 'dex_number', 'species_name').annotate(
-            c=Count("id")
-        ).filter(profile=profile, c=1).exclude(Q(dex_number__in=banned_mons) | Q(dex_number__in=Evolution.search_evolution_chain(profile.starter_dex_number))))
+        death_mons = DeathLog.objects.filter(profile=profile, revived=False).exclude(
+            Q(dex_number__in=banned_mons) | Q(dex_number=profile.starter_dex_number))
         serialized = DeathLogSerializer(death_mons, many=True)
 
         return Response(serialized.data, status=status.HTTP_200_OK)
