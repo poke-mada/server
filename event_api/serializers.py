@@ -1,6 +1,7 @@
 from cProfile import Profile
 
 from django.contrib.auth.models import User
+from django.db.models import Sum
 from rest_framework import serializers
 
 from event_api.models import SaveFile, Wildcard, StreamerWildcardInventoryItem, GameEvent, GameMod, \
@@ -46,8 +47,8 @@ class WildcardWithInventorySerializer(serializers.ModelSerializer):
 
     def get_inventory(self, obj):
         profile: MastersProfile = self.user.masters_profile
-        inventory: StreamerWildcardInventoryItem = profile.wildcard_inventory.filter(wildcard=obj).order_by('-quantity').first()
-        return inventory.quantity if inventory else 0
+        inventory = profile.wildcard_inventory.filter(wildcard=obj).aggregate(total_quantity=Sum('quantity'))['total_quantity']
+        return inventory or 0
 
     class Meta:
         model = Wildcard
