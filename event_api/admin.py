@@ -226,7 +226,7 @@ class WildcardInventoryItem(NestedTabularInline):
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
-        return queryset.filter(quantity__gt=0)
+        return queryset #.filter(quantity__gt=0)
 
     def has_delete_permission(self, request, obj=None):
         return False

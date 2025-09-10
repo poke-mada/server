@@ -42,7 +42,6 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
 
         price: RoulettePrice = roulette.spin()
 
-
         bundle = RewardBundle.objects.create(
             name=f'{price.name} Obtenido por {roulette.name}',
             user_created=True,
