@@ -219,7 +219,7 @@ class ProfilePlatformUrlInline(NestedTabularInline):
 
 class WildcardInventoryItem(NestedTabularInline):
     fields = ('wildcard', 'quantity')
-    readonly_fields = ('wildcard', 'quantity')
+    readonly_fields = ('wildcard', )
     model = StreamerWildcardInventoryItem
     min_num = 0
     extra = 0
