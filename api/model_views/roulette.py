@@ -42,11 +42,6 @@ class RouletteViewSet(viewsets.ReadOnlyModelViewSet):
 
         price: RoulettePrice = roulette.spin()
 
-        if profile.streamer_name == 'marybllog':
-            price = roulette.prices.filter(name__iexact='10 monedas').first()
-            if not price:
-                price: RoulettePrice = roulette.spin()
-
         bundle = RewardBundle.objects.create(
             name=f'{price.name} Obtenido por {roulette.name}',
             user_created=True,
