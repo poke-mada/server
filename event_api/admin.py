@@ -228,9 +228,6 @@ class WildcardInventoryItem(NestedTabularInline):
         queryset = super().get_queryset(request)
         return queryset #.filter(quantity__gt=0)
 
-    def has_delete_permission(self, request, obj=None):
-        return False
-
 
 class RewardInventoryInline(NestedTabularInline):
     fields = ('reward', 'exchanges', 'is_available')
