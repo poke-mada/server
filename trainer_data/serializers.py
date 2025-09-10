@@ -143,34 +143,33 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         owner_profile: MastersProfile = obj.get_owner().get_trainer_profile()
         performer_profile: MastersProfile = self.context.get('request').user.masters_profile
 
-        if MarketBlockLog.objects.filter(
-                profile=owner_profile,
-                dex_number=obj.pokemon.dex_number,
-                blocked_until__gt=timezone.now()
-        ).exists():
-            return False
-
         surrogated_mons = obj.pokemon.surrogate_dex()
 
         if AlreadyCapturedLog.objects.filter(pid=obj.pid, profile=performer_profile, dex_number__in=surrogated_mons).exists():
+            print(f'linea 149 para {obj.mote}')
             return False
 
         if DeathLog.objects.filter(Q(profile=owner_profile) | Q(profile=performer_profile), dex_number__in=surrogated_mons, revived=False).exists():
+            print(f'linea 153 para {obj.mote}')
             return False
 
         if obj.pokemon.dex_number in Evolution.objects.get(dex_number=658).surrogate() and obj.mote.lower() == 'greninja-ash':
+            print(f'linea 157 para {obj.mote}')
             return False
 
         if TrainerPokemon.objects.filter(trainer=performer_profile.trainer, pokemon__dex_number__in=surrogated_mons).exists():
+            print(f'linea 161 para {obj.mote}')
             return False
 
         if owner_profile and owner_profile.starter_dex_number:
             if obj.pokemon.dex_number in Evolution.objects.get(dex_number=owner_profile.starter_dex_number).surrogate():
+                print(f'linea 166 para {obj.mote}')
                 return False
 
         if obj.trainerboxslot_set.exists():
             box = obj.trainerboxslot_set.first().box
             if 'muertos' in box.name.lower():
+                print(f'linea 172 para {obj.mote}')
                 return False
 
         return True

@@ -420,6 +420,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         box_id = request.query_params.get('box', 0)
         cached_box = False
+
+        cache.delete(f'trainer_{pk}_box_{box_id}')
         if box_id != 4:
             cached_box = cache.get(f'trainer_{pk}_box_{box_id}')
 
