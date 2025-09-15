@@ -9,5 +9,8 @@ db.sqlite3
 .pg_service.conf
 *.log
 dbdump.pgsql
-!**__pycache__/
+venv/
+env/
+.vscode/
+*.log
 *.pyc
