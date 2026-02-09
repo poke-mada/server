@@ -128,7 +128,7 @@ USE_I18N = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/var/www/pokemon/staticfiles/'
-MEDIA_ROOT = '/var/www/pokemon/media/'
+MEDIA_ROOT = '/home/ubuntu/media/'
 MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
