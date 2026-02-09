@@ -9,68 +9,68 @@ function doUpdateData(data) {
     const gym8 = document.getElementById('gym8');
 
     if (gym1) {
-        gym1.classList.remove('bg-disabled')
+        gym1.classList.remove('d-none')
     }
 
     if (gym2) {
-        gym2.classList.remove('bg-disabled')
+        gym2.classList.remove('d-none')
     }
 
     if (gym3) {
-        gym3.classList.remove('bg-disabled')
+        gym3.classList.remove('d-none')
     }
 
     if (gym4) {
-        gym4.classList.remove('bg-disabled')
+        gym4.classList.remove('d-none')
     }
 
     if (gym5) {
-        gym5.classList.remove('bg-disabled')
+        gym5.classList.remove('d-none')
     }
 
     if (gym6) {
-        gym6.classList.remove('bg-disabled')
+        gym6.classList.remove('d-none')
     }
 
     if (gym7) {
-        gym7.classList.remove('bg-disabled')
+        gym7.classList.remove('d-none')
     }
 
     if (gym8) {
-        gym8.classList.remove('bg-disabled')
+        gym8.classList.remove('d-none')
     }
 
 
     if (!data.gym1) {
-        gym1.classList.add('bg-disabled')
+        gym1.classList.add('d-none')
     }
 
     if (!data.gym2) {
-        gym2.classList.add('bg-disabled')
+        gym2.classList.add('d-none')
     }
 
     if (!data.gym3) {
-        gym3.classList.add('bg-disabled')
+        gym3.classList.add('d-none')
     }
 
     if (!data.gym4) {
-        gym4.classList.add('bg-disabled')
+        gym4.classList.add('d-none')
     }
 
     if (!data.gym5) {
-        gym5.classList.add('bg-disabled')
+        gym5.classList.add('d-none')
     }
 
     if (!data.gym6) {
-        gym6.classList.add('bg-disabled')
+        gym6.classList.add('d-none')
     }
 
     if (!data.gym7) {
-        gym7.classList.add('bg-disabled')
+        gym7.classList.add('d-none')
     }
 
     if (!data.gym8) {
-        gym8.classList.add('bg-disabled')
+        gym8.classList.add('d-none')
     }
 
     if (!data.team) {
