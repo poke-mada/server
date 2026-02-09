@@ -215,6 +215,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     coached_socket_name = serializers.CharField(source='coached.user.username', read_only=True)
     current_segment = serializers.IntegerField(source='current_segment_settings.segment', read_only=True)
     trainer_id = serializers.SerializerMethodField()
+    trainer_type = serializers.IntegerField(source='type')
 
     def get_name(self, obj: MastersProfile):
         try:
@@ -247,6 +248,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             'is_pro',
             'web_picture',
             'death_count',
+            'trainer_type',
             'is_coach',
             'is_admin',
             'is_trainer',
