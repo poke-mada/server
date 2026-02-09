@@ -25,20 +25,20 @@ class OverlayConsumer(AsyncWebsocketConsumer):
             user__masters_profile__profile_type=MastersProfile.TRAINER
         ).first()
 
-        return profile.trainer
+        return profile
 
     @classmethod
-    def serialize(cls, trainer):
+    def serialize(cls, profile):
         from websocket.serializers import OverlaySerializer
-        serializer = OverlaySerializer(trainer)
+        serializer = OverlaySerializer(profile)
         return serializer.data
 
     async def receive(self, text_data=None, **kwargs):
         text_data_json = json.loads(text_data)
         if text_data_json['type'] == 'request_data':
             streamer_name = text_data_json['streamer']
-            trainer = await sync_to_async(OverlayConsumer.get_trainer)(streamer_name)
-            data = await sync_to_async(OverlayConsumer.serialize)(trainer)
+            profile = await sync_to_async(OverlayConsumer.get_trainer)(streamer_name)
+            data = await sync_to_async(OverlayConsumer.serialize)(profile)
             new_message = json.dumps(dict(context='pokemon_data', **data))
 
             await self.channel_layer.group_send(
@@ -65,8 +65,8 @@ class OverlayConsumer(AsyncWebsocketConsumer):
         from channels.layers import get_channel_layer
 
         channel_layer = get_channel_layer()
-        trainer = OverlayConsumer.get_trainer(streamer_name)
-        data = OverlayConsumer.serialize(trainer)
+        profile = OverlayConsumer.get_trainer(streamer_name)
+        data = OverlayConsumer.serialize(profile)
         new_message = json.dumps(dict(context='pokemon_data', **data))
 
         async_to_sync(channel_layer.group_send)(

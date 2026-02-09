@@ -26,29 +26,25 @@ class PokemonOverlaySerializer(serializers.ModelSerializer):
 
 
 class OverlaySerializer(serializers.ModelSerializer):
-    team = PokemonOverlaySerializer(read_only=True, many=True, source='current_team.team', default=[])
-    gym1 = serializers.BooleanField(read_only=True, source='gym_badge_1')
-    gym2 = serializers.BooleanField(read_only=True, source='gym_badge_2')
-    gym3 = serializers.BooleanField(read_only=True, source='gym_badge_3')
-    gym4 = serializers.BooleanField(read_only=True, source='gym_badge_4')
-    gym5 = serializers.BooleanField(read_only=True, source='gym_badge_5')
-    gym6 = serializers.BooleanField(read_only=True, source='gym_badge_6')
-    gym7 = serializers.BooleanField(read_only=True, source='gym_badge_7')
-    gym8 = serializers.BooleanField(read_only=True, source='gym_badge_8')
+    team = PokemonOverlaySerializer(read_only=True, many=True, source='trainer.current_team.team', default=[])
+    gym1 = serializers.BooleanField(read_only=True, source='trainer.gym_badge_1')
+    gym2 = serializers.BooleanField(read_only=True, source='trainer.gym_badge_2')
+    gym3 = serializers.BooleanField(read_only=True, source='trainer.gym_badge_3')
+    gym4 = serializers.BooleanField(read_only=True, source='trainer.gym_badge_4')
+    gym5 = serializers.BooleanField(read_only=True, source='trainer.gym_badge_5')
+    gym6 = serializers.BooleanField(read_only=True, source='trainer.gym_badge_6')
+    gym7 = serializers.BooleanField(read_only=True, source='trainer.gym_badge_7')
+    gym8 = serializers.BooleanField(read_only=True, source='trainer.gym_badge_8')
     death_count = serializers.SerializerMethodField()
     trainer_type = serializers.SerializerMethodField()
 
-    def get_death_count(self, obj: Trainer):
-        profile: MastersProfile = obj.get_trainer_profile()
-        if profile is not None and profile.current_segment_settings:
+    def get_death_count(self, profile: MastersProfile):
+        if profile.current_segment_settings:
             return profile.current_segment_settings.death_count_display or 0
         return 0
 
-    def get_trainer_type(self, obj: Trainer):
-        profile: MastersProfile = obj.get_trainer_profile()
-        if profile is not None:
-            return profile.type or 0
-        return 0
+    def get_trainer_type(self, profile: MastersProfile):
+        return profile.type or 0
 
     class Meta:
         fields = [
@@ -64,4 +60,4 @@ class OverlaySerializer(serializers.ModelSerializer):
             'death_count',
             'trainer_type'
         ]
-        model = Trainer
+        model = MastersProfile
