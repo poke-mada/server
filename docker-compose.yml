@@ -23,6 +23,10 @@ services:
     command: python manage.py runserver 0.0.0.0:8000 --verbosity 3
     environment:
       - DJANGO_ENV=prod
+    expose:
+      - '8000'
+    ports:
+      - "8000:8000"
     volumes:
       - .:/app
       - /home/ubuntu/projekt/media:/media
@@ -37,6 +41,8 @@ services:
       - .:/app
     expose:
       - '8001'
+    ports:
+      - "8001:8000"
     environment:
       - REDIS_HOST=redis
       - DJANGO_ENV=dev
@@ -45,19 +51,5 @@ services:
       - redis
     links:
       - redis
-  nginx:
-    build:
-      context: .
-      dockerfile: ./compose/nginx/Dockerfile
-    restart: always
-    volumes:
-      - ./compose/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
-    ports:
-      - "8000:8000"
-    links:
-      - app:app
-    depends_on:
-      - app
-      - daphne
 volumes:
   my-db:
