@@ -1,15 +1,15 @@
-{% load static %}
+    {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Alone Overlay</title>
+    <title>Coached Overlay</title>
     <link rel="icon" href="{% static 'icon.ico' %}">
     <link rel="stylesheet" href="{% static 'overlay/styles.css' %}">
     <style>
         body {
-            background-image: url({% static "overlay/solo/overlay.png" %});
+            background-image: url("{% static 'overlay/coach/overlay.png' %}");
         }
 
         @font-face {
@@ -32,6 +32,10 @@
             position: relative;
         }
 
+        .team-container * {
+            {#border: 1px solid red;#}
+        }
+
         .pokemon-container1 {
             justify-content: center;
             flex-direction: column;
@@ -46,99 +50,95 @@
 
         #death-count {
             position: absolute;
-            top: 730px;
-            left: 1200px;
+            top: 634px;
+            left: 488px;
             color: purple;
+            font-size: 30px;
             font-weight: bold;
             font-style: italic;
-            font-size: 30px;
             text-align: left;
             z-index: 90;
         }
 
         .pokemon-container1 .pkm-sprite {
-            top: 811px;
+            top: 850px;
         }
 
         .pokemon-container2 .pkm-sprite {
-            top: 857px;
+            top: 881px;
         }
 
         .pokemon-container1 .pkm-mote {
-            top: 1009px;
-        }
-
-        .pokemon-container2 .pkm-mote {
-            top: 814px;
+            top: 1016px;
         }
 
         .pkm-sprite {
             position: fixed;
-            max-width: 204px;
-            max-height: 179px;
-            min-width: 204px;
-            min-height: 179px;
+            max-width: 149px;
+            max-height: 136px;
+            min-width: 149px;
+            min-height: 136px;
+            border-radius: 15px 0 30px 0;
         }
 
         #pokemon1 .pkm-sprite{
-            left: 26px;
+            left: 678px;
         }
 
         #pokemon2 .pkm-sprite{
-            left: 238px;
+            left: 881px;
         }
 
         #pokemon3 .pkm-sprite{
-            left: 450px;
+            left: 1087px;
         }
 
         #pokemon4 .pkm-sprite{
-            left: 662px;
+            left: 1290px;
         }
 
         #pokemon5 .pkm-sprite{
-            left: 873px;
+            left: 1492px;
         }
 
         #pokemon6 .pkm-sprite{
-            left: 1084px;
+            left: 1700px;
         }
 
         .pkm-mote {
             font-family: 'pokemon-font', serif;
             color: white;
-            font-size: 12px;
-            margin-top: 8px;
+            font-size: 16px;
             position: fixed;
             text-align: center;
-            max-width: 158px;
-            min-width: 158px;
+            max-width: 150px;
+            min-width: 150px;
             max-height: 31px;
             min-height: 31px;
         }
 
         #pokemon1 .pkm-mote {
-            left: 53px;
-        }
-
-        #pokemon2 .pkm-mote {
-            left: 265px;
-        }
-
-        #pokemon3 .pkm-mote {
-            left: 479px;
-        }
-
-        #pokemon4 .pkm-mote {
             left: 689px;
         }
 
+        #pokemon2 .pkm-mote {
+            left: 892px;
+        }
+
+        #pokemon3 .pkm-mote {
+            left: 1098px;
+        }
+
+        #pokemon4 .pkm-mote {
+            left: 1302px;
+        }
+
         #pokemon5 .pkm-mote {
-            left: 901px;
+            left: 1508px;
         }
 
         #pokemon6 .pkm-mote {
-            left: 1112px;
+            left: 1713px;
         }
 
         #coach-name, #trainer-name {
@@ -200,58 +200,59 @@
             text-align: center;
         }
 
+        #timer_light_1, #timer_light_2{
+            position: absolute;
+            top: 32px;
+            left: 1242px;
+            max-height: 43px;
+            max-width: 43px;
+        }
+
     </style>
 </head>
 
 <body>
-    <img alt="" src="{% static 'overlay/solo/medallas/fondo.png' %}" class="badges-back">
+    <img alt="" src="{% static 'overlay/coach/medallas/fondo.png' %}" class="badges-back">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym1.png' %}" id="gym1" class="badge d-none">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym2.png' %}" id="gym2" class="badge d-none">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym3.png' %}" id="gym3" class="badge d-none">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym4.png' %}" id="gym4" class="badge d-none">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym5.png' %}" id="gym5" class="badge d-none">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym6.png' %}" id="gym6" class="badge d-none">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym7.png' %}" id="gym7" class="badge d-none">
+    <img alt="" src="{% static 'overlay/coach/medallas/gym8.png' %}" id="gym8" class="badge d-none">
 
-    <img alt="" src="{% static 'overlay/solo/medallas/gym1.png' %}" id="gym1" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/solo/medallas/gym2.png' %}" id="gym2" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/solo/medallas/gym3.png' %}" id="gym3" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/solo/medallas/gym4.png' %}" id="gym4" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/solo/medallas/gym5.png' %}" id="gym5" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/solo/medallas/gym6.png' %}" id="gym6" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/solo/medallas/gym7.png' %}" id="gym7" class="badge bg-disabled">
-    <img alt="" src="{% static 'overlay/solo/medallas/gym8.png' %}" id="gym8" class="badge bg-disabled">
+    <img src="{% static 'overlay/Boton_verde.png' %}" alt="" id="timer_light_1" class="d-none">
+    <img src="{% static 'overlay/Boton_rojo.png' %}" alt="" id="timer_light_2" class="d-none">
 
     <div class="team-container">
-        <div id="pokemon1" class="pokemon-container1 d-none">
-            <img src="" alt="" class="pkm-sprite">
+        <div id="pokemon1" class="pokemon-container1">
+            <img src="" alt="" class="pkm-sprite" width="150" height="136">
             <span class="pkm-mote"></span>
         </div>
-        <div id="pokemon2" class="pokemon-container2 d-none">
-            <img src="" alt="" class="pkm-sprite">
+        <div id="pokemon2" class="pokemon-container1">
+            <img src="" alt="" class="pkm-sprite" width="150" height="136">
             <span class="pkm-mote"></span>
         </div>
-        <div id="pokemon3" class="pokemon-container1 d-none">
-            <img src="" alt="" class="pkm-sprite">
+        <div id="pokemon3" class="pokemon-container1">
+            <img src="" alt="" class="pkm-sprite" width="150" height="136">
             <span class="pkm-mote"></span>
         </div>
-        <div id="pokemon4" class="pokemon-container2 d-none">
-            <img src="" alt="" class="pkm-sprite">
+        <div id="pokemon4" class="pokemon-container1">
+            <img src="" alt="" class="pkm-sprite" width="150" height="136">
             <span class="pkm-mote"></span>
         </div>
-        <div id="pokemon5" class="pokemon-container1 d-none">
-            <img src="" alt="" class="pkm-sprite">
+        <div id="pokemon5" class="pokemon-container1">
+            <img src="" alt="" class="pkm-sprite" width="150" height="136">
             <span class="pkm-mote"></span>
         </div>
-        <div id="pokemon6" class="pokemon-container2 d-none">
-            <img src="" alt="" class="pkm-sprite">
+        <div id="pokemon6" class="pokemon-container1">
+            <img src="" alt="" class="pkm-sprite" width="150" height="136">
             <span class="pkm-mote"></span>
         </div>
     </div>
+
     <span id="death-count"></span>
-
-{#    <span id="trainer-name">{{ streamer_name }}</span>#}
-
-    <div id="alert-overlay" class="d-none">
-        <div class="description">
-            <span id="text"><span id="user"></span> ha usado <span style="font-style: italic; font-weight: bolder"
-                                                                   id="wildcard-name">ROBO POKEMON</span> en <span
-                    id="target"></span></span>
-        </div>
-    </div>
 
     <script src="{% static 'overlay/data_loader.js' %}"></script>
     <!--suppress JSUnresolvedReference -->
@@ -277,6 +278,17 @@
                 doUpdateData(data);
                 const deathCount = document.getElementById('death-count');
                 deathCount.innerText = `x${data.death_count}`;
+            } else if(data.context === 'timer_data') {
+                const timer_light_1 = document.getElementById('timer_light_1');
+                const timer_light_2 = document.getElementById('timer_light_2');
+                timer_light_1.className = ''
+                setTimeout(() => {
+                    timer_light_1.className = 'd-none'
+                    timer_light_2.className = ''
+                    setTimeout(() => {
+                        timer_light_2.className = 'd-none'
+                    }, 3000)
+                }, data.data * 1000)
             } else {
                 doUpdateOverlayData(data)
             }
