@@ -332,6 +332,47 @@ class MastersProfile(models.Model):
         'E': 'Liga E'
     }
 
+
+    NORMAL_TYPE = 0
+    FIGHTING_TYPE = 1
+    FLYING_TYPE = 2
+    POISON_TYPE = 3
+    GROUND_TYPE = 4
+    ROCK_TYPE = 5
+    BUG_TYPE = 6
+    GHOST_TYPE = 7
+    STEEL_TYPE = 8
+    FIRE_TYPE = 9
+    WATER_TYPE = 10
+    GRASS_TYPE = 11
+    ELECTRIC_TYPE = 12
+    PSYCHIC_TYPE = 13
+    ICE_TYPE = 14
+    DRAGON_TYPE = 15
+    DARK_TYPE = 16
+    FAIRY_TYPE = 17
+
+    POKEMON_TYPES = {
+        NORMAL_TYPE: 'Normal',
+        FIGHTING_TYPE: 'Fighting',
+        FLYING_TYPE: 'Flying',
+        POISON_TYPE: 'Poison',
+        GROUND_TYPE: 'Ground',
+        ROCK_TYPE: 'Rock',
+        BUG_TYPE: 'Bug',
+        GHOST_TYPE: 'Ghost',
+        STEEL_TYPE: 'Steel',
+        FIRE_TYPE: 'Fire',
+        WATER_TYPE: 'Water',
+        GRASS_TYPE: 'Grass',
+        ELECTRIC_TYPE: 'Electric',
+        PSYCHIC_TYPE: 'Psychic',
+        ICE_TYPE: 'Ice',
+        DRAGON_TYPE: 'Dragon',
+        DARK_TYPE: 'Dark',
+        FAIRY_TYPE: 'Fairy'
+    }
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="masters_profile")
     streamer_name = models.CharField(max_length=50, default="", blank=False, null=True,
                                      verbose_name="Nombre de Streamer")
@@ -339,6 +380,7 @@ class MastersProfile(models.Model):
                                 related_name="coaches", verbose_name='Ahijado')
     main_coach = models.ForeignKey("MastersProfile", on_delete=models.SET_NULL, null=True, blank=True,
                                    verbose_name='Coach principal')
+    type = models.SmallIntegerField(choices=POKEMON_TYPES.items(), default=NORMAL_TYPE, verbose_name="Tipo en Overlay")
     starter_dex_number = models.IntegerField(null=True, blank=True, verbose_name="Pokémon \"El Elegido\"")
     in_pokemon_league = models.BooleanField(default=False, verbose_name="Dentro de la liga")
     already_won_lysson = models.BooleanField(default=False, verbose_name="Le ganó a Lysson")

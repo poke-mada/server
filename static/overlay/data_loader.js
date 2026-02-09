@@ -87,6 +87,7 @@ function doUpdateData(data) {
         pkmnDiv4.classList.add('d-none');
         pkmnDiv5.classList.add('d-none');
         pkmnDiv6.classList.add('d-none');
+        return;
     }
     data.team = data.team.concat([null,null,null,null,null,null])
     data.team = data.team.slice(0,6)
