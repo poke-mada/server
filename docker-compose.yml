@@ -36,13 +36,13 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/Dockerfile
-    command: daphne -b 0.0.0.0 -p 8000 pokemada.asgi:application
+    command: daphne -b 0.0.0.0 -p 8001 pokemada.asgi:application
     volumes:
       - .:/app
     expose:
       - '8001'
     ports:
-      - "8001:8000"
+      - "8001:8001"
     environment:
       - REDIS_HOST=redis
       - DJANGO_ENV=dev
