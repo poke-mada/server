@@ -16,7 +16,6 @@ services:
       - POSTGRES_PASSWORD=6LPV4p&O#aV9
     volumes:
       - my-db:/var/lib/postgresql/data
-      - /var/www/pokemon/media:/var/www/pokemon/media
   app:
     build:
       context: .
@@ -26,6 +25,7 @@ services:
       - DJANGO_ENV=prod
     volumes:
       - .:/app
+      - /var/www/pokemon/media:/var/www/pokemon/media
     depends_on:
       - db
   daphne:
