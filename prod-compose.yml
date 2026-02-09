@@ -3,3 +3,53 @@ services:
     image: "redis:latest"
     ports:
       - "6379:6379"
+  db:
+    image: postgres:13-alpine
+    restart: always
+    expose:
+      - '5432'
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=defaultdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=6LPV4p&O#aV9
+    volumes:
+      - my-db:/var/lib/postgresql/data
+  app:
+    build:
+      context: .
+      dockerfile: ./compose/local/Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000 --verbosity 3
+    environment:
+      - DJANGO_ENV=prod
+    expose:
+      - '8000'
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - /home/ubuntu/projekt/media:/media
+    depends_on:
+      - db
+  daphne:
+    build:
+      context: .
+      dockerfile: ./compose/local/Dockerfile
+    command: daphne -b 0.0.0.0 -p 8001 pokemada.asgi:application
+    volumes:
+      - .:/app
+    expose:
+      - '8001'
+    ports:
+      - "8001:8001"
+    environment:
+      - REDIS_HOST=redis
+      - DJANGO_ENV=dev
+      - DJANGO_SETTINGS_MODULE=pokemada.local_settings
+    depends_on:
+      - redis
+    links:
+      - redis
+volumes:
+  my-db:

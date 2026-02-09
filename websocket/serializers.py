@@ -17,6 +17,7 @@ class PokemonOverlaySerializer(serializers.ModelSerializer):
         # else:
         #     if obj.is_shiny:
         #         return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/{obj.pokemon.dex_number}.png'
+        return f'https://raw.githubusercontent.com/PMDCollab/SpriteCollab/master/portrait/{obj.pokemon.dex_number:04}/Normal.png'
         return f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{obj.pokemon.dex_number}.png'
 
     class Meta:
