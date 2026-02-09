@@ -845,51 +845,13 @@ class FileUploadView(APIView):
 
         file_serializer.save()
         save_results = data_reader(save_data)
-        trainer.update_gym_badge(1, (save_results['badge_count'] & 0b00000001) != 0)
-
-        if trainer.update_gym_badge(2, (save_results['badge_count'] & 0b00000010) != 0):
-            profile.give_wildcard(Wildcard.objects.get(id=85), notification='Has Ganado el 2do Gimnasio!')
-            profile.gym_2_save = trainer.saves.last().file
-
-        if trainer.update_gym_badge(3, (save_results['badge_count'] & 0b00000100) != 0):
-            profile.give_wildcard(Wildcard.objects.get(id=86), notification='Has Ganado el 3er Gimnasio!')
-            profile.gym_3_save = trainer.saves.last().file
-
-        if trainer.update_gym_badge(4, (save_results['badge_count'] & 0b00001000) != 0):
-            profile.give_wildcard(Wildcard.objects.get(id=87), notification='Has Ganado el 4to Gimnasio!')
-            profile.gym_4_save = trainer.saves.last().file
-
-        if trainer.update_gym_badge(5, (save_results['badge_count'] & 0b00010000) != 0):
-            profile.give_wildcard(Wildcard.objects.get(id=88), notification='Has Ganado el 5to Gimnasio!')
-            profile.gym_5_save = trainer.saves.last().file
-
-        if trainer.update_gym_badge(6, (save_results['badge_count'] & 0b00100000) != 0):
-            profile.give_wildcard(Wildcard.objects.get(id=89), notification='Has Ganado el 6to Gimnasio!')
-            profile.gym_6_save = trainer.saves.last().file
-
-        if trainer.update_gym_badge(7, (save_results['badge_count'] & 0b01000000) != 0):
-            profile.give_wildcard(Wildcard.objects.get(id=90), notification='Has Ganado el 7mo Gimnasio!')
-            profile.gym_7_save = trainer.saves.last().file
-
-        if trainer.update_gym_badge(8, (save_results['badge_count'] & 0b10000000) != 0):
-            profile.give_wildcard(Wildcard.objects.get(id=91), notification='Has Ganado el 8vo Gimnasio!')
-            profile.gym_8_save = trainer.saves.last().file
-
-        segment = 1
-        if trainer.gym_badge_3:
-            segment = 2
-        if trainer.gym_badge_6:
-            segment = 3
-        if trainer.gym_badge_7 and profile.already_won_lysson:
-            segment = 4
 
         trainer.save()
 
         if not profile.current_segment_settings:
-            MastersSegmentSettings.objects.get_or_create(profile=profile, segment=segment)
+            MastersSegmentSettings.objects.get_or_create(profile=profile, segment=1)
         team_saver(save_results.get('team'), profile)
         box_saver(save_results.get('boxes'), profile)
-        MastersSegmentSettings.objects.get_or_create(profile=profile, segment=segment)
         OverlayConsumer.send_overlay_data(profile.user.username)
         return Response(file_serializer.data, status=status.HTTP_201_CREATED)
 

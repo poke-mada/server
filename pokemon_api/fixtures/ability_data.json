@@ -1,0 +1,2099 @@
+[
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 1,
+    "fields": {
+      "index": 1,
+      "localization": "en",
+      "name": "Hedor"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 2,
+    "fields": {
+      "index": 2,
+      "localization": "en",
+      "name": "Llovizna"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 3,
+    "fields": {
+      "index": 3,
+      "localization": "en",
+      "name": "Impulso"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 4,
+    "fields": {
+      "index": 4,
+      "localization": "en",
+      "name": "Armadura Batalla"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 5,
+    "fields": {
+      "index": 5,
+      "localization": "en",
+      "name": "Robustez"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 6,
+    "fields": {
+      "index": 6,
+      "localization": "en",
+      "name": "Humedad"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 7,
+    "fields": {
+      "index": 7,
+      "localization": "en",
+      "name": "Flexibilidad"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 8,
+    "fields": {
+      "index": 8,
+      "localization": "en",
+      "name": "Velo Arena"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 9,
+    "fields": {
+      "index": 9,
+      "localization": "en",
+      "name": "Elec. Estática"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 10,
+    "fields": {
+      "index": 10,
+      "localization": "en",
+      "name": "Absorbe Elec"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 11,
+    "fields": {
+      "index": 11,
+      "localization": "en",
+      "name": "Absorbe Agua"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 12,
+    "fields": {
+      "index": 12,
+      "localization": "en",
+      "name": "Despiste"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 13,
+    "fields": {
+      "index": 13,
+      "localization": "en",
+      "name": "Aclimatación"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 14,
+    "fields": {
+      "index": 14,
+      "localization": "en",
+      "name": "Ojo Compuesto"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 15,
+    "fields": {
+      "index": 15,
+      "localization": "en",
+      "name": "Insomnio"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 16,
+    "fields": {
+      "index": 16,
+      "localization": "en",
+      "name": "Cambio Color"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 17,
+    "fields": {
+      "index": 17,
+      "localization": "en",
+      "name": "Inmunidad"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 18,
+    "fields": {
+      "index": 18,
+      "localization": "en",
+      "name": "Absorbe Fuego"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 19,
+    "fields": {
+      "index": 19,
+      "localization": "en",
+      "name": "Polvo Escudo"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 20,
+    "fields": {
+      "index": 20,
+      "localization": "en",
+      "name": "Ritmo Propio"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 21,
+    "fields": {
+      "index": 21,
+      "localization": "en",
+      "name": "Ventosas"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 22,
+    "fields": {
+      "index": 22,
+      "localization": "en",
+      "name": "Intimidación"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 23,
+    "fields": {
+      "index": 23,
+      "localization": "en",
+      "name": "Sombra Trampa"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 24,
+    "fields": {
+      "index": 24,
+      "localization": "en",
+      "name": "Piel Tosca"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 25,
+    "fields": {
+      "index": 25,
+      "localization": "en",
+      "name": "Superguarda"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 26,
+    "fields": {
+      "index": 26,
+      "localization": "en",
+      "name": "Levitación"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 27,
+    "fields": {
+      "index": 27,
+      "localization": "en",
+      "name": "Efecto Espora"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 28,
+    "fields": {
+      "index": 28,
+      "localization": "en",
+      "name": "Sincronía"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 29,
+    "fields": {
+      "index": 29,
+      "localization": "en",
+      "name": "Cuerpo Puro"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 30,
+    "fields": {
+      "index": 30,
+      "localization": "en",
+      "name": "Cura Natural"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 31,
+    "fields": {
+      "index": 31,
+      "localization": "en",
+      "name": "Pararrayos"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 32,
+    "fields": {
+      "index": 32,
+      "localization": "en",
+      "name": "Dicha"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 33,
+    "fields": {
+      "index": 33,
+      "localization": "en",
+      "name": "Nado Rápido"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 34,
+    "fields": {
+      "index": 34,
+      "localization": "en",
+      "name": "Clorofila"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 35,
+    "fields": {
+      "index": 35,
+      "localization": "en",
+      "name": "Iluminación"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 36,
+    "fields": {
+      "index": 36,
+      "localization": "en",
+      "name": "Rastro"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 37,
+    "fields": {
+      "index": 37,
+      "localization": "en",
+      "name": "Potencia"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 38,
+    "fields": {
+      "index": 38,
+      "localization": "en",
+      "name": "Punto Tóxico"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 39,
+    "fields": {
+      "index": 39,
+      "localization": "en",
+      "name": "Foco Interno"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 40,
+    "fields": {
+      "index": 40,
+      "localization": "en",
+      "name": "Escudo Magma"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 41,
+    "fields": {
+      "index": 41,
+      "localization": "en",
+      "name": "Velo Agua"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 42,
+    "fields": {
+      "index": 42,
+      "localization": "en",
+      "name": "Imán"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 43,
+    "fields": {
+      "index": 43,
+      "localization": "en",
+      "name": "Insonorizar"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 44,
+    "fields": {
+      "index": 44,
+      "localization": "en",
+      "name": "Cura Lluvia"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 45,
+    "fields": {
+      "index": 45,
+      "localization": "en",
+      "name": "Chorro Arena"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 46,
+    "fields": {
+      "index": 46,
+      "localization": "en",
+      "name": "Presión"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 47,
+    "fields": {
+      "index": 47,
+      "localization": "en",
+      "name": "Sebo"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 48,
+    "fields": {
+      "index": 48,
+      "localization": "en",
+      "name": "Madrugar"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 49,
+    "fields": {
+      "index": 49,
+      "localization": "en",
+      "name": "Cuerpo Llama"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 50,
+    "fields": {
+      "index": 50,
+      "localization": "en",
+      "name": "Fuga"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 51,
+    "fields": {
+      "index": 51,
+      "localization": "en",
+      "name": "Vista Lince"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 52,
+    "fields": {
+      "index": 52,
+      "localization": "en",
+      "name": "Corte Fuerte"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 53,
+    "fields": {
+      "index": 53,
+      "localization": "en",
+      "name": "Recogida"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 54,
+    "fields": {
+      "index": 54,
+      "localization": "en",
+      "name": "Ausente"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 55,
+    "fields": {
+      "index": 55,
+      "localization": "en",
+      "name": "Entusiasmo"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 56,
+    "fields": {
+      "index": 56,
+      "localization": "en",
+      "name": "Gran Encanto"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 57,
+    "fields": {
+      "index": 57,
+      "localization": "en",
+      "name": "Más"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 58,
+    "fields": {
+      "index": 58,
+      "localization": "en",
+      "name": "Menos"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 59,
+    "fields": {
+      "index": 59,
+      "localization": "en",
+      "name": "Predicción"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 60,
+    "fields": {
+      "index": 60,
+      "localization": "en",
+      "name": "Viscosidad"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 61,
+    "fields": {
+      "index": 61,
+      "localization": "en",
+      "name": "Mudar"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 62,
+    "fields": {
+      "index": 62,
+      "localization": "en",
+      "name": "Agallas"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 63,
+    "fields": {
+      "index": 63,
+      "localization": "en",
+      "name": "Escama Especial"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 64,
+    "fields": {
+      "index": 64,
+      "localization": "en",
+      "name": "Lodo Líquido"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 65,
+    "fields": {
+      "index": 65,
+      "localization": "en",
+      "name": "Espesura"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 66,
+    "fields": {
+      "index": 66,
+      "localization": "en",
+      "name": "Mar Llamas"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 67,
+    "fields": {
+      "index": 67,
+      "localization": "en",
+      "name": "Torrente"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 68,
+    "fields": {
+      "index": 68,
+      "localization": "en",
+      "name": "Enjambre"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 69,
+    "fields": {
+      "index": 69,
+      "localization": "en",
+      "name": "Cabeza Roca"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 70,
+    "fields": {
+      "index": 70,
+      "localization": "en",
+      "name": "Sequía"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 71,
+    "fields": {
+      "index": 71,
+      "localization": "en",
+      "name": "Trampa Arena"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 72,
+    "fields": {
+      "index": 72,
+      "localization": "en",
+      "name": "Espíritu Vital"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 73,
+    "fields": {
+      "index": 73,
+      "localization": "en",
+      "name": "Humo Blanco"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 74,
+    "fields": {
+      "index": 74,
+      "localization": "en",
+      "name": "Energía Pura"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 75,
+    "fields": {
+      "index": 75,
+      "localization": "en",
+      "name": "Caparazón"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 76,
+    "fields": {
+      "index": 76,
+      "localization": "en",
+      "name": "Bucle Aire"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 77,
+    "fields": {
+      "index": 77,
+      "localization": "en",
+      "name": "Tumbos"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 78,
+    "fields": {
+      "index": 78,
+      "localization": "en",
+      "name": "Electromotor"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 79,
+    "fields": {
+      "index": 79,
+      "localization": "en",
+      "name": "Rivalidad"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 80,
+    "fields": {
+      "index": 80,
+      "localization": "en",
+      "name": "Impasible"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 81,
+    "fields": {
+      "index": 81,
+      "localization": "en",
+      "name": "Manto Níveo"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 82,
+    "fields": {
+      "index": 82,
+      "localization": "en",
+      "name": "Gula"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 83,
+    "fields": {
+      "index": 83,
+      "localization": "en",
+      "name": "Irascible"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 84,
+    "fields": {
+      "index": 84,
+      "localization": "en",
+      "name": "Liviano"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 85,
+    "fields": {
+      "index": 85,
+      "localization": "en",
+      "name": "Ignífugo"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 86,
+    "fields": {
+      "index": 86,
+      "localization": "en",
+      "name": "Simple"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 87,
+    "fields": {
+      "index": 87,
+      "localization": "en",
+      "name": "Piel Seca"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 88,
+    "fields": {
+      "index": 88,
+      "localization": "en",
+      "name": "Descarga"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 89,
+    "fields": {
+      "index": 89,
+      "localization": "en",
+      "name": "Puño Férreo"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 90,
+    "fields": {
+      "index": 90,
+      "localization": "en",
+      "name": "Antídoto"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 91,
+    "fields": {
+      "index": 91,
+      "localization": "en",
+      "name": "Adaptable"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 92,
+    "fields": {
+      "index": 92,
+      "localization": "en",
+      "name": "Encadenado"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 93,
+    "fields": {
+      "index": 93,
+      "localization": "en",
+      "name": "Hidratación"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 94,
+    "fields": {
+      "index": 94,
+      "localization": "en",
+      "name": "Poder Solar"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 95,
+    "fields": {
+      "index": 95,
+      "localization": "en",
+      "name": "Pies Rápidos"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 96,
+    "fields": {
+      "index": 96,
+      "localization": "en",
+      "name": "Normalidad"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 97,
+    "fields": {
+      "index": 97,
+      "localization": "en",
+      "name": "Francotirador"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 98,
+    "fields": {
+      "index": 98,
+      "localization": "en",
+      "name": "Muro Mágico"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 99,
+    "fields": {
+      "index": 99,
+      "localization": "en",
+      "name": "Indefenso"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 100,
+    "fields": {
+      "index": 100,
+      "localization": "en",
+      "name": "Rezagado"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 101,
+    "fields": {
+      "index": 101,
+      "localization": "en",
+      "name": "Experto"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 102,
+    "fields": {
+      "index": 102,
+      "localization": "en",
+      "name": "Defensa Hoja"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 103,
+    "fields": {
+      "index": 103,
+      "localization": "en",
+      "name": "Zoquete"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 104,
+    "fields": {
+      "index": 104,
+      "localization": "en",
+      "name": "Rompemoldes"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 105,
+    "fields": {
+      "index": 105,
+      "localization": "en",
+      "name": "Afortunado"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 106,
+    "fields": {
+      "index": 106,
+      "localization": "en",
+      "name": "Detonación"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 107,
+    "fields": {
+      "index": 107,
+      "localization": "en",
+      "name": "Anticipación"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 108,
+    "fields": {
+      "index": 108,
+      "localization": "en",
+      "name": "Alerta"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 109,
+    "fields": {
+      "index": 109,
+      "localization": "en",
+      "name": "Ignorante"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 110,
+    "fields": {
+      "index": 110,
+      "localization": "en",
+      "name": "Cromolente"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 111,
+    "fields": {
+      "index": 111,
+      "localization": "en",
+      "name": "Filtro"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 112,
+    "fields": {
+      "index": 112,
+      "localization": "en",
+      "name": "Inicio Lento"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 113,
+    "fields": {
+      "index": 113,
+      "localization": "en",
+      "name": "Intrépido"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 114,
+    "fields": {
+      "index": 114,
+      "localization": "en",
+      "name": "Colector"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 115,
+    "fields": {
+      "index": 115,
+      "localization": "en",
+      "name": "Gélido"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 116,
+    "fields": {
+      "index": 116,
+      "localization": "en",
+      "name": "Roca Sólida"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 117,
+    "fields": {
+      "index": 117,
+      "localization": "en",
+      "name": "Nevada"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 118,
+    "fields": {
+      "index": 118,
+      "localization": "en",
+      "name": "Recogemiel"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 119,
+    "fields": {
+      "index": 119,
+      "localization": "en",
+      "name": "Cacheo"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 120,
+    "fields": {
+      "index": 120,
+      "localization": "en",
+      "name": "Audaz"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 121,
+    "fields": {
+      "index": 121,
+      "localization": "en",
+      "name": "Multitipo"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 122,
+    "fields": {
+      "index": 122,
+      "localization": "en",
+      "name": "Don Floral"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 123,
+    "fields": {
+      "index": 123,
+      "localization": "en",
+      "name": "Mal Sueño"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 124,
+    "fields": {
+      "index": 124,
+      "localization": "en",
+      "name": "Hurto"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 125,
+    "fields": {
+      "index": 125,
+      "localization": "en",
+      "name": "Potencia Bruta"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 126,
+    "fields": {
+      "index": 126,
+      "localization": "en",
+      "name": "Respondón"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 127,
+    "fields": {
+      "index": 127,
+      "localization": "en",
+      "name": "Nerviosismo"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 128,
+    "fields": {
+      "index": 128,
+      "localization": "en",
+      "name": "Competitivo"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 129,
+    "fields": {
+      "index": 129,
+      "localization": "en",
+      "name": "Flaqueza"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 130,
+    "fields": {
+      "index": 130,
+      "localization": "en",
+      "name": "Cuerpo Maldito"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 131,
+    "fields": {
+      "index": 131,
+      "localization": "en",
+      "name": "Alma Cura"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 132,
+    "fields": {
+      "index": 132,
+      "localization": "en",
+      "name": "Compiescolta"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 133,
+    "fields": {
+      "index": 133,
+      "localization": "en",
+      "name": "Armadura Frágil"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 134,
+    "fields": {
+      "index": 134,
+      "localization": "en",
+      "name": "Metal Pesado"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 135,
+    "fields": {
+      "index": 135,
+      "localization": "en",
+      "name": "Metal Liviano"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 136,
+    "fields": {
+      "index": 136,
+      "localization": "en",
+      "name": "Multiescamas"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 137,
+    "fields": {
+      "index": 137,
+      "localization": "en",
+      "name": "Ímpetu Tóxico"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 138,
+    "fields": {
+      "index": 138,
+      "localization": "en",
+      "name": "Ímpetu Ardiente"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 139,
+    "fields": {
+      "index": 139,
+      "localization": "en",
+      "name": "Cosecha"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 140,
+    "fields": {
+      "index": 140,
+      "localization": "en",
+      "name": "Telepatía"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 141,
+    "fields": {
+      "index": 141,
+      "localization": "en",
+      "name": "Veleta"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 142,
+    "fields": {
+      "index": 142,
+      "localization": "en",
+      "name": "Funda"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 143,
+    "fields": {
+      "index": 143,
+      "localization": "en",
+      "name": "Toque Tóxico"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 144,
+    "fields": {
+      "index": 144,
+      "localization": "en",
+      "name": "Regeneración"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 145,
+    "fields": {
+      "index": 145,
+      "localization": "en",
+      "name": "Sacapecho"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 146,
+    "fields": {
+      "index": 146,
+      "localization": "en",
+      "name": "Ímpetu Arena"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 147,
+    "fields": {
+      "index": 147,
+      "localization": "en",
+      "name": "Piel Milagro"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 148,
+    "fields": {
+      "index": 148,
+      "localization": "en",
+      "name": "Cálculo Final"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 149,
+    "fields": {
+      "index": 149,
+      "localization": "en",
+      "name": "Ilusión"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 150,
+    "fields": {
+      "index": 150,
+      "localization": "en",
+      "name": "Impostor"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 151,
+    "fields": {
+      "index": 151,
+      "localization": "en",
+      "name": "Allanamiento"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 152,
+    "fields": {
+      "index": 152,
+      "localization": "en",
+      "name": "Momia"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 153,
+    "fields": {
+      "index": 153,
+      "localization": "en",
+      "name": "Autoestima"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 154,
+    "fields": {
+      "index": 154,
+      "localization": "en",
+      "name": "Justiciero"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 155,
+    "fields": {
+      "index": 155,
+      "localization": "en",
+      "name": "Cobardía"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 156,
+    "fields": {
+      "index": 156,
+      "localization": "en",
+      "name": "Espejo Mágico"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 157,
+    "fields": {
+      "index": 157,
+      "localization": "en",
+      "name": "Herbívoro"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 158,
+    "fields": {
+      "index": 158,
+      "localization": "en",
+      "name": "Bromista"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 159,
+    "fields": {
+      "index": 159,
+      "localization": "en",
+      "name": "Poder Arena"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 160,
+    "fields": {
+      "index": 160,
+      "localization": "en",
+      "name": "Punta Acero"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 161,
+    "fields": {
+      "index": 161,
+      "localization": "en",
+      "name": "Modo Daruma"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 162,
+    "fields": {
+      "index": 162,
+      "localization": "en",
+      "name": "Tinovictoria"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 163,
+    "fields": {
+      "index": 163,
+      "localization": "en",
+      "name": "Turbollama"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 164,
+    "fields": {
+      "index": 164,
+      "localization": "en",
+      "name": "Terravoltaje"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 165,
+    "fields": {
+      "index": 165,
+      "localization": "en",
+      "name": "Velo Aroma"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 166,
+    "fields": {
+      "index": 166,
+      "localization": "en",
+      "name": "Velo Flor"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 167,
+    "fields": {
+      "index": 167,
+      "localization": "en",
+      "name": "Carrillo"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 168,
+    "fields": {
+      "index": 168,
+      "localization": "en",
+      "name": "Mutatipo"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 169,
+    "fields": {
+      "index": 169,
+      "localization": "en",
+      "name": "Pelaje Recio"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 170,
+    "fields": {
+      "index": 170,
+      "localization": "en",
+      "name": "Prestidigitador"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 171,
+    "fields": {
+      "index": 171,
+      "localization": "en",
+      "name": "Antibalas"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 172,
+    "fields": {
+      "index": 172,
+      "localization": "en",
+      "name": "Tenacidad"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 173,
+    "fields": {
+      "index": 173,
+      "localization": "en",
+      "name": "Mandíbula Fuerte"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 174,
+    "fields": {
+      "index": 174,
+      "localization": "en",
+      "name": "Piel Helada"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 175,
+    "fields": {
+      "index": 175,
+      "localization": "en",
+      "name": "Velo Dulce"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 176,
+    "fields": {
+      "index": 176,
+      "localization": "en",
+      "name": "Cambio Táctico"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 177,
+    "fields": {
+      "index": 177,
+      "localization": "en",
+      "name": "Alas Vendaval"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 178,
+    "fields": {
+      "index": 178,
+      "localization": "en",
+      "name": "Megadisparador"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 179,
+    "fields": {
+      "index": 179,
+      "localization": "en",
+      "name": "Manto Frondoso"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 180,
+    "fields": {
+      "index": 180,
+      "localization": "en",
+      "name": "Simbiosis"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 181,
+    "fields": {
+      "index": 181,
+      "localization": "en",
+      "name": "Garra Dura"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 182,
+    "fields": {
+      "index": 182,
+      "localization": "en",
+      "name": "Piel Feérica"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 183,
+    "fields": {
+      "index": 183,
+      "localization": "en",
+      "name": "Baba"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 184,
+    "fields": {
+      "index": 184,
+      "localization": "en",
+      "name": "Piel Celeste"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 185,
+    "fields": {
+      "index": 185,
+      "localization": "en",
+      "name": "Amor Filial"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 186,
+    "fields": {
+      "index": 186,
+      "localization": "en",
+      "name": "Aura Oscura"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 187,
+    "fields": {
+      "index": 187,
+      "localization": "en",
+      "name": "Aura Feérica"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 188,
+    "fields": {
+      "index": 188,
+      "localization": "en",
+      "name": "Rompeaura"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 189,
+    "fields": {
+      "index": 189,
+      "localization": "en",
+      "name": "Mar del Albor"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 190,
+    "fields": {
+      "index": 190,
+      "localization": "en",
+      "name": "Tierra del Ocaso"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 191,
+    "fields": {
+      "index": 191,
+      "localization": "en",
+      "name": "Ráfaga Delta"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 192,
+    "fields": {
+      "index": 192,
+      "localization": "en",
+      "name": "Firmeza"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 193,
+    "fields": {
+      "index": 193,
+      "localization": "en",
+      "name": "Huida"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 194,
+    "fields": {
+      "index": 194,
+      "localization": "en",
+      "name": "Retirada"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 195,
+    "fields": {
+      "index": 195,
+      "localization": "en",
+      "name": "Hidrorrefuerzo"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 196,
+    "fields": {
+      "index": 196,
+      "localization": "en",
+      "name": "Ensañamiento"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 197,
+    "fields": {
+      "index": 197,
+      "localization": "en",
+      "name": "Escudo Limitado"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 198,
+    "fields": {
+      "index": 198,
+      "localization": "en",
+      "name": "Vigilante"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 199,
+    "fields": {
+      "index": 199,
+      "localization": "en",
+      "name": "Pompa"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 200,
+    "fields": {
+      "index": 200,
+      "localization": "en",
+      "name": "Acero Templado"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 201,
+    "fields": {
+      "index": 201,
+      "localization": "en",
+      "name": "Cólera"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 202,
+    "fields": {
+      "index": 202,
+      "localization": "en",
+      "name": "Quitanieves"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 203,
+    "fields": {
+      "index": 203,
+      "localization": "en",
+      "name": "Remoto"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 204,
+    "fields": {
+      "index": 204,
+      "localization": "en",
+      "name": "Voz Fluida"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 205,
+    "fields": {
+      "index": 205,
+      "localization": "en",
+      "name": "Primer Auxilio"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 206,
+    "fields": {
+      "index": 206,
+      "localization": "en",
+      "name": "Piel Eléctrica"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 207,
+    "fields": {
+      "index": 207,
+      "localization": "en",
+      "name": "Cola Surf"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 208,
+    "fields": {
+      "index": 208,
+      "localization": "en",
+      "name": "Banco"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 209,
+    "fields": {
+      "index": 209,
+      "localization": "en",
+      "name": "Disfraz"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 210,
+    "fields": {
+      "index": 210,
+      "localization": "en",
+      "name": "Fuerte Afecto"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 211,
+    "fields": {
+      "index": 211,
+      "localization": "en",
+      "name": "Agrupamiento"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 212,
+    "fields": {
+      "index": 212,
+      "localization": "en",
+      "name": "Corrosión"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 213,
+    "fields": {
+      "index": 213,
+      "localization": "en",
+      "name": "Letargo Perenne"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 214,
+    "fields": {
+      "index": 214,
+      "localization": "en",
+      "name": "Regia Presencia"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 215,
+    "fields": {
+      "index": 215,
+      "localization": "en",
+      "name": "Revés"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 216,
+    "fields": {
+      "index": 216,
+      "localization": "en",
+      "name": "Pareja de Baile"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 217,
+    "fields": {
+      "index": 217,
+      "localization": "en",
+      "name": "Batería"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 218,
+    "fields": {
+      "index": 218,
+      "localization": "en",
+      "name": "Peluche"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 219,
+    "fields": {
+      "index": 219,
+      "localization": "en",
+      "name": "Cuerpo Vívido"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 220,
+    "fields": {
+      "index": 220,
+      "localization": "en",
+      "name": "Coránima"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 221,
+    "fields": {
+      "index": 221,
+      "localization": "en",
+      "name": "Rizos Rebeldes"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 222,
+    "fields": {
+      "index": 222,
+      "localization": "en",
+      "name": "Receptor"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 223,
+    "fields": {
+      "index": 223,
+      "localization": "en",
+      "name": "Reacción Química"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 224,
+    "fields": {
+      "index": 224,
+      "localization": "en",
+      "name": "Ultraimpulso"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 225,
+    "fields": {
+      "index": 225,
+      "localization": "en",
+      "name": "Sistema Alfa"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 226,
+    "fields": {
+      "index": 226,
+      "localization": "en",
+      "name": "Electrogénesis"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 227,
+    "fields": {
+      "index": 227,
+      "localization": "en",
+      "name": "Psicogénesis"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 228,
+    "fields": {
+      "index": 228,
+      "localization": "en",
+      "name": "Nebulogénesis"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 229,
+    "fields": {
+      "index": 229,
+      "localization": "en",
+      "name": "Herbogénesis"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 230,
+    "fields": {
+      "index": 230,
+      "localization": "en",
+      "name": "Guardia Metálica"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 231,
+    "fields": {
+      "index": 231,
+      "localization": "en",
+      "name": "Guardia Espectro"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 232,
+    "fields": {
+      "index": 232,
+      "localization": "en",
+      "name": "Armadura Prisma"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonAbility",
+    "pk": 233,
+    "fields": {
+      "index": 233,
+      "localization": "en",
+      "name": "Fuerza Cerebral"
+    }
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "model": "pokemon_api.MoveCategory",
+    "pk": 1,
+    "fields": {
+      "index": 0,
+      "localization": "en",
+      "name": "Physical"
+    }
+  },
+  {
+    "model": "pokemon_api.MoveCategory",
+    "pk": 2,
+    "fields": {
+      "index": 1,
+      "localization": "en",
+      "name": "Special"
+    }
+  },
+  {
+    "model": "pokemon_api.MoveCategory",
+    "pk": 3,
+    "fields": {
+      "index": 2,
+      "localization": "en",
+      "name": "Non-Damaging"
+    }
+  }
+]

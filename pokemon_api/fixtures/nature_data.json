@@ -1,0 +1,202 @@
+[
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 0,
+    "fields": {
+      "index": 0,
+      "name": "Hardy"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 1,
+    "fields": {
+      "index": 1,
+      "name": "Lonely"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 2,
+    "fields": {
+      "index": 2,
+      "name": "Brave"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 3,
+    "fields": {
+      "index": 3,
+      "name": "Adamant"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 4,
+    "fields": {
+      "index": 4,
+      "name": "Naughty"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 5,
+    "fields": {
+      "index": 5,
+      "name": "Bold"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 6,
+    "fields": {
+      "index": 6,
+      "name": "Docile"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 7,
+    "fields": {
+      "index": 7,
+      "name": "Relaxed"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 8,
+    "fields": {
+      "index": 8,
+      "name": "Impish"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 9,
+    "fields": {
+      "index": 9,
+      "name": "Lax"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 10,
+    "fields": {
+      "index": 10,
+      "name": "Timid"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 11,
+    "fields": {
+      "index": 11,
+      "name": "Hasty"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 12,
+    "fields": {
+      "index": 12,
+      "name": "Serious"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 13,
+    "fields": {
+      "index": 13,
+      "name": "Jolly"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 14,
+    "fields": {
+      "index": 14,
+      "name": "Naive"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 15,
+    "fields": {
+      "index": 15,
+      "name": "Modest"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 16,
+    "fields": {
+      "index": 16,
+      "name": "Mild"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 17,
+    "fields": {
+      "index": 17,
+      "name": "Quiet"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 18,
+    "fields": {
+      "index": 18,
+      "name": "Bashful"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 19,
+    "fields": {
+      "index": 19,
+      "name": "Rash"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 20,
+    "fields": {
+      "index": 20,
+      "name": "Calm"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 21,
+    "fields": {
+      "index": 21,
+      "name": "Gentle"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 22,
+    "fields": {
+      "index": 22,
+      "name": "Sassy"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 23,
+    "fields": {
+      "index": 23,
+      "name": "Careful"
+    }
+  },
+  {
+    "model": "pokemon_api.PokemonNature",
+    "pk": 24,
+    "fields": {
+      "index": 24,
+      "name": "Quirky"
+    }
+  }
+]

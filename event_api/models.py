@@ -1052,6 +1052,6 @@ class SegmentConfiguration(models.Model):
 
 class AlreadyCapturedLog(models.Model):
     profile = models.ForeignKey(MastersProfile, on_delete=models.CASCADE, related_name='captures')
-    dex_number = models.IntegerField()
+    dex_number = models.IntegerField(null=True)
     pid = models.CharField(max_length=15)
     created_at = models.DateTimeField(auto_now_add=True)

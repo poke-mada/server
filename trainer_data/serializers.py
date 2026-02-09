@@ -145,19 +145,23 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
 
         surrogated_mons = obj.pokemon.surrogate_dex()
 
-        if AlreadyCapturedLog.objects.filter(pid=obj.pid, profile=performer_profile, dex_number__in=surrogated_mons).exists():
+        if AlreadyCapturedLog.objects.filter(pid=obj.pid, profile=performer_profile,
+                                             dex_number__in=surrogated_mons).exists():
             print(f'linea 149 para {obj.mote}')
             return False
 
-        if DeathLog.objects.filter(Q(profile=owner_profile) | Q(profile=performer_profile), dex_number__in=surrogated_mons, revived=False).exists():
+        if DeathLog.objects.filter(Q(profile=owner_profile) | Q(profile=performer_profile),
+                                   dex_number__in=surrogated_mons, revived=False).exists():
             print(f'linea 153 para {obj.mote}')
             return False
 
-        if obj.pokemon.dex_number in Evolution.objects.get(dex_number=658).surrogate() and obj.mote.lower() == 'greninja-ash':
-            print(f'linea 157 para {obj.mote}')
-            return False
+        # if obj.pokemon.dex_number in Evolution.objects.get(
+        #         dex_number=658).surrogate() and obj.mote.lower() == 'greninja-ash':
+        #     print(f'linea 157 para {obj.mote}')
+        #     return False
 
-        if TrainerPokemon.objects.filter(trainer=performer_profile.trainer, pokemon__dex_number__in=surrogated_mons).exists():
+        if TrainerPokemon.objects.filter(trainer=performer_profile.trainer,
+                                         pokemon__dex_number__in=surrogated_mons).exists():
             print(f'linea 161 para {obj.mote}')
             return False
 
@@ -180,6 +184,10 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         ).first()
         if not name_localization:
             name_localization = obj.held_item.name_localizations.first()
+
+        if not name_localization:
+            return obj.pokemon.name
+
         return name_localization.content
 
     def get_held_item_flavor(self, obj: TrainerPokemon):
@@ -188,6 +196,10 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         ).first()
         if not flavor_localization:
             flavor_localization = obj.held_item.flavor_text_localizations.first()
+
+        if not flavor_localization:
+            return obj.held_item.name
+
         return flavor_localization.content if flavor_localization else ''
 
     def get_ability_name(self, obj: TrainerPokemon):
@@ -201,6 +213,10 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         ).first()
         if not name_localization:
             name_localization = obj.mega_ability.name_localizations.first()
+
+        if not name_localization:
+            return obj.mega_ability.name
+
         return name_localization.content
 
     def get_mega_ability_flavor(self, obj: TrainerPokemon):
@@ -211,6 +227,10 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         ).first()
         if not name_localization:
             name_localization = obj.mega_ability.flavor_text_localizations.first()
+
+        if not name_localization:
+            return obj.mega_ability.name
+
         return name_localization.content
 
     def get_ability_flavor(self, obj: TrainerPokemon):
@@ -220,6 +240,9 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         if not flavor_localization:
             flavor_localization = obj.ability.flavor_text_localizations.first()
 
+        if not flavor_localization:
+            return obj.ability.name
+
         return flavor_localization.content if flavor_localization else ''
 
     def get_nature_name(self, obj: TrainerPokemon):
@@ -228,6 +251,10 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         ).first()
         if not name_localization:
             name_localization = obj.nature.name_localizations.first()
+
+        if not name_localization:
+            return obj.nature.name
+
         return name_localization.content
 
     def get_sprite_url(self, obj: TrainerPokemon):

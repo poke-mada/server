@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.static import serve
@@ -24,4 +26,4 @@ urlpatterns = [
     re_path(r"^static/(?P<path>.*)$", serve, {"document_root": 'statics/'}),
     path('_nested_admin/', include('nested_admin.urls')),
     path("tz/set/", set_timezone, name="set_timezone"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

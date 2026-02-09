@@ -66,10 +66,12 @@ def clamp(value, min_value=1, max_value=251):
 
 
 def get_growth_rate(dex_number):
-    with open('personal_xy', 'rb') as f:
+    with open('personal_ao', 'rb') as f:
         data = f.read()
-        index = 0x40 * dex_number
-        pk_data = data[index:index + 0x40]
+        offset = 0x50
+        print(dex_number)
+        index = offset * dex_number
+        pk_data = data[index:index + offset]
         return pk_data[0x15]
 
 
@@ -712,7 +714,7 @@ def get_pokemon_in_slot(data, slot):
 
 
 def get_box_offset(box):
-    box_address = 0x22600
+    box_address = 0x33000
     SIZE_6STORED = 232
     return box_address + (SIZE_6STORED * box * 30)
 
@@ -760,7 +762,7 @@ def data_reader(save_data):
     boxes = dict()
 
     trainer_name = get_string(original_thrash_nick)
-    misc = save_data[0x4200:0x4200 + 0x140]
+    misc = save_data[0x14200:0x14200 + 0x140]
     badge_count = misc[0xC]
     for slot in range(6):
         pokemon = PokemonBytes(get_pokemon_in_slot(save_data, slot))

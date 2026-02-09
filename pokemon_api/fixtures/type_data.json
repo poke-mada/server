@@ -1,0 +1,182 @@
+[
+  {
+    "model": "pokemon_api.Type",
+    "pk": 0,
+    "fields": {
+      "index": 0,
+      "localization": "en",
+      "name": "normal"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 1,
+    "fields": {
+      "index": 1,
+      "localization": "en",
+      "name": "fighting"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 2,
+    "fields": {
+      "index": 2,
+      "localization": "en",
+      "name": "flying"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 3,
+    "fields": {
+      "index": 3,
+      "localization": "en",
+      "name": "poison"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 4,
+    "fields": {
+      "index": 4,
+      "localization": "en",
+      "name": "ground"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 5,
+    "fields": {
+      "index": 5,
+      "localization": "en",
+      "name": "rock"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 6,
+    "fields": {
+      "index": 6,
+      "localization": "en",
+      "name": "bug"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 7,
+    "fields": {
+      "index": 7,
+      "localization": "en",
+      "name": "ghost"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 8,
+    "fields": {
+      "index": 8,
+      "localization": "en",
+      "name": "steel"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 9,
+    "fields": {
+      "index": 9,
+      "localization": "en",
+      "name": "fire"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 10,
+    "fields": {
+      "index": 10,
+      "localization": "en",
+      "name": "water"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 11,
+    "fields": {
+      "index": 11,
+      "localization": "en",
+      "name": "grass"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 12,
+    "fields": {
+      "index": 12,
+      "localization": "en",
+      "name": "electric"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 13,
+    "fields": {
+      "index": 13,
+      "localization": "en",
+      "name": "psychic"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 14,
+    "fields": {
+      "index": 14,
+      "localization": "en",
+      "name": "ice"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 15,
+    "fields": {
+      "index": 15,
+      "localization": "en",
+      "name": "dragon"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 16,
+    "fields": {
+      "index": 16,
+      "localization": "en",
+      "name": "dark"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 17,
+    "fields": {
+      "index": 17,
+      "localization": "en",
+      "name": "fairy"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 18,
+    "fields": {
+      "index": 18,
+      "localization": "en",
+      "name": "stellar"
+    }
+  },
+  {
+    "model": "pokemon_api.Type",
+    "pk": 19,
+    "fields": {
+      "index": 19,
+      "localization": "en",
+      "name": "unknown"
+    }
+  }
+]

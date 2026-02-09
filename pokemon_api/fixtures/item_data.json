@@ -1,0 +1,8642 @@
+[
+  {
+    "model": "pokemon_api.Item",
+    "pk": 0,
+    "fields": {
+      "index": 0,
+      "localization": "en",
+      "name": "None"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 1,
+    "fields": {
+      "index": 1,
+      "localization": "en",
+      "name": "Master Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 2,
+    "fields": {
+      "index": 2,
+      "localization": "en",
+      "name": "Ultra Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 3,
+    "fields": {
+      "index": 3,
+      "localization": "en",
+      "name": "Great Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 4,
+    "fields": {
+      "index": 4,
+      "localization": "en",
+      "name": "Poke Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 5,
+    "fields": {
+      "index": 5,
+      "localization": "en",
+      "name": "Safari Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 6,
+    "fields": {
+      "index": 6,
+      "localization": "en",
+      "name": "Net Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 7,
+    "fields": {
+      "index": 7,
+      "localization": "en",
+      "name": "Dive Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 8,
+    "fields": {
+      "index": 8,
+      "localization": "en",
+      "name": "Nest Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 9,
+    "fields": {
+      "index": 9,
+      "localization": "en",
+      "name": "Repeat Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 10,
+    "fields": {
+      "index": 10,
+      "localization": "en",
+      "name": "Timer Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 11,
+    "fields": {
+      "index": 11,
+      "localization": "en",
+      "name": "Luxury Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 12,
+    "fields": {
+      "index": 12,
+      "localization": "en",
+      "name": "Premier Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 13,
+    "fields": {
+      "index": 13,
+      "localization": "en",
+      "name": "Dusk Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 14,
+    "fields": {
+      "index": 14,
+      "localization": "en",
+      "name": "Heal Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 15,
+    "fields": {
+      "index": 15,
+      "localization": "en",
+      "name": "Quick Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 16,
+    "fields": {
+      "index": 16,
+      "localization": "en",
+      "name": "Cherish Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 17,
+    "fields": {
+      "index": 17,
+      "localization": "en",
+      "name": "Potion"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 18,
+    "fields": {
+      "index": 18,
+      "localization": "en",
+      "name": "Antidote"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 19,
+    "fields": {
+      "index": 19,
+      "localization": "en",
+      "name": "Burn Heal"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 20,
+    "fields": {
+      "index": 20,
+      "localization": "en",
+      "name": "Ice Heal"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 21,
+    "fields": {
+      "index": 21,
+      "localization": "en",
+      "name": "Awakening"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 22,
+    "fields": {
+      "index": 22,
+      "localization": "en",
+      "name": "Paralyze Heal"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 23,
+    "fields": {
+      "index": 23,
+      "localization": "en",
+      "name": "Full Restore"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 24,
+    "fields": {
+      "index": 24,
+      "localization": "en",
+      "name": "Max Potion"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 25,
+    "fields": {
+      "index": 25,
+      "localization": "en",
+      "name": "Hyper Potion"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 26,
+    "fields": {
+      "index": 26,
+      "localization": "en",
+      "name": "Super Potion"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 27,
+    "fields": {
+      "index": 27,
+      "localization": "en",
+      "name": "Full Heal"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 28,
+    "fields": {
+      "index": 28,
+      "localization": "en",
+      "name": "Revive"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 29,
+    "fields": {
+      "index": 29,
+      "localization": "en",
+      "name": "Max Revive"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 30,
+    "fields": {
+      "index": 30,
+      "localization": "en",
+      "name": "Fresh Water"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 31,
+    "fields": {
+      "index": 31,
+      "localization": "en",
+      "name": "Soda Pop"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 32,
+    "fields": {
+      "index": 32,
+      "localization": "en",
+      "name": "Lemonade"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 33,
+    "fields": {
+      "index": 33,
+      "localization": "en",
+      "name": "Moomoo Milk"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 34,
+    "fields": {
+      "index": 34,
+      "localization": "en",
+      "name": "Energy Powder"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 35,
+    "fields": {
+      "index": 35,
+      "localization": "en",
+      "name": "Energy Root"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 36,
+    "fields": {
+      "index": 36,
+      "localization": "en",
+      "name": "Heal Powder"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 37,
+    "fields": {
+      "index": 37,
+      "localization": "en",
+      "name": "Revival Herb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 38,
+    "fields": {
+      "index": 38,
+      "localization": "en",
+      "name": "Ether"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 39,
+    "fields": {
+      "index": 39,
+      "localization": "en",
+      "name": "Max Ether"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 40,
+    "fields": {
+      "index": 40,
+      "localization": "en",
+      "name": "Elixir"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 41,
+    "fields": {
+      "index": 41,
+      "localization": "en",
+      "name": "Max Elixir"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 42,
+    "fields": {
+      "index": 42,
+      "localization": "en",
+      "name": "Lava Cookie"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 43,
+    "fields": {
+      "index": 43,
+      "localization": "en",
+      "name": "Berry Juice"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 44,
+    "fields": {
+      "index": 44,
+      "localization": "en",
+      "name": "Sacred Ash"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 45,
+    "fields": {
+      "index": 45,
+      "localization": "en",
+      "name": "HP Up"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 46,
+    "fields": {
+      "index": 46,
+      "localization": "en",
+      "name": "Protein"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 47,
+    "fields": {
+      "index": 47,
+      "localization": "en",
+      "name": "Iron"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 48,
+    "fields": {
+      "index": 48,
+      "localization": "en",
+      "name": "Carbos"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 49,
+    "fields": {
+      "index": 49,
+      "localization": "en",
+      "name": "Calcium"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 50,
+    "fields": {
+      "index": 50,
+      "localization": "en",
+      "name": "Rare Candy"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 51,
+    "fields": {
+      "index": 51,
+      "localization": "en",
+      "name": "PP Up"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 52,
+    "fields": {
+      "index": 52,
+      "localization": "en",
+      "name": "Zinc"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 53,
+    "fields": {
+      "index": 53,
+      "localization": "en",
+      "name": "PP Max"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 54,
+    "fields": {
+      "index": 54,
+      "localization": "en",
+      "name": "Old Gateau"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 55,
+    "fields": {
+      "index": 55,
+      "localization": "en",
+      "name": "Guard Spec."
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 56,
+    "fields": {
+      "index": 56,
+      "localization": "en",
+      "name": "Dire Hit"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 57,
+    "fields": {
+      "index": 57,
+      "localization": "en",
+      "name": "X Attack"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 58,
+    "fields": {
+      "index": 58,
+      "localization": "en",
+      "name": "X Defense"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 59,
+    "fields": {
+      "index": 59,
+      "localization": "en",
+      "name": "X Speed"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 60,
+    "fields": {
+      "index": 60,
+      "localization": "en",
+      "name": "X Accuracy"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 61,
+    "fields": {
+      "index": 61,
+      "localization": "en",
+      "name": "X Sp. Atk"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 62,
+    "fields": {
+      "index": 62,
+      "localization": "en",
+      "name": "X Sp. Def"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 63,
+    "fields": {
+      "index": 63,
+      "localization": "en",
+      "name": "Poke Doll"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 64,
+    "fields": {
+      "index": 64,
+      "localization": "en",
+      "name": "Fluffy Tail"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 65,
+    "fields": {
+      "index": 65,
+      "localization": "en",
+      "name": "Blue Flute"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 66,
+    "fields": {
+      "index": 66,
+      "localization": "en",
+      "name": "Yellow Flute"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 67,
+    "fields": {
+      "index": 67,
+      "localization": "en",
+      "name": "Red Flute"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 68,
+    "fields": {
+      "index": 68,
+      "localization": "en",
+      "name": "Black Flute"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 69,
+    "fields": {
+      "index": 69,
+      "localization": "en",
+      "name": "White Flute"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 70,
+    "fields": {
+      "index": 70,
+      "localization": "en",
+      "name": "Shoal Salt"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 71,
+    "fields": {
+      "index": 71,
+      "localization": "en",
+      "name": "Shoal Shell"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 72,
+    "fields": {
+      "index": 72,
+      "localization": "en",
+      "name": "Red Shard"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 73,
+    "fields": {
+      "index": 73,
+      "localization": "en",
+      "name": "Blue Shard"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 74,
+    "fields": {
+      "index": 74,
+      "localization": "en",
+      "name": "Yellow Shard"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 75,
+    "fields": {
+      "index": 75,
+      "localization": "en",
+      "name": "Green Shard"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 76,
+    "fields": {
+      "index": 76,
+      "localization": "en",
+      "name": "Super Repel"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 77,
+    "fields": {
+      "index": 77,
+      "localization": "en",
+      "name": "Max Repel"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 78,
+    "fields": {
+      "index": 78,
+      "localization": "en",
+      "name": "Escape Rope"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 79,
+    "fields": {
+      "index": 79,
+      "localization": "en",
+      "name": "Repel"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 80,
+    "fields": {
+      "index": 80,
+      "localization": "en",
+      "name": "Sun Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 81,
+    "fields": {
+      "index": 81,
+      "localization": "en",
+      "name": "Moon Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 82,
+    "fields": {
+      "index": 82,
+      "localization": "en",
+      "name": "Fire Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 83,
+    "fields": {
+      "index": 83,
+      "localization": "en",
+      "name": "Thunder Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 84,
+    "fields": {
+      "index": 84,
+      "localization": "en",
+      "name": "Water Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 85,
+    "fields": {
+      "index": 85,
+      "localization": "en",
+      "name": "Leaf Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 86,
+    "fields": {
+      "index": 86,
+      "localization": "en",
+      "name": "Tiny Mushroom"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 87,
+    "fields": {
+      "index": 87,
+      "localization": "en",
+      "name": "Big Mushroom"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 88,
+    "fields": {
+      "index": 88,
+      "localization": "en",
+      "name": "Pearl"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 89,
+    "fields": {
+      "index": 89,
+      "localization": "en",
+      "name": "Big Pearl"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 90,
+    "fields": {
+      "index": 90,
+      "localization": "en",
+      "name": "Stardust"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 91,
+    "fields": {
+      "index": 91,
+      "localization": "en",
+      "name": "Star Piece"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 92,
+    "fields": {
+      "index": 92,
+      "localization": "en",
+      "name": "Nugget"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 93,
+    "fields": {
+      "index": 93,
+      "localization": "en",
+      "name": "Heart Scale"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 94,
+    "fields": {
+      "index": 94,
+      "localization": "en",
+      "name": "Honey"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 95,
+    "fields": {
+      "index": 95,
+      "localization": "en",
+      "name": "Growth Mulch"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 96,
+    "fields": {
+      "index": 96,
+      "localization": "en",
+      "name": "Damp Mulch"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 97,
+    "fields": {
+      "index": 97,
+      "localization": "en",
+      "name": "Stable Mulch"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 98,
+    "fields": {
+      "index": 98,
+      "localization": "en",
+      "name": "Gooey Mulch"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 99,
+    "fields": {
+      "index": 99,
+      "localization": "en",
+      "name": "Root Fossil"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 100,
+    "fields": {
+      "index": 100,
+      "localization": "en",
+      "name": "Claw Fossil"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 101,
+    "fields": {
+      "index": 101,
+      "localization": "en",
+      "name": "Helix Fossil"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 102,
+    "fields": {
+      "index": 102,
+      "localization": "en",
+      "name": "Dome Fossil"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 103,
+    "fields": {
+      "index": 103,
+      "localization": "en",
+      "name": "Old Amber"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 104,
+    "fields": {
+      "index": 104,
+      "localization": "en",
+      "name": "Armor Fossil"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 105,
+    "fields": {
+      "index": 105,
+      "localization": "en",
+      "name": "Skull Fossil"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 106,
+    "fields": {
+      "index": 106,
+      "localization": "en",
+      "name": "Rare Bone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 107,
+    "fields": {
+      "index": 107,
+      "localization": "en",
+      "name": "Shiny Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 108,
+    "fields": {
+      "index": 108,
+      "localization": "en",
+      "name": "Dusk Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 109,
+    "fields": {
+      "index": 109,
+      "localization": "en",
+      "name": "Dawn Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 110,
+    "fields": {
+      "index": 110,
+      "localization": "en",
+      "name": "Oval Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 111,
+    "fields": {
+      "index": 111,
+      "localization": "en",
+      "name": "Odd Keystone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 112,
+    "fields": {
+      "index": 112,
+      "localization": "en",
+      "name": "Griseous Orb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 113,
+    "fields": {
+      "index": 113,
+      "localization": "en",
+      "name": "Tea"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 114,
+    "fields": {
+      "index": 114,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 115,
+    "fields": {
+      "index": 115,
+      "localization": "en",
+      "name": "Autograph"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 116,
+    "fields": {
+      "index": 116,
+      "localization": "en",
+      "name": "Douse Drive"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 117,
+    "fields": {
+      "index": 117,
+      "localization": "en",
+      "name": "Shock Drive"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 118,
+    "fields": {
+      "index": 118,
+      "localization": "en",
+      "name": "Burn Drive"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 119,
+    "fields": {
+      "index": 119,
+      "localization": "en",
+      "name": "Chill Drive"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 120,
+    "fields": {
+      "index": 120,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 121,
+    "fields": {
+      "index": 121,
+      "localization": "en",
+      "name": "Pokémon Box"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 122,
+    "fields": {
+      "index": 122,
+      "localization": "en",
+      "name": "Medicine Pocket"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 123,
+    "fields": {
+      "index": 123,
+      "localization": "en",
+      "name": "TM Case"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 124,
+    "fields": {
+      "index": 124,
+      "localization": "en",
+      "name": "Candy Jar"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 125,
+    "fields": {
+      "index": 125,
+      "localization": "en",
+      "name": "Power-Up Pocket"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 126,
+    "fields": {
+      "index": 126,
+      "localization": "en",
+      "name": "Clothing Trunk"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 127,
+    "fields": {
+      "index": 127,
+      "localization": "en",
+      "name": "Catching Pocket"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 128,
+    "fields": {
+      "index": 128,
+      "localization": "en",
+      "name": "Battle Pocket"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 129,
+    "fields": {
+      "index": 129,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 130,
+    "fields": {
+      "index": 130,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 131,
+    "fields": {
+      "index": 131,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 132,
+    "fields": {
+      "index": 132,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 133,
+    "fields": {
+      "index": 133,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 134,
+    "fields": {
+      "index": 134,
+      "localization": "en",
+      "name": "Sweet Heart"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 135,
+    "fields": {
+      "index": 135,
+      "localization": "en",
+      "name": "Adamant Orb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 136,
+    "fields": {
+      "index": 136,
+      "localization": "en",
+      "name": "Lustrous Orb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 137,
+    "fields": {
+      "index": 137,
+      "localization": "en",
+      "name": "Greet Mail"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 138,
+    "fields": {
+      "index": 138,
+      "localization": "en",
+      "name": "Favored Mail"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 139,
+    "fields": {
+      "index": 139,
+      "localization": "en",
+      "name": "RSVP Mail"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 140,
+    "fields": {
+      "index": 140,
+      "localization": "en",
+      "name": "Thanks Mail"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 141,
+    "fields": {
+      "index": 141,
+      "localization": "en",
+      "name": "Inquiry Mail"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 142,
+    "fields": {
+      "index": 142,
+      "localization": "en",
+      "name": "Like Mail"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 143,
+    "fields": {
+      "index": 143,
+      "localization": "en",
+      "name": "Reply Mail"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 144,
+    "fields": {
+      "index": 144,
+      "localization": "en",
+      "name": "Bridge Mail S"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 145,
+    "fields": {
+      "index": 145,
+      "localization": "en",
+      "name": "Bridge Mail D"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 146,
+    "fields": {
+      "index": 146,
+      "localization": "en",
+      "name": "Bridge Mail T"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 147,
+    "fields": {
+      "index": 147,
+      "localization": "en",
+      "name": "Bridge Mail V"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 148,
+    "fields": {
+      "index": 148,
+      "localization": "en",
+      "name": "Bridge Mail M"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 149,
+    "fields": {
+      "index": 149,
+      "localization": "en",
+      "name": "Cheri Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 150,
+    "fields": {
+      "index": 150,
+      "localization": "en",
+      "name": "Chesto Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 151,
+    "fields": {
+      "index": 151,
+      "localization": "en",
+      "name": "Pecha Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 152,
+    "fields": {
+      "index": 152,
+      "localization": "en",
+      "name": "Rawst Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 153,
+    "fields": {
+      "index": 153,
+      "localization": "en",
+      "name": "Aspear Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 154,
+    "fields": {
+      "index": 154,
+      "localization": "en",
+      "name": "Leppa Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 155,
+    "fields": {
+      "index": 155,
+      "localization": "en",
+      "name": "Oran Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 156,
+    "fields": {
+      "index": 156,
+      "localization": "en",
+      "name": "Persim Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 157,
+    "fields": {
+      "index": 157,
+      "localization": "en",
+      "name": "Lum Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 158,
+    "fields": {
+      "index": 158,
+      "localization": "en",
+      "name": "Sitrus Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 159,
+    "fields": {
+      "index": 159,
+      "localization": "en",
+      "name": "Figy Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 160,
+    "fields": {
+      "index": 160,
+      "localization": "en",
+      "name": "Wiki Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 161,
+    "fields": {
+      "index": 161,
+      "localization": "en",
+      "name": "Mago Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 162,
+    "fields": {
+      "index": 162,
+      "localization": "en",
+      "name": "Aguav Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 163,
+    "fields": {
+      "index": 163,
+      "localization": "en",
+      "name": "Iapapa Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 164,
+    "fields": {
+      "index": 164,
+      "localization": "en",
+      "name": "Razz Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 165,
+    "fields": {
+      "index": 165,
+      "localization": "en",
+      "name": "Bluk Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 166,
+    "fields": {
+      "index": 166,
+      "localization": "en",
+      "name": "Nanab Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 167,
+    "fields": {
+      "index": 167,
+      "localization": "en",
+      "name": "Wepear Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 168,
+    "fields": {
+      "index": 168,
+      "localization": "en",
+      "name": "Pinap Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 169,
+    "fields": {
+      "index": 169,
+      "localization": "en",
+      "name": "Pomeg Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 170,
+    "fields": {
+      "index": 170,
+      "localization": "en",
+      "name": "Kelpsy Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 171,
+    "fields": {
+      "index": 171,
+      "localization": "en",
+      "name": "Qualot Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 172,
+    "fields": {
+      "index": 172,
+      "localization": "en",
+      "name": "Hondew Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 173,
+    "fields": {
+      "index": 173,
+      "localization": "en",
+      "name": "Grepa Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 174,
+    "fields": {
+      "index": 174,
+      "localization": "en",
+      "name": "Tamato Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 175,
+    "fields": {
+      "index": 175,
+      "localization": "en",
+      "name": "Cornn Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 176,
+    "fields": {
+      "index": 176,
+      "localization": "en",
+      "name": "Magost Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 177,
+    "fields": {
+      "index": 177,
+      "localization": "en",
+      "name": "Rabuta Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 178,
+    "fields": {
+      "index": 178,
+      "localization": "en",
+      "name": "Nomel Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 179,
+    "fields": {
+      "index": 179,
+      "localization": "en",
+      "name": "Spelon Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 180,
+    "fields": {
+      "index": 180,
+      "localization": "en",
+      "name": "Pamtre Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 181,
+    "fields": {
+      "index": 181,
+      "localization": "en",
+      "name": "Watmel Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 182,
+    "fields": {
+      "index": 182,
+      "localization": "en",
+      "name": "Durin Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 183,
+    "fields": {
+      "index": 183,
+      "localization": "en",
+      "name": "Belue Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 184,
+    "fields": {
+      "index": 184,
+      "localization": "en",
+      "name": "Occa Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 185,
+    "fields": {
+      "index": 185,
+      "localization": "en",
+      "name": "Passho Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 186,
+    "fields": {
+      "index": 186,
+      "localization": "en",
+      "name": "Wacan Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 187,
+    "fields": {
+      "index": 187,
+      "localization": "en",
+      "name": "Rindo Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 188,
+    "fields": {
+      "index": 188,
+      "localization": "en",
+      "name": "Yache Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 189,
+    "fields": {
+      "index": 189,
+      "localization": "en",
+      "name": "Chople Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 190,
+    "fields": {
+      "index": 190,
+      "localization": "en",
+      "name": "Kebia Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 191,
+    "fields": {
+      "index": 191,
+      "localization": "en",
+      "name": "Shuca Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 192,
+    "fields": {
+      "index": 192,
+      "localization": "en",
+      "name": "Coba Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 193,
+    "fields": {
+      "index": 193,
+      "localization": "en",
+      "name": "Payapa Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 194,
+    "fields": {
+      "index": 194,
+      "localization": "en",
+      "name": "Tanga Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 195,
+    "fields": {
+      "index": 195,
+      "localization": "en",
+      "name": "Charti Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 196,
+    "fields": {
+      "index": 196,
+      "localization": "en",
+      "name": "Kasib Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 197,
+    "fields": {
+      "index": 197,
+      "localization": "en",
+      "name": "Haban Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 198,
+    "fields": {
+      "index": 198,
+      "localization": "en",
+      "name": "Colbur Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 199,
+    "fields": {
+      "index": 199,
+      "localization": "en",
+      "name": "Babiri Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 200,
+    "fields": {
+      "index": 200,
+      "localization": "en",
+      "name": "Chilan Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 201,
+    "fields": {
+      "index": 201,
+      "localization": "en",
+      "name": "Liechi Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 202,
+    "fields": {
+      "index": 202,
+      "localization": "en",
+      "name": "Ganlon Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 203,
+    "fields": {
+      "index": 203,
+      "localization": "en",
+      "name": "Salac Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 204,
+    "fields": {
+      "index": 204,
+      "localization": "en",
+      "name": "Petaya Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 205,
+    "fields": {
+      "index": 205,
+      "localization": "en",
+      "name": "Apicot Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 206,
+    "fields": {
+      "index": 206,
+      "localization": "en",
+      "name": "Lansat Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 207,
+    "fields": {
+      "index": 207,
+      "localization": "en",
+      "name": "Starf Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 208,
+    "fields": {
+      "index": 208,
+      "localization": "en",
+      "name": "Enigma Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 209,
+    "fields": {
+      "index": 209,
+      "localization": "en",
+      "name": "Micle Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 210,
+    "fields": {
+      "index": 210,
+      "localization": "en",
+      "name": "Custap Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 211,
+    "fields": {
+      "index": 211,
+      "localization": "en",
+      "name": "Jaboca Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 212,
+    "fields": {
+      "index": 212,
+      "localization": "en",
+      "name": "Rowap Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 213,
+    "fields": {
+      "index": 213,
+      "localization": "en",
+      "name": "Bright Powder"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 214,
+    "fields": {
+      "index": 214,
+      "localization": "en",
+      "name": "White Herb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 215,
+    "fields": {
+      "index": 215,
+      "localization": "en",
+      "name": "Macho Brace"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 216,
+    "fields": {
+      "index": 216,
+      "localization": "en",
+      "name": "Exp. Share"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 217,
+    "fields": {
+      "index": 217,
+      "localization": "en",
+      "name": "Quick Claw"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 218,
+    "fields": {
+      "index": 218,
+      "localization": "en",
+      "name": "Soothe Bell"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 219,
+    "fields": {
+      "index": 219,
+      "localization": "en",
+      "name": "Mental Herb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 220,
+    "fields": {
+      "index": 220,
+      "localization": "en",
+      "name": "Choice Band"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 221,
+    "fields": {
+      "index": 221,
+      "localization": "en",
+      "name": "King's Rock"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 222,
+    "fields": {
+      "index": 222,
+      "localization": "en",
+      "name": "Silver Powder"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 223,
+    "fields": {
+      "index": 223,
+      "localization": "en",
+      "name": "Amulet Coin"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 224,
+    "fields": {
+      "index": 224,
+      "localization": "en",
+      "name": "Cleanse Tag"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 225,
+    "fields": {
+      "index": 225,
+      "localization": "en",
+      "name": "Soul Dew"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 226,
+    "fields": {
+      "index": 226,
+      "localization": "en",
+      "name": "Deep Sea Tooth"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 227,
+    "fields": {
+      "index": 227,
+      "localization": "en",
+      "name": "Deep Sea Scale"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 228,
+    "fields": {
+      "index": 228,
+      "localization": "en",
+      "name": "Smoke Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 229,
+    "fields": {
+      "index": 229,
+      "localization": "en",
+      "name": "Everstone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 230,
+    "fields": {
+      "index": 230,
+      "localization": "en",
+      "name": "Focus Band"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 231,
+    "fields": {
+      "index": 231,
+      "localization": "en",
+      "name": "Lucky Egg"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 232,
+    "fields": {
+      "index": 232,
+      "localization": "en",
+      "name": "Scope Lens"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 233,
+    "fields": {
+      "index": 233,
+      "localization": "en",
+      "name": "Metal Coat"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 234,
+    "fields": {
+      "index": 234,
+      "localization": "en",
+      "name": "Leftovers"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 235,
+    "fields": {
+      "index": 235,
+      "localization": "en",
+      "name": "Dragon Scale"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 236,
+    "fields": {
+      "index": 236,
+      "localization": "en",
+      "name": "Light Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 237,
+    "fields": {
+      "index": 237,
+      "localization": "en",
+      "name": "Soft Sand"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 238,
+    "fields": {
+      "index": 238,
+      "localization": "en",
+      "name": "Hard Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 239,
+    "fields": {
+      "index": 239,
+      "localization": "en",
+      "name": "Miracle Seed"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 240,
+    "fields": {
+      "index": 240,
+      "localization": "en",
+      "name": "Black Glasses"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 241,
+    "fields": {
+      "index": 241,
+      "localization": "en",
+      "name": "Black Belt"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 242,
+    "fields": {
+      "index": 242,
+      "localization": "en",
+      "name": "Magnet"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 243,
+    "fields": {
+      "index": 243,
+      "localization": "en",
+      "name": "Mystic Water"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 244,
+    "fields": {
+      "index": 244,
+      "localization": "en",
+      "name": "Sharp Beak"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 245,
+    "fields": {
+      "index": 245,
+      "localization": "en",
+      "name": "Poison Barb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 246,
+    "fields": {
+      "index": 246,
+      "localization": "en",
+      "name": "Never-Melt Ice"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 247,
+    "fields": {
+      "index": 247,
+      "localization": "en",
+      "name": "Spell Tag"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 248,
+    "fields": {
+      "index": 248,
+      "localization": "en",
+      "name": "Twisted Spoon"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 249,
+    "fields": {
+      "index": 249,
+      "localization": "en",
+      "name": "Charcoal"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 250,
+    "fields": {
+      "index": 250,
+      "localization": "en",
+      "name": "Dragon Fang"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 251,
+    "fields": {
+      "index": 251,
+      "localization": "en",
+      "name": "Silk Scarf"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 252,
+    "fields": {
+      "index": 252,
+      "localization": "en",
+      "name": "Up-Grade"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 253,
+    "fields": {
+      "index": 253,
+      "localization": "en",
+      "name": "Shell Bell"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 254,
+    "fields": {
+      "index": 254,
+      "localization": "en",
+      "name": "Sea Incense"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 255,
+    "fields": {
+      "index": 255,
+      "localization": "en",
+      "name": "Lax Incense"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 256,
+    "fields": {
+      "index": 256,
+      "localization": "en",
+      "name": "Lucky Punch"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 257,
+    "fields": {
+      "index": 257,
+      "localization": "en",
+      "name": "Metal Powder"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 258,
+    "fields": {
+      "index": 258,
+      "localization": "en",
+      "name": "Thick Club"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 259,
+    "fields": {
+      "index": 259,
+      "localization": "en",
+      "name": "Stick"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 260,
+    "fields": {
+      "index": 260,
+      "localization": "en",
+      "name": "Red Scarf"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 261,
+    "fields": {
+      "index": 261,
+      "localization": "en",
+      "name": "Blue Scarf"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 262,
+    "fields": {
+      "index": 262,
+      "localization": "en",
+      "name": "Pink Scarf"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 263,
+    "fields": {
+      "index": 263,
+      "localization": "en",
+      "name": "Green Scarf"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 264,
+    "fields": {
+      "index": 264,
+      "localization": "en",
+      "name": "Yellow Scarf"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 265,
+    "fields": {
+      "index": 265,
+      "localization": "en",
+      "name": "Wide Lens"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 266,
+    "fields": {
+      "index": 266,
+      "localization": "en",
+      "name": "Muscle Band"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 267,
+    "fields": {
+      "index": 267,
+      "localization": "en",
+      "name": "Wise Glasses"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 268,
+    "fields": {
+      "index": 268,
+      "localization": "en",
+      "name": "Expert Belt"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 269,
+    "fields": {
+      "index": 269,
+      "localization": "en",
+      "name": "Light Clay"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 270,
+    "fields": {
+      "index": 270,
+      "localization": "en",
+      "name": "Life Orb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 271,
+    "fields": {
+      "index": 271,
+      "localization": "en",
+      "name": "Power Herb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 272,
+    "fields": {
+      "index": 272,
+      "localization": "en",
+      "name": "Toxic Orb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 273,
+    "fields": {
+      "index": 273,
+      "localization": "en",
+      "name": "Flame Orb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 274,
+    "fields": {
+      "index": 274,
+      "localization": "en",
+      "name": "Quick Powder"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 275,
+    "fields": {
+      "index": 275,
+      "localization": "en",
+      "name": "Focus Sash"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 276,
+    "fields": {
+      "index": 276,
+      "localization": "en",
+      "name": "Zoom Lens"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 277,
+    "fields": {
+      "index": 277,
+      "localization": "en",
+      "name": "Metronome"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 278,
+    "fields": {
+      "index": 278,
+      "localization": "en",
+      "name": "Iron Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 279,
+    "fields": {
+      "index": 279,
+      "localization": "en",
+      "name": "Lagging Tail"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 280,
+    "fields": {
+      "index": 280,
+      "localization": "en",
+      "name": "Destiny Knot"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 281,
+    "fields": {
+      "index": 281,
+      "localization": "en",
+      "name": "Black Sludge"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 282,
+    "fields": {
+      "index": 282,
+      "localization": "en",
+      "name": "Icy Rock"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 283,
+    "fields": {
+      "index": 283,
+      "localization": "en",
+      "name": "Smooth Rock"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 284,
+    "fields": {
+      "index": 284,
+      "localization": "en",
+      "name": "Heat Rock"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 285,
+    "fields": {
+      "index": 285,
+      "localization": "en",
+      "name": "Damp Rock"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 286,
+    "fields": {
+      "index": 286,
+      "localization": "en",
+      "name": "Grip Claw"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 287,
+    "fields": {
+      "index": 287,
+      "localization": "en",
+      "name": "Choice Scarf"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 288,
+    "fields": {
+      "index": 288,
+      "localization": "en",
+      "name": "Sticky Barb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 289,
+    "fields": {
+      "index": 289,
+      "localization": "en",
+      "name": "Power Bracer"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 290,
+    "fields": {
+      "index": 290,
+      "localization": "en",
+      "name": "Power Belt"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 291,
+    "fields": {
+      "index": 291,
+      "localization": "en",
+      "name": "Power Lens"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 292,
+    "fields": {
+      "index": 292,
+      "localization": "en",
+      "name": "Power Band"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 293,
+    "fields": {
+      "index": 293,
+      "localization": "en",
+      "name": "Power Anklet"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 294,
+    "fields": {
+      "index": 294,
+      "localization": "en",
+      "name": "Power Weight"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 295,
+    "fields": {
+      "index": 295,
+      "localization": "en",
+      "name": "Shed Shell"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 296,
+    "fields": {
+      "index": 296,
+      "localization": "en",
+      "name": "Big Root"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 297,
+    "fields": {
+      "index": 297,
+      "localization": "en",
+      "name": "Choice Specs"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 298,
+    "fields": {
+      "index": 298,
+      "localization": "en",
+      "name": "Flame Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 299,
+    "fields": {
+      "index": 299,
+      "localization": "en",
+      "name": "Splash Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 300,
+    "fields": {
+      "index": 300,
+      "localization": "en",
+      "name": "Zap Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 301,
+    "fields": {
+      "index": 301,
+      "localization": "en",
+      "name": "Meadow Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 302,
+    "fields": {
+      "index": 302,
+      "localization": "en",
+      "name": "Icicle Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 303,
+    "fields": {
+      "index": 303,
+      "localization": "en",
+      "name": "Fist Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 304,
+    "fields": {
+      "index": 304,
+      "localization": "en",
+      "name": "Toxic Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 305,
+    "fields": {
+      "index": 305,
+      "localization": "en",
+      "name": "Earth Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 306,
+    "fields": {
+      "index": 306,
+      "localization": "en",
+      "name": "Sky Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 307,
+    "fields": {
+      "index": 307,
+      "localization": "en",
+      "name": "Mind Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 308,
+    "fields": {
+      "index": 308,
+      "localization": "en",
+      "name": "Insect Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 309,
+    "fields": {
+      "index": 309,
+      "localization": "en",
+      "name": "Stone Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 310,
+    "fields": {
+      "index": 310,
+      "localization": "en",
+      "name": "Spooky Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 311,
+    "fields": {
+      "index": 311,
+      "localization": "en",
+      "name": "Draco Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 312,
+    "fields": {
+      "index": 312,
+      "localization": "en",
+      "name": "Dread Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 313,
+    "fields": {
+      "index": 313,
+      "localization": "en",
+      "name": "Iron Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 314,
+    "fields": {
+      "index": 314,
+      "localization": "en",
+      "name": "Odd Incense"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 315,
+    "fields": {
+      "index": 315,
+      "localization": "en",
+      "name": "Rock Incense"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 316,
+    "fields": {
+      "index": 316,
+      "localization": "en",
+      "name": "Full Incense"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 317,
+    "fields": {
+      "index": 317,
+      "localization": "en",
+      "name": "Wave Incense"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 318,
+    "fields": {
+      "index": 318,
+      "localization": "en",
+      "name": "Rose Incense"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 319,
+    "fields": {
+      "index": 319,
+      "localization": "en",
+      "name": "Luck Incense"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 320,
+    "fields": {
+      "index": 320,
+      "localization": "en",
+      "name": "Pure Incense"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 321,
+    "fields": {
+      "index": 321,
+      "localization": "en",
+      "name": "Protector"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 322,
+    "fields": {
+      "index": 322,
+      "localization": "en",
+      "name": "Electirizer"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 323,
+    "fields": {
+      "index": 323,
+      "localization": "en",
+      "name": "Magmarizer"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 324,
+    "fields": {
+      "index": 324,
+      "localization": "en",
+      "name": "Dubious Disc"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 325,
+    "fields": {
+      "index": 325,
+      "localization": "en",
+      "name": "Reaper Cloth"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 326,
+    "fields": {
+      "index": 326,
+      "localization": "en",
+      "name": "Razor Claw"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 327,
+    "fields": {
+      "index": 327,
+      "localization": "en",
+      "name": "Razor Fang"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 328,
+    "fields": {
+      "index": 328,
+      "localization": "en",
+      "name": "TM01"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 329,
+    "fields": {
+      "index": 329,
+      "localization": "en",
+      "name": "TM02"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 330,
+    "fields": {
+      "index": 330,
+      "localization": "en",
+      "name": "TM03"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 331,
+    "fields": {
+      "index": 331,
+      "localization": "en",
+      "name": "TM04"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 332,
+    "fields": {
+      "index": 332,
+      "localization": "en",
+      "name": "TM05"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 333,
+    "fields": {
+      "index": 333,
+      "localization": "en",
+      "name": "TM06"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 334,
+    "fields": {
+      "index": 334,
+      "localization": "en",
+      "name": "TM07"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 335,
+    "fields": {
+      "index": 335,
+      "localization": "en",
+      "name": "TM08"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 336,
+    "fields": {
+      "index": 336,
+      "localization": "en",
+      "name": "TM09"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 337,
+    "fields": {
+      "index": 337,
+      "localization": "en",
+      "name": "TM10"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 338,
+    "fields": {
+      "index": 338,
+      "localization": "en",
+      "name": "TM11"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 339,
+    "fields": {
+      "index": 339,
+      "localization": "en",
+      "name": "TM12"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 340,
+    "fields": {
+      "index": 340,
+      "localization": "en",
+      "name": "TM13"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 341,
+    "fields": {
+      "index": 341,
+      "localization": "en",
+      "name": "TM14"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 342,
+    "fields": {
+      "index": 342,
+      "localization": "en",
+      "name": "TM15"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 343,
+    "fields": {
+      "index": 343,
+      "localization": "en",
+      "name": "TM16"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 344,
+    "fields": {
+      "index": 344,
+      "localization": "en",
+      "name": "TM17"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 345,
+    "fields": {
+      "index": 345,
+      "localization": "en",
+      "name": "TM18"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 346,
+    "fields": {
+      "index": 346,
+      "localization": "en",
+      "name": "TM19"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 347,
+    "fields": {
+      "index": 347,
+      "localization": "en",
+      "name": "TM20"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 348,
+    "fields": {
+      "index": 348,
+      "localization": "en",
+      "name": "TM21"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 349,
+    "fields": {
+      "index": 349,
+      "localization": "en",
+      "name": "TM22"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 350,
+    "fields": {
+      "index": 350,
+      "localization": "en",
+      "name": "TM23"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 351,
+    "fields": {
+      "index": 351,
+      "localization": "en",
+      "name": "TM24"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 352,
+    "fields": {
+      "index": 352,
+      "localization": "en",
+      "name": "TM25"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 353,
+    "fields": {
+      "index": 353,
+      "localization": "en",
+      "name": "TM26"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 354,
+    "fields": {
+      "index": 354,
+      "localization": "en",
+      "name": "TM27"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 355,
+    "fields": {
+      "index": 355,
+      "localization": "en",
+      "name": "TM28"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 356,
+    "fields": {
+      "index": 356,
+      "localization": "en",
+      "name": "TM29"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 357,
+    "fields": {
+      "index": 357,
+      "localization": "en",
+      "name": "TM30"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 358,
+    "fields": {
+      "index": 358,
+      "localization": "en",
+      "name": "TM31"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 359,
+    "fields": {
+      "index": 359,
+      "localization": "en",
+      "name": "TM32"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 360,
+    "fields": {
+      "index": 360,
+      "localization": "en",
+      "name": "TM33"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 361,
+    "fields": {
+      "index": 361,
+      "localization": "en",
+      "name": "TM34"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 362,
+    "fields": {
+      "index": 362,
+      "localization": "en",
+      "name": "TM35"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 363,
+    "fields": {
+      "index": 363,
+      "localization": "en",
+      "name": "TM36"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 364,
+    "fields": {
+      "index": 364,
+      "localization": "en",
+      "name": "TM37"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 365,
+    "fields": {
+      "index": 365,
+      "localization": "en",
+      "name": "TM38"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 366,
+    "fields": {
+      "index": 366,
+      "localization": "en",
+      "name": "TM39"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 367,
+    "fields": {
+      "index": 367,
+      "localization": "en",
+      "name": "TM40"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 368,
+    "fields": {
+      "index": 368,
+      "localization": "en",
+      "name": "TM41"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 369,
+    "fields": {
+      "index": 369,
+      "localization": "en",
+      "name": "TM42"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 370,
+    "fields": {
+      "index": 370,
+      "localization": "en",
+      "name": "TM43"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 371,
+    "fields": {
+      "index": 371,
+      "localization": "en",
+      "name": "TM44"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 372,
+    "fields": {
+      "index": 372,
+      "localization": "en",
+      "name": "TM45"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 373,
+    "fields": {
+      "index": 373,
+      "localization": "en",
+      "name": "TM46"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 374,
+    "fields": {
+      "index": 374,
+      "localization": "en",
+      "name": "TM47"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 375,
+    "fields": {
+      "index": 375,
+      "localization": "en",
+      "name": "TM48"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 376,
+    "fields": {
+      "index": 376,
+      "localization": "en",
+      "name": "TM49"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 377,
+    "fields": {
+      "index": 377,
+      "localization": "en",
+      "name": "TM50"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 378,
+    "fields": {
+      "index": 378,
+      "localization": "en",
+      "name": "TM51"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 379,
+    "fields": {
+      "index": 379,
+      "localization": "en",
+      "name": "TM52"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 380,
+    "fields": {
+      "index": 380,
+      "localization": "en",
+      "name": "TM53"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 381,
+    "fields": {
+      "index": 381,
+      "localization": "en",
+      "name": "TM54"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 382,
+    "fields": {
+      "index": 382,
+      "localization": "en",
+      "name": "TM55"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 383,
+    "fields": {
+      "index": 383,
+      "localization": "en",
+      "name": "TM56"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 384,
+    "fields": {
+      "index": 384,
+      "localization": "en",
+      "name": "TM57"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 385,
+    "fields": {
+      "index": 385,
+      "localization": "en",
+      "name": "TM58"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 386,
+    "fields": {
+      "index": 386,
+      "localization": "en",
+      "name": "TM59"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 387,
+    "fields": {
+      "index": 387,
+      "localization": "en",
+      "name": "TM60"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 388,
+    "fields": {
+      "index": 388,
+      "localization": "en",
+      "name": "TM61"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 389,
+    "fields": {
+      "index": 389,
+      "localization": "en",
+      "name": "TM62"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 390,
+    "fields": {
+      "index": 390,
+      "localization": "en",
+      "name": "TM63"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 391,
+    "fields": {
+      "index": 391,
+      "localization": "en",
+      "name": "TM64"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 392,
+    "fields": {
+      "index": 392,
+      "localization": "en",
+      "name": "TM65"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 393,
+    "fields": {
+      "index": 393,
+      "localization": "en",
+      "name": "TM66"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 394,
+    "fields": {
+      "index": 394,
+      "localization": "en",
+      "name": "TM67"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 395,
+    "fields": {
+      "index": 395,
+      "localization": "en",
+      "name": "TM68"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 396,
+    "fields": {
+      "index": 396,
+      "localization": "en",
+      "name": "TM69"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 397,
+    "fields": {
+      "index": 397,
+      "localization": "en",
+      "name": "TM70"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 398,
+    "fields": {
+      "index": 398,
+      "localization": "en",
+      "name": "TM71"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 399,
+    "fields": {
+      "index": 399,
+      "localization": "en",
+      "name": "TM72"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 400,
+    "fields": {
+      "index": 400,
+      "localization": "en",
+      "name": "TM73"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 401,
+    "fields": {
+      "index": 401,
+      "localization": "en",
+      "name": "TM74"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 402,
+    "fields": {
+      "index": 402,
+      "localization": "en",
+      "name": "TM75"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 403,
+    "fields": {
+      "index": 403,
+      "localization": "en",
+      "name": "TM76"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 404,
+    "fields": {
+      "index": 404,
+      "localization": "en",
+      "name": "TM77"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 405,
+    "fields": {
+      "index": 405,
+      "localization": "en",
+      "name": "TM78"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 406,
+    "fields": {
+      "index": 406,
+      "localization": "en",
+      "name": "TM79"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 407,
+    "fields": {
+      "index": 407,
+      "localization": "en",
+      "name": "TM80"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 408,
+    "fields": {
+      "index": 408,
+      "localization": "en",
+      "name": "TM81"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 409,
+    "fields": {
+      "index": 409,
+      "localization": "en",
+      "name": "TM82"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 410,
+    "fields": {
+      "index": 410,
+      "localization": "en",
+      "name": "TM83"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 411,
+    "fields": {
+      "index": 411,
+      "localization": "en",
+      "name": "TM84"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 412,
+    "fields": {
+      "index": 412,
+      "localization": "en",
+      "name": "TM85"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 413,
+    "fields": {
+      "index": 413,
+      "localization": "en",
+      "name": "TM86"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 414,
+    "fields": {
+      "index": 414,
+      "localization": "en",
+      "name": "TM87"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 415,
+    "fields": {
+      "index": 415,
+      "localization": "en",
+      "name": "TM88"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 416,
+    "fields": {
+      "index": 416,
+      "localization": "en",
+      "name": "TM89"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 417,
+    "fields": {
+      "index": 417,
+      "localization": "en",
+      "name": "TM90"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 418,
+    "fields": {
+      "index": 418,
+      "localization": "en",
+      "name": "TM91"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 419,
+    "fields": {
+      "index": 419,
+      "localization": "en",
+      "name": "TM92"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 420,
+    "fields": {
+      "index": 420,
+      "localization": "en",
+      "name": "HM01"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 421,
+    "fields": {
+      "index": 421,
+      "localization": "en",
+      "name": "HM02"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 422,
+    "fields": {
+      "index": 422,
+      "localization": "en",
+      "name": "HM03"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 423,
+    "fields": {
+      "index": 423,
+      "localization": "en",
+      "name": "HM04"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 424,
+    "fields": {
+      "index": 424,
+      "localization": "en",
+      "name": "HM05"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 425,
+    "fields": {
+      "index": 425,
+      "localization": "en",
+      "name": "HM06"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 426,
+    "fields": {
+      "index": 426,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 427,
+    "fields": {
+      "index": 427,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 428,
+    "fields": {
+      "index": 428,
+      "localization": "en",
+      "name": "Explorer Kit"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 429,
+    "fields": {
+      "index": 429,
+      "localization": "en",
+      "name": "Loot Sack"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 430,
+    "fields": {
+      "index": 430,
+      "localization": "en",
+      "name": "Rule Book"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 431,
+    "fields": {
+      "index": 431,
+      "localization": "en",
+      "name": "Poké Radar"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 432,
+    "fields": {
+      "index": 432,
+      "localization": "en",
+      "name": "Point Card"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 433,
+    "fields": {
+      "index": 433,
+      "localization": "en",
+      "name": "Journal"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 434,
+    "fields": {
+      "index": 434,
+      "localization": "en",
+      "name": "Seal Case"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 435,
+    "fields": {
+      "index": 435,
+      "localization": "en",
+      "name": "Fashion Case"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 436,
+    "fields": {
+      "index": 436,
+      "localization": "en",
+      "name": "Seal Bag"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 437,
+    "fields": {
+      "index": 437,
+      "localization": "en",
+      "name": "Pal Pad"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 438,
+    "fields": {
+      "index": 438,
+      "localization": "en",
+      "name": "Works Key"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 439,
+    "fields": {
+      "index": 439,
+      "localization": "en",
+      "name": "Old Charm"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 440,
+    "fields": {
+      "index": 440,
+      "localization": "en",
+      "name": "Galactic Key"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 441,
+    "fields": {
+      "index": 441,
+      "localization": "en",
+      "name": "Red Chain"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 442,
+    "fields": {
+      "index": 442,
+      "localization": "en",
+      "name": "Town Map"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 443,
+    "fields": {
+      "index": 443,
+      "localization": "en",
+      "name": "Vs. Seeker"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 444,
+    "fields": {
+      "index": 444,
+      "localization": "en",
+      "name": "Coin Case"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 445,
+    "fields": {
+      "index": 445,
+      "localization": "en",
+      "name": "Old Rod"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 446,
+    "fields": {
+      "index": 446,
+      "localization": "en",
+      "name": "Good Rod"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 447,
+    "fields": {
+      "index": 447,
+      "localization": "en",
+      "name": "Super Rod"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 448,
+    "fields": {
+      "index": 448,
+      "localization": "en",
+      "name": "Sprayduck"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 449,
+    "fields": {
+      "index": 449,
+      "localization": "en",
+      "name": "Poffin Case"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 450,
+    "fields": {
+      "index": 450,
+      "localization": "en",
+      "name": "Bike"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 451,
+    "fields": {
+      "index": 451,
+      "localization": "en",
+      "name": "Suite Key"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 452,
+    "fields": {
+      "index": 452,
+      "localization": "en",
+      "name": "Oak's Letter"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 453,
+    "fields": {
+      "index": 453,
+      "localization": "en",
+      "name": "Lunar Wing"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 454,
+    "fields": {
+      "index": 454,
+      "localization": "en",
+      "name": "Member Card"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 455,
+    "fields": {
+      "index": 455,
+      "localization": "en",
+      "name": "Azure Flute"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 456,
+    "fields": {
+      "index": 456,
+      "localization": "en",
+      "name": "S.S. Ticket"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 457,
+    "fields": {
+      "index": 457,
+      "localization": "en",
+      "name": "Contest Pass"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 458,
+    "fields": {
+      "index": 458,
+      "localization": "en",
+      "name": "Magma Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 459,
+    "fields": {
+      "index": 459,
+      "localization": "en",
+      "name": "Parcel"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 460,
+    "fields": {
+      "index": 460,
+      "localization": "en",
+      "name": "Coupon 1"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 461,
+    "fields": {
+      "index": 461,
+      "localization": "en",
+      "name": "Coupon 2"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 462,
+    "fields": {
+      "index": 462,
+      "localization": "en",
+      "name": "Coupon 3"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 463,
+    "fields": {
+      "index": 463,
+      "localization": "en",
+      "name": "Storage Key"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 464,
+    "fields": {
+      "index": 464,
+      "localization": "en",
+      "name": "Secret Potion"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 465,
+    "fields": {
+      "index": 465,
+      "localization": "en",
+      "name": "Vs. Recorder"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 466,
+    "fields": {
+      "index": 466,
+      "localization": "en",
+      "name": "Gracidea"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 467,
+    "fields": {
+      "index": 467,
+      "localization": "en",
+      "name": "Secret Key"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 468,
+    "fields": {
+      "index": 468,
+      "localization": "en",
+      "name": "Apricorn Box"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 469,
+    "fields": {
+      "index": 469,
+      "localization": "en",
+      "name": "Unown Report"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 470,
+    "fields": {
+      "index": 470,
+      "localization": "en",
+      "name": "Berry Pots"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 471,
+    "fields": {
+      "index": 471,
+      "localization": "en",
+      "name": "Dowsing Machine"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 472,
+    "fields": {
+      "index": 472,
+      "localization": "en",
+      "name": "Blue Card"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 473,
+    "fields": {
+      "index": 473,
+      "localization": "en",
+      "name": "SlowPoke Tail"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 474,
+    "fields": {
+      "index": 474,
+      "localization": "en",
+      "name": "Clear Bell"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 475,
+    "fields": {
+      "index": 475,
+      "localization": "en",
+      "name": "Card Key"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 476,
+    "fields": {
+      "index": 476,
+      "localization": "en",
+      "name": "Basement Key"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 477,
+    "fields": {
+      "index": 477,
+      "localization": "en",
+      "name": "Squirt Bottle"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 478,
+    "fields": {
+      "index": 478,
+      "localization": "en",
+      "name": "Red Scale"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 479,
+    "fields": {
+      "index": 479,
+      "localization": "en",
+      "name": "Lost Item"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 480,
+    "fields": {
+      "index": 480,
+      "localization": "en",
+      "name": "Pass"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 481,
+    "fields": {
+      "index": 481,
+      "localization": "en",
+      "name": "Machine Part"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 482,
+    "fields": {
+      "index": 482,
+      "localization": "en",
+      "name": "Silver Wing"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 483,
+    "fields": {
+      "index": 483,
+      "localization": "en",
+      "name": "Rainbow Wing"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 484,
+    "fields": {
+      "index": 484,
+      "localization": "en",
+      "name": "Mystery Egg"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 485,
+    "fields": {
+      "index": 485,
+      "localization": "en",
+      "name": "Red Apricorn"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 486,
+    "fields": {
+      "index": 486,
+      "localization": "en",
+      "name": "Blue Apricorn"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 487,
+    "fields": {
+      "index": 487,
+      "localization": "en",
+      "name": "Yellow Apricorn"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 488,
+    "fields": {
+      "index": 488,
+      "localization": "en",
+      "name": "Green Apricorn"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 489,
+    "fields": {
+      "index": 489,
+      "localization": "en",
+      "name": "Pink Apricorn"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 490,
+    "fields": {
+      "index": 490,
+      "localization": "en",
+      "name": "White Apricorn"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 491,
+    "fields": {
+      "index": 491,
+      "localization": "en",
+      "name": "Black Apricorn"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 492,
+    "fields": {
+      "index": 492,
+      "localization": "en",
+      "name": "Fast Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 493,
+    "fields": {
+      "index": 493,
+      "localization": "en",
+      "name": "Level Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 494,
+    "fields": {
+      "index": 494,
+      "localization": "en",
+      "name": "Lure Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 495,
+    "fields": {
+      "index": 495,
+      "localization": "en",
+      "name": "Heavy Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 496,
+    "fields": {
+      "index": 496,
+      "localization": "en",
+      "name": "Love Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 497,
+    "fields": {
+      "index": 497,
+      "localization": "en",
+      "name": "Friend Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 498,
+    "fields": {
+      "index": 498,
+      "localization": "en",
+      "name": "Moon Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 499,
+    "fields": {
+      "index": 499,
+      "localization": "en",
+      "name": "Sport Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 500,
+    "fields": {
+      "index": 500,
+      "localization": "en",
+      "name": "Park Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 501,
+    "fields": {
+      "index": 501,
+      "localization": "en",
+      "name": "Photo Album"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 502,
+    "fields": {
+      "index": 502,
+      "localization": "en",
+      "name": "GB Sounds"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 503,
+    "fields": {
+      "index": 503,
+      "localization": "en",
+      "name": "Tidal Bell"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 504,
+    "fields": {
+      "index": 504,
+      "localization": "en",
+      "name": "Rage Candy Bar"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 505,
+    "fields": {
+      "index": 505,
+      "localization": "en",
+      "name": "Data Card 01"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 506,
+    "fields": {
+      "index": 506,
+      "localization": "en",
+      "name": "Data Card 02"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 507,
+    "fields": {
+      "index": 507,
+      "localization": "en",
+      "name": "Data Card 03"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 508,
+    "fields": {
+      "index": 508,
+      "localization": "en",
+      "name": "Data Card 04"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 509,
+    "fields": {
+      "index": 509,
+      "localization": "en",
+      "name": "Data Card 05"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 510,
+    "fields": {
+      "index": 510,
+      "localization": "en",
+      "name": "Data Card 06"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 511,
+    "fields": {
+      "index": 511,
+      "localization": "en",
+      "name": "Data Card 07"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 512,
+    "fields": {
+      "index": 512,
+      "localization": "en",
+      "name": "Data Card 08"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 513,
+    "fields": {
+      "index": 513,
+      "localization": "en",
+      "name": "Data Card 09"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 514,
+    "fields": {
+      "index": 514,
+      "localization": "en",
+      "name": "Data Card 10"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 515,
+    "fields": {
+      "index": 515,
+      "localization": "en",
+      "name": "Data Card 11"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 516,
+    "fields": {
+      "index": 516,
+      "localization": "en",
+      "name": "Data Card 12"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 517,
+    "fields": {
+      "index": 517,
+      "localization": "en",
+      "name": "Data Card 13"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 518,
+    "fields": {
+      "index": 518,
+      "localization": "en",
+      "name": "Data Card 14"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 519,
+    "fields": {
+      "index": 519,
+      "localization": "en",
+      "name": "Data Card 15"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 520,
+    "fields": {
+      "index": 520,
+      "localization": "en",
+      "name": "Data Card 16"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 521,
+    "fields": {
+      "index": 521,
+      "localization": "en",
+      "name": "Data Card 17"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 522,
+    "fields": {
+      "index": 522,
+      "localization": "en",
+      "name": "Data Card 18"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 523,
+    "fields": {
+      "index": 523,
+      "localization": "en",
+      "name": "Data Card 19"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 524,
+    "fields": {
+      "index": 524,
+      "localization": "en",
+      "name": "Data Card 20"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 525,
+    "fields": {
+      "index": 525,
+      "localization": "en",
+      "name": "Data Card 21"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 526,
+    "fields": {
+      "index": 526,
+      "localization": "en",
+      "name": "Data Card 22"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 527,
+    "fields": {
+      "index": 527,
+      "localization": "en",
+      "name": "Data Card 23"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 528,
+    "fields": {
+      "index": 528,
+      "localization": "en",
+      "name": "Data Card 24"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 529,
+    "fields": {
+      "index": 529,
+      "localization": "en",
+      "name": "Data Card 25"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 530,
+    "fields": {
+      "index": 530,
+      "localization": "en",
+      "name": "Data Card 26"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 531,
+    "fields": {
+      "index": 531,
+      "localization": "en",
+      "name": "Data Card 27"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 532,
+    "fields": {
+      "index": 532,
+      "localization": "en",
+      "name": "Jade Orb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 533,
+    "fields": {
+      "index": 533,
+      "localization": "en",
+      "name": "Lock Capsule"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 534,
+    "fields": {
+      "index": 534,
+      "localization": "en",
+      "name": "Red Orb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 535,
+    "fields": {
+      "index": 535,
+      "localization": "en",
+      "name": "Blue Orb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 536,
+    "fields": {
+      "index": 536,
+      "localization": "en",
+      "name": "Enigma Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 537,
+    "fields": {
+      "index": 537,
+      "localization": "en",
+      "name": "Prism Scale"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 538,
+    "fields": {
+      "index": 538,
+      "localization": "en",
+      "name": "Eviolite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 539,
+    "fields": {
+      "index": 539,
+      "localization": "en",
+      "name": "Float Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 540,
+    "fields": {
+      "index": 540,
+      "localization": "en",
+      "name": "Rocky Helmet"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 541,
+    "fields": {
+      "index": 541,
+      "localization": "en",
+      "name": "Air Balloon"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 542,
+    "fields": {
+      "index": 542,
+      "localization": "en",
+      "name": "Red Card"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 543,
+    "fields": {
+      "index": 543,
+      "localization": "en",
+      "name": "Ring Target"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 544,
+    "fields": {
+      "index": 544,
+      "localization": "en",
+      "name": "Binding Band"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 545,
+    "fields": {
+      "index": 545,
+      "localization": "en",
+      "name": "Absorb Bulb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 546,
+    "fields": {
+      "index": 546,
+      "localization": "en",
+      "name": "Cell Battery"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 547,
+    "fields": {
+      "index": 547,
+      "localization": "en",
+      "name": "Eject Button"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 548,
+    "fields": {
+      "index": 548,
+      "localization": "en",
+      "name": "Fire Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 549,
+    "fields": {
+      "index": 549,
+      "localization": "en",
+      "name": "Water Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 550,
+    "fields": {
+      "index": 550,
+      "localization": "en",
+      "name": "Electric Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 551,
+    "fields": {
+      "index": 551,
+      "localization": "en",
+      "name": "Grass Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 552,
+    "fields": {
+      "index": 552,
+      "localization": "en",
+      "name": "Ice Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 553,
+    "fields": {
+      "index": 553,
+      "localization": "en",
+      "name": "Fighting Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 554,
+    "fields": {
+      "index": 554,
+      "localization": "en",
+      "name": "Poison Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 555,
+    "fields": {
+      "index": 555,
+      "localization": "en",
+      "name": "Ground Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 556,
+    "fields": {
+      "index": 556,
+      "localization": "en",
+      "name": "Flying Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 557,
+    "fields": {
+      "index": 557,
+      "localization": "en",
+      "name": "Psychic Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 558,
+    "fields": {
+      "index": 558,
+      "localization": "en",
+      "name": "Bug Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 559,
+    "fields": {
+      "index": 559,
+      "localization": "en",
+      "name": "Rock Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 560,
+    "fields": {
+      "index": 560,
+      "localization": "en",
+      "name": "Ghost Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 561,
+    "fields": {
+      "index": 561,
+      "localization": "en",
+      "name": "Dragon Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 562,
+    "fields": {
+      "index": 562,
+      "localization": "en",
+      "name": "Dark Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 563,
+    "fields": {
+      "index": 563,
+      "localization": "en",
+      "name": "Steel Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 564,
+    "fields": {
+      "index": 564,
+      "localization": "en",
+      "name": "Normal Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 565,
+    "fields": {
+      "index": 565,
+      "localization": "en",
+      "name": "Health Wing"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 566,
+    "fields": {
+      "index": 566,
+      "localization": "en",
+      "name": "Muscle Wing"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 567,
+    "fields": {
+      "index": 567,
+      "localization": "en",
+      "name": "Resist Wing"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 568,
+    "fields": {
+      "index": 568,
+      "localization": "en",
+      "name": "Genius Wing"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 569,
+    "fields": {
+      "index": 569,
+      "localization": "en",
+      "name": "Clever Wing"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 570,
+    "fields": {
+      "index": 570,
+      "localization": "en",
+      "name": "Swift Wing"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 571,
+    "fields": {
+      "index": 571,
+      "localization": "en",
+      "name": "Pretty Wing"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 572,
+    "fields": {
+      "index": 572,
+      "localization": "en",
+      "name": "Cover Fossil"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 573,
+    "fields": {
+      "index": 573,
+      "localization": "en",
+      "name": "Plume Fossil"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 574,
+    "fields": {
+      "index": 574,
+      "localization": "en",
+      "name": "Liberty Pass"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 575,
+    "fields": {
+      "index": 575,
+      "localization": "en",
+      "name": "Pass Orb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 576,
+    "fields": {
+      "index": 576,
+      "localization": "en",
+      "name": "Dream Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 577,
+    "fields": {
+      "index": 577,
+      "localization": "en",
+      "name": "Poke Toy"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 578,
+    "fields": {
+      "index": 578,
+      "localization": "en",
+      "name": "Prop Case"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 579,
+    "fields": {
+      "index": 579,
+      "localization": "en",
+      "name": "Dragon Skull"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 580,
+    "fields": {
+      "index": 580,
+      "localization": "en",
+      "name": "Balm Mushroom"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 581,
+    "fields": {
+      "index": 581,
+      "localization": "en",
+      "name": "Big Nugget"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 582,
+    "fields": {
+      "index": 582,
+      "localization": "en",
+      "name": "Pearl String"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 583,
+    "fields": {
+      "index": 583,
+      "localization": "en",
+      "name": "Comet Shard"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 584,
+    "fields": {
+      "index": 584,
+      "localization": "en",
+      "name": "Relic Copper"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 585,
+    "fields": {
+      "index": 585,
+      "localization": "en",
+      "name": "Relic Silver"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 586,
+    "fields": {
+      "index": 586,
+      "localization": "en",
+      "name": "Relic Gold"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 587,
+    "fields": {
+      "index": 587,
+      "localization": "en",
+      "name": "Relic Vase"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 588,
+    "fields": {
+      "index": 588,
+      "localization": "en",
+      "name": "Relic Band"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 589,
+    "fields": {
+      "index": 589,
+      "localization": "en",
+      "name": "Relic Statue"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 590,
+    "fields": {
+      "index": 590,
+      "localization": "en",
+      "name": "Relic Crown"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 591,
+    "fields": {
+      "index": 591,
+      "localization": "en",
+      "name": "Casteliacone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 592,
+    "fields": {
+      "index": 592,
+      "localization": "en",
+      "name": "Dire Hit 2"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 593,
+    "fields": {
+      "index": 593,
+      "localization": "en",
+      "name": "X Speed 2"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 594,
+    "fields": {
+      "index": 594,
+      "localization": "en",
+      "name": "X Sp. Atk 2"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 595,
+    "fields": {
+      "index": 595,
+      "localization": "en",
+      "name": "X Sp. Def 2"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 596,
+    "fields": {
+      "index": 596,
+      "localization": "en",
+      "name": "X Defense 2"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 597,
+    "fields": {
+      "index": 597,
+      "localization": "en",
+      "name": "X Attack 2"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 598,
+    "fields": {
+      "index": 598,
+      "localization": "en",
+      "name": "X Accuracy 2"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 599,
+    "fields": {
+      "index": 599,
+      "localization": "en",
+      "name": "X Speed 3"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 600,
+    "fields": {
+      "index": 600,
+      "localization": "en",
+      "name": "X Sp. Atk 3"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 601,
+    "fields": {
+      "index": 601,
+      "localization": "en",
+      "name": "X Sp. Def 3"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 602,
+    "fields": {
+      "index": 602,
+      "localization": "en",
+      "name": "X Defense 3"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 603,
+    "fields": {
+      "index": 603,
+      "localization": "en",
+      "name": "X Attack 3"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 604,
+    "fields": {
+      "index": 604,
+      "localization": "en",
+      "name": "X Accuracy 3"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 605,
+    "fields": {
+      "index": 605,
+      "localization": "en",
+      "name": "X Speed 6"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 606,
+    "fields": {
+      "index": 606,
+      "localization": "en",
+      "name": "X Sp. Atk 6"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 607,
+    "fields": {
+      "index": 607,
+      "localization": "en",
+      "name": "X Sp. Def 6"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 608,
+    "fields": {
+      "index": 608,
+      "localization": "en",
+      "name": "X Defense 6"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 609,
+    "fields": {
+      "index": 609,
+      "localization": "en",
+      "name": "X Attack 6"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 610,
+    "fields": {
+      "index": 610,
+      "localization": "en",
+      "name": "X Accuracy 6"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 611,
+    "fields": {
+      "index": 611,
+      "localization": "en",
+      "name": "Ability Urge"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 612,
+    "fields": {
+      "index": 612,
+      "localization": "en",
+      "name": "Item Drop"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 613,
+    "fields": {
+      "index": 613,
+      "localization": "en",
+      "name": "Item Urge"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 614,
+    "fields": {
+      "index": 614,
+      "localization": "en",
+      "name": "Reset Urge"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 615,
+    "fields": {
+      "index": 615,
+      "localization": "en",
+      "name": "Dire Hit 3"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 616,
+    "fields": {
+      "index": 616,
+      "localization": "en",
+      "name": "Light Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 617,
+    "fields": {
+      "index": 617,
+      "localization": "en",
+      "name": "Dark Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 618,
+    "fields": {
+      "index": 618,
+      "localization": "en",
+      "name": "TM93"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 619,
+    "fields": {
+      "index": 619,
+      "localization": "en",
+      "name": "TM94"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 620,
+    "fields": {
+      "index": 620,
+      "localization": "en",
+      "name": "TM95"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 621,
+    "fields": {
+      "index": 621,
+      "localization": "en",
+      "name": "Xtransceiver"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 622,
+    "fields": {
+      "index": 622,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 623,
+    "fields": {
+      "index": 623,
+      "localization": "en",
+      "name": "Gram 1"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 624,
+    "fields": {
+      "index": 624,
+      "localization": "en",
+      "name": "Gram 2"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 625,
+    "fields": {
+      "index": 625,
+      "localization": "en",
+      "name": "Gram 3"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 626,
+    "fields": {
+      "index": 626,
+      "localization": "en",
+      "name": "Xtransceiver"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 627,
+    "fields": {
+      "index": 627,
+      "localization": "en",
+      "name": "Medal Box"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 628,
+    "fields": {
+      "index": 628,
+      "localization": "en",
+      "name": "DNA Splicers"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 629,
+    "fields": {
+      "index": 629,
+      "localization": "en",
+      "name": "DNA Splicers"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 630,
+    "fields": {
+      "index": 630,
+      "localization": "en",
+      "name": "Permit"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 631,
+    "fields": {
+      "index": 631,
+      "localization": "en",
+      "name": "Oval Charm"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 632,
+    "fields": {
+      "index": 632,
+      "localization": "en",
+      "name": "Shiny Charm"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 633,
+    "fields": {
+      "index": 633,
+      "localization": "en",
+      "name": "Plasma Card"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 634,
+    "fields": {
+      "index": 634,
+      "localization": "en",
+      "name": "Grubby Hanky"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 635,
+    "fields": {
+      "index": 635,
+      "localization": "en",
+      "name": "Colress Machine"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 636,
+    "fields": {
+      "index": 636,
+      "localization": "en",
+      "name": "Dropped Item"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 637,
+    "fields": {
+      "index": 637,
+      "localization": "en",
+      "name": "Dropped Item"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 638,
+    "fields": {
+      "index": 638,
+      "localization": "en",
+      "name": "Reveal Glass"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 639,
+    "fields": {
+      "index": 639,
+      "localization": "en",
+      "name": "Weakness Policy"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 640,
+    "fields": {
+      "index": 640,
+      "localization": "en",
+      "name": "Assault Vest"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 641,
+    "fields": {
+      "index": 641,
+      "localization": "en",
+      "name": "Holo Caster"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 642,
+    "fields": {
+      "index": 642,
+      "localization": "en",
+      "name": "Prof's Letter"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 643,
+    "fields": {
+      "index": 643,
+      "localization": "en",
+      "name": "Roller Skates"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 644,
+    "fields": {
+      "index": 644,
+      "localization": "en",
+      "name": "Pixie Plate"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 645,
+    "fields": {
+      "index": 645,
+      "localization": "en",
+      "name": "Ability Capsule"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 646,
+    "fields": {
+      "index": 646,
+      "localization": "en",
+      "name": "Whipped Dream"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 647,
+    "fields": {
+      "index": 647,
+      "localization": "en",
+      "name": "Sachet"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 648,
+    "fields": {
+      "index": 648,
+      "localization": "en",
+      "name": "Luminous Moss"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 649,
+    "fields": {
+      "index": 649,
+      "localization": "en",
+      "name": "Snowball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 650,
+    "fields": {
+      "index": 650,
+      "localization": "en",
+      "name": "Safety Goggles"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 651,
+    "fields": {
+      "index": 651,
+      "localization": "en",
+      "name": "Poke Flute"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 652,
+    "fields": {
+      "index": 652,
+      "localization": "en",
+      "name": "Rich Mulch"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 653,
+    "fields": {
+      "index": 653,
+      "localization": "en",
+      "name": "Surprise Mulch"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 654,
+    "fields": {
+      "index": 654,
+      "localization": "en",
+      "name": "Boost Mulch"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 655,
+    "fields": {
+      "index": 655,
+      "localization": "en",
+      "name": "Amaze Mulch"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 656,
+    "fields": {
+      "index": 656,
+      "localization": "en",
+      "name": "Gengarite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 657,
+    "fields": {
+      "index": 657,
+      "localization": "en",
+      "name": "Gardevoirite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 658,
+    "fields": {
+      "index": 658,
+      "localization": "en",
+      "name": "Ampharosite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 659,
+    "fields": {
+      "index": 659,
+      "localization": "en",
+      "name": "Venusaurite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 660,
+    "fields": {
+      "index": 660,
+      "localization": "en",
+      "name": "Charizardite X"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 661,
+    "fields": {
+      "index": 661,
+      "localization": "en",
+      "name": "Blastoisinite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 662,
+    "fields": {
+      "index": 662,
+      "localization": "en",
+      "name": "Mewtwonite X"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 663,
+    "fields": {
+      "index": 663,
+      "localization": "en",
+      "name": "Mewtwonite Y"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 664,
+    "fields": {
+      "index": 664,
+      "localization": "en",
+      "name": "Blazikenite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 665,
+    "fields": {
+      "index": 665,
+      "localization": "en",
+      "name": "Medichamite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 666,
+    "fields": {
+      "index": 666,
+      "localization": "en",
+      "name": "Houndoominite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 667,
+    "fields": {
+      "index": 667,
+      "localization": "en",
+      "name": "Aggronite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 668,
+    "fields": {
+      "index": 668,
+      "localization": "en",
+      "name": "Banettite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 669,
+    "fields": {
+      "index": 669,
+      "localization": "en",
+      "name": "Tyranitarite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 670,
+    "fields": {
+      "index": 670,
+      "localization": "en",
+      "name": "Scizorite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 671,
+    "fields": {
+      "index": 671,
+      "localization": "en",
+      "name": "Pinsirite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 672,
+    "fields": {
+      "index": 672,
+      "localization": "en",
+      "name": "Aerodactylite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 673,
+    "fields": {
+      "index": 673,
+      "localization": "en",
+      "name": "Lucarionite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 674,
+    "fields": {
+      "index": 674,
+      "localization": "en",
+      "name": "Abomasite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 675,
+    "fields": {
+      "index": 675,
+      "localization": "en",
+      "name": "Kangaskhanite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 676,
+    "fields": {
+      "index": 676,
+      "localization": "en",
+      "name": "Gyaradosite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 677,
+    "fields": {
+      "index": 677,
+      "localization": "en",
+      "name": "Absolite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 678,
+    "fields": {
+      "index": 678,
+      "localization": "en",
+      "name": "Charizardite Y"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 679,
+    "fields": {
+      "index": 679,
+      "localization": "en",
+      "name": "Alakazite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 680,
+    "fields": {
+      "index": 680,
+      "localization": "en",
+      "name": "Heracronite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 681,
+    "fields": {
+      "index": 681,
+      "localization": "en",
+      "name": "Mawilite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 682,
+    "fields": {
+      "index": 682,
+      "localization": "en",
+      "name": "Manectite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 683,
+    "fields": {
+      "index": 683,
+      "localization": "en",
+      "name": "Garchompite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 684,
+    "fields": {
+      "index": 684,
+      "localization": "en",
+      "name": "Latiasite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 685,
+    "fields": {
+      "index": 685,
+      "localization": "en",
+      "name": "Latiosite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 686,
+    "fields": {
+      "index": 686,
+      "localization": "en",
+      "name": "Roseli Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 687,
+    "fields": {
+      "index": 687,
+      "localization": "en",
+      "name": "Kee Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 688,
+    "fields": {
+      "index": 688,
+      "localization": "en",
+      "name": "Maranga Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 689,
+    "fields": {
+      "index": 689,
+      "localization": "en",
+      "name": "Sprinklotad"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 690,
+    "fields": {
+      "index": 690,
+      "localization": "en",
+      "name": "TM96"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 691,
+    "fields": {
+      "index": 691,
+      "localization": "en",
+      "name": "TM97"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 692,
+    "fields": {
+      "index": 692,
+      "localization": "en",
+      "name": "TM98"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 693,
+    "fields": {
+      "index": 693,
+      "localization": "en",
+      "name": "TM99"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 694,
+    "fields": {
+      "index": 694,
+      "localization": "en",
+      "name": "TM100"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 695,
+    "fields": {
+      "index": 695,
+      "localization": "en",
+      "name": "Power Plant Pass"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 696,
+    "fields": {
+      "index": 696,
+      "localization": "en",
+      "name": "Mega Ring"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 697,
+    "fields": {
+      "index": 697,
+      "localization": "en",
+      "name": "Intriguing Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 698,
+    "fields": {
+      "index": 698,
+      "localization": "en",
+      "name": "Common Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 699,
+    "fields": {
+      "index": 699,
+      "localization": "en",
+      "name": "Discount Coupon"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 700,
+    "fields": {
+      "index": 700,
+      "localization": "en",
+      "name": "Elevator Key"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 701,
+    "fields": {
+      "index": 701,
+      "localization": "en",
+      "name": "TMV Pass"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 702,
+    "fields": {
+      "index": 702,
+      "localization": "en",
+      "name": "Honor of Kalos"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 703,
+    "fields": {
+      "index": 703,
+      "localization": "en",
+      "name": "Adventure Rules"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 704,
+    "fields": {
+      "index": 704,
+      "localization": "en",
+      "name": "Strange Souvenir"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 705,
+    "fields": {
+      "index": 705,
+      "localization": "en",
+      "name": "Lens Case"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 706,
+    "fields": {
+      "index": 706,
+      "localization": "en",
+      "name": "Makeup Bag"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 707,
+    "fields": {
+      "index": 707,
+      "localization": "en",
+      "name": "Travel Trunk"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 708,
+    "fields": {
+      "index": 708,
+      "localization": "en",
+      "name": "Lumiose Galette"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 709,
+    "fields": {
+      "index": 709,
+      "localization": "en",
+      "name": "Shalour Sable"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 710,
+    "fields": {
+      "index": 710,
+      "localization": "en",
+      "name": "Jaw Fossil"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 711,
+    "fields": {
+      "index": 711,
+      "localization": "en",
+      "name": "Sail Fossil"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 712,
+    "fields": {
+      "index": 712,
+      "localization": "en",
+      "name": "Looker Ticket"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 713,
+    "fields": {
+      "index": 713,
+      "localization": "en",
+      "name": "Bicycle"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 714,
+    "fields": {
+      "index": 714,
+      "localization": "en",
+      "name": "Holo Caster"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 715,
+    "fields": {
+      "index": 715,
+      "localization": "en",
+      "name": "Fairy Gem"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 716,
+    "fields": {
+      "index": 716,
+      "localization": "en",
+      "name": "Mega Charm"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 717,
+    "fields": {
+      "index": 717,
+      "localization": "en",
+      "name": "Mega Glove"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 718,
+    "fields": {
+      "index": 718,
+      "localization": "en",
+      "name": "Mach Bike"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 719,
+    "fields": {
+      "index": 719,
+      "localization": "en",
+      "name": "Acro Bike"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 720,
+    "fields": {
+      "index": 720,
+      "localization": "en",
+      "name": "Wailmer Pail"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 721,
+    "fields": {
+      "index": 721,
+      "localization": "en",
+      "name": "Devon Parts"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 722,
+    "fields": {
+      "index": 722,
+      "localization": "en",
+      "name": "Soot Sack"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 723,
+    "fields": {
+      "index": 723,
+      "localization": "en",
+      "name": "Basement Key"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 724,
+    "fields": {
+      "index": 724,
+      "localization": "en",
+      "name": "Pokéblock Kit"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 725,
+    "fields": {
+      "index": 725,
+      "localization": "en",
+      "name": "Letter"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 726,
+    "fields": {
+      "index": 726,
+      "localization": "en",
+      "name": "Eon Ticket"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 727,
+    "fields": {
+      "index": 727,
+      "localization": "en",
+      "name": "Scanner"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 728,
+    "fields": {
+      "index": 728,
+      "localization": "en",
+      "name": "Go-Goggles"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 729,
+    "fields": {
+      "index": 729,
+      "localization": "en",
+      "name": "Meteorite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 730,
+    "fields": {
+      "index": 730,
+      "localization": "en",
+      "name": "Key to Room 1"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 731,
+    "fields": {
+      "index": 731,
+      "localization": "en",
+      "name": "Key to Room 2"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 732,
+    "fields": {
+      "index": 732,
+      "localization": "en",
+      "name": "Key to Room 4"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 733,
+    "fields": {
+      "index": 733,
+      "localization": "en",
+      "name": "Key to Room 6"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 734,
+    "fields": {
+      "index": 734,
+      "localization": "en",
+      "name": "Storage Key"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 735,
+    "fields": {
+      "index": 735,
+      "localization": "en",
+      "name": "Devon Scope"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 736,
+    "fields": {
+      "index": 736,
+      "localization": "en",
+      "name": "S.S. Ticket"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 737,
+    "fields": {
+      "index": 737,
+      "localization": "en",
+      "name": "HM07"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 738,
+    "fields": {
+      "index": 738,
+      "localization": "en",
+      "name": "Devon Scuba Gear"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 739,
+    "fields": {
+      "index": 739,
+      "localization": "en",
+      "name": "Contest Costume"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 740,
+    "fields": {
+      "index": 740,
+      "localization": "en",
+      "name": "Contest Costume"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 741,
+    "fields": {
+      "index": 741,
+      "localization": "en",
+      "name": "Magma Suit"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 742,
+    "fields": {
+      "index": 742,
+      "localization": "en",
+      "name": "Aqua Suit"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 743,
+    "fields": {
+      "index": 743,
+      "localization": "en",
+      "name": "Pair of Tickets"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 744,
+    "fields": {
+      "index": 744,
+      "localization": "en",
+      "name": "Mega Bracelet"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 745,
+    "fields": {
+      "index": 745,
+      "localization": "en",
+      "name": "Mega Pendant"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 746,
+    "fields": {
+      "index": 746,
+      "localization": "en",
+      "name": "Mega Glasses"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 747,
+    "fields": {
+      "index": 747,
+      "localization": "en",
+      "name": "Mega Anchor"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 748,
+    "fields": {
+      "index": 748,
+      "localization": "en",
+      "name": "Mega Stickpin"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 749,
+    "fields": {
+      "index": 749,
+      "localization": "en",
+      "name": "Mega Tiara"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 750,
+    "fields": {
+      "index": 750,
+      "localization": "en",
+      "name": "Mega Anklet"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 751,
+    "fields": {
+      "index": 751,
+      "localization": "en",
+      "name": "Meteorite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 752,
+    "fields": {
+      "index": 752,
+      "localization": "en",
+      "name": "Swampertite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 753,
+    "fields": {
+      "index": 753,
+      "localization": "en",
+      "name": "Sceptilite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 754,
+    "fields": {
+      "index": 754,
+      "localization": "en",
+      "name": "Sablenite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 755,
+    "fields": {
+      "index": 755,
+      "localization": "en",
+      "name": "Altarianite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 756,
+    "fields": {
+      "index": 756,
+      "localization": "en",
+      "name": "Galladite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 757,
+    "fields": {
+      "index": 757,
+      "localization": "en",
+      "name": "Audinite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 758,
+    "fields": {
+      "index": 758,
+      "localization": "en",
+      "name": "Metagrossite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 759,
+    "fields": {
+      "index": 759,
+      "localization": "en",
+      "name": "Sharpedonite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 760,
+    "fields": {
+      "index": 760,
+      "localization": "en",
+      "name": "Slowbronite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 761,
+    "fields": {
+      "index": 761,
+      "localization": "en",
+      "name": "Steelixite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 762,
+    "fields": {
+      "index": 762,
+      "localization": "en",
+      "name": "Pidgeotite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 763,
+    "fields": {
+      "index": 763,
+      "localization": "en",
+      "name": "Glalitite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 764,
+    "fields": {
+      "index": 764,
+      "localization": "en",
+      "name": "Diancite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 765,
+    "fields": {
+      "index": 765,
+      "localization": "en",
+      "name": "Prison Bottle"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 766,
+    "fields": {
+      "index": 766,
+      "localization": "en",
+      "name": "Mega Cuff"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 767,
+    "fields": {
+      "index": 767,
+      "localization": "en",
+      "name": "Cameruptite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 768,
+    "fields": {
+      "index": 768,
+      "localization": "en",
+      "name": "Lopunnite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 769,
+    "fields": {
+      "index": 769,
+      "localization": "en",
+      "name": "Salamencite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 770,
+    "fields": {
+      "index": 770,
+      "localization": "en",
+      "name": "Beedrillite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 771,
+    "fields": {
+      "index": 771,
+      "localization": "en",
+      "name": "Meteorite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 772,
+    "fields": {
+      "index": 772,
+      "localization": "en",
+      "name": "Meteorite"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 773,
+    "fields": {
+      "index": 773,
+      "localization": "en",
+      "name": "Key Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 774,
+    "fields": {
+      "index": 774,
+      "localization": "en",
+      "name": "Meteorite Shard"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 775,
+    "fields": {
+      "index": 775,
+      "localization": "en",
+      "name": "Eon Flute"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 776,
+    "fields": {
+      "index": 776,
+      "localization": "en",
+      "name": "Normalium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 777,
+    "fields": {
+      "index": 777,
+      "localization": "en",
+      "name": "Firium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 778,
+    "fields": {
+      "index": 778,
+      "localization": "en",
+      "name": "Waterium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 779,
+    "fields": {
+      "index": 779,
+      "localization": "en",
+      "name": "Electrium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 780,
+    "fields": {
+      "index": 780,
+      "localization": "en",
+      "name": "Grassium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 781,
+    "fields": {
+      "index": 781,
+      "localization": "en",
+      "name": "Icium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 782,
+    "fields": {
+      "index": 782,
+      "localization": "en",
+      "name": "Fightinium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 783,
+    "fields": {
+      "index": 783,
+      "localization": "en",
+      "name": "Poisonium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 784,
+    "fields": {
+      "index": 784,
+      "localization": "en",
+      "name": "Groundium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 785,
+    "fields": {
+      "index": 785,
+      "localization": "en",
+      "name": "Flyinium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 786,
+    "fields": {
+      "index": 786,
+      "localization": "en",
+      "name": "Psychium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 787,
+    "fields": {
+      "index": 787,
+      "localization": "en",
+      "name": "Buginium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 788,
+    "fields": {
+      "index": 788,
+      "localization": "en",
+      "name": "Rockium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 789,
+    "fields": {
+      "index": 789,
+      "localization": "en",
+      "name": "Ghostium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 790,
+    "fields": {
+      "index": 790,
+      "localization": "en",
+      "name": "Dragonium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 791,
+    "fields": {
+      "index": 791,
+      "localization": "en",
+      "name": "Darkinium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 792,
+    "fields": {
+      "index": 792,
+      "localization": "en",
+      "name": "Steelium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 793,
+    "fields": {
+      "index": 793,
+      "localization": "en",
+      "name": "Fairium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 794,
+    "fields": {
+      "index": 794,
+      "localization": "en",
+      "name": "Pikanium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 795,
+    "fields": {
+      "index": 795,
+      "localization": "en",
+      "name": "Bottle Cap"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 796,
+    "fields": {
+      "index": 796,
+      "localization": "en",
+      "name": "Gold Bottle Cap"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 797,
+    "fields": {
+      "index": 797,
+      "localization": "en",
+      "name": "Z-Ring"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 798,
+    "fields": {
+      "index": 798,
+      "localization": "en",
+      "name": "Decidium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 799,
+    "fields": {
+      "index": 799,
+      "localization": "en",
+      "name": "Incinium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 800,
+    "fields": {
+      "index": 800,
+      "localization": "en",
+      "name": "Primarium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 801,
+    "fields": {
+      "index": 801,
+      "localization": "en",
+      "name": "Tapunium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 802,
+    "fields": {
+      "index": 802,
+      "localization": "en",
+      "name": "Marshadium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 803,
+    "fields": {
+      "index": 803,
+      "localization": "en",
+      "name": "Aloraichium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 804,
+    "fields": {
+      "index": 804,
+      "localization": "en",
+      "name": "Snorlium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 805,
+    "fields": {
+      "index": 805,
+      "localization": "en",
+      "name": "Eevium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 806,
+    "fields": {
+      "index": 806,
+      "localization": "en",
+      "name": "Mewnium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 807,
+    "fields": {
+      "index": 807,
+      "localization": "en",
+      "name": "Normalium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 808,
+    "fields": {
+      "index": 808,
+      "localization": "en",
+      "name": "Firium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 809,
+    "fields": {
+      "index": 809,
+      "localization": "en",
+      "name": "Waterium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 810,
+    "fields": {
+      "index": 810,
+      "localization": "en",
+      "name": "Electrium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 811,
+    "fields": {
+      "index": 811,
+      "localization": "en",
+      "name": "Grassium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 812,
+    "fields": {
+      "index": 812,
+      "localization": "en",
+      "name": "Icium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 813,
+    "fields": {
+      "index": 813,
+      "localization": "en",
+      "name": "Fightinium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 814,
+    "fields": {
+      "index": 814,
+      "localization": "en",
+      "name": "Poisonium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 815,
+    "fields": {
+      "index": 815,
+      "localization": "en",
+      "name": "Groundium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 816,
+    "fields": {
+      "index": 816,
+      "localization": "en",
+      "name": "Flyinium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 817,
+    "fields": {
+      "index": 817,
+      "localization": "en",
+      "name": "Psychium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 818,
+    "fields": {
+      "index": 818,
+      "localization": "en",
+      "name": "Buginium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 819,
+    "fields": {
+      "index": 819,
+      "localization": "en",
+      "name": "Rockium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 820,
+    "fields": {
+      "index": 820,
+      "localization": "en",
+      "name": "Ghostium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 821,
+    "fields": {
+      "index": 821,
+      "localization": "en",
+      "name": "Dragonium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 822,
+    "fields": {
+      "index": 822,
+      "localization": "en",
+      "name": "Darkinium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 823,
+    "fields": {
+      "index": 823,
+      "localization": "en",
+      "name": "Steelium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 824,
+    "fields": {
+      "index": 824,
+      "localization": "en",
+      "name": "Fairium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 825,
+    "fields": {
+      "index": 825,
+      "localization": "en",
+      "name": "Pikanium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 826,
+    "fields": {
+      "index": 826,
+      "localization": "en",
+      "name": "Decidium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 827,
+    "fields": {
+      "index": 827,
+      "localization": "en",
+      "name": "Incinium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 828,
+    "fields": {
+      "index": 828,
+      "localization": "en",
+      "name": "Primarium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 829,
+    "fields": {
+      "index": 829,
+      "localization": "en",
+      "name": "Tapunium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 830,
+    "fields": {
+      "index": 830,
+      "localization": "en",
+      "name": "Marshadium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 831,
+    "fields": {
+      "index": 831,
+      "localization": "en",
+      "name": "Aloraichium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 832,
+    "fields": {
+      "index": 832,
+      "localization": "en",
+      "name": "Snorlium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 833,
+    "fields": {
+      "index": 833,
+      "localization": "en",
+      "name": "Eevium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 834,
+    "fields": {
+      "index": 834,
+      "localization": "en",
+      "name": "Mewnium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 835,
+    "fields": {
+      "index": 835,
+      "localization": "en",
+      "name": "Pikashunium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 836,
+    "fields": {
+      "index": 836,
+      "localization": "en",
+      "name": "Pikashunium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 837,
+    "fields": {
+      "index": 837,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 838,
+    "fields": {
+      "index": 838,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 839,
+    "fields": {
+      "index": 839,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 840,
+    "fields": {
+      "index": 840,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 841,
+    "fields": {
+      "index": 841,
+      "localization": "en",
+      "name": "Forage Bag"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 842,
+    "fields": {
+      "index": 842,
+      "localization": "en",
+      "name": "Fishing Rod"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 843,
+    "fields": {
+      "index": 843,
+      "localization": "en",
+      "name": "Professor's Mask"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 844,
+    "fields": {
+      "index": 844,
+      "localization": "en",
+      "name": "Festival Ticket"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 845,
+    "fields": {
+      "index": 845,
+      "localization": "en",
+      "name": "Sparkling Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 846,
+    "fields": {
+      "index": 846,
+      "localization": "en",
+      "name": "Adrenaline Orb"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 847,
+    "fields": {
+      "index": 847,
+      "localization": "en",
+      "name": "Zygarde Cube"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 848,
+    "fields": {
+      "index": 848,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 849,
+    "fields": {
+      "index": 849,
+      "localization": "en",
+      "name": "Ice Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 850,
+    "fields": {
+      "index": 850,
+      "localization": "en",
+      "name": "Ride Pager"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 851,
+    "fields": {
+      "index": 851,
+      "localization": "en",
+      "name": "Beast Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 852,
+    "fields": {
+      "index": 852,
+      "localization": "en",
+      "name": "Big Malasada"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 853,
+    "fields": {
+      "index": 853,
+      "localization": "en",
+      "name": "Red Nectar"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 854,
+    "fields": {
+      "index": 854,
+      "localization": "en",
+      "name": "Yellow Nectar"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 855,
+    "fields": {
+      "index": 855,
+      "localization": "en",
+      "name": "Pink Nectar"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 856,
+    "fields": {
+      "index": 856,
+      "localization": "en",
+      "name": "Purple Nectar"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 857,
+    "fields": {
+      "index": 857,
+      "localization": "en",
+      "name": "Sun Flute"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 858,
+    "fields": {
+      "index": 858,
+      "localization": "en",
+      "name": "Moon Flute"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 859,
+    "fields": {
+      "index": 859,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 860,
+    "fields": {
+      "index": 860,
+      "localization": "en",
+      "name": "Enigmatic Card"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 861,
+    "fields": {
+      "index": 861,
+      "localization": "en",
+      "name": "Silver Razz Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 862,
+    "fields": {
+      "index": 862,
+      "localization": "en",
+      "name": "Golden Razz Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 863,
+    "fields": {
+      "index": 863,
+      "localization": "en",
+      "name": "Silver Nanab Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 864,
+    "fields": {
+      "index": 864,
+      "localization": "en",
+      "name": "Golden Nanab Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 865,
+    "fields": {
+      "index": 865,
+      "localization": "en",
+      "name": "Silver Pinap Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 866,
+    "fields": {
+      "index": 866,
+      "localization": "en",
+      "name": "Golden Pinap Berry"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 867,
+    "fields": {
+      "index": 867,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 868,
+    "fields": {
+      "index": 868,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 869,
+    "fields": {
+      "index": 869,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 870,
+    "fields": {
+      "index": 870,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 871,
+    "fields": {
+      "index": 871,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 872,
+    "fields": {
+      "index": 872,
+      "localization": "en",
+      "name": "Secret Key"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 873,
+    "fields": {
+      "index": 873,
+      "localization": "en",
+      "name": "S.S. Ticket"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 874,
+    "fields": {
+      "index": 874,
+      "localization": "en",
+      "name": "Silph Scope"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 875,
+    "fields": {
+      "index": 875,
+      "localization": "en",
+      "name": "Parcel"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 876,
+    "fields": {
+      "index": 876,
+      "localization": "en",
+      "name": "Card Key"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 877,
+    "fields": {
+      "index": 877,
+      "localization": "en",
+      "name": "Gold Teeth"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 878,
+    "fields": {
+      "index": 878,
+      "localization": "en",
+      "name": "Lift Key"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 879,
+    "fields": {
+      "index": 879,
+      "localization": "en",
+      "name": "Terrain Extender"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 880,
+    "fields": {
+      "index": 880,
+      "localization": "en",
+      "name": "Protective Pads"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 881,
+    "fields": {
+      "index": 881,
+      "localization": "en",
+      "name": "Electric Seed"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 882,
+    "fields": {
+      "index": 882,
+      "localization": "en",
+      "name": "Psychic Seed"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 883,
+    "fields": {
+      "index": 883,
+      "localization": "en",
+      "name": "Misty Seed"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 884,
+    "fields": {
+      "index": 884,
+      "localization": "en",
+      "name": "Grassy Seed"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 885,
+    "fields": {
+      "index": 885,
+      "localization": "en",
+      "name": "Stretchy Spring"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 886,
+    "fields": {
+      "index": 886,
+      "localization": "en",
+      "name": "Chalky Stone"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 887,
+    "fields": {
+      "index": 887,
+      "localization": "en",
+      "name": "Marble"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 888,
+    "fields": {
+      "index": 888,
+      "localization": "en",
+      "name": "Lone Earring"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 889,
+    "fields": {
+      "index": 889,
+      "localization": "en",
+      "name": "Beach Glass"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 890,
+    "fields": {
+      "index": 890,
+      "localization": "en",
+      "name": "Gold Leaf"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 891,
+    "fields": {
+      "index": 891,
+      "localization": "en",
+      "name": "Silver Leaf"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 892,
+    "fields": {
+      "index": 892,
+      "localization": "en",
+      "name": "Polished Mud Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 893,
+    "fields": {
+      "index": 893,
+      "localization": "en",
+      "name": "Tropical Shell"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 894,
+    "fields": {
+      "index": 894,
+      "localization": "en",
+      "name": "Leaf Letter"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 895,
+    "fields": {
+      "index": 895,
+      "localization": "en",
+      "name": "Leaf Letter"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 896,
+    "fields": {
+      "index": 896,
+      "localization": "en",
+      "name": "Small Bouquet"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 897,
+    "fields": {
+      "index": 897,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 898,
+    "fields": {
+      "index": 898,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 899,
+    "fields": {
+      "index": 899,
+      "localization": "en",
+      "name": "???"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 900,
+    "fields": {
+      "index": 900,
+      "localization": "en",
+      "name": "Lure"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 901,
+    "fields": {
+      "index": 901,
+      "localization": "en",
+      "name": "Super Lure"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 902,
+    "fields": {
+      "index": 902,
+      "localization": "en",
+      "name": "Max Lure"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 903,
+    "fields": {
+      "index": 903,
+      "localization": "en",
+      "name": "Pewter Crunchies"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 904,
+    "fields": {
+      "index": 904,
+      "localization": "en",
+      "name": "Fighting Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 905,
+    "fields": {
+      "index": 905,
+      "localization": "en",
+      "name": "Flying Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 906,
+    "fields": {
+      "index": 906,
+      "localization": "en",
+      "name": "Poison Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 907,
+    "fields": {
+      "index": 907,
+      "localization": "en",
+      "name": "Ground Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 908,
+    "fields": {
+      "index": 908,
+      "localization": "en",
+      "name": "Rock Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 909,
+    "fields": {
+      "index": 909,
+      "localization": "en",
+      "name": "Bug Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 910,
+    "fields": {
+      "index": 910,
+      "localization": "en",
+      "name": "Ghost Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 911,
+    "fields": {
+      "index": 911,
+      "localization": "en",
+      "name": "Steel Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 912,
+    "fields": {
+      "index": 912,
+      "localization": "en",
+      "name": "Fire Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 913,
+    "fields": {
+      "index": 913,
+      "localization": "en",
+      "name": "Water Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 914,
+    "fields": {
+      "index": 914,
+      "localization": "en",
+      "name": "Grass Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 915,
+    "fields": {
+      "index": 915,
+      "localization": "en",
+      "name": "Electric Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 916,
+    "fields": {
+      "index": 916,
+      "localization": "en",
+      "name": "Psychic Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 917,
+    "fields": {
+      "index": 917,
+      "localization": "en",
+      "name": "Ice Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 918,
+    "fields": {
+      "index": 918,
+      "localization": "en",
+      "name": "Dragon Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 919,
+    "fields": {
+      "index": 919,
+      "localization": "en",
+      "name": "Dark Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 920,
+    "fields": {
+      "index": 920,
+      "localization": "en",
+      "name": "Fairy Memory"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 921,
+    "fields": {
+      "index": 921,
+      "localization": "en",
+      "name": "Solganium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 922,
+    "fields": {
+      "index": 922,
+      "localization": "en",
+      "name": "Lunalium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 923,
+    "fields": {
+      "index": 923,
+      "localization": "en",
+      "name": "Ultranecrozium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 924,
+    "fields": {
+      "index": 924,
+      "localization": "en",
+      "name": "Mimikium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 925,
+    "fields": {
+      "index": 925,
+      "localization": "en",
+      "name": "Lycanium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 926,
+    "fields": {
+      "index": 926,
+      "localization": "en",
+      "name": "Kommonium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 927,
+    "fields": {
+      "index": 927,
+      "localization": "en",
+      "name": "Solganium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 928,
+    "fields": {
+      "index": 928,
+      "localization": "en",
+      "name": "Lunalium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 929,
+    "fields": {
+      "index": 929,
+      "localization": "en",
+      "name": "Ultranecrozium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 930,
+    "fields": {
+      "index": 930,
+      "localization": "en",
+      "name": "Mimikium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 931,
+    "fields": {
+      "index": 931,
+      "localization": "en",
+      "name": "Lycanium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 932,
+    "fields": {
+      "index": 932,
+      "localization": "en",
+      "name": "Kommonium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 933,
+    "fields": {
+      "index": 933,
+      "localization": "en",
+      "name": "Z-Power Ring"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 934,
+    "fields": {
+      "index": 934,
+      "localization": "en",
+      "name": "Pink Petal"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 935,
+    "fields": {
+      "index": 935,
+      "localization": "en",
+      "name": "Orange Petal"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 936,
+    "fields": {
+      "index": 936,
+      "localization": "en",
+      "name": "Blue Petal"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 937,
+    "fields": {
+      "index": 937,
+      "localization": "en",
+      "name": "Red Petal"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 938,
+    "fields": {
+      "index": 938,
+      "localization": "en",
+      "name": "Green Petal"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 939,
+    "fields": {
+      "index": 939,
+      "localization": "en",
+      "name": "Yellow Petal"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 940,
+    "fields": {
+      "index": 940,
+      "localization": "en",
+      "name": "Purple Petal"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 941,
+    "fields": {
+      "index": 941,
+      "localization": "en",
+      "name": "Rainbow Flower"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 942,
+    "fields": {
+      "index": 942,
+      "localization": "en",
+      "name": "Surge Badge"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 943,
+    "fields": {
+      "index": 943,
+      "localization": "en",
+      "name": "N-Solarizer"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 944,
+    "fields": {
+      "index": 944,
+      "localization": "en",
+      "name": "N-Lunarizer"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 945,
+    "fields": {
+      "index": 945,
+      "localization": "en",
+      "name": "N-Solarizer"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 946,
+    "fields": {
+      "index": 946,
+      "localization": "en",
+      "name": "N-Lunarizer"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 947,
+    "fields": {
+      "index": 947,
+      "localization": "en",
+      "name": "Ilima Normalium Z"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 948,
+    "fields": {
+      "index": 948,
+      "localization": "en",
+      "name": "Left Poké Ball"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 949,
+    "fields": {
+      "index": 949,
+      "localization": "en",
+      "name": "Roto Hatch"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 950,
+    "fields": {
+      "index": 950,
+      "localization": "en",
+      "name": "Roto Bargain"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 951,
+    "fields": {
+      "index": 951,
+      "localization": "en",
+      "name": "Roto Prize Money"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 952,
+    "fields": {
+      "index": 952,
+      "localization": "en",
+      "name": "Roto Exp. Points"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 953,
+    "fields": {
+      "index": 953,
+      "localization": "en",
+      "name": "Roto Friendship"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 954,
+    "fields": {
+      "index": 954,
+      "localization": "en",
+      "name": "Roto Encounter"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 955,
+    "fields": {
+      "index": 955,
+      "localization": "en",
+      "name": "Roto Stealth"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 956,
+    "fields": {
+      "index": 956,
+      "localization": "en",
+      "name": "Roto HP Restore"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 957,
+    "fields": {
+      "index": 957,
+      "localization": "en",
+      "name": "Roto PP Restore"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 958,
+    "fields": {
+      "index": 958,
+      "localization": "en",
+      "name": "Roto Boost"
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "pk": 959,
+    "fields": {
+      "index": 959,
+      "localization": "en",
+      "name": "Roto Catch"
+    }
+  }
+]

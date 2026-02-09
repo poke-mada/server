@@ -250,6 +250,8 @@ class MastersSegmentSettingsInline(NestedStackedInline):
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         current = queryset.filter(is_current=True).first()
+        if not current:
+            return queryset
         return queryset.filter(Q(is_current=True) | Q(segment=current.segment - 1))
 
 
