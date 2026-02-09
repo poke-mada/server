@@ -277,7 +277,7 @@
             if (data.context === 'pokemon_data') {
                 doUpdateData(data);
                 const deathCount = document.getElementById('death-count');
-                deathCount.innerText = `x${data.death_count}`;
+                deathCount.innerText = `x${data?.death_count ?? 0}`;
             } else if(data.context === 'timer_data') {
                 const timer_light_1 = document.getElementById('timer_light_1');
                 const timer_light_2 = document.getElementById('timer_light_2');
