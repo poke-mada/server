@@ -25,7 +25,7 @@ services:
       - DJANGO_ENV=prod
     volumes:
       - .:/app
-      - /media:/var/www/pokemon/media
+      - /var/www/pokemon/media:/media
     depends_on:
       - db
   daphne:
