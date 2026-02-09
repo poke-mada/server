@@ -27,8 +27,8 @@ MAX_EXPERIENCE = 3
 
 CORS_ORIGIN_ALLOW_ALL = True
 CSRF_TRUSTED_ORIGINS = [
-    'https://pokemon.para-mada.com',
-    'https://www.pokemon.para-mada.com',
+    'https://pokemon.paramada.ovh',
+    'https://www.pokemon.paramada.ovh',
     'http://localhost'
 ]
 
