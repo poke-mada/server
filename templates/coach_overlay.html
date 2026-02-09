@@ -32,6 +32,11 @@
             position: relative;
         }
 
+        .team-container * {
+
+            border: 1px solid red;
+        }
+
         .pokemon-container1 {
             justify-content: center;
             flex-direction: column;
@@ -57,51 +62,47 @@
         }
 
         .pokemon-container1 .pkm-sprite {
-            top: 811px;
+            top: 850px;
         }
 
         .pokemon-container2 .pkm-sprite {
-            top: 857px;
+            top: 881px;
         }
 
         .pokemon-container1 .pkm-mote {
-            top: 1009px;
-        }
-
-        .pokemon-container2 .pkm-mote {
-            top: 814px;
+            top: 1016px;
         }
 
         .pkm-sprite {
             position: fixed;
-            max-width: 204px;
-            max-height: 179px;
-            min-width: 204px;
-            min-height: 179px;
+            max-width: 149px;
+            max-height: 136px;
+            min-width: 149px;
+            min-height: 136px;
         }
 
         #pokemon1 .pkm-sprite{
-            left: 26px;
+            left: 678px;
         }
 
         #pokemon2 .pkm-sprite{
-            left: 238px;
+            left: 881px;
         }
 
         #pokemon3 .pkm-sprite{
-            left: 450px;
+            left: 1087px;
         }
 
         #pokemon4 .pkm-sprite{
-            left: 662px;
+            left: 1290px;
         }
 
         #pokemon5 .pkm-sprite{
-            left: 873px;
+            left: 1492px;
         }
 
         #pokemon6 .pkm-sprite{
-            left: 1084px;
+            left: 1700px;
         }
 
         .pkm-mote {
@@ -110,34 +111,34 @@
             font-size: 16px;
             position: fixed;
             text-align: center;
-            max-width: 158px;
-            min-width: 158px;
+            max-width: 150px;
+            min-width: 150px;
             max-height: 31px;
             min-height: 31px;
         }
 
         #pokemon1 .pkm-mote {
-            left: 53px;
-        }
-
-        #pokemon2 .pkm-mote {
-            left: 265px;
-        }
-
-        #pokemon3 .pkm-mote {
-            left: 479px;
-        }
-
-        #pokemon4 .pkm-mote {
             left: 689px;
         }
 
+        #pokemon2 .pkm-mote {
+            left: 892px;
+        }
+
+        #pokemon3 .pkm-mote {
+            left: 1098px;
+        }
+
+        #pokemon4 .pkm-mote {
+            left: 1302px;
+        }
+
         #pokemon5 .pkm-mote {
-            left: 901px;
+            left: 1508px;
         }
 
         #pokemon6 .pkm-mote {
-            left: 1112px;
+            left: 1713px;
         }
 
         #coach-name, #trainer-name {
@@ -225,27 +226,27 @@
     <img src="{% static 'overlay/Boton_rojo.png' %}" alt="" id="timer_light_2" class="d-none">
 
     <div class="team-container">
-        <div id="pokemon1" class="pokemon-container1 d-none">
+        <div id="pokemon1" class="pokemon-container1">
             <img src="" alt="" class="pkm-sprite">
             <span class="pkm-mote"></span>
         </div>
-        <div id="pokemon2" class="pokemon-container2 d-none">
+        <div id="pokemon2" class="pokemon-container1">
             <img src="" alt="" class="pkm-sprite">
             <span class="pkm-mote"></span>
         </div>
-        <div id="pokemon3" class="pokemon-container1 d-none">
+        <div id="pokemon3" class="pokemon-container1">
             <img src="" alt="" class="pkm-sprite">
             <span class="pkm-mote"></span>
         </div>
-        <div id="pokemon4" class="pokemon-container2 d-none">
+        <div id="pokemon4" class="pokemon-container1">
             <img src="" alt="" class="pkm-sprite">
             <span class="pkm-mote"></span>
         </div>
-        <div id="pokemon5" class="pokemon-container1 d-none">
+        <div id="pokemon5" class="pokemon-container1">
             <img src="" alt="" class="pkm-sprite">
             <span class="pkm-mote"></span>
         </div>
-        <div id="pokemon6" class="pokemon-container2 d-none">
+        <div id="pokemon6" class="pokemon-container1">
             <img src="" alt="" class="pkm-sprite">
             <span class="pkm-mote"></span>
         </div>
