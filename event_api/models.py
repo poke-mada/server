@@ -353,7 +353,7 @@ class MastersProfile(models.Model):
                                       verbose_name="Conteo de muertes totales")
     death_count_display = models.IntegerField(validators=[MinValueValidator(0)], default=0,
                                               verbose_name="Conteo de muertes totales para overlay")
-    rom_name = models.CharField(max_length=50, default="Pokémon X", verbose_name="Nombre de Rom")
+    rom_name = models.CharField(max_length=50, default="Pokémon ORAS", verbose_name="Nombre de Rom")
     event_joined_id = models.IntegerField(null=True, blank=True, verbose_name="Evento iniciado")
     is_pro = models.BooleanField(default=False, verbose_name="Es pro?")
     tournament_league = models.CharField(max_length=1, choices=LEAGUES.items(), default='-', verbose_name="Liga")

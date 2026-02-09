@@ -840,7 +840,32 @@ class FileUploadView(APIView):
         )
         file_serializer = SaveFileSerializer(data=data)
 
-        if not file_serializer.is_valid():
+        if file_serializer.is_valid():
+            file_serializer.save()
+            save_results = data_reader(save_data)
+            trainer.update_gym_badge(1, (save_results['badge_count'] & 0b00000001) != 0)
+
+            if trainer.update_gym_badge(2, (save_results['badge_count'] & 0b00000010) != 0):
+                profile.gym_2_save = trainer.saves.last().file
+
+            if trainer.update_gym_badge(3, (save_results['badge_count'] & 0b00000100) != 0):
+                profile.gym_3_save = trainer.saves.last().file
+
+            if trainer.update_gym_badge(4, (save_results['badge_count'] & 0b00001000) != 0):
+                profile.gym_4_save = trainer.saves.last().file
+
+            if trainer.update_gym_badge(5, (save_results['badge_count'] & 0b00010000) != 0):
+                profile.gym_5_save = trainer.saves.last().file
+
+            if trainer.update_gym_badge(6, (save_results['badge_count'] & 0b00100000) != 0):
+                profile.gym_6_save = trainer.saves.last().file
+
+            if trainer.update_gym_badge(7, (save_results['badge_count'] & 0b01000000) != 0):
+                profile.gym_7_save = trainer.saves.last().file
+
+            if trainer.update_gym_badge(8, (save_results['badge_count'] & 0b10000000) != 0):
+                profile.gym_8_save = trainer.saves.last().file
+        else:
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         file_serializer.save()
@@ -848,8 +873,7 @@ class FileUploadView(APIView):
 
         trainer.save()
 
-        if not profile.current_segment_settings:
-            MastersSegmentSettings.objects.get_or_create(profile=profile, segment=1)
+        MastersSegmentSettings.objects.get_or_create(profile=profile, segment=1)
         team_saver(save_results.get('team'), profile)
         box_saver(save_results.get('boxes'), profile)
         OverlayConsumer.send_overlay_data(profile.user.username)
