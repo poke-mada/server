@@ -762,7 +762,7 @@ def data_reader(save_data):
     boxes = dict()
 
     trainer_name = get_string(original_thrash_nick)
-    misc = save_data[0x14200:0x14200 + 0x140]
+    misc = save_data[0x04200:0x04200 + 0x140]
     badge_count = misc[0xC]
     for slot in range(6):
         pokemon = PokemonBytes(get_pokemon_in_slot(save_data, slot))
