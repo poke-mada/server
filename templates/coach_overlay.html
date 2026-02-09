@@ -261,7 +261,7 @@
     </div>
 
     <span id="death-count"></span>
-    <img id="trainer-type" src="{% static 'overlay/Boton_rojo.png' %}" alt="" class="d-none">
+    <img id="trainer-type" src="" alt="">
 
     <script src="{% static 'overlay/data_loader.js' %}"></script>
     <!--suppress JSUnresolvedReference -->
@@ -289,7 +289,7 @@
                 const deathCount = document.getElementById('death-count');
                 deathCount.innerText = `x${data?.death_count ?? 0}`;
                 const trainerType = document.getElementById('trainer-type');
-                trainerType.src = STATIC_TYPE_URL.replace('{type_index}', data?.trainer_type ?? '1');
+                trainerType.src = STATIC_TYPE_URL.replace('{type_index}', data?.trainer_type ?? '0');
             } else if(data.context === 'timer_data') {
                 const timer_light_1 = document.getElementById('timer_light_1');
                 const timer_light_2 = document.getElementById('timer_light_2');

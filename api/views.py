@@ -109,6 +109,22 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(True, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['post'])
+    def register_type(self, request, *args, **kwargs):
+        from websocket.sockets import OverlayConsumer
+        new_type = request.data.get('type', 0)
+        current_profile: MastersProfile = request.user.masters_profile
+        if current_profile.profile_type == MastersProfile.COACH:
+            current_profile = current_profile.coached
+
+        streamer_user = current_profile.user.username
+
+        current_profile.type = new_type
+        current_profile.save()
+
+        OverlayConsumer.send_overlay_data(streamer_user)
+        return Response(True, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['post'])
     def use_segment_skip(self, request, *args, **kwargs):
         current_profile: MastersProfile = request.user.masters_profile
         current_segment = current_profile.current_segment_settings
