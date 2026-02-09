@@ -101,9 +101,8 @@ class TrainerViewSet(viewsets.ReadOnlyModelViewSet):
 
         streamer_user = current_profile.user.username
 
-        cs = current_profile.current_segment_settings
-        cs.death_count_display = deaths
-        cs.save()
+        current_profile.death_count_display = deaths
+        current_profile.save()
 
         OverlayConsumer.send_overlay_data(streamer_user)
         return Response(True, status=status.HTTP_200_OK)

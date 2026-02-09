@@ -39,9 +39,7 @@ class OverlaySerializer(serializers.ModelSerializer):
     trainer_type = serializers.SerializerMethodField()
 
     def get_death_count(self, profile: MastersProfile):
-        if profile.current_segment_settings:
-            return profile.current_segment_settings.death_count_display or 0
-        return 0
+        return profile.death_count_display or 0
 
     def get_trainer_type(self, profile: MastersProfile):
         return profile.type or 0
