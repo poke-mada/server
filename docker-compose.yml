@@ -16,6 +16,8 @@ services:
       - POSTGRES_PASSWORD=6LPV4p&O#aV9
     volumes:
       - my-db:/var/lib/postgresql/data
+      - /var/www/pokemon/staticfiles:/var/www/pokemon/staticfiles
+      - /var/www/pokemon/media:/var/www/pokemon/media
   app:
     build:
       context: .
