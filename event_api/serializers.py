@@ -267,11 +267,13 @@ class EditableProfileSerializer(serializers.ModelSerializer):
                                               read_only=True)
     community_pokemon = serializers.IntegerField(source='current_segment_settings.community_pokemon_id', read_only=True)
     wipe_clause = serializers.BooleanField(source='wipe_clause_available')
+    trainer_type = serializers.IntegerField(source='type')
 
     class Meta:
         model = MastersProfile
         fields = [
             'death_count',
+            'trainer_type',
             'community_skip',
             'community_pokemon',
             'current_segment',
