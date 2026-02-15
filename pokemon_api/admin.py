@@ -64,7 +64,7 @@ class NameLocalizationAdmiin(NestedModelAdmin):
 class NameLocalizationAdmin(NestedModelAdmin):
     list_display = ('extra', 'language', 'content')
     search_fields = ('content', 'language')
-    fields = ('language', 'content')
+    fields = ('id', 'language', 'content', 'extra',)
     readonly_fields = ('id', 'extra', )
 
 
