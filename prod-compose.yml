@@ -3,6 +3,7 @@ services:
     image: "redis:latest"
     ports:
       - "6379:6379"
+    command: redis-server --appendonly yes --replica-read-only no
   db:
     image: postgres:13-alpine
     restart: always
