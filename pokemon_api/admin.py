@@ -65,6 +65,7 @@ class NameLocalizationAdmin(NestedModelAdmin):
     list_display = ('language', 'content')
     search_fields = ('content', 'language')
     fields = ('language', 'content')
+    readonly_fields = ('id', 'extra', )
 
 
 @admin.register(models.PokemonNature)
