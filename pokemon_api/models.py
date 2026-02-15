@@ -7,6 +7,7 @@ from django.db.models.functions import Lower
 class ContextLocalization(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
     language = models.CharField(max_length=2, db_index=True)
+    extra = models.CharField(max_length=50, null=True, blank=True, db_index=True)
     content = models.TextField()
 
     def __str__(self):
@@ -115,6 +116,7 @@ class PokemonAbility(models.Model):
     index = models.IntegerField()
     localization = models.CharField(max_length=2, db_index=True, default="en", null=True)
     name = models.CharField(max_length=50)
+    flavor_text = models.TextField(default='')
 
     name_localizations = models.ManyToManyField(ContextLocalization, blank=True, related_name="ability_names")
     flavor_text_localizations = models.ManyToManyField(ContextLocalization, blank=True,

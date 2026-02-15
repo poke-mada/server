@@ -9,7 +9,8 @@ from rest_framework import serializers
 
 from event_api.models import Newsletter, DeathLog, MastersProfile, Evolution, AlreadyCapturedLog
 from new_market.models import MarketBlockLog
-from pokemon_api.models import Type, Pokemon, Item, Move, PokemonNature, PokemonAbility, ContextLocalization
+from pokemon_api.models import Type, Pokemon, Item, Move, PokemonNature, PokemonAbility, ContextLocalization, \
+    ItemNameLocalization
 from pokemon_api.serializers import PokemonSerializer, TypeSerializer, MoveSerializer, PokemonNatureSerializer
 from trainer_data.models import Trainer, TrainerBox, TrainerPokemon, TrainerTeam, TrainerBoxSlot
 
@@ -179,7 +180,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
         return True
 
     def get_held_item_name(self, obj: TrainerPokemon):
-        name_localization: ContextLocalization = obj.held_item.name_localizations.filter(
+        name_localization: ItemNameLocalization = obj.held_item.name_localizations.filter(
             language=self.localization
         ).first()
         if not name_localization:
@@ -229,7 +230,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
             name_localization = obj.mega_ability.flavor_text_localizations.first()
 
         if not name_localization:
-            return obj.mega_ability.name
+            return obj.mega_ability.flavor_text
 
         return name_localization.content
 
@@ -241,7 +242,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
             flavor_localization = obj.ability.flavor_text_localizations.first()
 
         if not flavor_localization:
-            return obj.ability.name
+            return obj.ability.flavor_text
 
         return flavor_localization.content if flavor_localization else ''
 
