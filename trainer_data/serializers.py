@@ -186,7 +186,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
             name_localization = obj.held_item.name_localizations.first()
 
         if not name_localization:
-            return obj.pokemon.name
+            return obj.held_item.name
 
         return name_localization.content
 
