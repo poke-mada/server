@@ -167,7 +167,7 @@ class ROTrainerPokemonSerializer(serializers.ModelSerializer):
             return False
 
         if owner_profile and owner_profile.starter_dex_number:
-            if obj.pokemon.dex_number in Evolution.objects.get(dex_number=owner_profile.starter_dex_number).surrogate():
+            if obj.pokemon.dex_number in []:
                 print(f'linea 166 para {obj.mote}')
                 return False
 

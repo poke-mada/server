@@ -799,7 +799,7 @@ def box_saver(boxes, profile: MastersProfile):
             dex_number = pokemon['dex_number']
             pokemon_serializer = TrainerPokemonSerializer(data=pokemon)
             if pokemon['is_death']:
-                evolution_tree = Evolution.objects.get(dex_number=dex_number).surrogate()
+                evolution_tree = []
                 last_death = DeathLog.objects.filter(dex_number__in=evolution_tree, profile=profile,
                                                      revived=False).first()
                 if not last_death:
