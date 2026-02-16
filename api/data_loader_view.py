@@ -119,19 +119,19 @@ class LoadJsonDataView(APIView):
     permission_classes = [IsAuthenticated, IsRoot]
 
     def get(self, request, *args, **kwargs):
-        loaded_types = load_types_data()
-        loaded_natures = load_natures_data()
-        loaded_abilities = load_abilities_data()
-        loaded_items = load_items_data()
-        loaded_moves = load_moves_data()
-        loaded_pokemon = load_pokemon_data()
+        # loaded_types = load_types_data()
+        # loaded_natures = load_natures_data()
+        # loaded_abilities = load_abilities_data()
+        # loaded_items = load_items_data()
+        # loaded_moves = load_moves_data()
+        # loaded_pokemon = load_pokemon_data()
         loaded_types_coverages = load_types_coverages_data()
         return Response(data={
-            loaded_pokemon,
-            loaded_types,
-            loaded_moves,
-            loaded_natures,
-            loaded_items,
-            loaded_abilities,
+            # loaded_pokemon,
+            # loaded_types,
+            # loaded_moves,
+            # loaded_natures,
+            # loaded_items,
+            # loaded_abilities,
             loaded_types_coverages
         }, status=status.HTTP_200_OK)
