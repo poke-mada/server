@@ -275,6 +275,9 @@
             } else {
                 server_socket = new WebSocket(`wss://${window.location.host}/ws/overlay/{{ streamer_name }}`);
             }
+            server_socket.onclose = () => {
+                server_socket = null;
+            }
 
             server_socket.onopen = (ws) => {
                 server_socket.send(JSON.stringify({
