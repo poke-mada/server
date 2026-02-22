@@ -219,6 +219,16 @@
             max-width: 43px;
         }
 
+        #trainer-name {
+            position: absolute;
+
+            top: 323px;
+            left: 93px;
+
+            max-height: 34px;
+            max-width: 209px;
+        }
+
     </style>
 </head>
 
@@ -259,7 +269,9 @@
             <span class="pkm-mote"></span>
         </div>
     </div>
-
+{#    {% if streamer_name == 'MaryBlog' %}#}
+        <span id="trainer-name">Prima de Guti</span>
+{#    {% endif %}#}
     <span id="death-count"></span>
     <img id="trainer-type" src="" alt="">
 
