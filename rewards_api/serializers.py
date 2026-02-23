@@ -98,8 +98,13 @@ class WildcardDisplaySerializer(serializers.ModelSerializer):
 class ItemDisplaySerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
 
-    def get_name(self, obj):
-        return obj.name_localizations.get(language='es').content
+    def get_name(self, obj: Item):
+
+        localization = obj.name_localizations.filter(language='es')
+        if localization:
+            return localization.content
+
+        return obj.name
 
     class Meta:
         model = Item
