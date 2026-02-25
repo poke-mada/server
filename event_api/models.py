@@ -552,28 +552,7 @@ class MastersProfile(models.Model):
 
     def last_save_download(self):
         presigned_url = cache.get(f'cached_save_for_profile_{self.pk}')
-        if not presigned_url:
-            import os
-            STORAGE_TIMEOUT = 60 * 15
-            file_field = self.last_save
-            s3_key = file_field.name  # Ej: "prod/media/documentos/archivo.pdf"
-            ENVIRONMENT = os.getenv("DJANGO_ENV", "prod")  # "dev", "stage" o "prod"
-            full_s3_path = os.path.join(ENVIRONMENT, 'dedsafio-pokemon/media', s3_key)
-            s3 = boto3.client(
-                's3',
-                region_name='us-east-1',
-                aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-                config=Config(signature_version='s3v4', s3={"use_accelerate_endpoint": True})
-            )
-            presigned_url = s3.generate_presigned_url(
-                'get_object',
-                Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': full_s3_path},
-                ExpiresIn=STORAGE_TIMEOUT,
-            )
-            cache.set(f'cached_save_for_profile_{self.pk}', presigned_url,
-                      timeout=STORAGE_TIMEOUT)  # Cache for 15 minutes
-        return mark_safe('<a href="{0}" download>Download {1} Save</a>'.format(presigned_url, self.trainer.name))
+        return mark_safe('<a href="{0}" download>Download {1} Save</a>'.format(self.last_save.url, self.trainer.name))
 
     def has_wildcard(self, wildcard: "Wildcard") -> bool:
         if self.current_segment_settings:
