@@ -171,19 +171,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 13,
-      "index": 13,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Potion",
-      "api_loaded": true,
-      "item_bag": "meds",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 14,
       "index": 14,
       "localization": "en",
@@ -191,19 +178,6 @@
       "name": "Heal Ball",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 14,
-      "index": 14,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Antidote",
-      "api_loaded": true,
-      "item_bag": "meds",
       "custom_sprite": null
     }
   },
@@ -223,19 +197,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 15,
-      "index": 15,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Burn Heal",
-      "api_loaded": true,
-      "item_bag": "meds",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 16,
       "index": 16,
       "localization": "en",
@@ -249,24 +210,11 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 16,
-      "index": 16,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Ice Heal",
-      "api_loaded": true,
-      "item_bag": "meds",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 17,
       "index": 17,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Awakening",
+      "name": "Potion",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -279,7 +227,7 @@
       "index": 18,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Paralyze Heal",
+      "name": "Antidote",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -292,7 +240,7 @@
       "index": 19,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Full Restore",
+      "name": "Burn Heal",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -305,7 +253,7 @@
       "index": 20,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Max Potion",
+      "name": "Ice Heal",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -318,7 +266,7 @@
       "index": 21,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Hyper Potion",
+      "name": "Awakening",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -331,7 +279,7 @@
       "index": 22,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Super Potion",
+      "name": "Paralyze Heal",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -344,7 +292,7 @@
       "index": 23,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Full Heal",
+      "name": "Full Restore",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -357,7 +305,7 @@
       "index": 24,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Revive",
+      "name": "Max Potion",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -370,7 +318,7 @@
       "index": 25,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Max Revive",
+      "name": "Hyper Potion",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -383,7 +331,7 @@
       "index": 26,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Fresh Water",
+      "name": "Super Potion",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -396,7 +344,7 @@
       "index": 27,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Soda Pop",
+      "name": "Full Heal",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -409,7 +357,7 @@
       "index": 28,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Lemonade",
+      "name": "Revive",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -422,7 +370,7 @@
       "index": 29,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Moomoo Milk",
+      "name": "Max Revive",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -435,7 +383,7 @@
       "index": 30,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Energy Powder",
+      "name": "Fresh Water",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -448,7 +396,7 @@
       "index": 31,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Energy Root",
+      "name": "Soda Pop",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -461,7 +409,7 @@
       "index": 32,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Heal Powder",
+      "name": "Lemonade",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -474,7 +422,7 @@
       "index": 33,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Revival Herb",
+      "name": "Moomoo Milk",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -487,7 +435,7 @@
       "index": 34,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Ether",
+      "name": "Energy Powder",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -500,7 +448,7 @@
       "index": 35,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Max Ether",
+      "name": "Energy Root",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -513,7 +461,7 @@
       "index": 36,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Elixir",
+      "name": "Heal Powder",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -526,7 +474,7 @@
       "index": 37,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Max Elixir",
+      "name": "Revival Herb",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -539,7 +487,7 @@
       "index": 38,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Lava Cookie",
+      "name": "Ether",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -552,9 +500,9 @@
       "index": 39,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Blue Flute",
+      "name": "Max Ether",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "meds",
       "custom_sprite": null
     }
   },
@@ -565,9 +513,9 @@
       "index": 40,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Yellow Flute",
+      "name": "Elixir",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "meds",
       "custom_sprite": null
     }
   },
@@ -578,9 +526,9 @@
       "index": 41,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Red Flute",
+      "name": "Max Elixir",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "meds",
       "custom_sprite": null
     }
   },
@@ -591,9 +539,9 @@
       "index": 42,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Black Flute",
+      "name": "Lava Cookie",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "meds",
       "custom_sprite": null
     }
   },
@@ -604,9 +552,9 @@
       "index": 43,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "White Flute",
+      "name": "Berry Juice",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "meds",
       "custom_sprite": null
     }
   },
@@ -617,7 +565,7 @@
       "index": 44,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Berry Juice",
+      "name": "Sacred Ash",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -630,7 +578,7 @@
       "index": 45,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Sacred Ash",
+      "name": "HP Up",
       "api_loaded": true,
       "item_bag": "meds",
       "custom_sprite": null
@@ -643,9 +591,9 @@
       "index": 46,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Shoal Salt",
+      "name": "Protein",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "meds",
       "custom_sprite": null
     }
   },
@@ -656,9 +604,9 @@
       "index": 47,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Shoal Shell",
+      "name": "Iron",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "meds",
       "custom_sprite": null
     }
   },
@@ -669,9 +617,9 @@
       "index": 48,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Red Shard",
+      "name": "Carbos",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "meds",
       "custom_sprite": null
     }
   },
@@ -682,9 +630,9 @@
       "index": 49,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Blue Shard",
+      "name": "Calcium",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "meds",
       "custom_sprite": null
     }
   },
@@ -695,9 +643,9 @@
       "index": 50,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Yellow Shard",
+      "name": "Rare Candy",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "meds",
       "custom_sprite": null
     }
   },
@@ -708,9 +656,35 @@
       "index": 51,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Green Shard",
+      "name": "PP Up",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "meds",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 52,
+      "index": 52,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Zinc",
+      "api_loaded": true,
+      "item_bag": "meds",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 53,
+      "index": 53,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "PP Max",
+      "api_loaded": true,
+      "item_bag": "meds",
       "custom_sprite": null
     }
   },
@@ -724,6 +698,97 @@
       "name": "Old Gateau",
       "api_loaded": true,
       "item_bag": "meds",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 55,
+      "index": 55,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Guard Spec.",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 56,
+      "index": 56,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Dire Hit",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 57,
+      "index": 57,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "X Attack",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 58,
+      "index": 58,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "X Defense",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 59,
+      "index": 59,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "X Speed",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 60,
+      "index": 60,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "X Accuracy",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 61,
+      "index": 61,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "X Sp. Atk",
+      "api_loaded": true,
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -747,9 +812,9 @@
       "index": 63,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "HP Up",
+      "name": "Poké Doll",
       "api_loaded": true,
-      "item_bag": "meds",
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -760,9 +825,9 @@
       "index": 64,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Protein",
+      "name": "Fluffy Tail",
       "api_loaded": true,
-      "item_bag": "meds",
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -773,9 +838,9 @@
       "index": 65,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Iron",
+      "name": "Blue Flute",
       "api_loaded": true,
-      "item_bag": "meds",
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -786,9 +851,9 @@
       "index": 66,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Carbos",
+      "name": "Yellow Flute",
       "api_loaded": true,
-      "item_bag": "meds",
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -799,9 +864,9 @@
       "index": 67,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Calcium",
+      "name": "Red Flute",
       "api_loaded": true,
-      "item_bag": "meds",
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -812,9 +877,9 @@
       "index": 68,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Rare Candy",
+      "name": "Black Flute",
       "api_loaded": true,
-      "item_bag": "meds",
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -825,9 +890,9 @@
       "index": 69,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "PP Up",
+      "name": "White Flute",
       "api_loaded": true,
-      "item_bag": "meds",
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -838,9 +903,9 @@
       "index": 70,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Zinc",
+      "name": "Shoal Salt",
       "api_loaded": true,
-      "item_bag": "meds",
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -851,9 +916,22 @@
       "index": 71,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "PP Max",
+      "name": "Shoal Shell",
       "api_loaded": true,
-      "item_bag": "meds",
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 72,
+      "index": 72,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Red Shard",
+      "api_loaded": true,
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -864,7 +942,7 @@
       "index": 73,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Guard Spec.",
+      "name": "Blue Shard",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -877,7 +955,7 @@
       "index": 74,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Dire Hit",
+      "name": "Yellow Shard",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -890,7 +968,7 @@
       "index": 75,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "X Attack",
+      "name": "Green Shard",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -903,7 +981,7 @@
       "index": 76,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "X Defense",
+      "name": "Super Repel",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -916,7 +994,7 @@
       "index": 77,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "X Speed",
+      "name": "Max Repel",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -929,7 +1007,7 @@
       "index": 78,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "X Accuracy",
+      "name": "Escape Rope",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -942,7 +1020,7 @@
       "index": 79,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "X Sp. Atk",
+      "name": "Repel",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -955,7 +1033,7 @@
       "index": 80,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Poké Doll",
+      "name": "Sun Stone",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -968,7 +1046,20 @@
       "index": 81,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Fluffy Tail",
+      "name": "Moon Stone",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 82,
+      "index": 82,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Fire Stone",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -981,7 +1072,7 @@
       "index": 83,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Super Repel",
+      "name": "Thunder Stone",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -994,7 +1085,7 @@
       "index": 84,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Max Repel",
+      "name": "Water Stone",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -1007,7 +1098,7 @@
       "index": 85,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Escape Rope",
+      "name": "Leaf Stone",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -1020,7 +1111,85 @@
       "index": 86,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Repel",
+      "name": "Tiny Mushroom",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 87,
+      "index": 87,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Big Mushroom",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 88,
+      "index": 88,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Pearl",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 89,
+      "index": 89,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Big Pearl",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 90,
+      "index": 90,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Stardust",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 91,
+      "index": 91,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Star Piece",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 92,
+      "index": 92,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Nugget",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -1033,20 +1202,7 @@
       "index": 93,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Sun Stone",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 94,
-      "index": 94,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Moon Stone",
+      "name": "Heart Scale",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -1072,33 +1228,7 @@
       "index": 95,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Fire Stone",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 95,
-      "index": 95,
-      "localization": "en",
-      "flavor_text_localizations": [],
       "name": "Growth Mulch",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 96,
-      "index": 96,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Thunder Stone",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -1124,33 +1254,7 @@
       "index": 97,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Water Stone",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 97,
-      "index": 97,
-      "localization": "en",
-      "flavor_text_localizations": [],
       "name": "Stable Mulch",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 98,
-      "index": 98,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Leaf Stone",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -1172,11 +1276,11 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 103,
-      "index": 103,
+      "id": 99,
+      "index": 99,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Tiny Mushroom",
+      "name": "Root Fossil",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -1185,11 +1289,50 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 104,
-      "index": 104,
+      "id": 100,
+      "index": 100,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Big Mushroom",
+      "name": "Claw Fossil",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 101,
+      "index": 101,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Helix Fossil",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 102,
+      "index": 102,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Dome Fossil",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 103,
+      "index": 103,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Old Amber",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -1228,33 +1371,7 @@
       "index": 106,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Pearl",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 106,
-      "index": 106,
-      "localization": "en",
-      "flavor_text_localizations": [],
       "name": "Rare Bone",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 107,
-      "index": 107,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Big Pearl",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -1280,33 +1397,7 @@
       "index": 108,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Stardust",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 108,
-      "index": 108,
-      "localization": "en",
-      "flavor_text_localizations": [],
       "name": "Dusk Stone",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 109,
-      "index": 109,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Star Piece",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -1332,33 +1423,7 @@
       "index": 110,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Nugget",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 110,
-      "index": 110,
-      "localization": "en",
-      "flavor_text_localizations": [],
       "name": "Oval Stone",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 111,
-      "index": 111,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Heart Scale",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -1387,6 +1452,19 @@
       "name": "Griseous Orb",
       "api_loaded": true,
       "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 113,
+      "index": 113,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Tea",
+      "api_loaded": true,
+      "item_bag": "keys",
       "custom_sprite": null
     }
   },
@@ -1517,6 +1595,19 @@
       "name": "Glitter Mail",
       "api_loaded": true,
       "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 123,
+      "index": 123,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "TM Case",
+      "api_loaded": true,
+      "item_bag": "keys",
       "custom_sprite": null
     }
   },
@@ -1705,32 +1796,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 133,
-      "index": 133,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Cheri Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 134,
-      "index": 134,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Chesto Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 134,
       "index": 134,
       "localization": "en",
@@ -1757,19 +1822,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 135,
-      "index": 135,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Pecha Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 136,
       "index": 136,
       "localization": "en",
@@ -1783,19 +1835,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 136,
-      "index": 136,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Rawst Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 137,
       "index": 137,
       "localization": "en",
@@ -1803,19 +1842,6 @@
       "name": "Grass Mail",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 137,
-      "index": 137,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Aspear Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -1852,19 +1878,6 @@
       "index": 138,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Leppa Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 138,
-      "index": 138,
-      "localization": "en",
-      "flavor_text_localizations": [],
       "name": "Favored Mail",
       "api_loaded": true,
       "item_bag": "items",
@@ -1881,19 +1894,6 @@
       "name": "Bubble Mail",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 139,
-      "index": 139,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Oran Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -1930,19 +1930,6 @@
       "index": 140,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Persim Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 140,
-      "index": 140,
-      "localization": "en",
-      "flavor_text_localizations": [],
       "name": "Thanks Mail",
       "api_loaded": true,
       "item_bag": "items",
@@ -1959,19 +1946,6 @@
       "name": "Tunnel Mail",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 141,
-      "index": 141,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Lum Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -2008,19 +1982,6 @@
       "index": 142,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Sitrus Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 142,
-      "index": 142,
-      "localization": "en",
-      "flavor_text_localizations": [],
       "name": "Like Mail",
       "api_loaded": true,
       "item_bag": "items",
@@ -2037,19 +1998,6 @@
       "name": "Heart Mail",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 143,
-      "index": 143,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Figy Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -2086,19 +2034,6 @@
       "index": 144,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Wiki Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 144,
-      "index": 144,
-      "localization": "en",
-      "flavor_text_localizations": [],
       "name": "Bridge Mail S",
       "api_loaded": true,
       "item_bag": "items",
@@ -2115,19 +2050,6 @@
       "name": "Space Mail",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 145,
-      "index": 145,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Mago Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -2164,19 +2086,6 @@
       "index": 146,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Aguav Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 146,
-      "index": 146,
-      "localization": "en",
-      "flavor_text_localizations": [],
       "name": "Bridge Mail T",
       "api_loaded": true,
       "item_bag": "items",
@@ -2193,19 +2102,6 @@
       "name": "Mosaic Mail",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 147,
-      "index": 147,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Iapapa Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -2242,19 +2138,6 @@
       "index": 148,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Razz Berry",
-      "api_loaded": true,
-      "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 148,
-      "index": 148,
-      "localization": "en",
-      "flavor_text_localizations": [],
       "name": "Bridge Mail M",
       "api_loaded": true,
       "item_bag": "items",
@@ -2268,7 +2151,7 @@
       "index": 149,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Bluk Berry",
+      "name": "Cheri Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2281,7 +2164,7 @@
       "index": 150,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Nanab Berry",
+      "name": "Chesto Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2294,7 +2177,7 @@
       "index": 151,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Wepear Berry",
+      "name": "Pecha Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2307,7 +2190,7 @@
       "index": 152,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Pinap Berry",
+      "name": "Rawst Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2320,7 +2203,7 @@
       "index": 153,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Pomeg Berry",
+      "name": "Aspear Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2333,7 +2216,7 @@
       "index": 154,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Kelpsy Berry",
+      "name": "Leppa Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2346,7 +2229,7 @@
       "index": 155,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Qualot Berry",
+      "name": "Oran Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2359,7 +2242,7 @@
       "index": 156,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Hondew Berry",
+      "name": "Persim Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2372,7 +2255,7 @@
       "index": 157,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Grepa Berry",
+      "name": "Lum Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2385,7 +2268,7 @@
       "index": 158,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Tamato Berry",
+      "name": "Sitrus Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2398,7 +2281,7 @@
       "index": 159,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Cornn Berry",
+      "name": "Figy Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2411,7 +2294,7 @@
       "index": 160,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Magost Berry",
+      "name": "Wiki Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2424,7 +2307,7 @@
       "index": 161,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Rabuta Berry",
+      "name": "Mago Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2437,7 +2320,7 @@
       "index": 162,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Nomel Berry",
+      "name": "Aguav Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2450,7 +2333,7 @@
       "index": 163,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Spelon Berry",
+      "name": "Iapapa Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2463,7 +2346,7 @@
       "index": 164,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Pamtre Berry",
+      "name": "Razz Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2476,7 +2359,7 @@
       "index": 165,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Watmel Berry",
+      "name": "Bluk Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2489,7 +2372,7 @@
       "index": 166,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Durin Berry",
+      "name": "Nanab Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2502,7 +2385,7 @@
       "index": 167,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Belue Berry",
+      "name": "Wepear Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2515,7 +2398,7 @@
       "index": 168,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Liechi Berry",
+      "name": "Pinap Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2528,7 +2411,7 @@
       "index": 169,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Ganlon Berry",
+      "name": "Pomeg Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2541,7 +2424,7 @@
       "index": 170,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Salac Berry",
+      "name": "Kelpsy Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2554,7 +2437,7 @@
       "index": 171,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Petaya Berry",
+      "name": "Qualot Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2567,7 +2450,7 @@
       "index": 172,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Apicot Berry",
+      "name": "Hondew Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2580,7 +2463,7 @@
       "index": 173,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Lansat Berry",
+      "name": "Grepa Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2593,7 +2476,7 @@
       "index": 174,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Starf Berry",
+      "name": "Tamato Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2606,7 +2489,46 @@
       "index": 175,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Enigma Berry",
+      "name": "Cornn Berry",
+      "api_loaded": true,
+      "item_bag": "berries",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 176,
+      "index": 176,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Magost Berry",
+      "api_loaded": true,
+      "item_bag": "berries",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 177,
+      "index": 177,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Rabuta Berry",
+      "api_loaded": true,
+      "item_bag": "berries",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 178,
+      "index": 178,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Nomel Berry",
       "api_loaded": true,
       "item_bag": "berries",
       "custom_sprite": null
@@ -2619,9 +2541,9 @@
       "index": 179,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Bright Powder",
+      "name": "Spelon Berry",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -2632,9 +2554,9 @@
       "index": 180,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "White Herb",
+      "name": "Pamtre Berry",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -2645,9 +2567,9 @@
       "index": 181,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Macho Brace",
+      "name": "Watmel Berry",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -2658,9 +2580,9 @@
       "index": 182,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Exp. Share",
+      "name": "Durin Berry",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -2671,9 +2593,9 @@
       "index": 183,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Quick Claw",
+      "name": "Belue Berry",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -2693,19 +2615,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 184,
-      "index": 184,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Soothe Bell",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 185,
       "index": 185,
       "localization": "en",
@@ -2713,19 +2622,6 @@
       "name": "Passho Berry",
       "api_loaded": true,
       "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 185,
-      "index": 185,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Mental Herb",
-      "api_loaded": true,
-      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -2745,19 +2641,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 186,
-      "index": 186,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Choice Band",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 187,
       "index": 187,
       "localization": "en",
@@ -2765,19 +2648,6 @@
       "name": "Rindo Berry",
       "api_loaded": true,
       "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 187,
-      "index": 187,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "King’s Rock",
-      "api_loaded": true,
-      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -2797,19 +2667,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 188,
-      "index": 188,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Silver Powder",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 189,
       "index": 189,
       "localization": "en",
@@ -2817,19 +2674,6 @@
       "name": "Chople Berry",
       "api_loaded": true,
       "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 189,
-      "index": 189,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Amulet Coin",
-      "api_loaded": true,
-      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -2849,19 +2693,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 190,
-      "index": 190,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Cleanse Tag",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 191,
       "index": 191,
       "localization": "en",
@@ -2869,19 +2700,6 @@
       "name": "Shuca Berry",
       "api_loaded": true,
       "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 191,
-      "index": 191,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Soul Dew",
-      "api_loaded": true,
-      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -2901,19 +2719,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 192,
-      "index": 192,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Deep Sea Tooth",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 193,
       "index": 193,
       "localization": "en",
@@ -2921,19 +2726,6 @@
       "name": "Payapa Berry",
       "api_loaded": true,
       "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 193,
-      "index": 193,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Deep Sea Scale",
-      "api_loaded": true,
-      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -2953,19 +2745,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 194,
-      "index": 194,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Smoke Ball",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 195,
       "index": 195,
       "localization": "en",
@@ -2973,19 +2752,6 @@
       "name": "Charti Berry",
       "api_loaded": true,
       "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 195,
-      "index": 195,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Everstone",
-      "api_loaded": true,
-      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -3005,19 +2771,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 196,
-      "index": 196,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Focus Band",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 197,
       "index": 197,
       "localization": "en",
@@ -3025,19 +2778,6 @@
       "name": "Haban Berry",
       "api_loaded": true,
       "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 197,
-      "index": 197,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Lucky Egg",
-      "api_loaded": true,
-      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -3057,19 +2797,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 198,
-      "index": 198,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Scope Lens",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 199,
       "index": 199,
       "localization": "en",
@@ -3077,19 +2804,6 @@
       "name": "Babiri Berry",
       "api_loaded": true,
       "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 199,
-      "index": 199,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Metal Coat",
-      "api_loaded": true,
-      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -3109,26 +2823,13 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 200,
-      "index": 200,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Leftovers",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 201,
       "index": 201,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Dragon Scale",
+      "name": "Liechi Berry",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -3139,9 +2840,9 @@
       "index": 202,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Light Ball",
+      "name": "Ganlon Berry",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -3152,9 +2853,9 @@
       "index": 203,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Soft Sand",
+      "name": "Salac Berry",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -3165,9 +2866,9 @@
       "index": 204,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Hard Stone",
+      "name": "Petaya Berry",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -3178,9 +2879,9 @@
       "index": 205,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Miracle Seed",
+      "name": "Apicot Berry",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -3191,9 +2892,9 @@
       "index": 206,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Black Glasses",
+      "name": "Lansat Berry",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -3204,9 +2905,9 @@
       "index": 207,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Black Belt",
+      "name": "Starf Berry",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -3217,9 +2918,9 @@
       "index": 208,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Magnet",
+      "name": "Enigma Berry",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "berries",
       "custom_sprite": null
     }
   },
@@ -3239,19 +2940,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 209,
-      "index": 209,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Mystic Water",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 210,
       "index": 210,
       "localization": "en",
@@ -3259,19 +2947,6 @@
       "name": "Custap Berry",
       "api_loaded": true,
       "item_bag": "berries",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 210,
-      "index": 210,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Sharp Beak",
-      "api_loaded": true,
-      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -3291,19 +2966,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 211,
-      "index": 211,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Poison Barb",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 212,
       "index": 212,
       "localization": "en",
@@ -3317,24 +2979,11 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 212,
-      "index": 212,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Never-Melt Ice",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 213,
       "index": 213,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Spell Tag",
+      "name": "Bright Powder",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3347,7 +2996,7 @@
       "index": 214,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Twisted Spoon",
+      "name": "White Herb",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3360,7 +3009,7 @@
       "index": 215,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Charcoal",
+      "name": "Macho Brace",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3373,7 +3022,7 @@
       "index": 216,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Dragon Fang",
+      "name": "Exp. Share",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3386,7 +3035,7 @@
       "index": 217,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Silk Scarf",
+      "name": "Quick Claw",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3399,7 +3048,7 @@
       "index": 218,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Upgrade",
+      "name": "Soothe Bell",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3412,7 +3061,7 @@
       "index": 219,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Shell Bell",
+      "name": "Mental Herb",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3425,7 +3074,7 @@
       "index": 220,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Sea Incense",
+      "name": "Choice Band",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3438,7 +3087,7 @@
       "index": 221,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Lax Incense",
+      "name": "King’s Rock",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3451,7 +3100,7 @@
       "index": 222,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Lucky Punch",
+      "name": "Silver Powder",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3464,7 +3113,7 @@
       "index": 223,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Metal Powder",
+      "name": "Amulet Coin",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3477,7 +3126,7 @@
       "index": 224,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Thick Club",
+      "name": "Cleanse Tag",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3490,7 +3139,371 @@
       "index": 225,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Leek",
+      "name": "Soul Dew",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 226,
+      "index": 226,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Deep Sea Tooth",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 227,
+      "index": 227,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Deep Sea Scale",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 228,
+      "index": 228,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Smoke Ball",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 229,
+      "index": 229,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Everstone",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 230,
+      "index": 230,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Focus Band",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 231,
+      "index": 231,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Lucky Egg",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 232,
+      "index": 232,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Scope Lens",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 233,
+      "index": 233,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Metal Coat",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 234,
+      "index": 234,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Leftovers",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 235,
+      "index": 235,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Dragon Scale",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 236,
+      "index": 236,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Light Ball",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 237,
+      "index": 237,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Soft Sand",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 238,
+      "index": 238,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Hard Stone",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 239,
+      "index": 239,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Miracle Seed",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 240,
+      "index": 240,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Black Glasses",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 241,
+      "index": 241,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Black Belt",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 242,
+      "index": 242,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Magnet",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 243,
+      "index": 243,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Mystic Water",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 244,
+      "index": 244,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Sharp Beak",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 245,
+      "index": 245,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Poison Barb",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 246,
+      "index": 246,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Never-Melt Ice",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 247,
+      "index": 247,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Spell Tag",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 248,
+      "index": 248,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Twisted Spoon",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 249,
+      "index": 249,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Charcoal",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 250,
+      "index": 250,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Dragon Fang",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 251,
+      "index": 251,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Silk Scarf",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 252,
+      "index": 252,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Upgrade",
+      "api_loaded": true,
+      "item_bag": "items",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 253,
+      "index": 253,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Shell Bell",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3503,7 +3516,7 @@
       "index": 254,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Red Scarf",
+      "name": "Sea Incense",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3516,7 +3529,7 @@
       "index": 255,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Blue Scarf",
+      "name": "Lax Incense",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3529,7 +3542,7 @@
       "index": 256,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Pink Scarf",
+      "name": "Lucky Punch",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3542,7 +3555,7 @@
       "index": 257,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Green Scarf",
+      "name": "Metal Powder",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3555,7 +3568,7 @@
       "index": 258,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Yellow Scarf",
+      "name": "Thick Club",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -3568,9 +3581,9 @@
       "index": 259,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Mach Bike",
+      "name": "Leek",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -3581,9 +3594,9 @@
       "index": 260,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Coin Case",
+      "name": "Red Scarf",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -3594,9 +3607,9 @@
       "index": 261,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Dowsing Machine",
+      "name": "Blue Scarf",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -3607,9 +3620,9 @@
       "index": 262,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Old Rod",
+      "name": "Pink Scarf",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -3620,9 +3633,9 @@
       "index": 263,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Good Rod",
+      "name": "Green Scarf",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -3633,9 +3646,9 @@
       "index": 264,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Super Rod",
+      "name": "Yellow Scarf",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "items",
       "custom_sprite": null
     }
   },
@@ -3655,19 +3668,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 265,
-      "index": 265,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "S.S. Ticket",
-      "api_loaded": true,
-      "item_bag": "keys",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 266,
       "index": 266,
       "localization": "en",
@@ -3675,19 +3675,6 @@
       "name": "Muscle Band",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 266,
-      "index": 266,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Contest Pass",
-      "api_loaded": true,
-      "item_bag": "keys",
       "custom_sprite": null
     }
   },
@@ -3714,19 +3701,6 @@
       "name": "Expert Belt",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 268,
-      "index": 268,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Wailmer Pail",
-      "api_loaded": true,
-      "item_bag": "keys",
       "custom_sprite": null
     }
   },
@@ -3772,19 +3746,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 270,
-      "index": 270,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Soot Sack",
-      "api_loaded": true,
-      "item_bag": "keys",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 271,
       "index": 271,
       "localization": "en",
@@ -3798,19 +3759,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 271,
-      "index": 271,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Basement Key",
-      "api_loaded": true,
-      "item_bag": "keys",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 272,
       "index": 272,
       "localization": "en",
@@ -3818,19 +3766,6 @@
       "name": "Toxic Orb",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 272,
-      "index": 272,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Acro Bike",
-      "api_loaded": true,
-      "item_bag": "keys",
       "custom_sprite": null
     }
   },
@@ -3876,19 +3811,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 274,
-      "index": 274,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Letter",
-      "api_loaded": true,
-      "item_bag": "keys",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 275,
       "index": 275,
       "localization": "en",
@@ -3896,19 +3818,6 @@
       "name": "Focus Sash",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 275,
-      "index": 275,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Eon Ticket",
-      "api_loaded": true,
-      "item_bag": "keys",
       "custom_sprite": null
     }
   },
@@ -3928,19 +3837,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 276,
-      "index": 276,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Red Orb",
-      "api_loaded": true,
-      "item_bag": "keys",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 277,
       "index": 277,
       "localization": "en",
@@ -3948,19 +3844,6 @@
       "name": "Metronome",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 277,
-      "index": 277,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Blue Orb",
-      "api_loaded": true,
-      "item_bag": "keys",
       "custom_sprite": null
     }
   },
@@ -3980,19 +3863,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 278,
-      "index": 278,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Scanner",
-      "api_loaded": true,
-      "item_bag": "keys",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 279,
       "index": 279,
       "localization": "en",
@@ -4006,19 +3876,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 279,
-      "index": 279,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Go-Goggles",
-      "api_loaded": true,
-      "item_bag": "keys",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 280,
       "index": 280,
       "localization": "en",
@@ -4026,19 +3883,6 @@
       "name": "Destiny Knot",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 280,
-      "index": 280,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Meteorite",
-      "api_loaded": true,
-      "item_bag": "keys",
       "custom_sprite": null
     }
   },
@@ -4162,50 +4006,11 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 285,
-      "index": 285,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Storage Key",
-      "api_loaded": true,
-      "item_bag": "keys",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 286,
-      "index": 286,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Root Fossil",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 286,
       "index": 286,
       "localization": "en",
       "flavor_text_localizations": [],
       "name": "Grip Claw",
-      "api_loaded": true,
-      "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 287,
-      "index": 287,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Claw Fossil",
       "api_loaded": true,
       "item_bag": "items",
       "custom_sprite": null
@@ -4240,19 +4045,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 288,
-      "index": 288,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "Devon Scope",
-      "api_loaded": true,
-      "item_bag": "keys",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 289,
       "index": 289,
       "localization": "en",
@@ -4260,19 +4052,6 @@
       "name": "Power Bracer",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 289,
-      "index": 289,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM01",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -4292,19 +4071,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 290,
-      "index": 290,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM02",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 291,
       "index": 291,
       "localization": "en",
@@ -4312,19 +4078,6 @@
       "name": "Power Lens",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 291,
-      "index": 291,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM03",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -4344,19 +4097,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 292,
-      "index": 292,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM04",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 293,
       "index": 293,
       "localization": "en",
@@ -4364,19 +4104,6 @@
       "name": "Power Anklet",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 293,
-      "index": 293,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM05",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -4396,19 +4123,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 294,
-      "index": 294,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM06",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 295,
       "index": 295,
       "localization": "en",
@@ -4416,19 +4130,6 @@
       "name": "Shed Shell",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 295,
-      "index": 295,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM07",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -4448,19 +4149,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 296,
-      "index": 296,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM08",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 297,
       "index": 297,
       "localization": "en",
@@ -4468,19 +4156,6 @@
       "name": "Choice Specs",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 297,
-      "index": 297,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM09",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -4500,19 +4175,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 298,
-      "index": 298,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM10",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 299,
       "index": 299,
       "localization": "en",
@@ -4520,19 +4182,6 @@
       "name": "Splash Plate",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 299,
-      "index": 299,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM11",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -4552,19 +4201,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 300,
-      "index": 300,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM12",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 301,
       "index": 301,
       "localization": "en",
@@ -4572,19 +4208,6 @@
       "name": "Meadow Plate",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 301,
-      "index": 301,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM13",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -4604,19 +4227,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 302,
-      "index": 302,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM14",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 303,
       "index": 303,
       "localization": "en",
@@ -4624,19 +4234,6 @@
       "name": "Fist Plate",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 303,
-      "index": 303,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM15",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -4656,19 +4253,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 304,
-      "index": 304,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM16",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 305,
       "index": 305,
       "localization": "en",
@@ -4676,19 +4260,6 @@
       "name": "Earth Plate",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 305,
-      "index": 305,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM17",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -4708,19 +4279,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 306,
-      "index": 306,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM18",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 307,
       "index": 307,
       "localization": "en",
@@ -4728,19 +4286,6 @@
       "name": "Mind Plate",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 307,
-      "index": 307,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM19",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -4760,19 +4305,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 308,
-      "index": 308,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM20",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 309,
       "index": 309,
       "localization": "en",
@@ -4780,19 +4312,6 @@
       "name": "Stone Plate",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 309,
-      "index": 309,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM21",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -4812,19 +4331,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 310,
-      "index": 310,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM22",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 311,
       "index": 311,
       "localization": "en",
@@ -4832,19 +4338,6 @@
       "name": "Draco Plate",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 311,
-      "index": 311,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM23",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -4864,19 +4357,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 312,
-      "index": 312,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM24",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 313,
       "index": 313,
       "localization": "en",
@@ -4884,19 +4364,6 @@
       "name": "Iron Plate",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 313,
-      "index": 313,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM25",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -4916,19 +4383,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 314,
-      "index": 314,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM26",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 315,
       "index": 315,
       "localization": "en",
@@ -4936,19 +4390,6 @@
       "name": "Rock Incense",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 315,
-      "index": 315,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM27",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -4968,19 +4409,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 316,
-      "index": 316,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM28",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 317,
       "index": 317,
       "localization": "en",
@@ -4988,19 +4416,6 @@
       "name": "Wave Incense",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 317,
-      "index": 317,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM29",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5020,19 +4435,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 318,
-      "index": 318,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM30",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 319,
       "index": 319,
       "localization": "en",
@@ -5040,19 +4442,6 @@
       "name": "Luck Incense",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 319,
-      "index": 319,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM31",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5072,19 +4461,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 320,
-      "index": 320,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM32",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 321,
       "index": 321,
       "localization": "en",
@@ -5092,19 +4468,6 @@
       "name": "Protector",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 321,
-      "index": 321,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM33",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5124,19 +4487,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 322,
-      "index": 322,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM34",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 323,
       "index": 323,
       "localization": "en",
@@ -5144,19 +4494,6 @@
       "name": "Magmarizer",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 323,
-      "index": 323,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM35",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5176,19 +4513,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 324,
-      "index": 324,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM36",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 325,
       "index": 325,
       "localization": "en",
@@ -5196,19 +4520,6 @@
       "name": "Reaper Cloth",
       "api_loaded": true,
       "item_bag": "items",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
-      "id": 325,
-      "index": 325,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM37",
-      "api_loaded": true,
-      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5228,19 +4539,6 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 326,
-      "index": 326,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM38",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 327,
       "index": 327,
       "localization": "en",
@@ -5254,24 +4552,11 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
-      "id": 327,
-      "index": 327,
-      "localization": "en",
-      "flavor_text_localizations": [],
-      "name": "TM39",
-      "api_loaded": true,
-      "item_bag": "tms",
-      "custom_sprite": null
-    }
-  },
-  {
-    "model": "pokemon_api.Item",
-    "fields": {
       "id": 328,
       "index": 328,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "TM40",
+      "name": "TM01",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5284,7 +4569,7 @@
       "index": 329,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "TM41",
+      "name": "TM02",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5297,7 +4582,7 @@
       "index": 330,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "TM42",
+      "name": "TM03",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5310,7 +4595,7 @@
       "index": 331,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "TM43",
+      "name": "TM04",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5323,7 +4608,7 @@
       "index": 332,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "TM44",
+      "name": "TM05",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5336,7 +4621,7 @@
       "index": 333,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "TM45",
+      "name": "TM06",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5349,7 +4634,7 @@
       "index": 334,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "TM46",
+      "name": "TM07",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5362,7 +4647,7 @@
       "index": 335,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "TM47",
+      "name": "TM08",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5375,7 +4660,7 @@
       "index": 336,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "TM48",
+      "name": "TM09",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5388,7 +4673,7 @@
       "index": 337,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "TM49",
+      "name": "TM10",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5401,7 +4686,7 @@
       "index": 338,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "TM50",
+      "name": "TM11",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5414,7 +4699,7 @@
       "index": 339,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "HM01",
+      "name": "TM12",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5427,7 +4712,7 @@
       "index": 340,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "HM02",
+      "name": "TM13",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5440,7 +4725,7 @@
       "index": 341,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "HM03",
+      "name": "TM14",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5453,7 +4738,7 @@
       "index": 342,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "HM04",
+      "name": "TM15",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5466,7 +4751,7 @@
       "index": 343,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "HM05",
+      "name": "TM16",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5479,7 +4764,7 @@
       "index": 344,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "HM06",
+      "name": "TM17",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5492,7 +4777,7 @@
       "index": 345,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "HM07",
+      "name": "TM18",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5505,7 +4790,46 @@
       "index": 346,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "HM08",
+      "name": "TM19",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 347,
+      "index": 347,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "TM20",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 348,
+      "index": 348,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "TM21",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 349,
+      "index": 349,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "TM22",
       "api_loaded": true,
       "item_bag": "tms",
       "custom_sprite": null
@@ -5531,9 +4855,9 @@
       "index": 350,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Poké Flute",
+      "name": "TM23",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5544,9 +4868,22 @@
       "index": 351,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Secret Key",
+      "name": "TM24",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 352,
+      "index": 352,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "TM25",
+      "api_loaded": true,
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5570,9 +4907,9 @@
       "index": 353,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Gold Teeth",
+      "name": "TM26",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5583,9 +4920,9 @@
       "index": 354,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Old Amber",
+      "name": "TM27",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5596,9 +4933,9 @@
       "index": 355,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Card Key",
+      "name": "TM28",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5609,9 +4946,9 @@
       "index": 356,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Lift Key",
+      "name": "TM29",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5622,9 +4959,9 @@
       "index": 357,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Helix Fossil",
+      "name": "TM30",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5635,9 +4972,9 @@
       "index": 358,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Dome Fossil",
+      "name": "TM31",
       "api_loaded": true,
-      "item_bag": "items",
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5648,9 +4985,9 @@
       "index": 359,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Silph Scope",
+      "name": "TM32",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5661,9 +4998,9 @@
       "index": 360,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Bicycle",
+      "name": "TM33",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5674,9 +5011,9 @@
       "index": 361,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Town Map",
+      "name": "TM34",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5687,9 +5024,22 @@
       "index": 362,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Vs. Seeker",
+      "name": "TM35",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 363,
+      "index": 363,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "TM36",
+      "api_loaded": true,
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5713,9 +5063,22 @@
       "index": 364,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "TM Case",
+      "name": "TM37",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 365,
+      "index": 365,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "TM38",
+      "api_loaded": true,
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5739,9 +5102,35 @@
       "index": 366,
       "localization": "en",
       "flavor_text_localizations": [],
+      "name": "TM39",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 366,
+      "index": 366,
+      "localization": "en",
+      "flavor_text_localizations": [],
       "name": "Teachy TV",
       "api_loaded": true,
       "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 367,
+      "index": 367,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "TM40",
+      "api_loaded": true,
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5765,6 +5154,19 @@
       "index": 368,
       "localization": "en",
       "flavor_text_localizations": [],
+      "name": "TM41",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 368,
+      "index": 368,
+      "localization": "en",
+      "flavor_text_localizations": [],
       "name": "Rainbow Pass",
       "api_loaded": true,
       "item_bag": "keys",
@@ -5778,9 +5180,22 @@
       "index": 369,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Tea",
+      "name": "TM42",
       "api_loaded": true,
-      "item_bag": "keys",
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 370,
+      "index": 370,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "TM43",
+      "api_loaded": true,
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5804,9 +5219,35 @@
       "index": 371,
       "localization": "en",
       "flavor_text_localizations": [],
+      "name": "TM44",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 371,
+      "index": 371,
+      "localization": "en",
+      "flavor_text_localizations": [],
       "name": "AuroraTicket",
       "api_loaded": true,
       "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 372,
+      "index": 372,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "TM45",
+      "api_loaded": true,
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5830,9 +5271,35 @@
       "index": 373,
       "localization": "en",
       "flavor_text_localizations": [],
+      "name": "TM46",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 373,
+      "index": 373,
+      "localization": "en",
+      "flavor_text_localizations": [],
       "name": "Ruby",
       "api_loaded": true,
       "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 374,
+      "index": 374,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "TM47",
+      "api_loaded": true,
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -5856,6 +5323,19 @@
       "index": 375,
       "localization": "en",
       "flavor_text_localizations": [],
+      "name": "TM48",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 375,
+      "index": 375,
+      "localization": "en",
+      "flavor_text_localizations": [],
       "name": "Magma Emblem",
       "api_loaded": true,
       "item_bag": "keys",
@@ -5869,9 +5349,35 @@
       "index": 376,
       "localization": "en",
       "flavor_text_localizations": [],
+      "name": "TM49",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 376,
+      "index": 376,
+      "localization": "en",
+      "flavor_text_localizations": [],
       "name": "Old Sea Map",
       "api_loaded": true,
       "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 377,
+      "index": 377,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "TM50",
+      "api_loaded": true,
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -6424,6 +5930,97 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
+      "id": 420,
+      "index": 420,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "HM01",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 421,
+      "index": 421,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "HM02",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 422,
+      "index": 422,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "HM03",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 423,
+      "index": 423,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "HM04",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 424,
+      "index": 424,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "HM05",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 425,
+      "index": 425,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "HM06",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 427,
+      "index": 427,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "HM08",
+      "api_loaded": true,
+      "item_bag": "tms",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
       "id": 428,
       "index": 428,
       "localization": "en",
@@ -6606,6 +6203,84 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
+      "id": 442,
+      "index": 442,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Town Map",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 443,
+      "index": 443,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Vs. Seeker",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 444,
+      "index": 444,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Coin Case",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 445,
+      "index": 445,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Old Rod",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 446,
+      "index": 446,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Good Rod",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 447,
+      "index": 447,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Super Rod",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
       "id": 448,
       "index": 448,
       "localization": "en",
@@ -6710,6 +6385,32 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
+      "id": 456,
+      "index": 456,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "S.S. Ticket",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 457,
+      "index": 457,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Contest Pass",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
       "id": 458,
       "index": 458,
       "localization": "en",
@@ -6788,6 +6489,19 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
+      "id": 463,
+      "index": 463,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Storage Key",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
       "id": 464,
       "index": 464,
       "localization": "en",
@@ -6819,6 +6533,19 @@
       "localization": "en",
       "flavor_text_localizations": [],
       "name": "Gracidea",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 467,
+      "index": 467,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Secret Key",
       "api_loaded": true,
       "item_bag": "keys",
       "custom_sprite": null
@@ -6866,6 +6593,19 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
+      "id": 471,
+      "index": 471,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Dowsing Machine",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
       "id": 472,
       "index": 472,
       "localization": "en",
@@ -6897,6 +6637,32 @@
       "localization": "en",
       "flavor_text_localizations": [],
       "name": "Clear Bell",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 475,
+      "index": 475,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Card Key",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 476,
+      "index": 476,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Basement Key",
       "api_loaded": true,
       "item_bag": "keys",
       "custom_sprite": null
@@ -7039,7 +6805,7 @@
       "index": 486,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Yellow Apricorn",
+      "name": "Blue Apricorn",
       "api_loaded": true,
       "item_bag": "keys",
       "custom_sprite": null
@@ -7052,7 +6818,7 @@
       "index": 487,
       "localization": "en",
       "flavor_text_localizations": [],
-      "name": "Blue Apricorn",
+      "name": "Yellow Apricorn",
       "api_loaded": true,
       "item_bag": "keys",
       "custom_sprite": null
@@ -7651,6 +7417,32 @@
       "localization": "en",
       "flavor_text_localizations": [],
       "name": "Lock Capsule",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 534,
+      "index": 534,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Red Orb",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 535,
+      "index": 535,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Blue Orb",
       "api_loaded": true,
       "item_bag": "keys",
       "custom_sprite": null
@@ -9206,6 +8998,19 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
+      "id": 651,
+      "index": 651,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Poké Flute",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
       "id": 652,
       "index": 652,
       "localization": "en",
@@ -10003,6 +9808,19 @@
       "index": 713,
       "localization": "en",
       "flavor_text_localizations": [],
+      "name": "Bicycle",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 713,
+      "index": 713,
+      "localization": "en",
+      "flavor_text_localizations": [],
       "name": "Bike",
       "api_loaded": true,
       "item_bag": "keys",
@@ -10064,11 +9882,63 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
+      "id": 718,
+      "index": 718,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Mach Bike",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 719,
+      "index": 719,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Acro Bike",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 720,
+      "index": 720,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Wailmer Pail",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
       "id": 721,
       "index": 721,
       "localization": "en",
       "flavor_text_localizations": [],
       "name": "Devon Parts",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 722,
+      "index": 722,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Soot Sack",
       "api_loaded": true,
       "item_bag": "keys",
       "custom_sprite": null
@@ -10095,6 +9965,71 @@
       "localization": "en",
       "flavor_text_localizations": [],
       "name": "Pokéblock Kit",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 725,
+      "index": 725,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Letter",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 726,
+      "index": 726,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Eon Ticket",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 727,
+      "index": 727,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Scanner",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 728,
+      "index": 728,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Go-Goggles",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 729,
+      "index": 729,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Meteorite",
       "api_loaded": true,
       "item_bag": "keys",
       "custom_sprite": null
@@ -10168,6 +10103,19 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
+      "id": 735,
+      "index": 735,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Devon Scope",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
       "id": 736,
       "index": 736,
       "localization": "en",
@@ -10175,6 +10123,19 @@
       "name": "S.S. Ticket",
       "api_loaded": true,
       "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 737,
+      "index": 737,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "HM07",
+      "api_loaded": true,
+      "item_bag": "tms",
       "custom_sprite": null
     }
   },
@@ -11806,6 +11767,19 @@
   {
     "model": "pokemon_api.Item",
     "fields": {
+      "id": 874,
+      "index": 874,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Silph Scope",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
       "id": 875,
       "index": 875,
       "localization": "en",
@@ -11824,6 +11798,32 @@
       "localization": "en",
       "flavor_text_localizations": [],
       "name": "Card Key",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 877,
+      "index": 877,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Gold Teeth",
+      "api_loaded": true,
+      "item_bag": "keys",
+      "custom_sprite": null
+    }
+  },
+  {
+    "model": "pokemon_api.Item",
+    "fields": {
+      "id": 878,
+      "index": 878,
+      "localization": "en",
+      "flavor_text_localizations": [],
+      "name": "Lift Key",
       "api_loaded": true,
       "item_bag": "keys",
       "custom_sprite": null
