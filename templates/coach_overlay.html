@@ -283,7 +283,11 @@
 
         function setupWebsocket() {
             if (window.location.host.startsWith('localhost')) {
-                server_socket = new WebSocket(`ws://${window.location.host}/ws/overlay/{{ streamer_name }}`);
+                if (debug) {
+                    server_socket = new WebSocket(`ws://${window.location.host}/ws/overlay/{{ streamer_name }}`);
+                } else {
+                    server_socket = new WebSocket(`wss://pokemon.paramada.ovh/ws/overlay/{{ streamer_name }}`);
+                }
             } else {
                 server_socket = new WebSocket(`wss://${window.location.host}/ws/overlay/{{ streamer_name }}`);
             }
@@ -327,7 +331,7 @@
         setupWebsocket();
         setInterval(() => {
             if (server_socket === null) {
-                setupWebsocket();
+                window.location.reload();
             }
         }, 5000);
     </script>
