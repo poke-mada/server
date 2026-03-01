@@ -741,6 +741,25 @@ def get_pokemon_at_box_slot(data, box, slot):
     return get_box_slot(data, get_box_slot_offset(box, slot))
 
 
+def get_battle_box_offset(box):
+    box_address = 0x04A00
+    SIZE_6STORED = 232
+    return box_address + (SIZE_6STORED * box * 6)
+
+
+def get_battle_box_slot_offset(box, slot):
+    SIZE_6STORED = 232
+    return get_battle_box_offset(box) + (slot * SIZE_6STORED)
+
+
+def get_battle_box_slot(data, slot_offset):
+    return get_stored_slot(data[slot_offset:])
+
+
+def get_pokemon_at_battle_box_slot(data, box, slot):
+    return get_battle_box_slot(data, get_battle_box_slot_offset(box, slot))
+
+
 def get_trainer_name(save_data):
     offset = 0x14000
     length = 0x00170
@@ -768,8 +787,17 @@ def data_reader(save_data):
         pokemon = PokemonBytes(get_pokemon_in_slot(save_data, slot))
         pokemon.get_atts()
         pokemon_data = pokemon.to_dict()
-        #pokemon_data['is_death'] = pokemon
+        # pokemon_data['is_death'] = pokemon
         trainer_team.append(pokemon_data)
+
+    for box in range(2):
+        for slot in range(6):
+            try:
+                pokemon = get_pokemon_at_battle_box_slot(save_data, box, slot)
+                print(pokemon)
+            except:
+                print(f'battle box {box} slot {slot} fallido')
+                pass
 
     for box in total_boxes:
         box_name_address = 0x4400 + box * 34
