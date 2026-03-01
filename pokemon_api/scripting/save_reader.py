@@ -69,7 +69,6 @@ def get_growth_rate(dex_number):
     with open('personal_ao', 'rb') as f:
         data = f.read()
         offset = 0x50
-        print(dex_number)
         index = offset * dex_number
         pk_data = data[index:index + offset]
         return pk_data[0x15]
