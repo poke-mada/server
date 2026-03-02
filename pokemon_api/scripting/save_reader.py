@@ -776,7 +776,7 @@ def data_reader(save_data):
     trainer_memory_block = save_data[offset: offset + length]
     original_thrash_nick = trainer_memory_block[0x48:0x48 + 0x1A]
     trainer_team = []
-    total_boxes = range(7)
+    total_boxes = range(30)
     boxes = dict()
 
     trainer_name = get_string(original_thrash_nick)
