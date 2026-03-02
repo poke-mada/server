@@ -788,15 +788,10 @@ def data_reader(save_data):
         pokemon_data = pokemon.to_dict()
         # pokemon_data['is_death'] = pokemon
         trainer_team.append(pokemon_data)
-
-    for box in range(2):
-        for slot in range(6):
-            try:
-                pokemon = get_pokemon_at_battle_box_slot(save_data, box, slot)
-                print(pokemon)
-            except:
-                print(f'battle box {box} slot {slot} fallido')
-                pass
+    battle_box = []
+    for slot in range(6):
+        pokemon = get_pokemon_at_battle_box_slot(save_data, 0, slot)
+        battle_box.append(pokemon)
 
     for box in total_boxes:
         box_name_address = 0x4400 + box * 34
@@ -826,5 +821,6 @@ def data_reader(save_data):
         boxes=boxes,
         trainer_name=trainer_name,
         team=trainer_team,
-        badge_count=badge_count
+        badge_count=badge_count,
+        battle_box=battle_box
     )
