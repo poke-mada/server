@@ -270,7 +270,7 @@
         </div>
     </div>
     {% if streamer_name == 'MaryBlog' %}
-        <span id="trainer-name">Prima de Guty</span>
+        <span id="trainer-name">Chispita</span>
     {% endif %}
     <span id="death-count"></span>
     <img id="trainer-type" src="" alt="">
@@ -280,6 +280,8 @@
     <script type="application/javascript">
         const STATIC_TYPE_URL = `https://pokemon.paramada.ovh/static/types/{type_index}.png`;
         let server_socket = null;
+
+        const debug = false;
 
         function setupWebsocket() {
             if (window.location.host.startsWith('localhost')) {
