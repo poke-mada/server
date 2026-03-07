@@ -799,7 +799,7 @@ def box_saver(boxes, profile: MastersProfile):
     cache.delete(f'trainer_{trainer.pk}_box_5')
     cache.delete(f'trainer_{trainer.pk}_box_6')
     boxes_hash = dict()
-    for box_num in range(7):
+    for box_num in range(30):
         boxes_hash[box_num] = TrainerBox.objects.create(box_number=box_num, trainer=trainer)
 
     for box_num, data in boxes.items():
